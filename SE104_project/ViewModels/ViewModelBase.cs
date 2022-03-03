@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SE104_OnlineShopManagement.ViewModels
 {
-    internal class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(params string[] propertyNames)

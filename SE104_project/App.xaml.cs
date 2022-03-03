@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -14,15 +16,20 @@ namespace SE104_project
     public partial class App : Application
     {
         public static App Instance { get; private set; }
-        private IServiceProvider _serviceProvider;
-        public IServiceProvider ServiceProvider { get=>_serviceProvider;set=>_serviceProvider = value; }
+        IHost _host;
+        public static IHostBuilder hostBuilder(string[] args =null)
+        {
+            return Host.CreateDefaultBuilder(args);
+
+        }
         public App()
         {
             Instance = this;
+            _host= hostBuilder().Build();
         }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            
+            //_host.Services.GetRequiredService<>;
         }
     }
 }
