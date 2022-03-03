@@ -13,5 +13,16 @@ namespace SE104_project
     /// </summary>
     public partial class App : Application
     {
+        public static App Instance { get; private set; }
+        private IServiceProvider _serviceProvider;
+        public IServiceProvider ServiceProvider { get=>_serviceProvider;set=>_serviceProvider = value; }
+        public App()
+        {
+            Instance = this;
+        }
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            
+        }
     }
 }
