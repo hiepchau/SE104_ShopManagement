@@ -11,10 +11,10 @@ namespace SE104_OnlineShopManagement.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly ViewState _viewState;
+        private readonly IViewState _viewState;
         private readonly IViewModelFactory _viewModelFactory;
 
-        public UpdateCurrentViewModelCommand(ViewState viewState, IViewModelFactory viewModelFactory)
+        public UpdateCurrentViewModelCommand(IViewState viewState, IViewModelFactory viewModelFactory)
         {
             _viewState = viewState;
             _viewModelFactory = viewModelFactory;

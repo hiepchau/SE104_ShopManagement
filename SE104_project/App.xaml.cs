@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SE104_OnlineShopManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,6 +31,7 @@ namespace SE104_project
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //_host.Services.GetRequiredService<>;
+            Language.ApplyLanguage("vi-VN");
         }
     }
 }

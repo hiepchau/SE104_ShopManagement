@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace SE104_OnlineShopManagement.Services
 {
-    public class Language
+    public static class Language
     {
 		public static readonly string defaultLanguage = "vi-VN";
 		public static readonly List<string> availableLanguage = new List<string>() {

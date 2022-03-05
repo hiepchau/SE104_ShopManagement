@@ -6,6 +6,6 @@ namespace SE104_OnlineShopManagement.Services
 {
     internal interface INavigator
     {
-        void NavigateTo();
+        void Navigate();
     }
 }

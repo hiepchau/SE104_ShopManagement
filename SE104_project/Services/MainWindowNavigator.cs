@@ -15,7 +15,7 @@ namespace SE104_OnlineShopManagement.Services
 			this._windowProvider = _windowProvider;
 		}
 
-		public void NavigateTo()
+		public void Navigate()
         {
 			Window oldWindow = App.Current.MainWindow;
 			Window newWindow = _windowProvider.Invoke();
