@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="SE104_OnlineShopManagement.Components.AuthenticationWindow.RegisterForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
+             mc:Ignorable="d" 
+             d:DesignHeight="520" d:DesignWidth="350" Foreground="{DynamicResource ForegroundResource}">
+    <Border Background="{DynamicResource BackgroundResource}">
+        <Grid Background="Transparent">
+            <!--Text-->
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"
+                            DockPanel.Dock="Top" Margin="0 28 0 6">
+                    <TextBlock FontSize="20" Foreground="SlateBlue" Text="Dang ky" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top"
+                            Orientation="Horizontal" Height="4">
+                    <Border BorderThickness="8" Width="110" BorderBrush="#FFC5C5C5" />
+                </StackPanel>
+            </DockPanel>
+
+            <Grid>
+                <StackPanel Margin="50 94 50 0">
+                    <!--Ho ten-->
+                    <DockPanel Margin="0 0 0 16" LastChildFill="False">
+                        <TextBox x:Name="FirstNameBox"
+                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.FirstName}"
+                                 Text="Ho" Foreground="SteelBlue"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="145" />
+                        <TextBox x:Name="LastNameBox"
+                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.LastName}"
+                                 Text="Ten" Foreground="SteelBlue"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90"
+                                 DockPanel.Dock="Right" />
+                    </DockPanel>
+                    <!--Ngay sinh Gioi tinh-->
+                    <DockPanel LastChildFill="False" Margin="0 0 0 16">
+                        <DatePicker x:Name="BirthdayPicker"
+                                    materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.Birth}"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="145" />
+                        <ComboBox x:Name="CbSex" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.Gender}"
+                                  DockPanel.Dock="Right" Width="90"
+                                  DisplayMemberPath="Display" SelectedValuePath="Value"
+                                  SelectedValue="{Binding Path=Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DockPanel>
+                    <!--Mail-->
+                    <TextBox x:Name="UsernameBox"
+                             materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.UsernameBox}"
+                             Text="Email" Foreground="SteelBlue"
+                             Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <!--Mat khau-->
+                    <PasswordBox x:Name="PasswordBox"
+                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.PasswordBox}"
+                                 
+                                 Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    <!--Nhap lai mat khau-->
+                    <PasswordBox x:Name="VerifyPasswordBox"
+                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.psswdverify}"
+                                 Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    
+                    <!--Button-->
+                    <DockPanel LastChildFill="False" Margin="0 50 0 0">
+                        <Border DockPanel.Dock="Left">
+                            <Button x:Name="backBtn" Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Width="100"
+                                    Background="White"
+                                    Command="{Binding OpenLoginCommand}"
+                                    Foreground="{StaticResource MaterialDesignLightForeground}"
+                                    HorizontalAlignment="Right">
+                                <TextBlock Text="Huy" />
+                            </Button>
+                        </Border>
+                        <Border DockPanel.Dock="Right">
+                            <Button x:Name="signUpBtn" Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Width="100"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                    Command="{Binding RegisterCommand}">
+                                <TextBlock Text="Dang ky" />
+                            </Button>
+                        </Border>
+                    </DockPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
