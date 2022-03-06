@@ -5,9 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication"
+        xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
         mc:Ignorable="d"
         Title="AuthenticationWindow" Height="500" Width="350">
-    <Grid>
+    <Grid >
+        <ContentControl Content="{Binding CurrentMainViewModel, UpdateSourceTrigger=PropertyChanged}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                    <compo:LoginWindow></compo:LoginWindow>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+                    <compo:RegisterForm></compo:RegisterForm>
+                </DataTemplate>
+            </ContentControl.Resources>
+            
+        </ContentControl>
         
     </Grid>
 </Window>

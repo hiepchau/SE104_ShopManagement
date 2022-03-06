@@ -8,9 +8,9 @@ namespace SE104_OnlineShopManagement.Services
 {
     public class MainWindowNavigator<TWindow> : INavigator where TWindow : Window
     {
-		private readonly Func<TWindow> _windowProvider;
+		private readonly TWindow _windowProvider;
 
-		public MainWindowNavigator(Func<TWindow> _windowProvider)
+		public MainWindowNavigator(TWindow _windowProvider)
 		{
 			this._windowProvider = _windowProvider;
 		}
@@ -18,10 +18,10 @@ namespace SE104_OnlineShopManagement.Services
 		public void Navigate()
         {
 			Window oldWindow = App.Current.MainWindow;
-			Window newWindow = _windowProvider.Invoke();
+			Window newWindow = (Window)_windowProvider;
 			newWindow.Show();
 			App.Current.MainWindow = newWindow;
-			oldWindow?.Close();
-		}
+            //oldWindow?.Close();
+        }
     }
 }

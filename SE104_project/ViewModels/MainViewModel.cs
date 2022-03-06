@@ -9,6 +9,7 @@ namespace SE104_OnlineShopManagement.ViewModels
 {
     public class MainViewModel : ViewModelBase, IViewState
     {
+        public static MainViewModel Instance { get; private set; }
         public ViewModelBase CurrentMainViewModel
         {
             get => _viewState.CurrentMainViewModel;
@@ -28,14 +29,12 @@ namespace SE104_OnlineShopManagement.ViewModels
         }
 
         private readonly IViewState _viewState;
-        private readonly IViewModelFactory _factory;
 
-        public MainViewModel(IViewState viewState, IViewModelFactory factory)
+        public MainViewModel(IViewState viewState)
         {
             _viewState = viewState;
-            _factory = factory;
-            UpdateCurrentViewModelCommand<HomeViewModel> command = new UpdateCurrentViewModelCommand<HomeViewModel>(_viewState, factory);
-            command.Execute();
+            //UpdateCurrentViewModelCommand<HomeViewModel> command = new UpdateCurrentViewModelCommand<HomeViewModel>(_viewState, factory);
+            //command.Execute();
             /*UpdateCurrentViewModelCommand<AuthenticationViewModel> command = new UpdateCurrentViewModelCommand<AuthenticationViewModel>(_viewState, factory);
             command.Execute();
 

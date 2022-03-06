@@ -10,7 +10,7 @@ namespace SE104_OnlineShopManagement.Services.Common
         private ViewModelBase _currentMainViewModel;
         public ViewModelBase CurrentMainViewModel { get => _currentMainViewModel;set { 
             _currentMainViewModel= value;
-             StateChanged.Invoke();
+             StateChanged?.Invoke();
             } }
 
         public event Action StateChanged;

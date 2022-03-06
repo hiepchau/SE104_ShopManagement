@@ -11,12 +11,12 @@ namespace SE104_OnlineShopManagement.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly IViewState _viewState;
+        private readonly MainViewModel _mainviewModel;
         private readonly IViewModelFactory _viewModelFactory;
 
-        public UpdateCurrentViewModelCommand(IViewState viewState, IViewModelFactory viewModelFactory)
+        public UpdateCurrentViewModelCommand(MainViewModel mainViewModel, IViewModelFactory viewModelFactory)
         {
-            _viewState = viewState;
+            _mainviewModel = mainViewModel;
             _viewModelFactory = viewModelFactory;
         }
 
@@ -27,7 +27,7 @@ namespace SE104_OnlineShopManagement.Commands
 
         public void Execute(object parameter = null)
         {
-            _viewState.CurrentMainViewModel = _viewModelFactory.CreateViewModel<TViewModel>();
+            _mainviewModel.CurrentMainViewModel = _viewModelFactory.CreateViewModel<TViewModel>();
         }
     }
 }
