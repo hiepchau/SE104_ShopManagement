@@ -12,15 +12,16 @@
     <Grid >
         <ContentControl Content="{Binding CurrentMainViewModel, UpdateSourceTrigger=PropertyChanged}">
             <ContentControl.Resources>
+                
                 <DataTemplate DataType="{x:Type vm:LoginViewModel}">
                     <compo:LoginWindow></compo:LoginWindow>
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
                     <compo:RegisterForm></compo:RegisterForm>
                 </DataTemplate>
+                
             </ContentControl.Resources>
-            
         </ContentControl>
-        
     </Grid>
 </Window>

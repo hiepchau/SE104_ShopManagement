@@ -60,7 +60,7 @@
                             Width="120"
                             Content="Dang ky"
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Command="{Binding RegisterCommand}"/>
+                            Command="{Binding RegisterCommand1}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
