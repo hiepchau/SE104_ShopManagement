@@ -20,7 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         {
             _viewModelFactory = factory;
             _authenticationWindow = authen;
-            RegisterCommand = new UpdateCurrentViewModelCommand<RegisterViewModel>(factory.CreateViewModel<MainViewModel>(), factory);
+            //RegisterCommand = new UpdateCurrentViewModelCommand<RegisterViewModel>(factory.CreateViewModel<MainViewModel>(), factory);
             RegisterCommand1 = new RelayCommand<object>(null, OpenRegister);
         }
 

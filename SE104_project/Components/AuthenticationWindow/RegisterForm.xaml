@@ -67,7 +67,7 @@
                             <Button x:Name="backBtn" Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                     Width="100"
                                     Background="White"
-                                    Command="{Binding OpenLoginCommand}"
+                                    Command="{Binding BackCommand}"
                                     Foreground="{StaticResource MaterialDesignLightForeground}"
                                     HorizontalAlignment="Right">
                                 <TextBlock Text="Huy" />

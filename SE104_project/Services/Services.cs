@@ -46,8 +46,8 @@ namespace SE104_OnlineShopManagement.Services
             host.ConfigureServices(services => {
                 services.AddSingleton<AuthenticationWindow>(s => new AuthenticationWindow()
                 {
-                    DataContext = s.GetRequiredService<MainViewModel>()
-                }); ;
+                    DataContext = s.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>()
+                }); ; ;
                 services.AddSingleton<MainWindowNavigator<AuthenticationWindow>>();
             });
             return host;
