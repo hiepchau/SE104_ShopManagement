@@ -10,18 +10,16 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
     public class RegisterViewModel: ViewModelBase
     {
         public ICommand BackCommand { get; private set; }
-        private AuthenticationWindow authenticationWindow;
         private IViewModelFactory _factory;
-        public RegisterViewModel(IViewModelFactory factory, AuthenticationWindow authen)
+        public RegisterViewModel(IViewModelFactory factory)
         {
             _factory =  factory;
-            authenticationWindow = authen;
             BackCommand = new RelayCommand<object>(null, Back2Login);
         }
         public void Back2Login(object o=null)
         {
             _factory.CreateViewModel<MainViewModel>().CurrentMainViewModel = _factory.CreateViewModel<LoginViewModel>();
-            authenticationWindow.DataContext = _factory.CreateViewModel<MainViewModel>();
+            //authenticationWindow.DataContext = _factory.CreateViewModel<MainViewModel>();
         }
     }
 }

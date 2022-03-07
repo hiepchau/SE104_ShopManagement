@@ -13,13 +13,11 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
     public class LoginViewModel:ViewModelBase
     {
         private IViewModelFactory _viewModelFactory;
-        private Window _authenticationWindow;
         public ICommand RegisterCommand1 { get;private set; }   
         public UpdateCurrentViewModelCommand<RegisterViewModel> RegisterCommand { get; set; }
-        public LoginViewModel(IViewModelFactory factory, AuthenticationWindow authen)
+        public LoginViewModel(IViewModelFactory factory)
         {
             _viewModelFactory = factory;
-            _authenticationWindow = authen;
             //RegisterCommand = new UpdateCurrentViewModelCommand<RegisterViewModel>(factory.CreateViewModel<MainViewModel>(), factory);
             RegisterCommand1 = new RelayCommand<object>(null, OpenRegister);
         }
@@ -28,7 +26,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         {
             Trace.WriteLine("Command executed");
             _viewModelFactory.CreateViewModel<MainViewModel>().CurrentMainViewModel = _viewModelFactory.CreateViewModel<RegisterViewModel>();
-            _authenticationWindow.DataContext = _viewModelFactory.CreateViewModel<MainViewModel>();
+            //_authenticationWindow.DataContext = _viewModelFactory.CreateViewModel<MainViewModel>();
         }
     }
 }

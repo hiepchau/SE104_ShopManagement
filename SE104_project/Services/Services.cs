@@ -31,7 +31,7 @@ namespace SE104_OnlineShopManagement.Services
             {
                 services.AddTransient<LoginViewModel>();
                 services.AddTransient<RegisterViewModel>();
-                services.AddTransient<MainViewModel>();
+                services.AddSingleton<MainViewModel>();
 
                 services.AddSingleton<ViewModelCreator<LoginViewModel>>(s => s.GetRequiredService<LoginViewModel>);
                 services.AddSingleton<ViewModelCreator<RegisterViewModel>>(s => s.GetRequiredService<RegisterViewModel>);
