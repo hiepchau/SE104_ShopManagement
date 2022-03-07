@@ -10,8 +10,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-                <ResourceDictionary Source="Resources\Color.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\Color.xaml"/>
+                <ResourceDictionary Source="Resources\MenuTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
+        
     </Application.Resources>
 </Application>

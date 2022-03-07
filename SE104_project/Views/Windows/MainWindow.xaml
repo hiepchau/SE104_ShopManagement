@@ -3,28 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  
         xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        
         mc:Ignorable="d"
         MinHeight="540" MinWidth="960"
         Title="MainWindow" Height="540" Width="960">
+
+    <Window.Resources>
+        <Style x:Key="NavigationContentStyle" TargetType="ContentControl"></Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="26"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-                           
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="45*"/>
-                <ColumnDefinition Width="55*"/>
-                <ColumnDefinition Width="300*"/>
+                <ColumnDefinition Width="211*"/>
             </Grid.ColumnDefinitions>
+
             <Grid Grid.Column="0">
-              
-             
+                <ListBox x:Name="NavigationMenuListBox"     
+                         Style="{StaticResource NavigationListBoxStyle}"
+                         ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
+                         ItemTemplate="{DynamicResource NavigationDataTemplate}"
+                         ItemsSource="{StaticResource NavigationMenuItems}">
+
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <ListBox x:Name="NavigationFeatureMenuListBox"
+                         Style="{StaticResource NavigationListBoxStyle}"
+                         Background="{StaticResource WordLightBlueBrush}">
+                    
+                </ListBox>
             </Grid>
 
         </Grid>
