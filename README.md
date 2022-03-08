@@ -1,2 +1,2 @@
-# SE104_OnlineShopManagement
+# SE104_ShopManagement
 SE104 Project
