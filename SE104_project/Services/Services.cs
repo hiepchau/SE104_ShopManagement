@@ -7,6 +7,7 @@ using SE104_OnlineShopManagement.Services.Common;
 using SE104_OnlineShopManagement.ViewModels.Authentication;
 using SE104_OnlineShopManagement.Views.Windows;
 using SE104_OnlineShopManagement.ViewModels;
+using SE104_OnlineShopManagement.ViewModels.Home;
 
 namespace SE104_OnlineShopManagement.Services
 {
@@ -32,10 +33,12 @@ namespace SE104_OnlineShopManagement.Services
                 services.AddTransient<LoginViewModel>();
                 services.AddTransient<RegisterViewModel>();
                 services.AddSingleton<MainViewModel>();
+                services.AddSingleton<HomeViewModel>();
 
                 services.AddSingleton<ViewModelCreator<LoginViewModel>>(s => s.GetRequiredService<LoginViewModel>);
                 services.AddSingleton<ViewModelCreator<RegisterViewModel>>(s => s.GetRequiredService<RegisterViewModel>);
                 services.AddSingleton<ViewModelCreator<MainViewModel>>(s => s.GetRequiredService<MainViewModel>);
+                services.AddSingleton<ViewModelCreator<HomeViewModel>>(s => s.GetRequiredService<HomeViewModel>);
                 services.AddSingleton<IViewModelFactory, ViewModelFactory>();
             });
             return host;
@@ -49,6 +52,12 @@ namespace SE104_OnlineShopManagement.Services
                     DataContext = s.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>()
                 }); ; ;
                 services.AddSingleton<MainWindowNavigator<AuthenticationWindow>>();
+              
+                services.AddSingleton<MainWindow>(s => new MainWindow()
+                {
+                DataContext = s.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>()
+                }); ; ;
+                services.AddSingleton<MainWindowNavigator<MainWindow>>();
             });
             return host;
         }

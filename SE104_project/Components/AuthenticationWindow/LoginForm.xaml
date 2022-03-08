@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" d:DataContext="{d:DesignInstance Type=authentication:LoginViewModel}"
              mc:Ignorable="d" 
              Foreground="{DynamicResource ForgroundResource}"
              d:DesignHeight="520" d:DesignWidth="350">
@@ -53,6 +53,7 @@
                             Margin="74,0,75,16"
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                             Content="Dang nhap"
+                            Command="{Binding LoginCommand}"
                             />
                     <TextBlock HorizontalAlignment="Center" Foreground="Gray" Margin="0 0 0 10"
                                Text="Tao tai khoan"/>

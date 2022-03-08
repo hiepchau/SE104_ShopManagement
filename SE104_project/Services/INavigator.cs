@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SE104_OnlineShopManagement.Services
 {
-    internal interface INavigator
+    public interface INavigator
     {
         void Navigate();
     }
