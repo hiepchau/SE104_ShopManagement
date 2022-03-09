@@ -53,11 +53,11 @@ namespace SE104_OnlineShopManagement.Services
                 }); ; ;
                 services.AddSingleton<MainWindowNavigator<AuthenticationWindow>>();
               
-                services.AddSingleton<MainWindow>(s => new MainWindow()
+                services.AddSingleton<HomeWindow>(s => new HomeWindow()
                 {
                 DataContext = s.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>()
                 }); ; ;
-                services.AddSingleton<MainWindowNavigator<MainWindow>>();
+                services.AddSingleton<MainWindowNavigator<HomeWindow>>();
             });
             return host;
         }

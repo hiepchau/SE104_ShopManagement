@@ -34,6 +34,7 @@ namespace SE104_project
         {
             Instance = this;
             _host= hostBuilder().Build();
+            
         }
         private void Application_Startup(object sender, StartupEventArgs e)
         {

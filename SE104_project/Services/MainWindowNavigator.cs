@@ -17,11 +17,11 @@ namespace SE104_OnlineShopManagement.Services
 
 		public void Navigate()
         {
-			Window oldWindow = App.Current.MainWindow;
-			Window newWindow = (Window)_windowProvider;
-			newWindow.Show();
-			App.Current.MainWindow = newWindow;
-            //oldWindow?.Close();
+            Window oldWindow = Application.Current.MainWindow;
+            Window newWindow = _windowProvider;
+            newWindow.Show();
+            Application.Current.MainWindow = newWindow;
+            oldWindow?.Close();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         public ICommand LoginCommand { get;private set; }   
         public UpdateCurrentViewModelCommand<RegisterViewModel> RegisterCommand { get; set; }
        
-        public LoginViewModel(IViewModelFactory factory, MainWindowNavigator<MainWindow> navigator)
+        public LoginViewModel(IViewModelFactory factory, MainWindowNavigator<HomeWindow> navigator)
         {
             _viewModelFactory = factory;
             _navigator = navigator;
@@ -31,12 +31,12 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         public void Login(object o = null)
         {
             _navigator.Navigate();
-            Console.WriteLine("Command executed");
+            Console.WriteLine("Login Command executed");
         }
 
         public void OpenRegister(object o=null)
         {
-            Console.WriteLine("Command executed");
+            Console.WriteLine("Openregister Command executed");
             _viewModelFactory.CreateViewModel<MainViewModel>().CurrentMainViewModel = _viewModelFactory.CreateViewModel<RegisterViewModel>();
             //_authenticationWindow.DataContext = _viewModelFactory.CreateViewModel<MainViewModel>();
         }
