@@ -26,21 +26,21 @@
                 <ColumnDefinition Width="211*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" MinHeight="500">
                 <ListBox x:Name="NavigationMenuListBox"     
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          ItemTemplate="{DynamicResource NavigationDataTemplate}"
                          ItemsSource="{StaticResource NavigationMenuItems}">
-
                 </ListBox>
             </Grid>
 
             <Grid Grid.Column="1">
                 <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
+                         ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
+                         
                          Background="{StaticResource WordLightBlueBrush}">
-                    
                 </ListBox>
 
             </Grid>
