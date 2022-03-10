@@ -5,6 +5,7 @@ using SE104_OnlineShopManagement.Services.Common;
 using SE104_OnlineShopManagement.ViewModels;
 using SE104_OnlineShopManagement.ViewModels.Authentication;
 using SE104_OnlineShopManagement.Views.Windows;
+using SE104_OnlineShopManagement.Network;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -38,6 +39,8 @@ namespace SE104_project
         }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            ConnectDB connect = new ConnectDB();
+            connect.InitilizeDB();
             //IServiceCollection services = new ServiceCollection();
             //services.AddTransient<ViewModelBase>();
             //services.AddSingleton<LoginViewModel>();
