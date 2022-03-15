@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Google.Cloud.Firestore;
+using System.Data.SqlClient;
 namespace SE104_OnlineShopManagement.Network
 {
     public class ConnectDB
-    {
-        FirestoreDb db;
+    {     
         public void InitilizeDB()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"Network\FirestoreDB.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
-
-            db = FirestoreDb.Create("do-an-82485");
-            Console.WriteLine("Connect Database successfully");
+            string path = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyBanHang;Integrated Security=True";
+            SqlConnection ketnoi=new SqlConnection(path);
+            ketnoi.Open();
         }
     }
 }

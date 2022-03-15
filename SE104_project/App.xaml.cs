@@ -39,8 +39,6 @@ namespace SE104_project
         }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            ConnectDB connect = new ConnectDB();
-            connect.InitilizeDB();
             //IServiceCollection services = new ServiceCollection();
             //services.AddTransient<ViewModelBase>();
             //services.AddSingleton<LoginViewModel>();
