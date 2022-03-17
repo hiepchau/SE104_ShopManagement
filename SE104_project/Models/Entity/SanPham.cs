@@ -8,11 +8,11 @@ namespace SE104_OnlineShopManagement.Models.Entity
     {
         public string MaSP { get; private set; }   
         public string TenSP { get; private set; }
-        public string SL { get; private set; }
+        public int SL { get; private set; }
         public string NCC { get; private set; }
         public int Gia { get; private set; }
 
-        public SanPham(string maSP, string tenSP, string sL, string nCC, int gia)
+        public SanPham(string maSP, string tenSP, int sL, string nCC, int gia)
         {
             MaSP = maSP;
             TenSP = tenSP;
