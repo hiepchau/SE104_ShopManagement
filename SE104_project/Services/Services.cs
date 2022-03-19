@@ -8,6 +8,9 @@ using SE104_OnlineShopManagement.ViewModels.Authentication;
 using SE104_OnlineShopManagement.Views.Windows;
 using SE104_OnlineShopManagement.ViewModels;
 using SE104_OnlineShopManagement.ViewModels.Home;
+using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.Network.Insert_database;
+using SE104_OnlineShopManagement.Models.ModelEntity;
 
 namespace SE104_OnlineShopManagement.Services
 {
@@ -18,8 +21,16 @@ namespace SE104_OnlineShopManagement.Services
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<IViewState, ViewState>();
+                services.AddSingleton<AppSession>();
             });
             return host;
+        }
+
+        public static IHostBuilder AddNetwork(this IHostBuilder host)
+        {
+            return host.ConfigureServices(services => { 
+                services.AddSingleton<MongoConnect>();
+            });
         }
         public static IHostBuilder AddModels(this IHostBuilder host)
         {

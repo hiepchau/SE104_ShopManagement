@@ -8,5 +8,10 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public AuthenticationInformation(string User, string pass)
+        {
+            UserName = User;    
+            Password = pass;
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace SE104_project
         {
             return Host.CreateDefaultBuilder(args)
                 .AddStores()
+                .AddNetwork()
                 .AddViewModels()
                 .AddViews();
 
