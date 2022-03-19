@@ -74,8 +74,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                     return;
                 }
             }
-            company = new CompanyInformation(new Guid(), ComName);
-            user = new UserInfomation(Guid.NewGuid().ToString(),FirstName,LastName,Email,Password,"0",company,Role.Owner);
+            company = new CompanyInformation(Guid.NewGuid().ToString(), ComName);
+            user = new UserInfomation(Guid.NewGuid().ToString(),FirstName,LastName,Email,Password,"0",company.Name,Role.Owner);
             RegisterUser regist= new RegisterUser(user,DBConnection.client);
             regist.registerUser();
         }

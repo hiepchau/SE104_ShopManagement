@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="520" d:DesignWidth="350" Foreground="{DynamicResource ForegroundResource}">
     <UserControl.Resources>
-        <multiconvert:MultiConverter x:Key="multi"></multiconvert:MultiConverter>
+        <multiconvert:MultiConverter x:Key="Multi"></multiconvert:MultiConverter>
     </UserControl.Resources>
     <Border Background="{DynamicResource BackgroundResource}">
         <Grid Background="Transparent">
@@ -86,7 +86,7 @@
                                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                     Command="{Binding RegisterCommand}">
                                 <Button.CommandParameter>
-                                <MultiBinding Converter="{StaticResource multi}">
+                                    <MultiBinding Converter="{StaticResource Multi}">
                                     <Binding ElementName="PasswordBox"></Binding>
                                     <Binding ElementName="VerifyPasswordBox"></Binding>
                                 </MultiBinding>

@@ -18,11 +18,11 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         }
         public void registerUser()
         {
-            var database = mongoClient.GetDatabase(newUser.companyInformation.Name);
+            var database = mongoClient.GetDatabase(newUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("UserInformation");
             BsonDocument newUserDoc = new BsonDocument{
-                { "Company",newUser.companyInformation.Name},
-                {"UserID",newUser.ID },
+
+                { "Company",newUser.companyInformation},
                 {"UserEmail",newUser.Email },
                 {"UserPassword",newUser.Password },
                 {"UserFirstName",newUser.FirstName },
@@ -31,7 +31,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserRole",(int)newUser.role },
             };
             collection.InsertOne(newUserDoc);
-            Console.WriteLine("User Inserted into", newUser.companyInformation.ID.ToString());
+            Console.WriteLine("User Inserted into", newUser.companyInformation);
         }
     }
 }

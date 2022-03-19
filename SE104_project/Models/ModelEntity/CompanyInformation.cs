@@ -10,12 +10,12 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     public class CompanyInformation
     {
         [BsonId]
-        public Guid ID { get; set; }
+        public string SessionID { get; set; }
         [BsonElement("CompanyName")]
         public string Name { get; set; }
-        public CompanyInformation(Guid id, string name)
+        public CompanyInformation(string id, string name)
         {
-            this.ID = id;
+            this.SessionID = id;
             this.Name = name;
         }
     }

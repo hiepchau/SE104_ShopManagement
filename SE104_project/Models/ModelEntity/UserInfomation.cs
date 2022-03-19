@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace SE104_OnlineShopManagement.Models.ModelEntity
 {
@@ -12,15 +15,24 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     }
     public class UserInfomation
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }  
+        [BsonElement("UserFirstName")]
         public string FirstName { get; set; }
-        public string LastName { get; set; }    
+        [BsonElement("UserLastName")]
+        public string LastName { get; set; }  
+        [BsonElement("UserEmail")]
         public string Email { get; set; }
+        [BsonElement("UserPassword")]
         public string Password { get; set; }
+        [BsonElement("UserPhoneNumber")]
         public string PhoneNumber { get; set; } 
-        public CompanyInformation companyInformation { get; set; }
+        [BsonElement("Company")]
+        public string companyInformation { get; set; }
+        [BsonElement("UserRole")]
         public Role role { get; set; }  
-        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, CompanyInformation compa, Role role)
+        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role)
         {
             this.ID = id;
             this.FirstName = name;  
