@@ -49,10 +49,15 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         {
             var pass = o as PasswordBox;
             password= pass.Password;
-            AuthenticationInformation authen = new AuthenticationInformation(username,password,companyname);
+            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(companyname))
+            {
+                Console.WriteLine("Required information left blank");
+                return;
+            }
+            AuthenticationInformation authen = new AuthenticationInformation(username, password, companyname);
             Authenticator LoginNet = new Authenticator(authen, Connection.client);
             UserInfomation logininfo = LoginNet.Authenticate();
-            if(logininfo != null)
+            if (logininfo != null)
             {
                 Session.CurrentSession = logininfo.ID;
                 Session.role = (int)logininfo.role;
@@ -62,6 +67,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             {
                 Console.WriteLine("Login failed.");
             }
+
         }
 
         public void OpenRegister(object o=null)

@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="520" d:DesignWidth="350" Foreground="{DynamicResource ForegroundResource}">
     <UserControl.Resources>
@@ -42,13 +43,25 @@
                     <!--Ngay sinh Gioi tinh-->
                     <DockPanel LastChildFill="False" Margin="0 0 0 16">
                         <DatePicker x:Name="BirthdayPicker"
-                                    materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.Birth}"
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="145" />
+                                    materialDesign:HintAssist.Hint="Date of birth"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="145"
+                                    Text="{Binding birthDay, Mode=TwoWay}"/>
                         <ComboBox x:Name="CbSex" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.Gender}"
+                                  materialDesign:HintAssist.Hint="Gender"
                                   DockPanel.Dock="Right" Width="90"
-                                  DisplayMemberPath="Display" SelectedValuePath="Value"
-                                  SelectedValue="{Binding Path=Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  ItemsSource="{Binding GenderList}">
+                            <TextBlock x:Name="MaleBox" Text="Male"></TextBlock>
+                            <TextBlock x:Name="FemaleBox" Text="Female"></TextBlock>
+                            <TextBlock x:Name="OtherBox" Text="Others"></TextBlock>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding GenderSelectCommand}"
+                                        CommandParameter="{Binding ElementName=CbSex,Path=SelectedItem}"
+                                        ></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                     </DockPanel>
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"

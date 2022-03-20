@@ -21,7 +21,6 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             var database = mongoClient.GetDatabase(newUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("UserInformation");
             BsonDocument newUserDoc = new BsonDocument{
-
                 { "Company",newUser.companyInformation},
                 {"UserEmail",newUser.Email },
                 {"UserPassword",newUser.Password },
@@ -29,6 +28,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserLastName",newUser.LastName },
                 {"UserPhoneNumber",newUser.PhoneNumber },
                 {"UserRole",(int)newUser.role },
+                {"UserGender",(int)newUser.gender },
+                {"UserBirthday",newUser.birthDay }
             };
             collection.InsertOne(newUserDoc);
             Console.WriteLine("User Inserted into", newUser.companyInformation);

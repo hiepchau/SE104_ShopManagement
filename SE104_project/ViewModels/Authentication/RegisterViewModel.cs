@@ -23,6 +23,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         public string Email { get; set; }
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
+        public string birthDay { get; set; } 
+        public Gender gender { get; set; }
         public string ComName { get; set; }
         private MongoConnect DBConnection;
         #endregion
@@ -30,14 +32,17 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand RegisterCommand { get; private set;}
+        public ICommand GenderSelectCommand { get; private set; }
         #endregion
 
         public RegisterViewModel(IViewModelFactory factory, MongoConnect connect)
         {
             _factory =  factory;
+            gender = Gender.Empty;
             this.DBConnection = connect;
             BackCommand = new RelayCommand<object>(null, Back2Login);
             RegisterCommand = new RelayCommand<object>(null, Register);
+            GenderSelectCommand=new RelayCommand<object>(null, GenderSelect);
         }
         public void Back2Login(object o=null)
         {
@@ -60,7 +65,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                 }
                 else Password= pass1.Password;
             }
-            if (String.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) || String.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ComName))
+            if (String.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) || String.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ComName)||string.IsNullOrWhiteSpace(birthDay) || gender==Gender.Empty)
             {
                 Console.WriteLine("Update failed");
                 return;
@@ -75,9 +80,29 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                 }
             }
             company = new CompanyInformation(Guid.NewGuid().ToString(), ComName);
-            user = new UserInfomation(Guid.NewGuid().ToString(),FirstName,LastName,Email,Password,"0",company.Name,Role.Owner);
+            user = new UserInfomation(Guid.NewGuid().ToString(),FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
             RegisterUser regist= new RegisterUser(user,DBConnection.client);
             regist.registerUser();
+            FirstName = "";
+            LastName = "";
+            Email = "";
+            pass1.Password = "";
+            pass2.Password = "";
+            ComName = "";
+            OnPropertyChanged(FirstName,LastName, Email,ComName);
+        }
+        private void GenderSelect(object o)
+        {
+            if (o != null)
+            {
+                var tmp = o as TextBlock;
+                if (tmp.Name == "MaleBox")
+                    gender = Gender.male;
+                else if (tmp.Name == "FemaleBox")
+                    gender = Gender.female;
+                else
+                    gender = Gender.other;
+            }
         }
     }
 }

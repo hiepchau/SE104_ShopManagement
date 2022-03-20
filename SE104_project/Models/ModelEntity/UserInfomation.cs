@@ -13,6 +13,14 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         Manager=1,
         Employee=2,
     }
+
+    public enum Gender
+    {
+        male =0,
+        female =1,
+        other =2,
+        Empty = -1
+    }
     public class UserInfomation
     {
         [BsonId]
@@ -31,8 +39,12 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         [BsonElement("Company")]
         public string companyInformation { get; set; }
         [BsonElement("UserRole")]
-        public Role role { get; set; }  
-        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role)
+        public Role role { get; set; } 
+        [BsonElement("UserGender")]
+        public Gender gender { get; set; }
+        [BsonElement("UserBirthday")]
+        public DateTime birthDay { get; set; }
+        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role, Gender gen, DateTime birth)
         {
             this.ID = id;
             this.FirstName = name;  
@@ -42,6 +54,8 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
             this.PhoneNumber = phonenumer;  
             this.companyInformation = compa;
             this.role = role;
+            this.gender = gen;
+            this.birthDay = birth;
         }
     }
 }
