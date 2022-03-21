@@ -12,6 +12,7 @@ using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.Network;
 using System.Windows.Controls;
+using SE104_OnlineShopManagement.ViewModels.Home;
 
 namespace SE104_OnlineShopManagement.ViewModels.Authentication
 {
@@ -59,8 +60,9 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             UserInfomation logininfo = LoginNet.Authenticate();
             if (logininfo != null)
             {
-                Session.CurrentSession = logininfo.ID;
-                Session.role = (int)logininfo.role;
+                Session.CurrnetUser = logininfo;
+                HomeViewModel home =_viewModelFactory.CreateViewModel<HomeViewModel>();
+                _viewModelFactory.CreateViewModel<MainViewModel>().CurrentMainViewModel = _viewModelFactory.CreateViewModel<HomeViewModel>();
                 _navigator.Navigate();
             }
             else

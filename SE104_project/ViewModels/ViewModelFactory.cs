@@ -34,6 +34,10 @@ namespace SE104_OnlineShopManagement.ViewModels
             {
                 return (TViewModel)Convert.ChangeType(_mainViewModel.Invoke(), type);
             }
+            if (type == typeof(HomeViewModel))
+            {
+                return (TViewModel)Convert.ChangeType(_homeViewModel.Invoke(), type);
+            }
             return null;
         }
     }
