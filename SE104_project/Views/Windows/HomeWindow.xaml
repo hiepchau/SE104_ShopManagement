@@ -8,6 +8,8 @@
         xmlns:ucManagement="clr-namespace:SE104_OnlineShopManagement.Components.Pages.ManagementComponents"
         xmlns:ucCustomer="clr-namespace:SE104_OnlineShopManagement.Components.Pages.CustomersComponents"
         xmlns:ucSettings="clr-namespace:SE104_OnlineShopManagement.Components.Pages.SettingsComponents"
+        xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication"
+        xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
         mc:Ignorable="d"
         MinHeight="540" MinWidth="960"
         ResizeMode="NoResize"

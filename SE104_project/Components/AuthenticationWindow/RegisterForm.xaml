@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="520" d:DesignWidth="350" Foreground="{DynamicResource ForegroundResource}">
+    <UserControl.Resources>
+        <multiconvert:MultiConverter x:Key="Multi"></multiconvert:MultiConverter>
+    </UserControl.Resources>
     <Border Background="{DynamicResource BackgroundResource}">
         <Grid Background="Transparent">
             <!--Text-->
@@ -26,40 +31,55 @@
                     <!--Ho ten-->
                     <DockPanel Margin="0 0 0 16" LastChildFill="False">
                         <TextBox x:Name="FirstNameBox"
-                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.FirstName}"
-                                 Text="Ho" Foreground="SteelBlue"
+                                 materialDesign:HintAssist.Hint="Ho"
+                                 Text="{Binding LastName, Mode=TwoWay}" Foreground="SteelBlue"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="145" />
                         <TextBox x:Name="LastNameBox"
-                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.LastName}"
-                                 Text="Ten" Foreground="SteelBlue"
+                                 materialDesign:HintAssist.Hint="Ten"
+                                 Text="{Binding FirstName, Mode=TwoWay}" Foreground="SteelBlue"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90"
                                  DockPanel.Dock="Right" />
                     </DockPanel>
                     <!--Ngay sinh Gioi tinh-->
                     <DockPanel LastChildFill="False" Margin="0 0 0 16">
                         <DatePicker x:Name="BirthdayPicker"
-                                    materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.Birth}"
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="145" />
+                                    materialDesign:HintAssist.Hint="Date of birth"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="145"
+                                    Text="{Binding birthDay, Mode=TwoWay}"/>
                         <ComboBox x:Name="CbSex" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.Gender}"
+                                  materialDesign:HintAssist.Hint="Gender"
                                   DockPanel.Dock="Right" Width="90"
-                                  DisplayMemberPath="Display" SelectedValuePath="Value"
-                                  SelectedValue="{Binding Path=Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  ItemsSource="{Binding GenderList}">
+                            <TextBlock x:Name="MaleBox" Text="Male"></TextBlock>
+                            <TextBlock x:Name="FemaleBox" Text="Female"></TextBlock>
+                            <TextBlock x:Name="OtherBox" Text="Others"></TextBlock>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding GenderSelectCommand}"
+                                        CommandParameter="{Binding ElementName=CbSex,Path=SelectedItem}"
+                                        ></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                     </DockPanel>
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"
-                             materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.UsernameBox}"
-                             Text="Email" Foreground="SteelBlue"
+                             materialDesign:HintAssist.Hint="Email"
+                             Text="{Binding Email, Mode=TwoWay}" Foreground="SteelBlue"
                              Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <!--Mat khau-->
                     <PasswordBox x:Name="PasswordBox"
-                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.PasswordBox}"
+                                 materialDesign:HintAssist.Hint="Mat khau"
                                  
                                  Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <!--Nhap lai mat khau-->
                     <PasswordBox x:Name="VerifyPasswordBox"
-                                 materialDesign:HintAssist.Hint="{DynamicResource WindowSignUp.psswdverify}"
+                                 materialDesign:HintAssist.Hint="Nhap lai mat khau"
                                  Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    <TextBox Text="{Binding ComName, Mode=TwoWay}" Foreground="SteelBlue"
+                             materialDesign:HintAssist.Hint="Company Name"
+                               Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     
                     <!--Button-->
                     <DockPanel LastChildFill="False" Margin="0 50 0 0">
@@ -78,6 +98,12 @@
                                     Width="100"
                                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                     Command="{Binding RegisterCommand}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource Multi}">
+                                    <Binding ElementName="PasswordBox"></Binding>
+                                    <Binding ElementName="VerifyPasswordBox"></Binding>
+                                </MultiBinding>
+                                </Button.CommandParameter>
                                 <TextBlock Text="Dang ky" />
                             </Button>
                         </Border>

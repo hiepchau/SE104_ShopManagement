@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" d:DataContext="{d:DesignInstance Type=authentication:LoginViewModel}"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" 
              mc:Ignorable="d" 
              Foreground="{DynamicResource ForgroundResource}"
              d:DesignHeight="520" d:DesignWidth="350">
@@ -31,18 +31,24 @@
             </DockPanel>
 
             <StackPanel Margin="6,100,40,4" Grid.Column="2">
+                <StackPanel Margin="0 0 0 10">
+                    <TextBox x:Name="CompanyName"
+                             Text="{Binding companyname, Mode=TwoWay}"
+                              materialDesign:HintAssist.Hint="Company name"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0.333,0"/>
+                </StackPanel>
                 <!--User Name-->
                 <StackPanel Margin="0 0 0 10">
-                    <TextBox x:Name="UserNameBox"
-                              materialDesign:HintAssist.Hint="{DynamicResource WindowLogin.UsernameBox}"
-                              Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox x:Name="Username"
+                             Text="{Binding username, Mode=TwoWay}"
+                              materialDesign:HintAssist.Hint="Username"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0.333,0"/>
                 </StackPanel>
                  
                 <!--Password-->
                 <StackPanel Margin="0 0 0 48">
                     <PasswordBox x:Name="PasswordBox"                             
-                                 materialDesign:HintAssist.Hint="{DynamicResource WindowLogin.PasswordBox}"
+                                 materialDesign:HintAssist.Hint="Password"
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                 </StackPanel>
                 
@@ -54,6 +60,7 @@
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                             Content="Dang nhap"
                             Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=PasswordBox}"
                             />
                     <TextBlock HorizontalAlignment="Center" Foreground="Gray" Margin="0 0 0 10"
                                Text="Tao tai khoan"/>
