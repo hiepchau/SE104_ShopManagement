@@ -180,7 +180,7 @@
 
                             <StackPanel Orientation="Horizontal" Margin="28 0 0 15">
                                 <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
-                                <TextBlock Text="News" Style="{StaticResource TitleText}"/>
+                                <TextBlock Text="Top Sales" Style="{StaticResource TitleText}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1">
