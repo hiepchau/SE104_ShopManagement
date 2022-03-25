@@ -45,7 +45,7 @@
                                     materialDesign:HintAssist.Hint="Hôm nay"
                                     Height="40"
                                     FontSize="18"
-                                    Width="150"
+                                    Width="200"
                                     BorderThickness="0"
                                     Padding="10,0,0,0"
                                     VerticalContentAlignment="Center"
