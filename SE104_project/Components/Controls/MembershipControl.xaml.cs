@@ -8,21 +8,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SE104_OnlineShopManagement.Views.Windows
+namespace SE104_OnlineShopManagement.Components.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MembershipControl.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class MembershipControl : UserControl
     {
-        public HomeWindow()
+        public MembershipControl()
         {
             InitializeComponent();
-            NavigationFeatureMenuListBox.ItemsSource = new List<string> { "1", "2", "3","4","5"};
         }
-
-
     }
 }

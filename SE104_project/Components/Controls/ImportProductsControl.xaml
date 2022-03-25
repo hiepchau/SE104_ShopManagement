@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="SE104_OnlineShopManagement.Components.Controls.ImportProductsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="45">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="39.128"/>
+            <ColumnDefinition Width="158*"/>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="108*"/>
+            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="111*"/>
+            <ColumnDefinition Width="128*"/>
+            <ColumnDefinition Width="90"/>
+
+        </Grid.ColumnDefinitions>
+        <CheckBox Style="{StaticResource PrimaryCheckBox}"
+                          />
+        <TextBlock Grid.Column="1" Style="{StaticResource Text}"
+                           Text="Mã phiếu" Height="24" Margin="10,0,0,0" />
+        <TextBlock Grid.Column="2" Style="{StaticResource Text}"
+                           Text="Ngày nhập" Height="24" Margin="10,0,0,0" />
+        <ComboBox Grid.Column="3" Style="{StaticResource MaterialDesignComboBox}"
+                          Text="Người nhập"/>
+        <TextBlock Grid.Column="4" Style="{StaticResource Text}"
+                           Text="Nhà cung cấp" Height="24" Margin="10,0,0,0"/>
+        <TextBlock Grid.Column="5" Style="{StaticResource Text}"
+                           Text="Trạng thái" Height="24" Margin="10,0,0,0"/>
+        <TextBlock Grid.Column="6" Style="{StaticResource Text}"
+                           Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
+        <Button
+            Grid.Column="7"
+            x:Name="btnEditProducts"
+            ToolTip="Sửa thông tin"
+            Style="{StaticResource TransparentButton}"
+            Command="{Binding EditProductsCommand}"
+            CommandParameter="{Binding ElementName=ucDisplayProducts}"
+            Height="30"
+            Margin="0,0,40,0" 
+            Width="30">
+            <materialDesign:PackIcon
+                Kind="SquareEditOutline" 
+                Width="24"
+                Height="24" 
+                HorizontalAlignment="Left"
+                Foreground="{StaticResource WordBlueBrush}" />
+        </Button>
+        <Button 
+            Grid.Column="7"
+            x:Name="btnDeleteProducts"
+            Style="{StaticResource TransparentButton}"
+            ToolTip="Xóa mặt hàng" 
+            Height="30"
+            Margin="0,0,15,0" 
+            Width="30"
+            HorizontalAlignment="Right" 
+            Command="{Binding DeleteProductsCommand}"
+            CommandParameter="{Binding ElementName=ucDisplayProducts}">
+            <materialDesign:PackIcon 
+                Kind="DeleteOutline" 
+                Height="24"
+                Width="24"
+                Foreground="{StaticResource Error}"/>
+        </Button>
+    </Grid>
+</UserControl>

@@ -5,6 +5,15 @@
 
     <SolidColorBrush x:Key="PrimaryColor" Color="{DynamicResource Primary500}"></SolidColorBrush>
     <SolidColorBrush x:Key="LightBrush" Color="#FFD1D1D1"></SolidColorBrush>
+    <SolidColorBrush x:Key="Black2" Color="#FF4F4F4F" />
+    <SolidColorBrush x:Key="Black1" Color="#FF263238" />
+    <SolidColorBrush x:Key="White" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Gray" Color="#FF9098B1" />
+    <SolidColorBrush x:Key="Gray1" Color="#FF828282" />
+    <SolidColorBrush x:Key="Gray2" Color="#FFBDBDBD" />
+    <SolidColorBrush x:Key="Gray3" Color="#FFE0E0E0" />
+    <SolidColorBrush x:Key="Success" Color="#FF1BA345" />
+    <SolidColorBrush x:Key="Error" Color="#FFDE3E44" />
 
     <SolidColorBrush x:Key="BackgroundOpacityBrush" Color="#96ffffff"></SolidColorBrush>
 
@@ -14,6 +23,14 @@
     <Color x:Key="BackgroundVeryLight">#fafafa</Color>
     <SolidColorBrush x:Key="BackgroundVeryLightBrush" Color="{StaticResource BackgroundVeryLight}" />
 
+
+
+    <Color x:Key="GreenFade">#03A63C</Color>
+    <SolidColorBrush x:Key="GreenFadeBrush" Color="{StaticResource GreenFade}" />
+
+    <Color x:Key="DeepGreen">#289426</Color>
+    <SolidColorBrush x:Key="DeepGreenBrush" Color="{StaticResource DeepGreen}" />
+    
     <Color x:Key="ForegroundMain">#686868</Color>
     <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMain}" />
 
@@ -52,4 +69,7 @@
 
     <Color x:Key="WordGreen">#00c541</Color>
     <SolidColorBrush x:Key="WordGreenBrush" Color="{StaticResource WordGreen}" />
+
+    <Color x:Key="LightGreen">#287626</Color>
+    <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}" />
 </ResourceDictionary>

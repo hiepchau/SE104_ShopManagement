@@ -8,6 +8,7 @@
         <Setter Property="Background" Value="{StaticResource MaterialDesignLightBackground}"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ToolTip" Value="{Binding}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="SelectedIndex" Value="0"/>
@@ -33,8 +34,9 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{StaticResource WordBlueBrush}" />
         <Setter Property="Margin" Value="-1"/>
-        <Setter Property="ToolTip" Value="Binding"/>
-        <Setter Property="Height" Value="100"/>
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
         <Setter Property="HorizontalContentAlignment" 
                     Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" 
@@ -75,26 +77,42 @@
         </Setter>
     </Style>
     
+    <!--Icon-->
     <DataTemplate x:Key="NavigationDataTemplate">
         <materialDesign:PackIcon x:Name="MenuItemIcon" VerticalAlignment="Center" Height="25" Width="25" 
                                               HorizontalAlignment="Center" Margin="12"/>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding}" Value="POS">
                 <Setter TargetName="MenuItemIcon" Property="Kind" Value="Laptop"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="POS"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Management">
                 <Setter TargetName="MenuItemIcon" Property="Kind" Value="Home"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Management"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Customer">
                 <Setter TargetName="MenuItemIcon" Property="Kind" Value="People"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Customer"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Finance">
                 <Setter TargetName="MenuItemIcon" Property="Kind" Value="Wallet"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Finance"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Report">
                 <Setter TargetName="MenuItemIcon" Property="Kind" Value="Newspaper"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Report"/>
+            </DataTrigger>   
+            <DataTrigger Binding="{Binding}" Value="Settings">
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Settings"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Settings"/>
+
             </DataTrigger>
         </DataTemplate.Triggers>
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="NavigationTextComponentTemplate"> 
+        
     </DataTemplate>
     
     <x:Array x:Key="NavigationMenuItems" Type="system:String">
@@ -103,6 +121,7 @@
         <system:String>Customer</system:String>
         <system:String>Finance</system:String>
         <system:String>Report</system:String>
+        <system:String>Settings</system:String>
     </x:Array>
 
     <DataTemplate x:Key="POSViewTemplate">
@@ -116,7 +135,7 @@
     </DataTemplate>  
     <DataTemplate x:Key="FinanceViewTemplate">
         <views:FinanceView/>
-    </DataTemplate> 
+    </DataTemplate>
     <DataTemplate x:Key="ReportViewTemplate">
         <views:ReportView/>
     </DataTemplate>

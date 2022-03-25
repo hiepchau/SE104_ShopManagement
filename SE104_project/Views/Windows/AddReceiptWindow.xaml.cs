@@ -8,17 +8,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SE104_OnlineShopManagement.Components
+namespace SE104_OnlineShopManagement.Views.Windows
 {
     /// <summary>
-    /// Interaction logic for SomeComponent.xaml
+    /// Interaction logic for AddReceiptWindow.xaml
     /// </summary>
-    public partial class SomeComponent : UserControl
+    public partial class AddReceiptWindow : Window
     {
-        public SomeComponent()
+        public AddReceiptWindow()
         {
             InitializeComponent();
         }

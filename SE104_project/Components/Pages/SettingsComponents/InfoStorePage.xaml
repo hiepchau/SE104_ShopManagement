@@ -1,0 +1,233 @@
+﻿<UserControl x:Class="SE104_OnlineShopManagement.Components.Pages.SettingsComponents.InfoStorePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Pages.SettingsComponents"
+             mc:Ignorable="d" 
+             d:DesignHeight="715" d:DesignWidth="960">
+
+    <Grid Style="{StaticResource DropShadow}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Rectangle 
+                Fill="{DynamicResource White}" 
+                RadiusY="4" 
+                RadiusX="4"
+                Grid.RowSpan="4"
+                Panel.ZIndex="-1"/>
+        <TextBlock Grid.Row="0"
+                Style="{StaticResource HeadingText2}"
+                FontSize="24"
+                Text="Thông tin cửa hàng" 
+                Margin="20,10,0,0" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"/>
+        <Rectangle Grid.Row="1"
+                Fill="{StaticResource WordBlueBrush}"
+                Height="2" 
+                VerticalAlignment="Top"/>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid  
+                x:Name="grdSelectImage"
+                Grid.Row="0"
+                VerticalAlignment="Top" HorizontalAlignment="Center"
+                Width="140"
+                Height="160" Margin="10">
+                <Rectangle 
+                    x:Name="recImage"
+                    StrokeDashArray="4 2" 
+                    Stroke="{StaticResource WordBlueBrush}" 
+                    StrokeThickness="4" 
+                    RadiusX="4" 
+                    RadiusY="4"/>
+                <Button 
+                    x:Name="btnSelectImage"
+                    Style="{StaticResource PrimaryButton}"
+                    Height="30" Width="100" 
+                    materialDesign:ButtonAssist.CornerRadius="2"
+                    ToolTip="Chọn ảnh" 
+                    Content="Chọn ảnh"
+                    FontSize="14"
+                    TabIndex="8"
+                    Margin="0,0,0,12" 
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <materialDesign:PackIcon  
+                                        Kind="FileImageOutline" 
+                                        Foreground="{StaticResource WordBlueBrush}"
+                                        Width="64" 
+                                        Height="54"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top"  
+                                        Margin="0,20,0,0"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="0">
+                    <Grid  Margin="0,20,0,0">
+                        <Label Style="{StaticResource LabelText}"
+                           Content="Tên cửa hàng"/>
+                        <Rectangle  HorizontalAlignment="Left"
+                                Width="320"
+                                RadiusY="4"
+                                RadiusX="4"
+                                Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
+                        <TextBox x:Name="txtStoreName"
+                             Style="{StaticResource TextBox}"
+                             materialDesign:HintAssist.Hint="Tên cửa hàng"
+                             Width="320"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
+                        </TextBox>
+                    </Grid>
+
+                    <Grid  Margin="0,20,0,0">
+                        <Label Style="{StaticResource LabelText}"
+                           Content="Địa chỉ"/>
+                        <Rectangle  HorizontalAlignment="Left"
+                                Width="320"
+                                RadiusY="4"
+                                RadiusX="4"
+                                Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
+                        <TextBox x:Name="txtStoreAddress"
+                             Style="{StaticResource TextBox}"
+                             materialDesign:HintAssist.Hint="Địa chỉ"
+                             Width="320"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
+                        </TextBox>
+                    </Grid>
+                    <Grid Margin="0,20,0,0">
+                        <Label Style="{StaticResource LabelText}"
+                           Content="Số điện thoại"/>
+                        <Rectangle Width="320"
+                               RadiusY="4"
+                               RadiusX="4"
+                               Stroke="{StaticResource Gray2}" 
+                               HorizontalAlignment="Right"/>
+                        <TextBox 
+                                            x:Name="txtStorePhoneNumber"
+                                            Style="{StaticResource TextBox}"
+                                            materialDesign:HintAssist.Hint="Số điện thoại"
+                                            Height="40"
+                                            Width="320"
+                                            Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                        </TextBox>
+                    </Grid>
+                    <Grid Margin="0,20,0,0">
+                        <Label  Content="Email"
+                            Style="{StaticResource LabelText}"/>
+                        <Rectangle  HorizontalAlignment="Right"
+                                Height="40" Width="320"
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Stroke="{StaticResource Gray2}"/>
+                        <TextBox x:Name="txtEmail"
+                             Style="{StaticResource TextBox}"
+                             materialDesign:HintAssist.Hint="Email"
+                             Height="40"
+                             Width="320"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    </Grid>
+                </StackPanel>
+                
+                <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="1">
+                    <Grid  Margin="0,20,0,0">
+                        <Label Style="{StaticResource PrimaryLabelText}"
+                           Content="Facebook"/>
+                        <Rectangle  HorizontalAlignment="Left"
+                                Width="320"
+                                RadiusY="4"
+                                RadiusX="4"
+                                Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
+                        <TextBox 
+                             Style="{StaticResource TextBox}"
+                             materialDesign:HintAssist.Hint="Chưa có facebook"
+                             Width="320"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
+                        </TextBox>
+                    </Grid>
+
+                    <Grid  Margin="0,20,0,0">
+                        <Label Style="{StaticResource PrimaryLabelText}"
+                           Content="Instagram"/>
+                        <Rectangle  HorizontalAlignment="Left"
+                                Width="320"
+                                RadiusY="4"
+                                RadiusX="4"
+                                Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
+                        <TextBox 
+                             Style="{StaticResource TextBox}"
+                             materialDesign:HintAssist.Hint="Chưa có instagram"
+                             Width="320"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
+                        </TextBox>
+                    </Grid>
+                    <Grid Margin="0,20,0,0">
+                        <Label Style="{StaticResource LabelText}"
+                           Content="Mã số thuế"/>
+                        <Rectangle Width="320"
+                               RadiusY="4"
+                               RadiusX="4"
+                               Stroke="{StaticResource Gray2}" 
+                               HorizontalAlignment="Right"/>
+                        <TextBox 
+                                            
+                                            Style="{StaticResource TextBox}"
+                                            materialDesign:HintAssist.Hint="Mã số thuế"
+                                            Height="40"
+                                            Width="320"
+                                            Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                        </TextBox>
+                    </Grid>
+                    <Grid Margin="0,20,0,0">
+                        <Label  Content="Website"
+                            Style="{StaticResource PrimaryLabelText}"/>
+                        <Rectangle  HorizontalAlignment="Right"
+                                Height="40" Width="320"
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Stroke="{StaticResource Gray2}"/>
+                        <TextBox
+                             Style="{StaticResource TextBox}"
+                             materialDesign:HintAssist.Hint="Chưa có website"
+                             Height="40"
+                             Width="320"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cập nhật"
+                    Height="45"
+                    Style="{StaticResource PrimaryButton}"
+                    FontSize="20"
+                    Width="160" Margin="0 0 60 10"
+                    >
+                </Button>
+                <Button Content="Hủy"
+                        ToolTip="Hủy"
+                        Height="44"
+                        Style="{StaticResource CancelButton}"
+                        Margin="0 0 100 10"
+                        Width="100" />
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

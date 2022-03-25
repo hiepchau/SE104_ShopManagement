@@ -5,9 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ucManagement="clr-namespace:SE104_OnlineShopManagement.Components.Pages.ManagementComponents"
+        xmlns:ucCustomer="clr-namespace:SE104_OnlineShopManagement.Components.Pages.CustomersComponents"
+        xmlns:ucSettings="clr-namespace:SE104_OnlineShopManagement.Components.Pages.SettingsComponents"
         mc:Ignorable="d"
         MinHeight="540" MinWidth="960"
-        Title="HomeWindow" Height="540" Width="960">
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        Title="HomeWindow" Height="740" Width="1280">
 
     <Window.Resources>
         <Style x:Key="NavigationContentStyle" TargetType="ContentControl"></Style>
@@ -21,9 +28,9 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="45*"/>
-                <ColumnDefinition Width="211*"/>
+                <ColumnDefinition Width="114*"/>
+                <ColumnDefinition Width="205*"/>
+                <ColumnDefinition Width="960"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" MinHeight="500">
@@ -32,6 +39,9 @@
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          ItemTemplate="{DynamicResource NavigationDataTemplate}"
                          ItemsSource="{StaticResource NavigationMenuItems}">
+                    <ListBox.Effect>
+                        <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"></DropShadowEffect>
+                    </ListBox.Effect>
                 </ListBox>
             </Grid>
 
@@ -39,12 +49,25 @@
                 <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
-                         
                          Background="{StaticResource WordLightBlueBrush}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <!--<ListBoxItem> Tong quan </ListBoxItem>
+                    <ListBoxItem> Don hang  </ListBoxItem>
+                    <ListBoxItem> Hang hoa </ListBoxItem>
+                    <ListBoxItem> Nhap hang </ListBoxItem>
+                    <ListBoxItem>Kho hang</ListBoxItem>
+                    <ListBoxItem>Khuyen mai</ListBoxItem>-->
                 </ListBox>
-
             </Grid>
-
+            <ucManagement:OverviewPage Grid.Column="2"></ucManagement:OverviewPage>
         </Grid>
+        
     </Grid>
 </Window>

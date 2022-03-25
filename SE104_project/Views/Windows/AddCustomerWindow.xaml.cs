@@ -13,16 +13,13 @@ using System.Windows.Shapes;
 namespace SE104_OnlineShopManagement.Views.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddCustomerWindow.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class AddCustomerWindow : Window
     {
-        public HomeWindow()
+        public AddCustomerWindow()
         {
             InitializeComponent();
-            NavigationFeatureMenuListBox.ItemsSource = new List<string> { "1", "2", "3","4","5"};
         }
-
-
     }
 }

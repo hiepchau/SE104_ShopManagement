@@ -1,0 +1,392 @@
+﻿<UserControl x:Class="SE104_OnlineShopManagement.Components.Pages.CustomersComponents.CustomerPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Pages.CustomersComponents"
+             mc:Ignorable="d" 
+             d:DesignHeight="715" d:DesignWidth="960">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource TextHeader}" Text="Khách Hàng"/>
+        <StackPanel
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" 
+                    Margin="0,0,20,0">
+            <Button
+                        Style="{StaticResource PrimaryButton}"
+                        Content="Hạng thành viên"
+                        Height="40"
+                        ToolTip="Quản lý hạng thành viên"
+                        Width="160"
+                        Padding="0"
+                        FontSize="18"
+                        Margin="0,0,20,0"/>
+            <Button
+                        Style="{StaticResource PrimaryButton}"
+                        Content="Xuất excel"
+                        ToolTip="Xuất danh sách khách hàng"
+                        Width="160"
+                        Margin="0,0,20,0"/>
+            <Button
+                        x:Name="btnAddCustomer"
+                        Style="{StaticResource PrimaryButton}"
+
+                        Content="Thêm khách hàng"
+                        ToolTip="Thêm khách hàng"
+                        Padding="0"
+                        FontSize="18"
+                        Height="40"
+                        Width="160"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Grid
+                            Background="{StaticResource White}"
+                            Height="145" 
+                            Style="{StaticResource DropShadow}" 
+                            Margin="20,0,20,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Rectangle
+                                Grid.RowSpan="1"
+                                Fill="{StaticResource WordBlueBrush}"
+                                Height="1" 
+                                VerticalAlignment="Bottom" 
+                                Margin="20,0"/>
+                    <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Text}"
+                                Text="Hạng thành viên" 
+                                Height="Auto"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource WordBlueBrush}"
+                                Margin="20,0,0,0" 
+                                HorizontalAlignment="Left"/>
+                    <ComboBox      
+                                x:Name="cboSelectCustomerIdMembership"
+                                ItemsSource="{Binding ItemSourceMembership}"
+                                SelectedItem="{Binding FilterMembership}"
+                                Grid.Row="1"
+                                materialDesign:ComboBoxAssist.ClassicMode="True"
+                                materialDesign:HintAssist.Hint="Hạng thành viên"
+                                Height="40"
+                                FontSize="18"
+                                BorderThickness="0"
+                                Padding="10,0,0,0"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                DisplayMemberPath="Membership"
+                                FontWeight="SemiBold"
+                                BorderBrush="{StaticResource Black2}" 
+                                Background="{StaticResource White}"                           
+                                Margin="30,0" 
+                                VerticalAlignment="Center">
+                    </ComboBox>
+                    <Rectangle 
+                                RadiusX="4"
+                                RadiusY="4"
+                                Height="40"
+                                Stroke="{StaticResource Gray1}"
+                                Grid.Row="1" 
+                                VerticalAlignment="Center"
+                                Margin="20,0"/>
+                </Grid>
+                <Grid 
+                            Height="160"
+                            Style="{StaticResource DropShadow}" 
+                            VerticalAlignment="Top"
+                            Margin="20,0,20,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Rectangle 
+                                Fill="{DynamicResource White}" 
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Grid.RowSpan="4"
+                                Panel.ZIndex="-1"/>
+                    <Rectangle
+                                Grid.RowSpan="1"
+                                Fill="{StaticResource WordBlueBrush}"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                Margin="20,0"/>
+                    <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource HeadingText2}"
+                                Text="Tổng tiền mua" 
+                                Height="Auto"
+                                FontSize="20"
+                                Margin="20,0,0,0" 
+                                HorizontalAlignment="Left" />
+                    <ComboBox      
+                                x:Name="cboSelectCustomerSort"
+                                Grid.Row="1"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                materialDesign:ComboBoxAssist.ClassicMode="True"
+                                materialDesign:HintAssist.Hint="Sắp xếp"
+                                Height="40"
+                                FontSize="18"
+                                BorderThickness="1"
+                                Padding="10,0,10,0"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                FontWeight="SemiBold"
+                                BorderBrush="{StaticResource Gray1}" 
+                                Background="{StaticResource White}"  
+                                Margin="30,0" 
+                                VerticalAlignment="Center">
+                        <ComboBoxItem Content="Giảm dần" />
+                        <ComboBoxItem Content="Tăng dần" />
+                    </ComboBox>
+                </Grid>
+                <Grid
+                            Height="125"
+                            Style="{StaticResource DropShadow}" 
+                            Margin="20,0,20,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Rectangle 
+                                Grid.RowSpan="2"
+                                Fill="{DynamicResource White}" 
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Panel.ZIndex="-1"/>
+                    <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Text}"
+                                Text="Số lượng khách" 
+                                Height="Auto"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource WordBlueBrush}"
+                                Margin="20,0,0,0" 
+                                HorizontalAlignment="Left" />
+                    <Rectangle
+                                Fill="{StaticResource WordBlueBrush}"
+                                Height="2" 
+                                VerticalAlignment="Bottom" 
+                                Margin="20,0"/>
+                    <TextBlock
+                                x:Name="txbCustomerQuantity"
+                                Grid.Row="1"
+                                Style="{StaticResource Text}"
+                                MaxWidth="200"
+                                Height="Auto"
+                                FontSize="20"
+                                Margin="20,0,0,0"
+                                HorizontalAlignment="Left"/>
+                </Grid>
+                <Grid
+                            Height="125"
+                            Style="{StaticResource DropShadow}" 
+                            Margin="20,0,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Rectangle 
+                                Grid.RowSpan="2"
+                                Fill="{DynamicResource White}" 
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Panel.ZIndex="-1" />
+                    <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Text}"
+                                Text="Tổng doanh thu" 
+                                FontSize="20"
+                                Height="Auto"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource WordBlueBrush}"
+                                Margin="20,0,0,0" 
+                                HorizontalAlignment="Left" />
+                    <Rectangle
+                                Fill="{StaticResource WordBlueBrush}"
+                                Height="2"
+                                VerticalAlignment="Bottom" 
+                                Margin="20,0"/>
+                    <TextBlock
+                                x:Name="txbTotalRevenue"
+                                Grid.Row="1"
+                                Style="{StaticResource Text}"
+                                Height="Auto"
+                                FontSize="20"
+                                Margin="20,0,0,0"
+                                HorizontalAlignment="Left"/>
+                </Grid>
+            </StackPanel>
+            <Grid 
+                        Grid.Column="1"
+                        Style="{StaticResource DropShadow}" 
+                        Margin="0,0,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition />
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Rectangle 
+                            Fill="{DynamicResource White}" 
+                            RadiusY="4" 
+                            RadiusX="4"
+                            Grid.RowSpan="3"
+                            Panel.ZIndex="-1" />
+                <Grid
+                            Grid.Row="0"
+                            Margin="20,20,0,0" 
+                            Height="46" 
+                            Width="320"
+                            Style="{StaticResource DropShadow}"
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Top">
+                    <TextBox 
+                                Grid.Row="0"
+                                x:Name="txtSearchCustomer"
+                                materialDesign:HintAssist.Hint="Tìm theo tên khách hàng" 
+                                FontSize="18" 
+                                BorderThickness="0" 
+                                MaxLines="1"
+                                Margin="12,0" 
+                                FontWeight="Medium" 
+                                Height="40" 
+                                HorizontalContentAlignment="Left" 
+                                VerticalContentAlignment="Center"
+                                Foreground="{DynamicResource Black1}" 
+                                SelectionBrush="{DynamicResource Primary}"
+                                Padding="2,0,0,0"
+                                VerticalAlignment="Center" />
+                    <Button 
+                                Grid.Row="0"
+                                IsDefault="True"
+                                Height="30"
+                                Width="30"
+                                Margin="0,0,10,0"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                VerticalAlignment="Center"
+                                FocusVisualStyle="{x:Null}"
+                                HorizontalAlignment="Right"
+                                Padding="0">
+                        <materialDesign:PackIcon 
+                                    Kind="Magnify" 
+                                    Foreground="{StaticResource Black2}"
+                                    Height="26"
+                                    Width="26" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                    </Button>
+                    <Rectangle 
+                                Grid.Row="0"
+                                Fill="{DynamicResource White}" 
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Panel.ZIndex="-1" />
+                </Grid>
+                <Border
+                            CornerRadius="4,4,0,0"
+                            BorderThickness="1"
+                            Grid.Row="1" 
+                            Margin="20,0"
+                            Height="40" 
+                            VerticalAlignment="Top" 
+                            BorderBrush="{StaticResource WordBlueBrush}" 
+                            Background="{StaticResource WordBlueBrush}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="105*"/>
+                            <ColumnDefinition Width="126.754"/>
+                            <ColumnDefinition Width="77*"/>
+                            <ColumnDefinition Width="142*"/>
+                            <ColumnDefinition Width="97*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Style="{StaticResource PrimaryCheckBox}" Height="18" Width="16"/>
+                        <TextBlock
+                                    Text="Mã KH" 
+                                    Grid.Column="1"
+                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
+                        <TextBlock
+                                    Text="Khách hàng" 
+                                    Grid.Column="2"
+                                    Style="{StaticResource TitleText}"
+                                    HorizontalAlignment="Left"
+                                    Margin="20,0,0,0" Height="24" Width="96"/>
+                        <TextBlock
+                                    Text="SĐT" 
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource TitleText}" Height="24" Margin="35,0,0,0" Width="32"/>
+                        <TextBlock
+                                    Text="Lần cuối mua" 
+                                    Grid.Column="4"
+                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,1,0"/>
+                        <TextBlock
+                                    Text="Tổng tiền" 
+                                    Grid.Column="5"
+                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
+
+                    </Grid>
+                </Border>
+                <Border
+                            Grid.Row="1"
+                            BorderBrush="{StaticResource LightBrush}"
+                            BorderThickness="2,0,2,2"
+                            CornerRadius="0,0,4,4"
+                            Margin="20,40,20,6" >
+                    <Grid>
+                        <StackPanel 
+                                    x:Name="stkCustomer" />
+                    </Grid>
+                </Border>
+                <StackPanel
+                            Grid.Row="2"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Right" 
+                            Margin="0,0,20,0">
+                    <TextBlock 
+                                x:Name="txtNumOfCus"
+                                Style="{StaticResource Text}"
+                                Margin="0,0,40,0"/>
+                    <Button 
+                                x:Name="btnPrePageCus"
+                                Margin="8,0"
+                                ToolTip="Trang trước"
+                                Style="{StaticResource PaginationButton}">
+                        <materialDesign:PackIcon 
+                                    Width="26"
+                                    Height="28"
+                                    Kind="ChevronLeft"  />
+                    </Button>
+                    <Button 
+                                x:Name="btnNextPageCus"
+                                Margin="8,0,0,0" 
+                                ToolTip="Trang tiếp theo"
+                                Style="{StaticResource PaginationButton}">
+                        <materialDesign:PackIcon 
+                                    Width="26"
+                                    Height="28"
+                                    Kind="ChevronRight" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
