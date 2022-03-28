@@ -76,10 +76,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                
                 <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="0">
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Tên cửa hàng"/>
+                           Content="Tên cửa hàng:"/>
                         <Rectangle  HorizontalAlignment="Left"
                                 Width="320"
                                 RadiusY="4"
@@ -95,7 +96,7 @@
 
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Địa chỉ"/>
+                           Content="Địa chỉ:"/>
                         <Rectangle  HorizontalAlignment="Left"
                                 Width="320"
                                 RadiusY="4"
@@ -110,7 +111,7 @@
                     </Grid>
                     <Grid Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Số điện thoại"/>
+                           Content="Số điện thoại:"/>
                         <Rectangle Width="320"
                                RadiusY="4"
                                RadiusX="4"
@@ -126,7 +127,7 @@
                         </TextBox>
                     </Grid>
                     <Grid Margin="0,20,0,0">
-                        <Label  Content="Email"
+                        <Label  Content="Email:"
                             Style="{StaticResource LabelText}"/>
                         <Rectangle  HorizontalAlignment="Right"
                                 Height="40" Width="320"
@@ -145,7 +146,7 @@
                 <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="1">
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource PrimaryLabelText}"
-                           Content="Facebook"/>
+                           Content="Facebook:"/>
                         <Rectangle  HorizontalAlignment="Left"
                                 Width="320"
                                 RadiusY="4"
@@ -161,7 +162,7 @@
 
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource PrimaryLabelText}"
-                           Content="Instagram"/>
+                           Content="Instagram:"/>
                         <Rectangle  HorizontalAlignment="Left"
                                 Width="320"
                                 RadiusY="4"
@@ -176,7 +177,7 @@
                     </Grid>
                     <Grid Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Mã số thuế"/>
+                           Content="Mã số thuế:"/>
                         <Rectangle Width="320"
                                RadiusY="4"
                                RadiusX="4"
@@ -192,7 +193,7 @@
                         </TextBox>
                     </Grid>
                     <Grid Margin="0,20,0,0">
-                        <Label  Content="Website"
+                        <Label  Content="Website:"
                             Style="{StaticResource PrimaryLabelText}"/>
                         <Rectangle  HorizontalAlignment="Right"
                                 Height="40" Width="320"
@@ -220,10 +221,10 @@
                 </Button>
                 <Button Content="Hủy"
                         ToolTip="Hủy"
-                        Height="44"
+                        Height="45"
                         Style="{StaticResource CancelButton}"
                         Margin="0 0 100 10"
-                        Width="100" />
+                        Width="160" />
             </StackPanel>
 
         </Grid>

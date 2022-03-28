@@ -68,7 +68,7 @@
                     <ListBoxItem>Khuyen mai</ListBoxItem>-->
                 </ListBox>
             </Grid>
-            <ucManagement:OverviewPage Grid.Column="2"></ucManagement:OverviewPage>
+            <ucManagement:OverviewPage Grid.Column="2"/>
         </Grid>
         
     </Grid>
