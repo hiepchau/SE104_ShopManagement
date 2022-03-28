@@ -13,6 +13,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.Network.Insert_database;
 
 namespace SE104_project
 {
@@ -59,6 +61,7 @@ namespace SE104_project
             Language.ApplyLanguage("vi-VN");
             _host.Services.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>().CurrentMainViewModel = _host.Services.GetRequiredService<LoginViewModel>();
             _host.Services.GetRequiredService<MainWindowNavigator<AuthenticationWindow>>().Navigate();
+
         }
     }
 }
