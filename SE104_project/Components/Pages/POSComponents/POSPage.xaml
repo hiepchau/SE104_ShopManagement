@@ -47,11 +47,11 @@
                             Margin="20,0,20,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="3.5*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="1.4*"/>
-                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="266*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="107*"/>
+                                <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock 
                                 Text="STT" 
