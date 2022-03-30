@@ -1,4 +1,6 @@
 ﻿using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.Network;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,12 +10,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
 {
     public class MenuViewModel:ViewModelBase
     {
-        private ViewModelBase _viewModel;
+        private BaseFunction _viewModel;
+        private AppSession _session;
+        private MongoConnect _mongoConnect;
         public ICommand ChangeViewModelCommand { get; set; }
-        public MenuViewModel(ViewModelBase viewmodel)
+        public MenuViewModel(BaseFunction viewmodel, AppSession session, MongoConnect connect)
         {
             _viewModel = viewmodel;
-            ChangeViewModelCommand = new RelayCommand<object>(null, change);
+            _session = session;
+            _mongoConnect = connect;
         }
         public void change(object o) { }
         

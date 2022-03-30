@@ -16,15 +16,21 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
 {
     public class HomeViewModel : ViewModelBase
     {
+        #region Properties
         private BaseFunction _currentState;
         private ManagingFunctionsViewModel _managingFunctionsViewModel;
         private SellingViewModel _sellingViewModel;
-        private IViewModelFactory _factory;
-        public ICommand testCommand { get; set; }
-        public ICommand testCommand1 { get; set; }
+        
         private MongoConnect _connection;
         private AppSession _session;
         public BaseFunction CurrentState { get => _currentState;set => _currentState = value; }
+        #endregion
+
+        #region Commands
+        private IViewModelFactory _factory;
+        public ICommand testCommand { get; set; }
+        public ICommand testCommand1 { get; set; }
+        #endregion
         public HomeViewModel(IViewModelFactory factory, AppSession session,MongoConnect connect)
         {
             this._factory= factory;

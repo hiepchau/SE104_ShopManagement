@@ -11,6 +11,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
     public class ManagingFunctionsViewModel : BaseFunction
     {
         public ICommand changeDisplayCommand { get; set; }  
+
         public BaseFunction Currentdisplaying { get; set; }
         public MenuViewModel menuViewModel { get; set; }
         public ManagingFunctionsViewModel(AppSession session, MongoConnect connect) : base(session, connect)
@@ -18,13 +19,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
             
         }
 
-        public void changeDisplay(object o)
+    
+        public void changeMenu(string MenuType)
         {
-        }
-        public void changeMenu(MenuViewModel vm)
-        {
-            menuViewModel = vm;
-            OnPropertyChanged(nameof(menuViewModel));
+            //set menu acording to menu name
         }
 
     }
