@@ -11,6 +11,8 @@ using SE104_OnlineShopManagement.ViewModels.Home;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Insert_database;
 using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
+using MongoDB.Driver;
 
 namespace SE104_OnlineShopManagement.Services
 {
@@ -45,11 +47,13 @@ namespace SE104_OnlineShopManagement.Services
                 services.AddTransient<RegisterViewModel>();
                 services.AddTransient<HomeViewModel>();
                 services.AddSingleton<MainViewModel>();
+                services.AddTransient<SellingViewModel>();
                 
                 services.AddSingleton<ViewModelCreator<LoginViewModel>>(s => s.GetRequiredService<LoginViewModel>);
                 services.AddSingleton<ViewModelCreator<RegisterViewModel>>(s => s.GetRequiredService<RegisterViewModel>);
                 services.AddSingleton<ViewModelCreator<MainViewModel>>(s => s.GetRequiredService<MainViewModel>);
                 services.AddSingleton<ViewModelCreator<HomeViewModel>>(s => s.GetRequiredService<HomeViewModel>);
+                services.AddSingleton<ViewModelCreator<SellingViewModel>>(s=>s.GetRequiredService<SellingViewModel>);
                 services.AddSingleton<IViewModelFactory, ViewModelFactory>();
             });
             return host;

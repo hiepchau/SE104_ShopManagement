@@ -9,18 +9,22 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.ViewModels.Authentication;
 using SE104_OnlineShopManagement.Network.Insert_database;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
     public class HomeViewModel : ViewModelBase
     {
-        private ViewModelBase _currentFunction;
+        private BaseFunction _currentState;
+        private ManagingFunctionsViewModel _managingFunctionsViewModel;
+        private SellingViewModel _sellingViewModel;
         private IViewModelFactory _factory;
         public ICommand testCommand { get; set; }
         public ICommand testCommand1 { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
-        public ViewModelBase CurrentFunction { get => _currentFunction;set => _currentFunction = value; }
+        public BaseFunction CurrentState { get => _currentState;set => _currentState = value; }
         public HomeViewModel(IViewModelFactory factory, AppSession session,MongoConnect connect)
         {
             this._factory= factory;
@@ -28,10 +32,13 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             this._session= session;
             testCommand = new RelayCommand<object>(null, testing);
             testCommand1 = new RelayCommand<object>(null, testing1);
+            _managingFunctionsViewModel = new ManagingFunctionsViewModel(session,connect);
+            _sellingViewModel = new SellingViewModel(session, connect);
         }
 
         private void testing1(object o = null)
         {
+            SellingViewModel sell = _factory.CreateViewModel<SellingViewModel>();
             var filter = Builders<ProductsInformation>.Filter.Eq(x => x.name, "diblo1");
             GetProducts getter = new GetProducts(_connection.client, _session, filter);
             var ls = getter.Get();

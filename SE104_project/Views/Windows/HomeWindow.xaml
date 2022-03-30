@@ -51,11 +51,12 @@
                 <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
-                         Background="{StaticResource WordLightBlueBrush}">
+                         Background="{StaticResource WordLightBlueBrush}"
+                         ItemsSource="{Binding CurrentState.functionsSelectors}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding}"/>
+                                <TextBlock Text=""/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
