@@ -148,7 +148,7 @@
                     BorderBrush="{DynamicResource LightBrush}"
                     CornerRadius="4,4,4,4"
                     BorderThickness="2,2,2,2" 
-                    Margin="20">
+                    Margin="20 10 20 20">
                     <ScrollViewer
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto" 
