@@ -28,8 +28,8 @@
             </TextBlock>
             <compo:SearhBar tbWidth="400" ToolTip="Tìm kiếm đơn hàng"
                         Title="Nhập mã đơn hàng" Width="474" Margin="20 0 0 0"/>
-            
-            
+
+
         </StackPanel>
 
         <Border Grid.Row="1"
@@ -41,12 +41,12 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="39*"/>
-                    <ColumnDefinition Width="157*"/>
-                    <ColumnDefinition Width="143*"/>
-                    <ColumnDefinition Width="108*"/>
-                    <ColumnDefinition Width="151*"/>
-                    <ColumnDefinition Width="111*"/>
-                    <ColumnDefinition Width="128*"/>
+                    <ColumnDefinition Width="155.687"/>
+                    <ColumnDefinition Width="142*"/>
+                    <ColumnDefinition Width="107*"/>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="110*"/>
+                    <ColumnDefinition Width="127*"/>
                     <ColumnDefinition Width="90"/>
                 </Grid.ColumnDefinitions>
                 <CheckBox Style="{StaticResource PrimaryCheckBox}"

@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="Resources\TextStyles.xaml"/>
                 <ResourceDictionary Source="Resources\DropShadowStyles.xaml"/>
                 <ResourceDictionary Source="Resources\ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Resources\ScrollbarStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

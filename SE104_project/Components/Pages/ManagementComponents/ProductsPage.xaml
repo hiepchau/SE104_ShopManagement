@@ -206,6 +206,7 @@
                                                                    CommandParameter="{Binding ElementName=ucProducts}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>-->
+
                             <ComboBoxItem Content="Theo tên A-&gt;Z"/>
                             <ComboBoxItem Content="Theo tên Z-&gt;A"/>
                             <ComboBoxItem Content="Giá bán tăng"/>
