@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
+             xmlns:menu="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels"
+             xmlns:menucontrol="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              mc:Ignorable="d" 
              Height="715">
     <Grid>
@@ -11,7 +13,32 @@
             <ColumnDefinition Width="206"/>
             <ColumnDefinition Width="960"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" Content="{x:Type }"></ContentControl>
+        <ContentControl Grid.Column="0" Content="{Binding menuViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type menu:CustomerSelectMenu}">
+                    <menucontrol:CustomersSelectedMenuControl></menucontrol:CustomersSelectedMenuControl>
+                </DataTemplate>
 
+                <DataTemplate DataType="{x:Type menu:FinanceMenu}">
+                    <menucontrol:FinanceMenuControl></menucontrol:FinanceMenuControl>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type menu:ManagementMenu}">
+                    <menucontrol:ManagementSelectedMenuControl></menucontrol:ManagementSelectedMenuControl>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type menu:ReportMenu}">
+                    <menucontrol:ReportMenuControl></menucontrol:ReportMenuControl>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type menu:SettingMenu}">
+                    <menucontrol:SettingsSelectedMenuControl></menucontrol:SettingsSelectedMenuControl>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+
+        <ContentControl Grid.Column="1" Content="{Binding Currentdisplaying}">
+            
+        </ContentControl>
     </Grid>
 </UserControl>
