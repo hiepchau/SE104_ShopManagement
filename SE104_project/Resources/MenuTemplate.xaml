@@ -124,19 +124,4 @@
         <system:String>Settings</system:String>
     </x:Array>
 
-    <DataTemplate x:Key="POSViewTemplate">
-        <views:POSView/>
-    </DataTemplate> 
-    <DataTemplate x:Key="ManagementViewTemplate">
-        <views:ManagementView/>
-    </DataTemplate>  
-    <DataTemplate x:Key="CustomerViewTemplate">
-        <views:CustomerView/>
-    </DataTemplate>  
-    <DataTemplate x:Key="FinanceViewTemplate">
-        <views:FinanceView/>
-    </DataTemplate>
-    <DataTemplate x:Key="ReportViewTemplate">
-        <views:ReportView/>
-    </DataTemplate>
 </ResourceDictionary>

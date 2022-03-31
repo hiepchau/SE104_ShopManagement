@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              
              mc:Ignorable="d" 
-             d:DesignHeight="45">
+             d:DesignHeight="50">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="39.128"/>

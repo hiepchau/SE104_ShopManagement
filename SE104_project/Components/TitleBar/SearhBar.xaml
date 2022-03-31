@@ -8,14 +8,13 @@
              Name="searchBar"
              mc:Ignorable="d" 
              >
-    <Grid Height="46" Style="{StaticResource DropShadowSearchBar}"
+    <Grid Height="46" Style="{StaticResource DropShadow}"
           VerticalAlignment="Center">
         <Rectangle 
                         Fill="{DynamicResource White}" 
                         RadiusY="4" 
                         RadiusX="4"
-                        Panel.ZIndex="-1" 
-                        Margin="0"/>
+                        Panel.ZIndex="-1"/> 
         <TextBox 
                         x:Name="txtSearch"
                         HorizontalAlignment="Left"
