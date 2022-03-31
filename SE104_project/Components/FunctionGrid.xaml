@@ -7,7 +7,8 @@
              xmlns:menu="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels"
              xmlns:menucontrol="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:detailfunc="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions"
-             xmlns:manage="clr-namespace:SE104_OnlineShopManagement.Components.Pages.ManagementComponents"
+             xmlns:manage="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
+             xmlns:managementComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
              mc:Ignorable="d" 
              Height="715">
 
@@ -44,7 +45,7 @@
         <ContentControl Grid.Column="1" Content="{Binding Currentdisplaying}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type detailfunc:OverviewFunction}">
-                    <manage:OverviewPage></manage:OverviewPage>
+                    <managementComponents:OverviewPage></managementComponents:OverviewPage>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

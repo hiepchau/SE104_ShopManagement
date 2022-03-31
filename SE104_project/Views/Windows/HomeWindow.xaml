@@ -8,11 +8,10 @@
         xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
         xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication"
         xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
+        xmlns:compo1="clr-namespace:SE104_OnlineShopManagement.Components"
         xmlns:posComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.POSComponents"
         xmlns:sell="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions"
         xmlns:func="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel"
-        xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components"
-        xmlns:sellingUI="clr-namespace:SE104_OnlineShopManagement.Components.Pages.POSComponents"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         MinHeight="540" MinWidth="960"
@@ -76,7 +75,7 @@
             </Grid>
 
 
-            <posComponents:POSPage Grid.Column="1" Grid.ColumnSpan="2"/>
+            <!--<posComponents:POSPage Grid.Column="1" Grid.ColumnSpan="2"/>-->
 
             <!--<ucPOS:POSPage Grid.Column="1" Grid.ColumnSpan="3"/>-->
             <!--<ContentControl Grid.Column="1" Content="{Binding CurrentMainViewModel.CurrentState}">
@@ -91,11 +90,11 @@
                 <ContentControl Content="{Binding CurrentMainViewModel.CurrentState}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type func:ManagingFunctionsViewModel}">
-                            <compo:FunctionGrid></compo:FunctionGrid>
+                            <compo1:FunctionGrid></compo1:FunctionGrid>
                         </DataTemplate>
 
                         <DataTemplate DataType="{x:Type sell:SellingViewModel}">
-                            <sellingUI:POSPage></sellingUI:POSPage>
+                            <posComponents:POSPage></posComponents:POSPage>
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
