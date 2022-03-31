@@ -1,5 +1,6 @@
 ﻿using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +23,24 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
     
         public void changeMenu(string MenuType)
         {
-            //set menu acording to menu name
+            if(MenuType == "Management")
+            {
+                menuViewModel = new ManagementMenu(Currentdisplaying,Session,Connect);
+            }
+            if(MenuType == "Customer")
+            {
+                menuViewModel = new CustomerSelectMenu(Currentdisplaying,Session,Connect);
+            }
+            if(MenuType == "Finance")
+            {
+                menuViewModel = new FinanceMenu(Currentdisplaying,Session,Connect);
+            }
+            if(MenuType == "Report")
+            {
+                menuViewModel = new Report(Currentdisplaying,Session,Connect);
+            }
+
+            
         }
 
     }
