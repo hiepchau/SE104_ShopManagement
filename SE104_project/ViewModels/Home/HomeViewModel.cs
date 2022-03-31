@@ -11,6 +11,7 @@ using SE104_OnlineShopManagement.Network.Insert_database;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
+using System.Windows.Controls;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
@@ -30,6 +31,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         private IViewModelFactory _factory;
         public ICommand testCommand { get; set; }
         public ICommand testCommand1 { get; set; }
+        public ICommand SelectFunctionListCommand { get; set; }
         #endregion
         public HomeViewModel(IViewModelFactory factory, AppSession session,MongoConnect connect)
         {
@@ -40,6 +42,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             testCommand1 = new RelayCommand<object>(null, testing1);
             _managingFunctionsViewModel = new ManagingFunctionsViewModel(session,connect);
             _sellingViewModel = new SellingViewModel(session, connect);
+            SelectFunctionListCommand = new RelayCommand<object>(null, selectFuncList);
         }
 
         private void testing1(object o = null)
@@ -76,6 +79,16 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             ProductsInformation product = new ProductsInformation("",name, quantity, price, cost, category, producer);
             RegisterProducts regist = new RegisterProducts(product, _connection.client, _session);
             regist.register();
+        }
+
+        private void selectFuncList(object o)
+        {
+            
+            if ((o as string) == "POS")
+            {
+                CurrentState = _sellingViewModel;
+                OnPropertyChanged(nameof(CurrentState));
+            }
         }
     }
 }

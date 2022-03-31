@@ -10,8 +10,11 @@
         xmlns:ucSettings="clr-namespace:SE104_OnlineShopManagement.Components.Pages.SettingsComponents"
         xmlns:ucPOS="clr-namespace:SE104_OnlineShopManagement.Components.Pages.POSComponents"
         xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
-        xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication"
-        xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
+        xmlns:sell="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions"
+        xmlns:func="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel"
+        xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components"
+        xmlns:sellingUI="clr-namespace:SE104_OnlineShopManagement.Components.Pages.POSComponents"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         MinHeight="540" MinWidth="960"
         ResizeMode="NoResize"
@@ -32,9 +35,10 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="206"/>
-                <ColumnDefinition Width="960"/>
+                <ColumnDefinition Width="114"/>
+                <ColumnDefinition Width="1166"/>
+                <!--<ColumnDefinition Width="206"/>
+                <ColumnDefinition Width="960"/>-->
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" MinHeight="500">
@@ -46,15 +50,40 @@
                     <ListBox.Effect>
                         <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"></DropShadowEffect>
                     </ListBox.Effect>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding CurrentMainViewModel.SelectFunctionListCommand}"
+                                        CommandParameter="{Binding ElementName=NavigationMenuListBox,Path=SelectedItem}"
+                                        ></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ListBox>
             </Grid>
 
 
             <!--<ucPOS:POSPage Grid.Column="1" Grid.ColumnSpan="3"/>-->
+            <!--<ContentControl Grid.Column="1" Content="{Binding CurrentMainViewModel.CurrentState}">
+
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vm:SellingViewModel}">
+                        <local:testControl Grid.ColumnSpan="3"></local:testControl>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>-->
             <Grid Grid.Column="1">
-                <uc:ManagementSelectedMenuControl/>
+                <ContentControl Content="{Binding CurrentMainViewModel.CurrentState}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type func:ManagingFunctionsViewModel}">
+                            <compo:FunctionGrid></compo:FunctionGrid>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type sell:SellingViewModel}">
+                            <sellingUI:POSPage></sellingUI:POSPage>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
             </Grid>
-            <ucManagement:OverviewPage Grid.Column="2"/>
         </Grid>
 
     </Grid>
