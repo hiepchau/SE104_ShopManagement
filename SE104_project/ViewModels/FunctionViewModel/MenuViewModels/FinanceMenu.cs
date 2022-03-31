@@ -10,7 +10,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class FinanceMenu : MenuViewModel
     {
-        public FinanceMenu(BaseFunction viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
+        public FinanceMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             ChangeViewModelCommand = new RelayCommand<Object>(null, change);
         }

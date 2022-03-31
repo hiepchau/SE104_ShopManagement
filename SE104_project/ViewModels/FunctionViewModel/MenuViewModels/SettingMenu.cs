@@ -10,7 +10,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class SettingMenu : MenuViewModel
     {
-        public SettingMenu(BaseFunction viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
+        public SettingMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             ChangeViewModelCommand = new RelayCommand<object>(null, change);
 

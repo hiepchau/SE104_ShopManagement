@@ -46,7 +46,8 @@
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          ItemTemplate="{DynamicResource NavigationDataTemplate}"
-                         ItemsSource="{StaticResource NavigationMenuItems}">
+                         ItemsSource="{StaticResource NavigationMenuItems}"
+                         IsSynchronizedWithCurrentItem="False">
                     <ListBox.Effect>
                         <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"></DropShadowEffect>
                     </ListBox.Effect>

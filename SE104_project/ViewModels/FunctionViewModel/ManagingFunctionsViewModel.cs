@@ -25,31 +25,36 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
         {
             if(MenuType == "Management")
             {
-                menuViewModel = new ManagementMenu(Currentdisplaying,Session,Connect);
+                menuViewModel = new ManagementMenu(this,Session,Connect);
                 OnPropertyChanged(nameof(menuViewModel));
             }
             if(MenuType == "Customer")
             {
-                menuViewModel = new CustomerSelectMenu(Currentdisplaying,Session,Connect);
+                menuViewModel = new CustomerSelectMenu(this,Session,Connect);
                 OnPropertyChanged(nameof(menuViewModel));
             }
             if(MenuType == "Finance")
             {
-                menuViewModel = new FinanceMenu(Currentdisplaying,Session,Connect);
+                menuViewModel = new FinanceMenu(this,Session,Connect);
                 OnPropertyChanged(nameof(menuViewModel));
             }
             if(MenuType == "Report")
             {
-                menuViewModel = new ReportMenu(Currentdisplaying,Session,Connect);
+                menuViewModel = new ReportMenu(this,Session,Connect);
                 OnPropertyChanged(nameof(menuViewModel));
             }
             if(MenuType == "Settings")
             {
-                menuViewModel = new SettingMenu(Currentdisplaying,Session,Connect);
+                menuViewModel = new SettingMenu(this,Session,Connect);
                 OnPropertyChanged(nameof(menuViewModel));
             }
 
             
+        }
+
+        public void CurrentDisplayPropertyChanged()
+        {
+            OnPropertyChanged(nameof(Currentdisplaying));
         }
 
     }
