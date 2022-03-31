@@ -89,6 +89,37 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
                 CurrentState = _sellingViewModel;
                 OnPropertyChanged(nameof(CurrentState));
             }
+            if ((o as string) == "Management")
+            {
+                CurrentState = _managingFunctionsViewModel;
+                (CurrentState as ManagingFunctionsViewModel).changeMenu("Management");
+                OnPropertyChanged(nameof(CurrentState));
+            }
+            if ((o as string) == "Customer")
+            {
+                CurrentState = _managingFunctionsViewModel;
+                (CurrentState as ManagingFunctionsViewModel).changeMenu("Customer");
+                OnPropertyChanged(nameof(CurrentState));
+            }
+            if ((o as string) == "Finance")
+            {
+                CurrentState = _managingFunctionsViewModel;
+                (CurrentState as ManagingFunctionsViewModel).changeMenu("Finance");
+                OnPropertyChanged(nameof(CurrentState));
+            }
+            if ((o as string) == "Report")
+            {
+                CurrentState = _managingFunctionsViewModel;
+                (CurrentState as ManagingFunctionsViewModel).changeMenu("Report");
+                OnPropertyChanged(nameof(CurrentState));
+            }
+            if ((o as string) == "Settings")
+            {
+                CurrentState = _managingFunctionsViewModel;
+                (CurrentState as ManagingFunctionsViewModel).changeMenu("Settings");
+                OnPropertyChanged(nameof(CurrentState));
+            }
+
         }
     }
 }

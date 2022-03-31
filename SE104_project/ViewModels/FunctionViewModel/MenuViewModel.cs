@@ -20,7 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
             _session = session;
             _mongoConnect = connect;
         }
-        public void change(object o) { }
+        public virtual void change(object o) { }
         
     }
 }

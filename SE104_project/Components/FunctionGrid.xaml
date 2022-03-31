@@ -11,6 +11,7 @@
             <ColumnDefinition Width="206"/>
             <ColumnDefinition Width="960"/>
         </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="0" Content="{x:Type }"></ContentControl>
 
     </Grid>
 </UserControl>
