@@ -4,16 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignHeight="715" d:DesignWidth="205.643">
     <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          Background="{StaticResource WordLightBlueBrush}">
-        <ListBoxItem>Tổng quan</ListBoxItem>
-        <ListBoxItem>Đơn hàng</ListBoxItem>
-        <ListBoxItem>Hàng hóa</ListBoxItem>
-        <ListBoxItem>Nhập hàng</ListBoxItem>
-        <ListBoxItem>Kho hàng</ListBoxItem>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="SelectionChanged">
+                <i:InvokeCommandAction
+                                        Command="{Binding ChangeViewModelCommand}"
+                                        CommandParameter="{Binding ElementName=NavigationFeatureMenuListBox,Path=SelectedItem}"
+                                        ></i:InvokeCommandAction>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <ListBoxItem Name="Overall">Tổng quan</ListBoxItem>
+        <ListBoxItem Name="Orders">Đơn hàng</ListBoxItem>
+        <ListBoxItem Name="Products">Hàng hóa</ListBoxItem>
+        <ListBoxItem Name="Stock">Nhập hàng</ListBoxItem>
+        <ListBoxItem Name="Storage">Kho hàng</ListBoxItem>
     </ListBox>
 </UserControl>

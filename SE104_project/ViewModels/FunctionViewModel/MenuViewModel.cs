@@ -10,17 +10,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
 {
     public class MenuViewModel:ViewModelBase
     {
-        private BaseFunction _viewModel;
-        private AppSession _session;
-        private MongoConnect _mongoConnect;
+        protected ManagingFunctionsViewModel _viewModel;
+        protected AppSession _session;
+        protected MongoConnect _mongoConnect;
         public ICommand ChangeViewModelCommand { get; set; }
-        public MenuViewModel(BaseFunction viewmodel, AppSession session, MongoConnect connect)
+        public MenuViewModel(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect)
         {
             _viewModel = viewmodel;
             _session = session;
             _mongoConnect = connect;
         }
-        public void change(object o) { }
+        public virtual void change(object o) { }
         
     }
 }
