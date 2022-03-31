@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +8,24 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
 {
     public class ProductsInformation
     {
-        public string name { get; set; }    
-        public int quantity { get; set; }   
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ID { get; private set; }
+        [BsonElement("ProductName")]
+        public string name { get; set; }  
+        [BsonElement("ProductQuantity")]
+        public int quantity { get; set; }  
+        [BsonElement("ProductPrice")]
         public long price { get; set; }
+        [BsonElement("ProductStockCost")]
         public long StockCost { get; set; } 
-        public string Category { get; set; }    
-        public ProducerInformation ProducerInformation { get; set; }
-        public ProductsInformation(string Name, int quan, long price, long cost, string category, ProducerInformation pcinfo)
+        [BsonElement("ProductCategory")]
+        public string Category { get; set; } 
+        [BsonElement("ProductProvider")]
+        public string ProducerInformation { get; set; }
+        public ProductsInformation(string id,string Name, int quan, long price, long cost, string category, string pcinfo)
         {
+            this.ID = id;
             this.name = Name;
             this.quantity = quan;
             this.price = price;

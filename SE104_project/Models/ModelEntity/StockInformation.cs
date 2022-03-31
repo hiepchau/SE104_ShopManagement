@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,12 +8,18 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
 {
     public class StockInformation
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
+        [BsonElement("StockDay")]
         public DateTime StockDay { get; set; }
-        public UserInfomation User { get; set; }
-        public CustomerInformation customer { get; set; }
+        [BsonElement("UserID")]
+        public string User { get; set; }
+        [BsonElement("CustomerID")]
+        public string customer { get; set; }
+        [BsonElement("Total")]
         public long total { get; set; }
-        public StockInformation(string id, DateTime day, UserInfomation user, CustomerInformation customer, long total)
+        public StockInformation(string id, DateTime day, string user, string customer, long total)
         {
             this.ID = id;
             this.StockDay = day;

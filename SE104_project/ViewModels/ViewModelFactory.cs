@@ -1,4 +1,5 @@
 ﻿using SE104_OnlineShopManagement.ViewModels.Authentication;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using SE104_OnlineShopManagement.ViewModels.Home;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ namespace SE104_OnlineShopManagement.ViewModels
         private ViewModelCreator<RegisterViewModel> _registerViewModel;
         private ViewModelCreator<MainViewModel> _mainViewModel;
         private ViewModelCreator<HomeViewModel> _homeViewModel;
-        public ViewModelFactory(ViewModelCreator<LoginViewModel> login, ViewModelCreator<RegisterViewModel> regist, ViewModelCreator<MainViewModel> main, ViewModelCreator<HomeViewModel> home)
+        private ViewModelCreator<SellingViewModel> _sellingViewModel;
+        public ViewModelFactory(ViewModelCreator<LoginViewModel> login, ViewModelCreator<RegisterViewModel> regist, ViewModelCreator<MainViewModel> main, ViewModelCreator<HomeViewModel> home, ViewModelCreator<SellingViewModel> selling)
         {
             _loginViewModel = login;
             _registerViewModel = regist;
             _mainViewModel = main;
             _homeViewModel = home;
+            _sellingViewModel = selling;
         }
         public TViewModel CreateViewModel<TViewModel>() where TViewModel : ViewModelBase
         {
@@ -38,6 +41,8 @@ namespace SE104_OnlineShopManagement.ViewModels
             {
                 return (TViewModel)Convert.ChangeType(_homeViewModel.Invoke(), type);
             }
+            if(type == typeof(SellingViewModel))
+                return (TViewModel)Convert.ChangeType(_sellingViewModel.Invoke(), type);
             return null;
         }
     }
