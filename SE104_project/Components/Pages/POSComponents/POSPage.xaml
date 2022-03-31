@@ -3,41 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Pages.POSComponents"
              mc:Ignorable="d" 
-             d:DesignHeight="715" d:DesignWidth="960">
+             d:DesignHeight="715" d:DesignWidth="1166">
 
-    <Grid   x:Name="tabControl"
-            Background="{StaticResource White}">
-        <Grid 
-                    Margin="0,10,0,0" >
+    <Grid   Background="Transparent">
+        <Grid  Margin="10" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition />
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
 
-            <Grid>
+            <Grid  Background="{StaticResource White}"
+                    Style="{StaticResource DropShadow}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="45*"/>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="45*"/>
                 </Grid.RowDefinitions>
-                <Grid 
-                        Grid.Column="0">
+
+                <Grid  Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="106" />
-                        <RowDefinition Height="110"/>
-                        <RowDefinition Height="1.25"/>
+                        <RowDefinition Height="240" />
                     </Grid.RowDefinitions>
                     <TextBlock
                             Style="{StaticResource TextHeader}"
                             Text="Bán hàng" 
                             FontSize="22"
-                            Margin="20,0,0,0"/>
+                            Margin="20,0,0,0" Height="30"/>
                     <Border 
                             Grid.Row="1" 
                             CornerRadius="4,4,0,0"
@@ -78,12 +76,12 @@
                             Grid.Row="2"
                             BorderBrush="{DynamicResource LightBrush}"
                             CornerRadius="4,0,4,4"
-                            BorderThickness="2,0,2,2" 
-                            Margin="20,0,20,0" Grid.RowSpan="2">
+                            BorderThickness="2,0,2,2"
+                            Margin="20,0,20,0">
                         <ScrollViewer
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto" 
-                    HorizontalScrollBarVisibility="Disabled">
+                    HorizontalScrollBarVisibility="Disabled" >
                             <StackPanel 
                         x:Name="stkSellingProducts"/>
                         </ScrollViewer>
@@ -98,8 +96,8 @@
                             Margin="20,0,0,0"/>
                     <Grid 
                             x:Name="grdFindProducts" 
-                            Margin="100,0,0,0" 
-                            Height="46" 
+                            Margin="230,0,0,0" 
+                            Height="30" 
                             Width="250"
                             Style="{StaticResource DropShadow}"
                             HorizontalAlignment="Right"
@@ -112,7 +110,7 @@
                         <TextBox 
                                 x:Name="txtSearchProducts"
                                 materialDesign:HintAssist.Hint="Tìm theo tên sản phẩm"
-                                FontSize="18"
+                                FontSize="16"
                                 BorderThickness="0"
                                 MaxLines="1"
                                 Margin="12,0,40,0"
@@ -154,7 +152,9 @@
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled">
                         <StackPanel 
-                        x:Name="stkSellingPro1ducts"/>
+                        x:Name="stkSellingPro1ducts" Orientation="Vertical">
+                            <uc:POSProductsControl/>
+                        </StackPanel>
                     </ScrollViewer>
                 </Border>
             </Grid>
@@ -205,9 +205,9 @@
                              TextWrapping="WrapWithOverflow"
                              TextTrimming="CharacterEllipsis"
                              Text="Nguyen Huy Tri Dung"
-                             Width="120"
+                             Width="185"
                              Height="40" 
-                             HorizontalAlignment="Right"/>
+                             HorizontalAlignment="Left" Margin="185,0,0,0"/>
                         <Rectangle                
                             Fill="{DynamicResource WordBlueBrush}" 
                             Width="200"                

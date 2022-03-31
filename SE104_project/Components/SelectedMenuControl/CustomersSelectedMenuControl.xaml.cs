@@ -8,20 +8,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SE104_OnlineShopManagement.Views.Windows
+namespace SE104_OnlineShopManagement.Components.SelectedMenuControl
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CustomersSelectedMenuControl.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class CustomersSelectedMenuControl : UserControl
     {
-        public HomeWindow()
+        public CustomersSelectedMenuControl()
         {
             InitializeComponent();
         }
-
-
     }
 }

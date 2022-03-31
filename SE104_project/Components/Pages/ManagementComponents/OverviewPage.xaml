@@ -22,7 +22,7 @@
             TỔNG QUAN
         </TextBlock>
 
-        <Grid Grid.Row="1" Background="{StaticResource BackgroundLightBrush}">
+        <Grid Grid.Row="1">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -33,12 +33,12 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="HOẠT ĐỘNG"
-                               FontSize="20" FontFamily="Arial" FontWeight="Bold" Foreground="{StaticResource WordDarkBlueBrush}"
-                               Margin="10"
-                               />
+                               Style="{StaticResource TitleText}" 
+                               Foreground="{StaticResource WordBlueBrush}"
+                               Margin="10"/>
                     <!--TODO-->
                     <Border Background="GhostWhite" BorderBrush="Gainsboro"
-                            BorderThickness="1" CornerRadius="10">
+                            BorderThickness="1" CornerRadius="10" Opacity="10">
                         <ComboBox
                                     x:Name="cbSortDate"
                                     materialDesign:ComboBoxAssist.ClassicMode="True"
