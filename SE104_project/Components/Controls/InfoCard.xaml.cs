@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace SE104_OnlineShopManagement.Views.Pages.ManagementComponents
+namespace SE104_OnlineShopManagement.Components.Controls
 {
     /// <summary>
     /// Interaction logic for InfoCard.xaml

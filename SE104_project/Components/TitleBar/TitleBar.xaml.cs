@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace SE104_OnlineShopManagement.Components.TitleBar
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for titleBar.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class titleBar : UserControl
     {
-        public UserControl1()
+        public titleBar()
         {
             InitializeComponent();
         }

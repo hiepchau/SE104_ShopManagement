@@ -21,7 +21,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         private BaseFunction _currentState;
         private ManagingFunctionsViewModel _managingFunctionsViewModel;
         private SellingViewModel _sellingViewModel;
-        
+        public TitleBarViewModel _titleBarViewModel { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public BaseFunction CurrentState { get => _currentState;set => _currentState = value; }
@@ -42,6 +42,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             testCommand1 = new RelayCommand<object>(null, testing1);
             _managingFunctionsViewModel = new ManagingFunctionsViewModel(session,connect);
             _sellingViewModel = new SellingViewModel(session, connect);
+            _titleBarViewModel = new TitleBarViewModel();
             SelectFunctionListCommand = new RelayCommand<object>(null, selectFuncList);
         }
 

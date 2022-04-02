@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:managementComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
+             xmlns:controls="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960"
              >
@@ -68,15 +69,15 @@
 
                     </Grid.ColumnDefinitions>
 
-                    <managementComponents:InfoCard Grid.Column="0" Title="Doanh Số" Number="654,947" Icon="ChartBar" 
+                    <controls:InfoCard Grid.Column="0" Title="Doanh Số" Number="654,947" Icon="ChartBar" 
                                  Background1="{StaticResource WordGreen}" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="{StaticResource LightGreen}" EllipseBackground2="#1090ee90"
                                  Margin="10,22,294,22" Grid.ColumnSpan="2"/>
-                    <managementComponents:InfoCard Grid.Column="1" Title="Lãi Gộp" Number="654,947" Icon="Wallet" 
+                    <controls:InfoCard Grid.Column="1" Title="Lãi Gộp" Number="654,947" Icon="Wallet" 
                                  Background1="#6AA4E0" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="#68D3F7" EllipseBackground2="#3064EDEC"
                                  Margin="10,22,295,23" Grid.ColumnSpan="2"/>
-                    <managementComponents:InfoCard Grid.Column="2" Title="Lợi Nhuận" Number="654,947" Icon="Coins" 
+                    <controls:InfoCard Grid.Column="2" Title="Lợi Nhuận" Number="654,947" Icon="Coins" 
                                  Background1="#FD8A87" Background2="#F3AB92"
                                  EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"
                                  Margin="10,22,-11,23"
