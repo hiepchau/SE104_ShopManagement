@@ -21,7 +21,7 @@
         WindowStyle="None"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        Title="HomeWindow" Height="740" Width="1280">
+        Title="HomeWindow" Height="740" Width="1280" MaxHeight="740" MaxWidth="1280">
 
     <Window.Resources>
         <Style x:Key="NavigationContentStyle" TargetType="ContentControl"></Style>
@@ -49,7 +49,7 @@
                 <ColumnDefinition Width="960"/>-->
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" MinHeight="500">
+            <Grid Grid.Column="0">
                 <ListBox x:Name="NavigationMenuListBox"     
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"

@@ -18,7 +18,8 @@
             <DockPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"
                             DockPanel.Dock="Top" Margin="0 28 0 6">
-                    <TextBlock FontSize="20" Foreground="SlateBlue" Text="Dang ky" />
+                    <TextBlock x:Name="txtAppName" FontSize="20" Foreground="{StaticResource WordBlueBrush}"
+                              Text="App Name"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top"
                             Orientation="Horizontal" Height="4">
@@ -32,12 +33,12 @@
                     <DockPanel Margin="0 0 0 16" LastChildFill="False">
                         <TextBox x:Name="FirstNameBox"
                                  materialDesign:HintAssist.Hint="Ho"
-                                 Text="{Binding LastName, Mode=TwoWay}" Foreground="SteelBlue"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="145" />
+                                 Text="{Binding LastName, Mode=TwoWay}" 
+                                 Style="{StaticResource TextBox}" Width="145" />
                         <TextBox x:Name="LastNameBox"
                                  materialDesign:HintAssist.Hint="Ten"
-                                 Text="{Binding FirstName, Mode=TwoWay}" Foreground="SteelBlue"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90"
+                                 Text="{Binding FirstName, Mode=TwoWay}" 
+                                 Style="{StaticResource TextBox}" Width="90"
                                  DockPanel.Dock="Right" />
                     </DockPanel>
                     <!--Ngay sinh Gioi tinh-->
@@ -66,8 +67,8 @@
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"
                              materialDesign:HintAssist.Hint="Email"
-                             Text="{Binding Email, Mode=TwoWay}" Foreground="SteelBlue"
-                             Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Text="{Binding Email, Mode=TwoWay}" 
+                             Margin="0 0 0 16" Style="{StaticResource TextBox}" Width="250" />
                     <!--Mat khau-->
                     <PasswordBox x:Name="PasswordBox"
                                  materialDesign:HintAssist.Hint="Mat khau"
@@ -77,15 +78,15 @@
                     <PasswordBox x:Name="VerifyPasswordBox"
                                  materialDesign:HintAssist.Hint="Nhap lai mat khau"
                                  Margin="0 0 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-                    <TextBox Text="{Binding ComName, Mode=TwoWay}" Foreground="SteelBlue"
-                             materialDesign:HintAssist.Hint="Company Name"
-                               Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                    
+                    <TextBox Text="{Binding ComName, Mode=TwoWay}" 
+                             materialDesign:HintAssist.Hint="Company Name" Width="250"
+                               Style="{StaticResource TextBox}"/>
+
                     <!--Button-->
                     <DockPanel LastChildFill="False" Margin="0 50 0 0">
                         <Border DockPanel.Dock="Left">
-                            <Button x:Name="backBtn" Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                    Width="100"
+                            <Button x:Name="backBtn" Style="{StaticResource PrimaryButton}"
+                                    Width="100" FontSize="16"
                                     Background="White"
                                     Command="{Binding BackCommand}"
                                     Foreground="{StaticResource MaterialDesignLightForeground}"
@@ -94,8 +95,8 @@
                             </Button>
                         </Border>
                         <Border DockPanel.Dock="Right">
-                            <Button x:Name="signUpBtn" Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                    Width="100"
+                            <Button x:Name="signUpBtn" Style="{StaticResource PrimaryButton}"
+                                    Width="100" FontSize="16"
                                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                     Command="{Binding RegisterCommand}">
                                 <Button.CommandParameter>
