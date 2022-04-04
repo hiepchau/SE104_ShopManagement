@@ -9,6 +9,12 @@
              xmlns:detailfunc="clr-namespace:SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions"
              xmlns:manage="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
              xmlns:managementComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
+             xmlns:customersComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.CustomersComponents"
+             xmlns:financeComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.FinanceComponents"
+             xmlns:settingsComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.SettingsComponents"
+             
+             
+             
              mc:Ignorable="d" 
              Height="715">
 
@@ -44,8 +50,52 @@
 
         <ContentControl Grid.Column="1" Content="{Binding Currentdisplaying}">
             <ContentControl.Resources>
+                
+                <!--Management-->
                 <DataTemplate DataType="{x:Type detailfunc:OverviewFunction}">
                     <managementComponents:OverviewPage></managementComponents:OverviewPage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:OrdersFunction}">
+                    <managementComponents:OrdersPage></managementComponents:OrdersPage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:ProductsFunction}">
+                    <managementComponents:ProductsPage></managementComponents:ProductsPage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:ImportProductsFunction}">
+                    <managementComponents:ImportProducts></managementComponents:ImportProducts>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:WareHouseFunction}">
+                    <managementComponents:WareHousePage></managementComponents:WareHousePage>
+                </DataTemplate>
+                
+                <!--Customer-->
+                <DataTemplate DataType="{x:Type detailfunc:CustomerFunction}">
+                    <customersComponents:CustomerPage></customersComponents:CustomerPage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:MembershipFunction}">
+                    <customersComponents:MemberShipPage></customersComponents:MemberShipPage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:SupplierFunction}">
+                    <customersComponents:SupplierPage></customersComponents:SupplierPage>
+                </DataTemplate>
+                
+                <!--Finance-->
+                <DataTemplate DataType="{x:Type detailfunc:FinanceOverViewFunction}">
+                    <financeComponents:FinanceOverView></financeComponents:FinanceOverView>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:SpendingFunction}">
+                    <financeComponents:SpendingPage></financeComponents:SpendingPage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:IncomeFunction}">
+                    <financeComponents:IncomePage></financeComponents:IncomePage>
+                </DataTemplate>
+                
+                <!--Settings-->
+                <DataTemplate DataType="{x:Type detailfunc:EmployeeFunction}">
+                    <settingsComponents:EmployeePage></settingsComponents:EmployeePage>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:InfoStoreFunction}">
+                    <settingsComponents:InfoStorePage></settingsComponents:InfoStorePage>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" 
              mc:Ignorable="d" 
-             Foreground="{DynamicResource ForgroundResource}"
-             d:DesignHeight="520" d:DesignWidth="350">
+             Foreground="{DynamicResource ForgroundResource}" 
+             MaxHeight="520" MaxWidth="350" >
     <Border>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -34,9 +34,9 @@
                 <StackPanel Margin="0 0 0 10">
                     <TextBox x:Name="CompanyName"
                              Text="{Binding companyname, Mode=TwoWay}"
-                              materialDesign:HintAssist.Hint="Company name"
+                              materialDesign:HintAssist.Hint="Company name" 
                              FontSize="14"
-                             Style="{StaticResource TextBox}" Width="288"/>
+                             Style="{StaticResource TextBox}" Width="275"/>
                 </StackPanel>
                 <!--User Name-->
                 <StackPanel Margin="0 0 0 10">
@@ -44,7 +44,7 @@
                              Text="{Binding username, Mode=TwoWay}"
                               materialDesign:HintAssist.Hint="Username"
                              FontSize="14"
-                             Style="{StaticResource TextBox}" Width="288"/>
+                             Style="{StaticResource TextBox}" Width="275"/>
                 </StackPanel>
 
                 <!--Password-->

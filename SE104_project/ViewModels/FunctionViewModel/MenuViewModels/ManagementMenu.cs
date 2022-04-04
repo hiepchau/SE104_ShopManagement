@@ -29,18 +29,26 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
             if (v != null && v.Name == "Orders")
             {
                 Console.WriteLine(v.Name);
+                _viewModel.Currentdisplaying = new OrdersFunction(_session, _mongoConnect);
+                _viewModel.CurrentDisplayPropertyChanged();
             }
             if (v != null && v.Name == "Products")
             {
                 Console.WriteLine(v.Name);
+                _viewModel.Currentdisplaying = new ProductsFunction(_session, _mongoConnect);
+                _viewModel.CurrentDisplayPropertyChanged();
             }
             if (v != null && v.Name == "Stock")
             {
                 Console.WriteLine(v.Name);
+                _viewModel.Currentdisplaying = new ImportProductsFunction(_session, _mongoConnect);
+                _viewModel.CurrentDisplayPropertyChanged();
             }
             if (v != null && v.Name == "Storage")
             {
                 Console.WriteLine(v.Name);
+                _viewModel.Currentdisplaying = new WareHouseFunction(_session, _mongoConnect);
+                _viewModel.CurrentDisplayPropertyChanged();
             }
         }
     }
