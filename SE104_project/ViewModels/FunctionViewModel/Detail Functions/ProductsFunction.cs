@@ -20,6 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         //Product
         public ICommand OpenAddProductControlCommand { get; set; }
         public ICommand OpenImportProductsCommand { get; set; }
+        public ICommand OpenProductsTypeCommand { get; set; }
         //AddProduct
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
@@ -29,7 +30,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
+            OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
+
         }
         public void OpenAddProductControl(Object o = null)
         {
@@ -42,11 +45,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
+        public void OpenProductsType(Object o = null)
+        {
+            managingFunction.Currentdisplaying = new ProductsTypeFunction(Session, Connect);
+            ManagementMenu.changeSelectedItem(3);
+            managingFunction.CurrentDisplayPropertyChanged();
+        }
         public void OpenImportProducts(Object o = null)
         {
             managingFunction.Currentdisplaying = new ImportProductsFunction(Session, Connect);
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
+
     }
 }

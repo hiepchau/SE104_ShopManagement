@@ -61,6 +61,9 @@
                 <DataTemplate DataType="{x:Type detailfunc:ProductsFunction}">
                     <managementComponents:ProductsPage></managementComponents:ProductsPage>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type detailfunc:ProductsTypeFunction}">
+                    <managementComponents:ProductsTypePage></managementComponents:ProductsTypePage>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type detailfunc:ImportProductsFunction}">
                     <managementComponents:ImportProducts></managementComponents:ImportProducts>
                 </DataTemplate>
