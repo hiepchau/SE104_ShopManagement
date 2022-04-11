@@ -8,9 +8,11 @@
              mc:Ignorable="d"
              d:DesignHeight="715" d:DesignWidth="205.643">
     <ListBox x:Name="NavigationFeatureMenuListBox"
-                         Style="{StaticResource NavigationListBoxStyle}"
-                         ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
-                         Background="{StaticResource WordLightBlueBrush}">
+             Style="{StaticResource NavigationListBoxStyle}"
+             SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
+             ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
+             
+             Background="{StaticResource WordLightBlueBrush}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction

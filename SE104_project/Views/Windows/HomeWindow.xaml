@@ -26,54 +26,55 @@
     <Window.Resources>
         <Style x:Key="NavigationContentStyle" TargetType="ContentControl"></Style>
     </Window.Resources>
+    
+    <materialDesign:DialogHost CloseOnClickAway="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="715"/>
+            </Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="715"/>
-        </Grid.RowDefinitions>
+            <ContentControl Content="{Binding CurrentMainViewModel._titleBarViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type titleBarVM:TitleBarViewModel}">
+                        <titleBarV:titleBar></titleBarV:titleBar>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
 
-        <ContentControl Content="{Binding CurrentMainViewModel._titleBarViewModel}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type titleBarVM:TitleBarViewModel}">
-                    <titleBarV:titleBar></titleBarV:titleBar>
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="114"/>
-                <ColumnDefinition Width="1166"/>
-                <!--<ColumnDefinition Width="206"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="114"/>
+                    <ColumnDefinition Width="1166"/>
+                    <!--<ColumnDefinition Width="206"/>
                 <ColumnDefinition Width="960"/>-->
-            </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
-                <ListBox x:Name="NavigationMenuListBox"     
+                <Grid Grid.Column="0">
+                    <ListBox x:Name="NavigationMenuListBox"     
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          ItemTemplate="{DynamicResource NavigationDataTemplate}"
                          ItemsSource="{StaticResource NavigationMenuItems}"
                          IsSynchronizedWithCurrentItem="False">
-                    <ListBox.Effect>
-                        <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"></DropShadowEffect>
-                    </ListBox.Effect>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction
+                        <ListBox.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"></DropShadowEffect>
+                        </ListBox.Effect>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
                                         Command="{Binding CurrentMainViewModel.SelectFunctionListCommand}"
                                         CommandParameter="{Binding ElementName=NavigationMenuListBox,Path=SelectedItem}"
                                         ></i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ListBox>
-            </Grid>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListBox>
+                </Grid>
 
 
 
-            <Grid Grid.Column="1">
-                <!--<ListBox x:Name="NavigationFeatureMenuListBox"
+                <Grid Grid.Column="1">
+                    <!--<ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          Background="{StaticResource WordLightBlueBrush}">
@@ -82,13 +83,13 @@
                     <ListBoxItem>Hội viên</ListBoxItem>
                     <ListBoxItem>Nhà cung cấp</ListBoxItem>
                 </ListBox>-->
-            </Grid>
+                </Grid>
 
 
-            <!--<posComponents:POSPage Grid.Column="1" Grid.ColumnSpan="2"/>-->
+                <!--<posComponents:POSPage Grid.Column="1" Grid.ColumnSpan="2"/>-->
 
-            <!--<ucPOS:POSPage Grid.Column="1" Grid.ColumnSpan="3"/>-->
-            <!--<ContentControl Grid.Column="1" Content="{Binding CurrentMainViewModel.CurrentState}">
+                <!--<ucPOS:POSPage Grid.Column="1" Grid.ColumnSpan="3"/>-->
+                <!--<ContentControl Grid.Column="1" Content="{Binding CurrentMainViewModel.CurrentState}">
 
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type vm:SellingViewModel}">
@@ -96,22 +97,26 @@
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>-->
-            
-            <Grid Grid.Column="1">
-                <ContentControl Content="{Binding CurrentMainViewModel.CurrentState}">
-                    <ContentControl.Resources>
-                        <DataTemplate DataType="{x:Type func:ManagingFunctionsViewModel}">
-                            <compo1:FunctionGrid></compo1:FunctionGrid>
-                        </DataTemplate>
 
-                        <DataTemplate DataType="{x:Type sell:SellingViewModel}">
-                            <posComponents:POSPage></posComponents:POSPage>
-                        </DataTemplate>
-                    </ContentControl.Resources>
-                </ContentControl>
+                <Grid Grid.Column="1">
+                    <ContentControl Content="{Binding CurrentMainViewModel.CurrentState}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type func:ManagingFunctionsViewModel}">
+                                <compo1:FunctionGrid></compo1:FunctionGrid>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type sell:SellingViewModel}">
+                                <posComponents:POSPage></posComponents:POSPage>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </Grid>
+
+
+
             </Grid>
 
         </Grid>
+    </materialDesign:DialogHost>
 
-    </Grid>
 </Window>

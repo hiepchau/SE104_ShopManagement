@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              mc:Ignorable="d" 
+             x:Name="ucAddCus"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             Height="440"  Width="500"
             Background="{StaticResource White}" >
@@ -137,7 +138,8 @@
                     Height="40"
                     Content="Thoát"
                     Command="{Binding ExitCommand}"
-                    CommandParameter="{Binding ElementName=wdAddCustomer}"
+                    CommandParameter="{Binding ElementName=ucAddCus}"
+                    
                     Width="100"
                     ToolTip="Thoát"
                     TabIndex="5"
@@ -148,7 +150,8 @@
                     IsDefault="True"
                     Style="{StaticResource PrimaryButton}"
                     Command="{Binding SaveCommand}"
-                    CommandParameter="{Binding ElementName=wdAddCustomer}"
+                    CommandParameter="{Binding ElementName=ucAddCus}"
+                    
                     Height="40"
                     Width="100"
                     TabIndex="4"
@@ -158,4 +161,6 @@
             </StackPanel>
         </StackPanel>
     </Grid>
+
+
 </UserControl>

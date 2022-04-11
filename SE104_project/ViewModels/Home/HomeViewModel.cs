@@ -57,6 +57,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
                 Console.WriteLine(pro.quantity);
             }
         }
+
         private void testing(object o = null)
         {
             string name;

@@ -27,6 +27,7 @@
             <Button
                         x:Name="btnAddSupplier"
                         Style="{StaticResource PrimaryButton}"
+                        Command="{Binding OpenAddSupplierControlCommand}"
                         Content="Thêm NCC"
                         ToolTip="Thêm nhà cung cấp"
                         Height="40"

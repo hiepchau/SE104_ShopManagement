@@ -11,6 +11,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class ManagementMenu : MenuViewModel
     {
+        public int selectedItem { get; set; }
         public ManagementMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             ChangeViewModelCommand = new RelayCommand<Object>(null, change);
@@ -47,9 +48,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
             if (v != null && v.Name == "Storage")
             {
                 Console.WriteLine(v.Name);
-                _viewModel.Currentdisplaying = new WareHouseFunction(_session, _mongoConnect);
+                _viewModel.Currentdisplaying = new WareHouseFunction(_session, _mongoConnect, _viewModel, this);
                 _viewModel.CurrentDisplayPropertyChanged();
             }
+        }
+        public void changeSelectedItem(int i)
+        {
+            selectedItem = i;
+            OnPropertyChanged(nameof(selectedItem));
         }
     }
 }

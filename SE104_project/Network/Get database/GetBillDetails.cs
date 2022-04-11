@@ -20,7 +20,6 @@ namespace SE104_OnlineShopManagement.Network.Get_database
         }
         public List<BillDetails> Get()
         {
-
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<BillDetails>("BillDetailsInformation");
             var field = Builders<BillDetails>.Projection

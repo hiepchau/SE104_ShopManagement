@@ -45,7 +45,7 @@
             <Button x:Name="btnImport"
                         Style="{StaticResource PaginationButton}"
                         Background="{StaticResource WordBlueBrush}"
-                            
+                        Command="{Binding OpenAddReceiptControlCommand}"
                         Width="150" Height="45" Margin="150 0">
                 <TextBlock Style="{StaticResource TitleText}"> Nhập hàng</TextBlock>
             </Button>
@@ -60,29 +60,38 @@
                 Margin="20,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="39.128"/>
-                    <ColumnDefinition Width="158*"/>
-                    <ColumnDefinition Width="143*"/>
-                    <ColumnDefinition Width="108*"/>
-                    <ColumnDefinition Width="151*"/>
-                    <ColumnDefinition Width="111*"/>
-                    <ColumnDefinition Width="128*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="90"/>
 
                 </Grid.ColumnDefinitions>
-                <CheckBox Style="{StaticResource PrimaryCheckBox}"
-                          />
-                <TextBlock Grid.Column="1" Style="{StaticResource TitleText}"
-                           Text="Mã phiếu" Height="24" Margin="10,0,0,0" />
-                <TextBlock Grid.Column="2" Style="{StaticResource TitleText}"
-                           Text="Ngày nhập" Height="24" Margin="10,0,0,0" />
-                <ComboBox Grid.Column="3" Style="{StaticResource MaterialDesignDataGridComboBox}"
-                          Text="Người nhập"/>
-                <TextBlock Grid.Column="4" Style="{StaticResource TitleText}"
-                           Text="Nhà cung cấp" Height="24" Margin="10,0,0,0"/>
+                <CheckBox Style="{StaticResource PrimaryCheckBox}"/>
+                <TextBlock 
+                                Text="Mã SP" 
+                                Grid.Column="1"
+                                Style="{StaticResource TitleText}"/>
+                <TextBlock 
+                                Grid.Column="2"
+                                Text="Tên sản phẩm" 
+                                Style="{StaticResource TitleText}"
+                                HorizontalAlignment="Left"
+                                Margin="20,0,0,0"/>
+                <TextBlock Grid.Column="3" Style="{StaticResource TitleText}"
+                           Text="Loại sản phẩm" Height="24" Margin="10,0,0,0" />
+                <TextBlock      Grid.Column="4"
+                                Text="Đơn vị" 
+                                Style="{StaticResource TitleText}"/>
                 <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
-                           Text="Trạng thái" Height="24" Margin="10,0,0,0"/>
+                           Text="Đơn giá" Height="24" Margin="10,0,0,0"/>
                 <TextBlock Grid.Column="6" Style="{StaticResource TitleText}"
+                           Text="Số lượng" Height="24" Margin="10,0,0,0"/>
+                <TextBlock Grid.Column="7" Style="{StaticResource TitleText}"
                            Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
             </Grid>
         </Border>

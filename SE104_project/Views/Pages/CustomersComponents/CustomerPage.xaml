@@ -35,7 +35,7 @@
             <Button
                         x:Name="btnAddCustomer"
                         Style="{StaticResource PrimaryButton}"
-
+                        Command="{Binding OpenAddCustomerControlCommand}"
                         Content="Thêm khách hàng"
                         ToolTip="Thêm khách hàng"
                         Padding="0"

@@ -41,9 +41,7 @@
                         Width="160"/>
             <Button
                         x:Name="btnSwitchImportStock"
-                    
                         Command="{Binding OpenImportProductsCommand}"
-                        CommandParameter="{Binding ElementName=wdMain}"
                         Style="{StaticResource PrimaryButton}"
                         Content="Nhập kho"
                         ToolTip="Nhập kho"

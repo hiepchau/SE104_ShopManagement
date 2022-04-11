@@ -22,5 +22,6 @@ namespace SE104_OnlineShopManagement.Components
         {
             InitializeComponent();
         }
+
     }
 }

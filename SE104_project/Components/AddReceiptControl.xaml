@@ -6,10 +6,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              mc:Ignorable="d" 
-             Height="800" Width="420">
+             Height="700" Width="420">
     <Grid  
-            Style="{StaticResource DropShadow}"
-            Margin="20,0,0,0">
+            Style="{StaticResource DropShadow}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
@@ -25,7 +24,7 @@
                 VerticalAlignment="Top">
             <TextBlock 
                     Style="{StaticResource HeadingText2}"
-                    Text="Thanh toán" 
+                    Text="Phiếu nhập kho" 
                     FontSize="32"
                     HorizontalAlignment="Center"/>
             <Grid 
@@ -184,6 +183,17 @@
                     FontSize="20" 
                     Content="Thanh toán"
                     ToolTip="Thanh toán phiếu nhập kho"
+                    VerticalAlignment="Top" />
+            <Button 
+                    x:Name="btnCancel"
+                    Height="40"
+                    Style="{StaticResource CancelButton}"
+                    Command="{Binding ExitCommand}"
+                    BorderThickness="2"
+                    Margin="0,20,0,0" 
+                    FontSize="20" 
+                    Content="Thoát"
+                    ToolTip="Thoát"
                     VerticalAlignment="Top" />
         </StackPanel>
     </Grid>

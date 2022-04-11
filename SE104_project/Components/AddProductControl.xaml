@@ -6,7 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="700">
+             Background="{StaticResource White}"
+             Height="350" Width="700">
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -43,7 +44,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label
-                    Content="Mã hàng hóa" 
+                    Content="Mã sản phẩm" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle
                     Width="230" 
@@ -67,7 +68,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Tên hàng hóa"
+                    Content="Tên sản phẩm"
                     Style="{StaticResource LabelText}"  />
                 <Rectangle 
                     HorizontalAlignment="Right" 
