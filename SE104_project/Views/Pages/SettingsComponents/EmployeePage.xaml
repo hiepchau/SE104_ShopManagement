@@ -152,7 +152,7 @@
                             Margin="20,10,10,0">
                             <Grid>
                                 <Label
-                                    Content="Mã nhân viên" 
+                                    Content="Tài khoản" 
                                     Foreground="{StaticResource Black1}"
                                     Style="{StaticResource LabelText}"/>
                                 <Rectangle

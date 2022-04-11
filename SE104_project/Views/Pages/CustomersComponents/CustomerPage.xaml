@@ -19,6 +19,7 @@
                     Margin="0,0,20,0">
             <Button
                         Style="{StaticResource PrimaryButton}"
+                        Command="{Binding OpenMemberShipControlCommand}"
                         Content="Hạng thành viên"
                         Height="40"
                         ToolTip="Quản lý hạng thành viên"

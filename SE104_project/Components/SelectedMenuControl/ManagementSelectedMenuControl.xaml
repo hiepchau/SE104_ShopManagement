@@ -24,6 +24,7 @@
         <ListBoxItem Name="Overall">Tổng quan</ListBoxItem>
         <ListBoxItem Name="Orders">Đơn hàng</ListBoxItem>
         <ListBoxItem Name="Products">Hàng hóa</ListBoxItem>
+        <ListBoxItem Name="ProductsType">Loại hàng hóa</ListBoxItem>
         <ListBoxItem Name="Stock">Nhập hàng</ListBoxItem>
         <ListBoxItem Name="Storage">Kho hàng</ListBoxItem>
     </ListBox>

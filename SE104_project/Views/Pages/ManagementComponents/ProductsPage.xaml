@@ -56,7 +56,6 @@
                             FontSize="20"
                             Style="{StaticResource PrimaryButton}"
                             Command="{Binding OpenImportProductsCommand}"
-                            CommandParameter="{Binding ElementName=ucProducts}"
                             Margin="0,0,30,0"
                             Width="160" />
                 <Button 

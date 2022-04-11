@@ -8,15 +8,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="205.643">
     <ListBox x:Name="NavigationFeatureMenuListBox"
-                         Style="{StaticResource NavigationListBoxStyle}"
-                         ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
-                         Background="{StaticResource WordLightBlueBrush}">
+             SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
+             Style="{StaticResource NavigationListBoxStyle}"
+             ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
+             Background="{StaticResource WordLightBlueBrush}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction
-                                        Command="{Binding ChangeViewModelCommand}"
-                                        CommandParameter="{Binding ElementName=NavigationFeatureMenuListBox,Path=SelectedItem}"
-                                        ></i:InvokeCommandAction>
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="{Binding ElementName=NavigationFeatureMenuListBox,Path=SelectedItem}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
 

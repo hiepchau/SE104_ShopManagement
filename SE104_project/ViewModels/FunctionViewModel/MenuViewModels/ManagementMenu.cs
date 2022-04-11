@@ -36,7 +36,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
             if (v != null && v.Name == "Products")
             {
                 Console.WriteLine(v.Name);
-                _viewModel.Currentdisplaying = new ProductsFunction(_session, _mongoConnect);
+                _viewModel.Currentdisplaying = new ProductsFunction(_session, _mongoConnect, _viewModel, this);
                 _viewModel.CurrentDisplayPropertyChanged();
             }
             if (v != null && v.Name == "Stock")

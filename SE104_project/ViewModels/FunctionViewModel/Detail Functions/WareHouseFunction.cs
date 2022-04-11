@@ -27,7 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public void OpenImportProducts(Object o = null)
         {
             managingFunction.Currentdisplaying = new ImportProductsFunction(Session, Connect);
-            ManagementMenu.changeSelectedItem(3);
+            ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
     }

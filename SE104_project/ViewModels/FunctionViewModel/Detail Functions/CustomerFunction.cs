@@ -3,6 +3,7 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class CustomerFunction : BaseFunction
     {
+        public int selectedItem { get; set; }
+
+        private ManagingFunctionsViewModel managingFunction;
+        private CustomerSelectMenu customerSelectMenu;
 
         #region ICommand
         //Customer
@@ -29,7 +34,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand EditCommand { get; set; }
 
         //Membership
-        public ICommand OpenMembershipWindowCommand { get; set; }
+        public ICommand OpenMemberShipControlCommand { get; set; }
 
 
         //AddCustomer
@@ -37,9 +42,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand ExitCommand { get; set; }
         #endregion
 
-        public CustomerFunction(AppSession session, MongoConnect connect) : base(session, connect)
+        public CustomerFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, CustomerSelectMenu _customerSelectMenu) : base(session, connect)
         {
+            managingFunction = managingFunctionsViewModel;
+            customerSelectMenu = _customerSelectMenu;
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
+            OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
+
         }
 
         public void OpenAddCustomerControl(Object o = null)
@@ -53,6 +62,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
+        }
+        public void OpenMemberShipControl(Object o = null)
+        {
+            managingFunction.Currentdisplaying = new MembershipFunction(Session, Connect);
+            customerSelectMenu.changeSelectedItem(1);
+            managingFunction.CurrentDisplayPropertyChanged();
         }
 
     }
