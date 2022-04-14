@@ -80,7 +80,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             category = Console.ReadLine();
             ProductsInformation product = new ProductsInformation("",name, quantity, price, cost, category, producer);
             RegisterProducts regist = new RegisterProducts(product, _connection.client, _session);
-            regist.register();
+            string s = regist.register();
+            Console.WriteLine(s);
         }
 
         private void selectFuncList(object o)
