@@ -17,6 +17,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     {
         public int selectedItem { get; set; }
 
+
         private ManagingFunctionsViewModel managingFunction;
         private CustomerSelectMenu customerSelectMenu;
 
@@ -48,7 +49,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
-
         }
 
         public void OpenAddCustomerControl(Object o = null)

@@ -6,12 +6,12 @@ using System.Windows.Data;
 
 namespace SE104_OnlineShopManagement.Utils
 {
-    public class MultiConverter : IMultiValueConverter
+    #region WareHouseConverter
+    class FundValueConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-
-            return values.Clone();
+            return ((values[0] as long?) * (values[1] as int?)).ToString();
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -19,4 +19,5 @@ namespace SE104_OnlineShopManagement.Utils
             throw new NotImplementedException();
         }
     }
+    #endregion
 }

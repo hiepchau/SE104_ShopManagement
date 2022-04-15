@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>
-
+        <!--<i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadWareHouseCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition />
@@ -225,7 +230,15 @@
             <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,40,20,20">
-                <StackPanel x:Name="stkWareHouse" Margin="-2,0,0,0"/>
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding listItemsWareHouse}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <uc:WareHouseControl/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </Border>
 
             <StackPanel
@@ -235,7 +248,7 @@
                         HorizontalAlignment="Right" 
                         Margin="0,0,20,0">
                 <TextBlock 
-                            x:Name="txtNumOfStock"
+                            x:Name="txtNumOfWareHouse"
                             Style="{StaticResource Text}"
                             Margin="0,0,40,0"/>
                 <Button 
@@ -243,8 +256,7 @@
                             Margin="8,0"
                             ToolTip="Trang trước"
                             Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
+                            Command="{Binding PreviousWareHousePageCommand}">
                     <materialDesign:PackIcon 
                                 Width="26"
                                 Height="28"
@@ -257,7 +269,7 @@
                             Margin="8,0,0,0" 
                             ToolTip="Trang tiếp theo"
                             Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
+                            Command="{Binding NextWareHousePageCommand}"
                             CommandParameter="{Binding ElementName=wdMain}">
                     <materialDesign:PackIcon 
                                 Width="26"
