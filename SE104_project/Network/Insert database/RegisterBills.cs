@@ -18,7 +18,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             this.mongoClient = client;
             this.session = ses;
         }
-        public void register()
+        public string register()
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("BillsInformation");
@@ -30,6 +30,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             };
             collection.InsertOne(newProductDoc);
             Console.WriteLine("User Inserted into", session.CurrnetUser.companyInformation);
+            return newProductDoc["_id"].ToString();
         }
     }
 }
