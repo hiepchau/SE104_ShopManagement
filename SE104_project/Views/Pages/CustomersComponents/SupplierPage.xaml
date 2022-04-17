@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
@@ -264,48 +265,52 @@
                             Background="{StaticResource WordBlueBrush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30"/>
-                            <ColumnDefinition Width="105*"/>
-                            <ColumnDefinition Width="126.754"/>
-                            <ColumnDefinition Width="77*"/>
-                            <ColumnDefinition Width="142*"/>
-                            <ColumnDefinition Width="97*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="70"/>
 
                         </Grid.ColumnDefinitions>
-                        <CheckBox Style="{StaticResource PrimaryCheckBox}" Height="18" Width="16"/>
                         <TextBlock
                                     Text="Mã NCC" 
-                                    Grid.Column="1"
+                                    Grid.Column="0"
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
                         <TextBlock
                                     Text="Nhà cung cấp" 
-                                    Grid.Column="2"
-                                    Style="{StaticResource TitleText}"
-                                    HorizontalAlignment="Left"
-                                    Height="24" Width="112" Margin="10,0,0,0"/>
+                                    Grid.Column="1"
+                                    Style="{StaticResource TitleText}"/>
                         <TextBlock
                                     Text="SĐT" 
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     HorizontalAlignment="Center"
-                                    Style="{StaticResource TitleText}" Height="24" Width="32"/>
+                                    Style="{StaticResource TitleText}"/>
                         <TextBlock
                                     Text="Số đơn hàng" 
-                                    Grid.Column="4"
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,1,0"/>
+                                    Grid.Column="3"
+                                    Style="{StaticResource TitleText}"/>
                         <TextBlock
                                     Text="Tổng tiền" 
-                                    Grid.Column="5"
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
+                                    Grid.Column="4"
+                                    Style="{StaticResource TitleText}"/>
                     </Grid>
                 </Border>
                 <Border
                             Grid.Row="2"
-                            BorderBrush="{DynamicResource Light}"
+                            BorderBrush="{DynamicResource LightBrush}"
                             CornerRadius="0,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,16">
-                    <StackPanel 
-                                x:Name="stkSupplier"/>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding listItemsProducer}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:SupplierControl/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </Border>
                 <StackPanel
                             Grid.Row="3"

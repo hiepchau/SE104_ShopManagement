@@ -8,6 +8,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class MembershipFunction : BaseFunction
     {
+       
        public MembershipFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
 

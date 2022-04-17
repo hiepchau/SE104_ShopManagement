@@ -12,6 +12,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class SupplierFunction : BaseFunction
     {
+        public List<ProducerInformation> listItemsProducer { get; set; }
         #region ICommand
         //Supplier
         public ICommand OpenAddSupplierControlCommand { get; set; }
@@ -21,10 +22,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public SupplierFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
+            listItemsProducer = new List<ProducerInformation>();
+            //Test
+            listItemsProducer.Add(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789"));
+            //
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
         }
         public void OpenAddSupplierControl(Object o = null)
         {
+
             AddSupplierControl addSupplierControl = new AddSupplierControl();
             addSupplierControl.DataContext = this;
             DialogHost.Show(addSupplierControl);

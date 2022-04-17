@@ -15,6 +15,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     {
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
+        public List<ProductsInformation> listItemsProduct { get; set; }
 
         #region ICommand
         //Product
@@ -27,6 +28,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
+            listItemsProduct = new List<ProductsInformation>();
+            //Test
+            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola"));
+            //
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);

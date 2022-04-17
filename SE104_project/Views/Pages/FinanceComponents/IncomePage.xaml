@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Pages.FinanceComponents"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
@@ -50,26 +51,34 @@
                 <CheckBox Style="{StaticResource PrimaryCheckBox}"
                           />
                 <TextBlock Grid.Column="1" Style="{StaticResource TitleText}"
-                           Text="Mã phiếu" Height="24" Margin="10,0,124,0"
-                           Grid.ColumnSpan="2" />
+                           Text="Mã phiếu" HorizontalAlignment="Center"/>
                 <TextBlock Grid.Column="2" Style="{StaticResource TitleText}"
-                           Text="Ngày chi" Height="24" Margin="10,0,93,0" Grid.ColumnSpan="2" />
+                           Text="Ngày thu" HorizontalAlignment="Center"/>
                 <TextBlock Grid.Column="3" Style="{StaticResource TitleText}"
-                          Text="Người chi" Grid.ColumnSpan="2" Height="24" Margin="10,0,105,0"/>
+                          Text="Người thu" Grid.ColumnSpan="2" Height="24" Margin="10,0,105,0"/>
                 <TextBlock Grid.Column="4" Style="{StaticResource TitleText}"
-                           Text="Số tiền" Height="24" Margin="10,0,96,0" Grid.ColumnSpan="2"/>
+                           Text="Số tiền" HorizontalAlignment="Center"/>
                 <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
                            Text="Hình thức" Height="24" Margin="10,0,111,0" Grid.ColumnSpan="2"/>
                 <TextBlock Grid.Column="6" Style="{StaticResource TitleText}"
                            Text="Hạng mục" Height="24" Margin="10,0,122,0" Grid.ColumnSpan="2"/>
                 <TextBlock Grid.Column="7" Style="{StaticResource TitleText}"
-                           Text="Ghi chú" Height="24" Margin="10,0,0,0"/>
+                           Text="Ghi chú" />
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,60,20,20">
-            <StackPanel x:Name="stkOrders" Margin="-2,0,0,0"/>
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding listItemsWareHouse}">
+                    <uc:IncomeControl></uc:IncomeControl>
+                    <!--<ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <uc:IncomeControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>-->
+                </ItemsControl>
+            </StackPanel>
         </Border>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"

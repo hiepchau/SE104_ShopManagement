@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" Background="{StaticResource White}"
-             Height="400" Width="500">
+             Height="430" Width="500">
     <Grid>
         <StackPanel 
-            HorizontalAlignment="Left"
-            Height="240"
-            Margin="40,40,0,0"
+            HorizontalAlignment="Center"
+            Height="300"
+            Margin="0,40,0,0"
             VerticalAlignment="Top"
             Width="420">
             <Grid>
@@ -72,6 +72,26 @@
                     TabIndex="1"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
             </Grid>
+            <Grid 
+                Margin="0,20,0,0">
+                <Label 
+                    Content="Email"
+                    Style="{StaticResource LabelText}" />
+                <Rectangle 
+                    HorizontalAlignment="Right"
+                    Height="40"
+                    Width="230"
+                    RadiusY="4"
+                    RadiusX="4"
+                    Stroke="{StaticResource Gray2}"/>
+                <TextBox 
+                    x:Name="txtEmail"
+                    Style="{StaticResource TextBox}"
+                    materialDesign:HintAssist.Hint="abc@domain.com"
+                    TabIndex="1"
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+            </Grid>
+
             <Grid 
                 Margin="0,20,0,0">
                 <Label 

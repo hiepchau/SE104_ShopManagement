@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>
@@ -70,8 +71,16 @@
                 BorderThickness="2,0,2,2" 
                 Margin="20,40,20,0" 
                 CornerRadius="0,0,4,4" >
-                <StackPanel 
-                        x:Name="stkMembership" />
+                <StackPanel>
+                    <!--<ItemsControl ItemsSource="{Binding listItemsMembership}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <uc:MembershipControl/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
+                    <uc:MembershipControl></uc:MembershipControl>
+                </StackPanel>
             </Border>
 
             <StackPanel

@@ -19,20 +19,22 @@
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
-        <Rectangle 
+       <!--LINE-->
+        <!--<Rectangle 
             Grid.ColumnSpan="9"
             Fill="{StaticResource WordBlueBrush}"
             Height="1"
-            VerticalAlignment="Bottom"/>
+            VerticalAlignment="Bottom"/>-->
+        
         <CheckBox Style="{StaticResource PrimaryCheckBox}"/>
         <TextBlock 
             x:Name="txbId"
-            Text="Mã SP"
+            Text="{Binding ID}"
             Grid.Column="1"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbName"
-            Text="Tên sản phẩm" 
+            Text="{Binding name}" 
             Grid.Column="2"
             MaxWidth="260"
             TextTrimming="CharacterEllipsis"
@@ -41,13 +43,13 @@
             Margin="20,0,0,0"/>
         <TextBlock 
             x:Name="txbProductsType"
-            Text="Loại sản phẩm" 
+            Text="{Binding Category}" 
             Grid.Column="3"
             MaxWidth="180"
             TextTrimming="CharacterEllipsis"
             Style="{StaticResource Text}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,0"/>
+            HorizontalAlignment="Center" 
+            Margin="0,0,0,0"/>
         <TextBlock 
             x:Name="txbUnit"
             Text="Đơn vị" 
@@ -55,18 +57,20 @@
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbQuantity"
-            Text="Tồn kho" 
+            Text="{Binding quantity}" 
             Grid.Column="5"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbImportPrice"
-            Text="Giá nhập" 
+            Text="{Binding StockCost}" 
             Grid.Column="6"
+            Margin="-10 0 0 0"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbSalesPrice"
-            Text="Giá bán" 
+            Text="{Binding price}" 
             Grid.Column="7"
+            Margin="-10 0 0 0"
             Style="{StaticResource Text}"/>
         <Button 
             Grid.Column="8"

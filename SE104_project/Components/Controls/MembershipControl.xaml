@@ -15,20 +15,23 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
+        <TextBlock                      
+            x:Name="txtID"   
+            Text="1"
+            Grid.Column="0"                        
+            Style="{StaticResource Text}"/>
         <TextBlock
-                        Text="STT" 
-                        Grid.Column="0"
-                        Style="{StaticResource Text}"/>
+            x:Name="txtName"
+            Text="Vàng"                         
+            Grid.Column="1"
+            Style="{StaticResource Text}"                        
+            HorizontalAlignment="Center"/>
         <TextBlock
-                        Text="Hạng thành viên" 
-                        Grid.Column="1"
-                        Style="{StaticResource Text}"
-                        HorizontalAlignment="Left"
-                        Margin="20,0,0,0"/>
-        <TextBlock
-                        Text="Ghi chú" 
-                        Grid.Column="2"
-                        Style="{StaticResource Text}"/>
+            x:Name="txtNote"
+            Text="Ghi chú" 
+            Grid.Column="2"
+            Margin="-10 0 0 0"
+            Style="{StaticResource Text}"/>
         <Button
             Grid.Column="3"
             x:Name="btnEditProducts"

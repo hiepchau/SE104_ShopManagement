@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              mc:Ignorable="d" 
              Background="{StaticResource White}"
-             Height="350" Width="700">
+             Height="470" Width="700">
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -122,6 +122,31 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
+                    Content="Đơn vị"
+                    Style="{StaticResource LabelText}"/>
+                <Rectangle 
+                    HorizontalAlignment="Right" 
+                    Height="40" 
+                    Width="230" 
+                    RadiusY="4" 
+                    RadiusX="4"
+                    Stroke="{StaticResource Gray2}"/>
+                <TextBox 
+                    x:Name="txtUnit"
+                    Style="{StaticResource TextBox}"
+                    materialDesign:HintAssist.Hint="Đơn vị tính"
+                    MaxLength="11"
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Foreground="{StaticResource Black2}"
+                    TabIndex="2"/>
+
+            </Grid>
+
+            <Grid 
+                Margin="0,20,0,0" 
+                VerticalAlignment="Top" 
+                Height="40">
+                <Label 
                     Content="Giá nhập"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
@@ -141,6 +166,31 @@
                     TabIndex="2"/>
 
             </Grid>
+            <Grid 
+                Margin="0,20,0,0" 
+                VerticalAlignment="Top" 
+                Height="40">
+                <Label 
+                    Content="Giá bán"
+                    Style="{StaticResource LabelText}"/>
+                <Rectangle 
+                    HorizontalAlignment="Right" 
+                    Height="40" 
+                    Width="230" 
+                    RadiusY="4" 
+                    RadiusX="4"
+                    Stroke="{StaticResource Gray2}"/>
+                <TextBox 
+                    x:Name="txtPrice"
+                    Style="{StaticResource TextBox}"
+                    materialDesign:HintAssist.Hint="Giá bán"
+                    MaxLength="11"
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Foreground="{StaticResource Black2}"
+                    TabIndex="2"/>
+
+            </Grid>
+
             <Grid 
                 Margin="0,40,0,0" 
                 VerticalAlignment="Top"  

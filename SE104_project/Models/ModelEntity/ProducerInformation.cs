@@ -17,5 +17,12 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string Email { get; set; }   
         [BsonElement("Phone")]
         public string PhoneNumber { get; set; } 
+        public ProducerInformation(string id, string name, string email, string phonenumber)
+        {
+            this.ID = id;
+            this.Name = name;
+            this.Email = email;
+            this.PhoneNumber = phonenumber;
+        }
     }
 }

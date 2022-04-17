@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
              mc:Ignorable="d" 
              d:DesignHeight="50">
     <Grid>
@@ -23,32 +22,49 @@
         </Grid.ColumnDefinitions>
         <CheckBox Style="{StaticResource PrimaryCheckBox}"/>
         <TextBlock 
-                                Text="Mã SP" 
-                                Grid.Column="1"
-                                Style="{StaticResource Text}"/>
+            x:Name="txtID"
+            Text="{Binding ID}" 
+            Grid.Column="{Binding ID}"
+            Style="{StaticResource Text}"/>
         <TextBlock 
-                                Grid.Column="2"
-                                Text="Tên sản phẩm" 
-                                Style="{StaticResource Text}"
-                                HorizontalAlignment="Left"
-                                Margin="20,0,0,0"/>
-        <TextBlock Grid.Column="3" Style="{StaticResource Text}"
-                           Text="Loại sản phẩm" Height="24" Margin="10,0,0,0" />
-        <TextBlock      Grid.Column="4"
-                                Text="Đơn vị" 
-                                Style="{StaticResource Text}"/>
-        <TextBlock Grid.Column="5" Style="{StaticResource Text}"
-                           Text="Đơn giá" Height="24" Margin="10,0,0,0"/>
-        <local:NumericSnipperControl Grid.Column="6"
-                                      x:Name="nsQuantity"
-                                      Text="1"
-                                      MaxValue="10000"
-                                      MinValue="1"
-                                      VerticalAlignment="Center"
-                                      Height="30" 
-            Width="70"></local:NumericSnipperControl>
-        <TextBlock Grid.Column="7" Style="{StaticResource Text}"
-                           Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
+            x:Name="txtName"         
+            Grid.Column="2"
+            Text="{Binding name}" 
+            Style="{StaticResource Text}"
+            HorizontalAlignment="Left"
+            Margin="20,0,0,0"/>
+        <TextBlock 
+            x:Name="txtCategory"
+            Grid.Column="3"
+            Style="{StaticResource Text}"
+            Text="{Binding Category}" 
+            Margin="10,0,0,0" />
+        <TextBlock   
+            x:Name="txtUnit"
+            Grid.Column="4"
+            Text="Đơn vị" 
+            Style="{StaticResource Text}"/>
+        <TextBlock 
+            x:Name="txtStockCost"
+            Grid.Column="5" 
+            Style="{StaticResource Text}"
+            Text="{Binding StockCost}" 
+            Margin="10,0,0,0"/>
+        <local:NumericSnipperControl 
+            Grid.Column="6"                                      
+            x:Name="nsQuantity"
+            Text="12"                                     
+            MaxValue="10000"
+            MinValue="1"                                    
+            VerticalAlignment="Center"
+            Height="26" 
+            Width="70"/>
+        <TextBlock
+            Grid.Column="7" 
+            Style="{StaticResource Text}"
+            Text="Tổng tiền" 
+            Height="24" 
+            Margin="10,0,0,0"/>
         <Button
             Grid.Column="8"
             x:Name="btnEditProducts"

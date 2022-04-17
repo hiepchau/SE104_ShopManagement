@@ -16,6 +16,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     class CustomerFunction : BaseFunction
     {
         public int selectedItem { get; set; }
+        public List<CustomerInformation> listItemsCustomer { get; set; }
 
 
         private ManagingFunctionsViewModel managingFunction;
@@ -47,6 +48,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
+            listItemsCustomer = new List<CustomerInformation>();
+            //Test
+            listItemsCustomer.Add(new CustomerInformation("12", "Hip", "abc@gmail.com", "0123456789", "1"));
+            //
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
         }

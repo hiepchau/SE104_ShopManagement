@@ -200,7 +200,7 @@
                                 <Label
                                     Content="Mô tả" 
                                     Foreground="{StaticResource Black1}"
-                                    Style="{StaticResource LabelText}"/>
+                                    Style="{StaticResource PrimaryLabelText}"/>
                                 <Rectangle
                                     Width="180" 
                                     Height="40"

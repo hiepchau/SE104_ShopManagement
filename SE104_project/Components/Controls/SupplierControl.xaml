@@ -9,38 +9,74 @@
              d:DesignHeight="45">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="105*"/>
-            <ColumnDefinition Width="126.754"/>
-            <ColumnDefinition Width="77*"/>
-            <ColumnDefinition Width="142*"/>
-            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="70"/>
 
         </Grid.ColumnDefinitions>
-        <CheckBox Style="{StaticResource PrimaryCheckBox}" Height="18" Width="16"/>
         <TextBlock
-                                    Text="Mã NCC" 
-                                    Grid.Column="1"
-                                    Style="{StaticResource Text}" Height="24" Margin="10,0,0,0"/>
+            x:Name="txtID"
+            Text="{Binding ID}" 
+            Grid.Column="0"
+            Style="{StaticResource Text}" Height="24" Margin="10,0,0,0"/>
         <TextBlock
-                                    Text="Nhà cung cấp" 
-                                    Grid.Column="2"
-                                    Style="{StaticResource Text}"
-                                    HorizontalAlignment="Left"
-                                    Height="24" Width="112" Margin="10,0,0,0"/>
+            x:Name="txtName"
+            Text="{Binding Name}" 
+            Grid.Column="1"
+            Style="{StaticResource Text}"/>
         <TextBlock
-                                    Text="SĐT" 
-                                    Grid.Column="3"
-                                    HorizontalAlignment="Center"
-                                    Style="{StaticResource Text}" Height="24" Width="32"/>
-        <TextBlock
-                                    Text="Số đơn hàng" 
-                                    Grid.Column="4"
-                                    Style="{StaticResource Text}" Height="24" Margin="10,0,1,0"/>
-        <TextBlock
-                                    Text="Tổng tiền" 
-                                    Grid.Column="5"
-                                    Style="{StaticResource Text}" Height="24" Margin="10,0,0,0"/>
+            x:Name="txtPhone"
+            Text="{Binding PhoneNumber}"                                   
+            Grid.Column="2"
+            TextTrimming="CharacterEllipsis"
+            HorizontalAlignment="Center"                                   
+            Style="{StaticResource Text}"/>
+        <TextBlock                               
+            Text="Số đơn hàng"                         
+            Grid.Column="3"                                   
+            Style="{StaticResource Text}"/>
+        <TextBlock                                   
+            Text="Tổng tiền"                                    
+            Grid.Column="4"                                    
+            Style="{StaticResource Text}"/>
+        <Button
+            Grid.Column="5"
+            x:Name="btnEditProducts"
+            ToolTip="Sửa thông tin"
+            Style="{StaticResource TransparentButton}"
+            Command="{Binding EditProductsCommand}"
+            CommandParameter="{Binding ElementName=ucDisplayProducts}"
+            Height="30"
+            Margin="0,0,40,0" 
+            Width="30">
+            <materialDesign:PackIcon
+                Kind="SquareEditOutline" 
+                Width="24"
+                Height="24" 
+                HorizontalAlignment="Left"
+                Foreground="{StaticResource WordBlueBrush}" />
+        </Button>
+        <Button 
+            Grid.Column="5"
+            x:Name="btnDeleteProducts"
+            Style="{StaticResource TransparentButton}"
+            ToolTip="Xóa nhà cung cấp" 
+            Height="30"
+            Margin="0,0,15,0" 
+            Width="30"
+            HorizontalAlignment="Right" 
+            Command="{Binding DeleteProductsCommand}"
+            CommandParameter="{Binding ElementName=ucDisplayProducts}">
+            <materialDesign:PackIcon 
+                Kind="DeleteOutline" 
+                Height="24"
+                Width="24"
+                Foreground="{StaticResource Error}"/>
+        </Button>
+
     </Grid>
 
 </UserControl>

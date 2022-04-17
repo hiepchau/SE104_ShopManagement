@@ -12,6 +12,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class ImportProductsFunction : BaseFunction
     {
+        public List<ProductsInformation> listItemsImportProduct { get; set; }
         #region ICommand
         public ICommand OpenAddReceiptControlCommand { get; set; }
         //AddReceiptControl
@@ -19,6 +20,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public ImportProductsFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
+            listItemsImportProduct = new List<ProductsInformation>();
+            //Test
+            listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye"));
+            //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddAddReceiptControl);
         }
         public void OpenAddAddReceiptControl(Object o = null)
