@@ -3,7 +3,10 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.Network.Insert_database;
+using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +18,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class CustomerFunction : BaseFunction
     {
+        private MongoConnect _connection;
+        private AppSession _session;
         public int selectedItem { get; set; }
         public List<CustomerInformation> listItemsCustomer { get; set; }
 
@@ -46,6 +51,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         public CustomerFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, CustomerSelectMenu _customerSelectMenu) : base(session, connect)
         {
+            this._connection = connect;
+            this._session=session;
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
             listItemsCustomer = new List<CustomerInformation>();
@@ -61,7 +68,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddCustomerControl addCustomerControl = new AddCustomerControl();
             addCustomerControl.DataContext = this;
             DialogHost.Show(addCustomerControl);
-
+            SaveCommand = new RelayCommand<Object>(null, SaveCustomer);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
@@ -74,6 +81,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu.changeSelectedItem(1);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-
+        public void SaveCustomer(object parameter)
+        {
+            var values = (object[])parameter;
+            CustomerInformation info = new CustomerInformation("", values[0].ToString(), values[1].ToString(), values[2].ToString(), values[3].ToString());
+            RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
+            string s = regist.register();
+            Console.WriteLine(s);
+        }
     }
 }

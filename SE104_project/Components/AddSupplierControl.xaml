@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" Background="{StaticResource White}"
              Height="430" Width="500">
+    <UserControl.Resources>
+        <cv:MultiConverter x:Key="multiconverter"/>
+    </UserControl.Resources>
     <Grid>
         <StackPanel 
             HorizontalAlignment="Center"
@@ -123,13 +127,20 @@
                 x:Name="btnSave"
                 IsDefault="True"
                 Style="{StaticResource PrimaryButton}"
-                Command="{Binding SaveCommnad}"
-                CommandParameter="{Binding ElementName=wdAddSupplier}"
+                Command="{Binding SaveCommand}"
                 Width="100"
                 TabIndex="3"
                 ToolTip="Lưu thông tin"
                 HorizontalAlignment="Left"
-                Content="Lưu"/>
+                Content="Lưu">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource multiconverter}">
+                        <Binding ElementName="txtName" Path="Text"/>
+                        <Binding ElementName="txtEmail" Path="Text"/>
+                        <Binding ElementName="txtPhoneNumber" Path="Text"/>
+                    </MultiBinding> 
+                </Button.CommandParameter>
+            </Button>
             <Button 
                 x:Name="btnCancel"
                 Style="{StaticResource CancelButton}"

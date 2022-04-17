@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
+             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              Background="{StaticResource White}"
              Height="470" Width="700">
+    <UserControl.Resources>
+        <cv:MultiConverter x:Key="multiconverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -200,7 +204,6 @@
                 <Button
                     x:Name="btnSave"
                     Command="{Binding SaveCommand}"
-                    CommandParameter="{Binding ElementName=wdAddProducts}"
                     Style="{StaticResource PrimaryButton}"
                     IsDefault="True"
                     Height="40" 
@@ -209,7 +212,17 @@
                     HorizontalAlignment="Left"
                     Content="Lưu" 
                     VerticalAlignment="Center"
-                    IsTabStop="False"/>
+                    IsTabStop="False">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource multiconverter}">
+                            <Binding ElementName="txtName" Path="Text"/>
+                            <Binding ElementName="cboProductsType" Path="Text"/>
+                            <Binding ElementName="txtUnit" Path="Text"/>
+                            <Binding ElementName="txtImportPrice" Path="Text"/>
+                            <Binding ElementName="txtPrice" Path="Text"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
                 <Button
                     x:Name="btnCancel"
                     Command="{Binding ExitCommand}"

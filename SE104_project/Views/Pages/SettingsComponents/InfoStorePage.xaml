@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
-
+    <UserControl.Resources>
+        <cv:MultiConverter x:Key="multiconverter"/>
+    </UserControl.Resources>
     <Grid Style="{StaticResource DropShadow}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -216,14 +219,24 @@
                     Style="{StaticResource PrimaryButton}"
                     FontSize="20"
                     Width="160" Margin="0 0 60 10"
+                    Command="{Binding SaveCommand}"
                     >
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource multiconverter}">
+                            <Binding ElementName="txtStoreName" Path="Text"/>
+                            <Binding ElementName="txtStoreAddress" Path="Text"/>
+                            <Binding ElementName="txtStorePhoneNumber" Path="Text"/>
+                            <Binding ElementName="txtEmail" Path="Text"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
                 </Button>
                 <Button Content="Hủy"
                         ToolTip="Hủy"
                         Height="45"
                         Style="{StaticResource CancelButton}"
                         Margin="0 0 100 10"
-                        Width="160" />
+                        Width="160" 
+                        Command="{Binding CancelCommand}"/>
             </StackPanel>
 
         </Grid>

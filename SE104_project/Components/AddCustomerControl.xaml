@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
+             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              x:Name="ucAddCus"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             Height="440"  Width="500"
             Background="{StaticResource White}" >
-    <Grid>
+    <UserControl.Resources>
+        <cv:MultiConverter x:Key="multiconverter"/>
+    </UserControl.Resources>
+        <Grid>
         <StackPanel
             Margin="30,30,30,0"
             VerticalAlignment="Top" >
@@ -150,14 +154,22 @@
                     IsDefault="True"
                     Style="{StaticResource PrimaryButton}"
                     Command="{Binding SaveCommand}"
-                    CommandParameter="{Binding ElementName=ucAddCus}"
-                    
                     Height="40"
                     Width="100"
                     TabIndex="4"
                     ToolTip="Thêm nhân viên"
                     Content="Lưu"
-                    HorizontalAlignment="Left"/>
+                    HorizontalAlignment="Left">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource multiconverter}">
+                            <Binding ElementName="txtName" Path="Text"/>
+                            <Binding ElementName="txtPhoneNumber" Path="Text"/>
+                            <Binding ElementName="txtCMND" Path="Text"/>
+                            <Binding ElementName="txtAddress" Path="Text"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>

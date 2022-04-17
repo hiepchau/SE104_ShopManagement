@@ -3,6 +3,7 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.Network.Insert_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class ProductsFunction : BaseFunction
     {
+        private MongoConnect _connection;
+        private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
         public List<ProductsInformation> listItemsProduct { get; set; }
@@ -28,6 +31,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
+            this._connection= connect;
+            this._session= session;
             listItemsProduct = new List<ProductsInformation>();
             //Test
             listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola"));
@@ -44,7 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddProductControl addProductControl = new AddProductControl();
             addProductControl.DataContext = this;
             DialogHost.Show(addProductControl);
-
+            SaveCommand = new RelayCommand<Object>(null, SaveProduct);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
@@ -62,6 +67,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-
+        public void SaveProduct(object parameter)
+        {
+            var values = (object[])parameter;
+            long cost =long.Parse(values[3].ToString());
+            long price = long.Parse(values[4].ToString());
+            ProductsInformation info = new ProductsInformation("", values[0].ToString(), 1, price, cost,
+                "", "");
+            RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
+            string s = regist.register();
+            Console.WriteLine(s);
+        }
     }
 }
