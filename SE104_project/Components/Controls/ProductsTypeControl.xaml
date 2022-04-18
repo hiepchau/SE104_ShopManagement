@@ -8,24 +8,27 @@
              d:DesignHeight="45">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
+            x:Name="txtID"
             Grid.Column="0"                                    
-            Text="Mã loại" 
-            Style="{StaticResource Text}" Height="24" Margin="10,0,16,0" />
+            Text="12" 
+            Style="{StaticResource Text}" 
+            HorizontalAlignment="Left" Margin="25 0 0 0"/>
         <TextBlock
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Text="Tên loại"
-            Style="{StaticResource Text}" Height="24" Width="132" Margin="21,0,0,0" />
+            Style="{StaticResource Text}" Margin="25 0 0 0"/>
         <TextBlock
             Grid.Column="2"
             Text="Mô tả" 
-            Style="{StaticResource Text}" Height="24" Margin="10,0,10,0" />
+            Style="{StaticResource Text}" HorizontalAlignment="Left"
+            Margin="15 0 0 0"/>
         <Button 
             Grid.Column="3"
             x:Name="btnEditProducts"

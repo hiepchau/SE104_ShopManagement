@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
@@ -61,9 +61,9 @@
                             Margin="20,0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="45*"/>
-                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1.2*"/>
+                                    <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="90"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
@@ -78,7 +78,7 @@
                                 <TextBlock
                                     Grid.Column="2" 
                                     Text="Mô tả" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
+                                    Style="{StaticResource TitleText}" />
                             </Grid>
                         </Border>
                         <Border 
@@ -87,8 +87,17 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel 
-                                    x:Name="stkActive_ActiveTab"/>
+                            <!--DATAGRID-->
+                            <StackPanel Margin="0 2 0 0">
+                                <uc:ProductsTypeControl/>
+                                <!--<ItemsControl ItemsSource="{Binding listItemsProductType}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <uc:WareHouseControl/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>-->
+                            </StackPanel>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
@@ -97,30 +106,30 @@
                         HorizontalAlignment="Right" 
                         Margin="0,0,20,0">
                             <TextBlock 
-                            x:Name="txtNumOfStock"
-                            Style="{StaticResource Text}"
-                            Margin="0,0,40,0"/>
+                                x:Name="txtNumOfStock"
+                                Style="{StaticResource Text}"
+                                Margin="0,0,40,0"/>
                             <Button 
-                            x:Name="btnPrePageStock" 
-                            Margin="8,0"
-                            ToolTip="Trang trước"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
+                                x:Name="btnPrePageStock" 
+                                Margin="8,0"                            
+                                ToolTip="Trang trước"
+                                Style="{StaticResource PaginationButton}"                            
+                                Command="{Binding PreviousPageCommand}"
+                                CommandParameter="{Binding ElementName=wdMain}">
                                 <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronLeft" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center" />
+                                    Width="26"
+                                    Height="28"
+                                    Kind="ChevronLeft"                                 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" />
                             </Button>
                             <Button 
-                            x:Name="btnNextPageStock" 
-                            Margin="8,0,0,0" 
-                            ToolTip="Trang tiếp theo"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
+                                x:Name="btnNextPageStock" 
+                                Margin="8,0,0,0"                             
+                                ToolTip="Trang tiếp theo"
+                                Style="{StaticResource PaginationButton}"
+                                Command="{Binding NextPageCommand}"
+                                CommandParameter="{Binding ElementName=wdMain}">
                                 <materialDesign:PackIcon 
                                 Width="26"
                                 Height="28"
@@ -188,12 +197,14 @@
                                     RadiusX="4" 
                                     HorizontalAlignment="Right"
                                     Stroke="{StaticResource Gray2}"/>
-                                <PasswordBox
+                                <TextBox
                                     Width="180" 
                                     Height="40" 
-                                    Margin="140 0 0 0" BorderBrush="{StaticResource Gray2}"
+                                    Style="{StaticResource TextBox}"
+                                    materialDesign:HintAssist.Hint="Tên loại"
+                                    Margin="140 0 0 0" 
                                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" >
-                                </PasswordBox>
+                                </TextBox>
                             </Grid>
                             <Grid 
                                 Margin="0,20,0,0">
@@ -321,24 +332,23 @@
                             Margin="20,0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                    <ColumnDefinition Width="35*"/>
-                                    <ColumnDefinition Width="15*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="4*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
                                     Text="Mã loại" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
+                                    Style="{StaticResource TitleText}" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
                                     HorizontalAlignment="Left" 
                                     Text="Tên loại"
-                                    Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
+                                    Style="{StaticResource TitleText}" Margin="25,0,0,0" />
                                 <TextBlock
                                     Grid.Column="2" 
-                                    Text="Mô tả" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
+                                    Text="Mô tả"
+                                    Style="{StaticResource TitleText}" HorizontalAlignment="Center"/>
                             </Grid>
                         </Border>
                         <Border 
@@ -347,8 +357,22 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel 
-                                    x:Name="stkInactive_InActiveTab"/>
+                            <!--DATAGRID-->
+                            <ListBox>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <uc:InactiveTab_ProductsTypeControl/>
+
+
+                                <!--<ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:InactiveTab_ProductsTypeControl/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>-->
+                            </ListBox>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
@@ -450,24 +474,23 @@
                             Margin="20,0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                    <ColumnDefinition Width="35*"/>
-                                    <ColumnDefinition Width="15*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="4*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
                                     Text="Mã loại" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
+                                    Style="{StaticResource TitleText}" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
                                     HorizontalAlignment="Left" 
                                     Text="Tên loại"
-                                    Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
+                                    Style="{StaticResource TitleText}" Margin="25,0,0,0" />
                                 <TextBlock
                                     Grid.Column="2" 
-                                    Text="Mô tả" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
+                                    Text="Mô tả"
+                                    Style="{StaticResource TitleText}" HorizontalAlignment="Center"/>
                             </Grid>
                         </Border>
                         <Border 
@@ -476,8 +499,22 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel 
-                                   />
+                            <!--DATAGRID-->
+                            <ListBox>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <uc:InactiveTab_ProductsTypeControl/>
+
+
+                                <!--<ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:InactiveTab_ProductsTypeControl/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>-->
+                            </ListBox>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
