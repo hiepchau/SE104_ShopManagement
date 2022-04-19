@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <UserControl.Resources>
@@ -63,6 +63,7 @@
                             Margin="20,0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
                                     <ColumnDefinition Width="50*"/>
                                     <ColumnDefinition Width="60*"/>
                                     <ColumnDefinition Width="35*"/>
@@ -70,17 +71,21 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
+                                    Text="ID" 
+                                    Style="{StaticResource TitleText}"/>
+                               <TextBlock 
+                                    Grid.Column="1"
                                     Text="Nhân viên" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
-                                <TextBlock
-                                    Grid.Column="1" 
-                                    HorizontalAlignment="Left" 
-                                    Text="Mã đăng nhập"
-                                    Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
+                                    Style="{StaticResource TitleText}" />
                                 <TextBlock
                                     Grid.Column="2" 
+                                    HorizontalAlignment="Left" 
+                                    Text="Mã đăng nhập"
+                                    Style="{StaticResource TitleText}"/>
+                                <TextBlock
+                                    Grid.Column="3" 
                                     Text="Chức vụ" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
+                                    Style="{StaticResource TitleText}"/>
                             </Grid>
                         </Border>
                         <Border 
@@ -89,8 +94,15 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel 
-                                    x:Name="stkActive_ActiveTab"/>
+                            <StackPanel>
+                                <ItemsControl ItemsSource="{Binding listItemsUserInfo}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <uc:EmployeeControl/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
@@ -169,7 +181,7 @@
                                 <TextBox 
                                     x:Name="txtId"
                                     Style="{StaticResource TextBox}"
-                                    materialDesign:HintAssist.Hint="Tên đăng nhập"
+                                    materialDesign:HintAssist.Hint="Tên đăng nhập/Email"
                                     Width="180" 
                                     Height="40" 
                                     TabIndex="0"
@@ -226,6 +238,29 @@
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>-->
+                                </TextBox>
+                            </Grid>
+                            <Grid 
+                                Margin="0,20,0,0">
+                                <Label
+                                    Content="Giới tính" 
+                                    Foreground="{StaticResource Black1}"
+                                    Style="{StaticResource LabelText}"/>
+                                <Rectangle
+                                    Width="180" 
+                                    Height="40"
+                                    RadiusY="4"
+                                    RadiusX="4" 
+                                    HorizontalAlignment="Right"
+                                    Stroke="{StaticResource Gray2}"/>
+                                <TextBox 
+                                    x:Name="cbSex"
+                                    Style="{StaticResource TextBox}"
+                                    materialDesign:HintAssist.Hint="Nam"
+                                    TabIndex="2"
+                                    Width="180"  Margin="140 0 0 0"
+                                    MaxLength="10"
+                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                                 </TextBox>
                             </Grid>
 

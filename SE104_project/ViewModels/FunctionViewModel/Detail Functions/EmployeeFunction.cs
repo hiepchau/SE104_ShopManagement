@@ -12,6 +12,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class EmployeeFunction : BaseFunction
     {
+        public List<UserInfomation> listItemsUserInfo { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
 
@@ -23,6 +24,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._connection = connect;
             this._session = session;
+            //Item
+            listItemsUserInfo = new List<UserInfomation>();
+            listItemsUserInfo.Add(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com", "1234556", "012345678", "None", 0, 0, new DateTime(2002, 2, 22)));
+            //
             CancelCommand = new RelayCommand<Object>(null, Cancel);
             SaveCommand=new RelayCommand<Object>(null,SaveUser);
         }

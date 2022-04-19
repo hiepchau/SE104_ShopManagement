@@ -11,7 +11,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     {
         Owner=0,
         Manager=1,
-        Employee=2,
+        Employee=2
     }
 
     public enum Gender
