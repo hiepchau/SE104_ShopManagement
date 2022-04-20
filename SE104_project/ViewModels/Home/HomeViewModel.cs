@@ -78,7 +78,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             quantity = int.Parse(Console.ReadLine());
             Console.Write("Category:");
             category = Console.ReadLine();
-            ProductsInformation product = new ProductsInformation("",name, quantity, price, cost, category, producer);
+            ProductsInformation product = new ProductsInformation("",name, quantity, price, cost, category, producer,"Cai");
             RegisterProducts regist = new RegisterProducts(product, _connection.client, _session);
             string s = regist.register();
             Console.WriteLine(s);

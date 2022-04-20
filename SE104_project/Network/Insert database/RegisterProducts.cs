@@ -29,6 +29,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"ProductStockCost", newProduct.StockCost},
                 {"ProductCategory", newProduct.Category},
                 {"ProductProvider", newProduct.ProducerInformation },
+                {"Unit", newProduct.Unit },
             };
             collection.InsertOne(newProductDoc);
             Console.WriteLine("User Inserted into", session.CurrnetUser);

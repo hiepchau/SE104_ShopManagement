@@ -30,7 +30,8 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.price)
                 .Include(p => p.ProducerInformation)
                 .Include(p => p.Category)
-                .Include(p=>p.name);
+                .Include(p=>p.name)
+                .Include(p=>p.Unit);
 
             var au = collection.Find<ProductsInformation>(_filter).Project<ProductsInformation>(field).ToList();
             return au;

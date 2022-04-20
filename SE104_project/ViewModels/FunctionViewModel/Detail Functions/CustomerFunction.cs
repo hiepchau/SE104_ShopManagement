@@ -57,7 +57,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             listItemsCustomer = new List<CustomerInformation>();
             //Test
-            listItemsCustomer.Add(new CustomerInformation("12", "Hip", "abc@gmail.com", "0123456789", "1"));
+            listItemsCustomer.Add(new CustomerInformation("12", "Hip", "abc@gmail.com", "0123456789", "1","123"));
             //
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
@@ -84,7 +84,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public void SaveCustomer(object parameter)
         {
             var values = (object[])parameter;
-            CustomerInformation info = new CustomerInformation("", values[0].ToString(), values[1].ToString(), values[2].ToString(), values[3].ToString());
+            CustomerInformation info = new CustomerInformation("", values[0].ToString(), values[1].ToString(), values[2].ToString(), values[3].ToString(),"123");
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
             string s = regist.register();
             Console.WriteLine(s);
