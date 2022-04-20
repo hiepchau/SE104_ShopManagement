@@ -6,37 +6,60 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="50">
+             d:DesignHeight="45">
     <Grid>
         <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="34*"/>
-                    <ColumnDefinition Width="155"/>
-                    <ColumnDefinition Width="115*"/>
-                    <ColumnDefinition Width="95*"/>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="96*"/>
-                    <ColumnDefinition Width="111*"/>
-                    <ColumnDefinition Width="122*"/>
-                    <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
-        <CheckBox Style="{StaticResource PrimaryCheckBox}" Height="18" Width="18"
-                          />
-        <TextBlock Grid.Column="1" Style="{StaticResource Text}"
-                           Text="Mã phiếu" />
-        <TextBlock Grid.Column="2" Style="{StaticResource Text}"
-                           Text="Ngày chi" Margin="-20 0 0 0"/>
-        <TextBlock Grid.Column="3" Style="{StaticResource Text}"
-                          Text="Người chi" Grid.ColumnSpan="2" Height="24" Margin="10,0,105,0"/>
-        <TextBlock Grid.Column="4" Style="{StaticResource Text}"
-                           Text="Số tiền" Height="24" Margin="10,0,96,0" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Column="5" Style="{StaticResource Text}"
-                           Text="Hình thức" Height="24" Margin="10,0,111,0" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Column="6" Style="{StaticResource Text}"
-                           Text="Hạng mục" Height="24" Margin="10,0,122,0" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Column="7" Style="{StaticResource Text}"
-                           Text="Ghi chú" Margin="-20 0 0 0"/>
+        <TextBlock 
+            Grid.Column="0" 
+            Style="{StaticResource Text}"
+            HorizontalAlignment="Left"
+            Text="Mã phiếu" 
+            Margin="10 0 0 0"/>
+        <TextBlock 
+            Grid.Column="1" 
+            Style="{StaticResource Text}"
+            Text="Ngày chi"
+            HorizontalAlignment="Left"
+            Margin="0 0 0 0"/>
+        <TextBlock 
+            Grid.Column="2" 
+            Style="{StaticResource Text}"
+            Text="Người chi" 
+            HorizontalAlignment="Left"
+            Margin="10,0,0,0"/>
+        <TextBlock 
+            Grid.Column="3" 
+            Style="{StaticResource Text}"
+            Text="Số tiền" 
+            HorizontalAlignment="Left"
+            Margin="15,0,0,0"/>
+        <TextBlock 
+            Grid.Column="4" 
+            Style="{StaticResource Text}"
+            Text="Hình thức"
+            Margin="0,0,0,0" />
+        <TextBlock 
+            Grid.Column="5" 
+            Style="{StaticResource Text}"                         
+            Text="Hạng mục"
+            Margin="0,0,0,0"/>
+        <TextBlock 
+            Grid.Column="6" 
+            Style="{StaticResource Text}"                         
+            Text="Ghi chú"
+            HorizontalAlignment="Left"
+            Margin="0 0 0 0"/>
         <Button
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"

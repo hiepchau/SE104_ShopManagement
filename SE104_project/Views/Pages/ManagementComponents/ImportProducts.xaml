@@ -20,22 +20,22 @@
             <compo:SearhBar tbWidth="400" ToolTip="Tìm kiếm sản phẩm"
                         Title="Nhập tên sản phẩm" Width="220" Margin="20 0 0 0"/>
             <ComboBox
-                            x:Name="cboSelectFast"
-                            materialDesign:ComboBoxAssist.ClassicMode="True"
-                            materialDesign:HintAssist.Hint="Chọn theo loại"
-                            Height="45"
-                            FontSize="18"
-                            Width="220"
-                            BorderThickness="0"
-                            Padding="20,0,0,0" Margin="40 0 0 0"
-                            ItemsSource="{Binding ItemSourceProductsType}"
-                            SelectedItem="{Binding SelectedProductsType}"
-                            DisplayMemberPath="Name"
-                            VerticalContentAlignment="Center"
-                            HorizontalContentAlignment="Left"
-                            FontWeight="SemiBold"
-                            BorderBrush="{StaticResource Black2}" 
-                            Background="{StaticResource White}">
+                x:Name="cboSelectFast"                
+                materialDesign:ComboBoxAssist.ClassicMode="True"
+                materialDesign:HintAssist.Hint="Chọn theo loại"                
+                Height="45"
+                FontSize="18"                
+                Width="220"
+                BorderThickness="0"
+                Padding="20,0,0,0" Margin="40 0 0 0"                
+                ItemsSource="{Binding ItemSourceProductsType}"
+                SelectedItem="{Binding SelectedProductsType}"                
+                DisplayMemberPath="Name"
+                VerticalContentAlignment="Center"                
+                HorizontalContentAlignment="Left"
+                FontWeight="SemiBold"                
+                BorderBrush="{StaticResource Black2}" 
+                Background="{StaticResource White}">
                 <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding SelectionChangedProductsTypeCommand}"
@@ -61,39 +61,48 @@
                 Margin="20,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1.1*"/>
-                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="90"/>
-
                 </Grid.ColumnDefinitions>
-                <CheckBox Style="{StaticResource PrimaryCheckBox}"/>
                 <TextBlock 
-                                Text="Mã SP" 
-                                Grid.Column="1"
-                                Style="{StaticResource TitleText}"/>
+                    Text="Mã SP"                                
+                    Grid.Column="0"
+                    Style="{StaticResource TitleText}"/>
                 <TextBlock 
-                                Grid.Column="2"
-                                Text="Tên sản phẩm" 
-                                Style="{StaticResource TitleText}"
-                                HorizontalAlignment="Left"
-                                Margin="20,0,0,0"/>
-                <TextBlock Grid.Column="3" Style="{StaticResource TitleText}"
-                           Text="Loại sản phẩm" Height="24" Margin="10,0,0,0" />
-                <TextBlock      Grid.Column="4"
-                                Text="Đơn vị" 
-                                Style="{StaticResource TitleText}"/>
-                <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
-                           Text="Đơn giá" Height="24" Margin="10,0,0,0"/>
-                <TextBlock Grid.Column="6" Style="{StaticResource TitleText}"
-                           Text="Số lượng" Height="24" Margin="10,0,0,0"/>
-                <TextBlock Grid.Column="7" Style="{StaticResource TitleText}"
-                           Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
+                    Grid.Column="1"                               
+                    Text="Tên sản phẩm" 
+                    Style="{StaticResource TitleText}"                               
+                    HorizontalAlignment="Left"
+                    Margin="20,0,0,0"/>
+                <TextBlock
+                    Grid.Column="2" Style="{StaticResource TitleText}"
+                    Text="Loại sản phẩm" 
+                    Margin="10,0,0,0" />
+                <TextBlock     
+                    Grid.Column="3"                             
+                    Text="Đơn vị" 
+                    Style="{StaticResource TitleText}"/>
+                <TextBlock 
+                    Grid.Column="4" 
+                    Style="{StaticResource TitleText}"
+                    Text="Đơn giá" 
+                    Margin="10,0,0,0"/>
+                <TextBlock 
+                    Grid.Column="5" 
+                    Style="{StaticResource TitleText}"
+                    Text="Số lượng" 
+                    Margin="10,0,0,0"/>
+                <TextBlock
+                    Grid.Column="6" 
+                    Style="{StaticResource TitleText}"
+                    Text="Tổng tiền" 
+                    Margin="10,0,0,0"/>
             </Grid>
         </Border>
 
@@ -133,10 +142,10 @@
                     Margin="8,0,0,0"
                     ToolTip="Trang tiếp theo"
                     Style="{StaticResource PaginationButton}">
-                <materialDesign:PackIcon 
-                        Width="26"
-                        Height="28"
-                        Kind="ChevronRight" />
+                <materialDesign:PackIcon                
+                    Width="26"
+                    Height="28"                    
+                    Kind="ChevronRight" />
             </Button>
         </StackPanel>
     </Grid>

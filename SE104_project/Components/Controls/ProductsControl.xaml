@@ -9,7 +9,6 @@
              d:DesignHeight="45">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2.5*"/>
             <ColumnDefinition Width="2*"/>
@@ -26,25 +25,24 @@
             Height="1"
             VerticalAlignment="Bottom"/>-->
         
-        <CheckBox Style="{StaticResource PrimaryCheckBox}"/>
         <TextBlock 
             x:Name="txbId"
             Text="{Binding ID}"
-            Grid.Column="1"
+            Grid.Column="0"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbName"
             Text="{Binding name}" 
-            Grid.Column="2"
+            Grid.Column="1"
             MaxWidth="260"
             TextTrimming="CharacterEllipsis"
             Style="{StaticResource Text}"
             HorizontalAlignment="Left" 
-            Margin="20,0,0,0"/>
+            Margin="40,0,0,0"/>
         <TextBlock 
             x:Name="txbProductsType"
             Text="{Binding Category}" 
-            Grid.Column="3"
+            Grid.Column="2"
             MaxWidth="180"
             TextTrimming="CharacterEllipsis"
             Style="{StaticResource Text}"
@@ -53,27 +51,27 @@
         <TextBlock 
             x:Name="txbUnit"
             Text="Đơn vị" 
-            Grid.Column="4"
+            Grid.Column="3"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbQuantity"
             Text="{Binding quantity}" 
-            Grid.Column="5"
+            Grid.Column="4"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbImportPrice"
             Text="{Binding StockCost}" 
-            Grid.Column="6"
+            Grid.Column="5"
             Margin="-10 0 0 0"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txbSalesPrice"
             Text="{Binding price}" 
-            Grid.Column="7"
+            Grid.Column="6"
             Margin="-10 0 0 0"
             Style="{StaticResource Text}"/>
         <Button 
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"
@@ -90,7 +88,7 @@
                 Foreground="{StaticResource WordBlueBrush}" />
         </Button>
         <Button 
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
             ToolTip="Xóa mặt hàng" 

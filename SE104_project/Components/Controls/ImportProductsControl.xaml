@@ -9,64 +9,61 @@
              d:DesignHeight="50">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1.1*"/>
-            <ColumnDefinition Width="1.4*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="90"/>
-
         </Grid.ColumnDefinitions>
-        <CheckBox Style="{StaticResource PrimaryCheckBox}"/>
         <TextBlock 
             x:Name="txtID"
             Text="{Binding ID}" 
-            Grid.Column="{Binding ID}"
+            Grid.Column="0"
             Style="{StaticResource Text}"/>
         <TextBlock 
             x:Name="txtName"         
-            Grid.Column="2"
+            Grid.Column="1"
             Text="{Binding name}" 
             Style="{StaticResource Text}"
-            HorizontalAlignment="Left"
-            Margin="20,0,0,0"/>
+            HorizontalAlignment="Center"
+            Margin="0,0,0,0"/>
         <TextBlock 
             x:Name="txtCategory"
-            Grid.Column="3"
+            Grid.Column="2"
             Style="{StaticResource Text}"
             Text="{Binding Category}" 
-            Margin="10,0,0,0" />
+            HorizontalAlignment="Center"
+            Margin="0,0,0,0" />
         <TextBlock   
             x:Name="txtUnit"
-            Grid.Column="4"
+            Grid.Column="3"
             Text="Đơn vị" 
-            Style="{StaticResource Text}"/>
+            Style="{StaticResource Text}" Margin="-5 0 0 0"/>
         <TextBlock 
             x:Name="txtStockCost"
-            Grid.Column="5" 
+            Grid.Column="4" 
             Style="{StaticResource Text}"
             Text="{Binding StockCost}" 
-            Margin="10,0,0,0"/>
+            Margin="0,0,0,0"/>
         <local:NumericSnipperControl 
-            Grid.Column="6"                                      
+            Grid.Column="5"                                      
             x:Name="nsQuantity"
             Text="12"                                     
             MaxValue="10000"
             MinValue="1"                                    
             VerticalAlignment="Center"
             Height="26" 
-            Width="70"/>
+            Width="70" Margin="-10 0 0 0"/>
         <TextBlock
-            Grid.Column="7" 
+            Grid.Column="6" 
             Style="{StaticResource Text}"
             Text="Tổng tiền" 
-            Height="24" 
-            Margin="10,0,0,0"/>
+            Margin="0,0,0,0"/>
         <Button
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"
@@ -83,7 +80,7 @@
                 Foreground="{StaticResource WordBlueBrush}" />
         </Button>
         <Button 
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
             ToolTip="Xóa mặt hàng" 

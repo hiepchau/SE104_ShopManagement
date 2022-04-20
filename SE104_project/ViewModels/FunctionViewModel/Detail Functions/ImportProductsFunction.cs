@@ -22,7 +22,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             listItemsImportProduct = new List<ProductsInformation>();
             //Test
-            listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye"));
+            listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"));
             //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddAddReceiptControl);
         }

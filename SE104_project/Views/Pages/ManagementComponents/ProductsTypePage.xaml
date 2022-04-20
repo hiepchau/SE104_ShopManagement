@@ -89,14 +89,14 @@
                             Margin="20,0,20,0">
                             <!--DATAGRID-->
                             <StackPanel Margin="0 2 0 0">
-                                <uc:ProductsTypeControl/>
-                                <!--<ItemsControl ItemsSource="{Binding listItemsProductType}">
+                                <ItemsControl ItemsSource="{Binding listItemsProductType}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <uc:WareHouseControl/>
+                                            <uc:ProductsTypeControl/>
+
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
-                                </ItemsControl>-->
+                                </ItemsControl>
                             </StackPanel>
                         </Border>
                         <StackPanel
