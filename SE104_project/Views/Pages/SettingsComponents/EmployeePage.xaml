@@ -414,12 +414,12 @@
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
                             <ListBox>
-                                <!--<ListBox.ItemContainerStyle>
-                                    <Style TargetType="listItemsUserInfo">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
-                                <uc:InactiveTab_EmployeeControl/>-->
+                                <uc:InactiveTab_EmployeeControl/>
                             </ListBox>
                         </Border>
                         <StackPanel
