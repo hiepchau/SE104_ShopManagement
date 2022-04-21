@@ -14,39 +14,35 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40" />
-            <ColumnDefinition Width="90"/>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="75*"/>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="94*" />
-            <ColumnDefinition Width="94*" />
-            <ColumnDefinition Width="94*" />
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1.1*" />
+            <ColumnDefinition Width="1.1*" />
+            <ColumnDefinition Width="1.1*" />
             <ColumnDefinition Width="90" />
         </Grid.ColumnDefinitions>
-        <CheckBox Style="{StaticResource PrimaryCheckBox}" 
-                              Height="18" Width="16" />
         <TextBlock
             x:Name="txtID"  
             Text="{Binding ID}" 
-            Grid.Column="1"
+            Grid.Column="0"
             Style="{StaticResource Text}"  Height="24"/>
         <TextBlock
             x:Name="txtName"
             Text="{Binding name}" 
-            Grid.Column="2"
+            Grid.Column="1"
             Style="{StaticResource Text}" HorizontalAlignment="Left"
-            Margin="20,0,0,0" 
-            Height="24" Width="79"/>
+            Margin="40,0,0,0"/>
         <TextBlock
             x:Name="txtQuantity"            
             Text="{Binding quantity}" 
-            Grid.Column="3"
-            Style="{StaticResource Text}" Height="24" Margin="-35,0,0,0" />
+            Grid.Column="2"
+            Style="{StaticResource Text}" />
         <TextBlock
             x:Name="txtFunds"
-            Grid.Column="4"
-            Style="{StaticResource Text}"  Height="24" Margin="-35,0,0,0">
+            Grid.Column="3"
+            Style="{StaticResource Text}">
             <TextBlock.Text>
                 <MultiBinding Converter="{StaticResource FundMulti}">
                     <Binding Path="StockCost"/>
@@ -57,17 +53,17 @@
         <TextBlock
             x:Name="txtBuyProduct"
             Text="{Binding StockCost}"
-            Grid.Column="5"
-            Style="{StaticResource Text}" Height="24" Margin="-10,0,0,0"/>
+            Grid.Column="4"
+            Style="{StaticResource Text}" Margin="-10,0,0,0"/>
         <TextBlock
             x:Name="txtSellProduct"
             Text="{Binding price}"
-            Grid.Column="6"
-            Style="{StaticResource Text}" Height="24" Margin="-10,0,0,0"/>
+            Grid.Column="5"
+            Style="{StaticResource Text}" Margin="-10,0,0,0"/>
         <TextBlock          
             x:Name="txtValue"
-            Grid.Column="7"
-            Style="{StaticResource Text}" Height="24" Margin="-20 0 0 0">
+            Grid.Column="6"
+            Style="{StaticResource Text}" HorizontalAlignment="Left" Margin="20 0 0 0">
             <TextBlock.Text>
                 <MultiBinding Converter="{StaticResource InvenMulti}">
                     <Binding Path="price"/>
@@ -76,7 +72,7 @@
             </TextBlock.Text>
         </TextBlock>
         <Button
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"
@@ -93,7 +89,7 @@
                 Foreground="{StaticResource WordBlueBrush}" />
         </Button>
         <Button 
-            Grid.Column="8"
+            Grid.Column="7"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
             ToolTip="Xóa mặt hàng" 

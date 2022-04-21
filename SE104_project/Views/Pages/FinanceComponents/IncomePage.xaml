@@ -38,32 +38,55 @@
                 Margin="20">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="34*"/>
-                    <ColumnDefinition Width="155"/>
-                    <ColumnDefinition Width="115*"/>
-                    <ColumnDefinition Width="95*"/>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="96*"/>
-                    <ColumnDefinition Width="111*"/>
-                    <ColumnDefinition Width="122*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.2*"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Style="{StaticResource PrimaryCheckBox}"
-                          />
-                <TextBlock Grid.Column="1" Style="{StaticResource TitleText}"
-                           Text="Mã phiếu" HorizontalAlignment="Center"/>
-                <TextBlock Grid.Column="2" Style="{StaticResource TitleText}"
-                           Text="Ngày thu" HorizontalAlignment="Center"/>
-                <TextBlock Grid.Column="3" Style="{StaticResource TitleText}"
-                          Text="Người thu" Grid.ColumnSpan="2" Height="24" Margin="10,0,105,0"/>
-                <TextBlock Grid.Column="4" Style="{StaticResource TitleText}"
-                           Text="Số tiền" HorizontalAlignment="Center"/>
-                <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
-                           Text="Hình thức" Height="24" Margin="10,0,111,0" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="6" Style="{StaticResource TitleText}"
-                           Text="Hạng mục" Height="24" Margin="10,0,122,0" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="7" Style="{StaticResource TitleText}"
-                           Text="Ghi chú" />
+                <TextBlock             
+                    Grid.Column="0" 
+                    Style="{StaticResource TitleText}"            
+                    Text="Mã phiếu" />
+                <TextBlock 
+                    Grid.Column="1"            
+                    Style="{StaticResource TitleText}"
+                    Text="Ngày thu"           
+                    Margin="0 0 0 0"/>
+                <TextBlock 
+                    Grid.Column="2"            
+                    Style="{StaticResource TitleText}"
+                    Text="Người thu"            
+                    Grid.ColumnSpan="2" 
+                    Margin="10,0,0,0"/>
+                <TextBlock            
+                    Grid.Column="3" 
+                    Style="{StaticResource TitleText}"
+                    Text="Số tiền"            
+                    Height="24" 
+                    Margin="10,0,0,0"            
+                    Grid.ColumnSpan="2"/>
+                <TextBlock 
+                    Grid.Column="4"             
+                    Style="{StaticResource TitleText}"
+                    Text="Hình thức"            
+                    Margin="10,0,0,0" 
+                    Grid.ColumnSpan="2"/>
+                <TextBlock             
+                    Grid.Column="5" 
+                    Style="{StaticResource TitleText}"                                     
+                    Text="Hạng mục"
+                    Margin="10,0,0,0" 
+                    Grid.ColumnSpan="2"/>
+                <TextBlock            
+                    Grid.Column="6" 
+                    Style="{StaticResource TitleText}"                         
+                    Text="Ghi chú"   
+                    HorizontalAlignment="Left"
+                    Margin="0 0 0 0"/>
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"

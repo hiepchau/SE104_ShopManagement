@@ -413,8 +413,14 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel 
-                                    x:Name="stkInactive_InActiveTab"/>
+                            <ListBox>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <uc:InactiveTab_EmployeeControl/>
+                            </ListBox>
                         </Border>
                         <StackPanel
                         Grid.Row="3"

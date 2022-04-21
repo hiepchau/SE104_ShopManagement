@@ -139,7 +139,6 @@
                     x:Name="txtUnit"
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Đơn vị tính"
-                    MaxLength="11"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"/>
@@ -164,7 +163,6 @@
                     x:Name="txtImportPrice"
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Giá nhập"
-                    MaxLength="11"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"/>
@@ -188,7 +186,6 @@
                     x:Name="txtPrice"
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Giá bán"
-                    MaxLength="11"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"/>

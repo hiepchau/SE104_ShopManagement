@@ -16,7 +16,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string name { get; set; }
         [BsonElement("Note")]
         public string note { get; set; }
-        public ProductTypeInfomation(string id, string name,string note="")
+        public ProductTypeInfomation(string id, string name, string note = "")
         {
             this.ID = id;
             this.name = name;

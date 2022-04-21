@@ -8,41 +8,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="45">
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="60*"/>
-                <ColumnDefinition Width="35*"/>
-                <ColumnDefinition Width="90"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="90"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock 
                 x:Name="txtID"
                 Grid.Column="0"                
                 Text="{Binding ID}" 
                 HorizontalAlignment="Left"
                 Margin="10 0 0 0"
                 Style="{StaticResource Text}"/>
-            <TextBlock    
+        <TextBlock    
                 x:Name="txtName"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="30 0 0 0"
                 Text="{Binding LastName}" 
                 Style="{StaticResource Text}" />
-            <TextBlock
+        <TextBlock
                 x:Name="txtEmail"
                 Grid.Column="2"                 
                 HorizontalAlignment="Left" 
                 TextTrimming="CharacterEllipsis"
                 Text="{Binding Email}"                
                 Style="{StaticResource Text}"/>
-            <TextBlock
+        <TextBlock
                 x:Name="txtRole"
                 Grid.Column="3"                 
                 Text="{Binding role}" 
                 Style="{StaticResource Text}"/>
-            <Button
+        <Button
             Grid.Column="4"
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
@@ -52,14 +51,14 @@
             Height="30"
             Margin="0,0,40,0" 
             Width="30">
-                <materialDesign:PackIcon
+            <materialDesign:PackIcon
                 Kind="SquareEditOutline" 
                 Width="24"
                 Height="24" 
                 HorizontalAlignment="Left"
                 Foreground="{StaticResource WordBlueBrush}" />
-            </Button>
-            <Button 
+        </Button>
+        <Button 
             Grid.Column="4"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
@@ -70,13 +69,13 @@
             HorizontalAlignment="Right" 
             Command="{Binding DeleteProductsCommand}"
             CommandParameter="{Binding ElementName=ucDisplayProducts}">
-                <materialDesign:PackIcon 
+            <materialDesign:PackIcon 
                 Kind="DeleteOutline" 
                 Height="24"
                 Width="24"
                 Foreground="{StaticResource Error}"/>
-            </Button>
-        </Grid>
+        </Button>
+
 
     </Grid>
 </UserControl>
