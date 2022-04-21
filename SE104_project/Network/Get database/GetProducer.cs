@@ -3,6 +3,7 @@ using SE104_OnlineShopManagement.Models.ModelEntity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.Network.Get_database
 {
@@ -17,7 +18,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             _session = session;
             _filter = filter;
         }
-        public List<ProducerInformation> Get()
+        public async Task<List<ProducerInformation>> Get()
         {
 
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
@@ -28,7 +29,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.Email)
                 .Include(p => p.PhoneNumber);
 
-            var au = collection.Find<ProducerInformation>(_filter).Project<ProducerInformation>(field).ToList();
+            var au = await collection.Find<ProducerInformation>(_filter).Project<ProducerInformation>(field).ToListAsync();
             return au;
 
         }

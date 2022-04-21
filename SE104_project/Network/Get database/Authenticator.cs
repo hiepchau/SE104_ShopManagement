@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.Network.Get_database
 {
@@ -16,7 +17,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             this.autheninfo = authen;
             this.client = mongoClient;
         }
-        public UserInfomation Authenticate()
+        public async Task<UserInfomation> Authenticate()
         {
             var compalist = client.ListDatabaseNames().ToList();
             Func<Boolean> checkDB = new Func<bool>(() =>
@@ -45,8 +46,8 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                     .Include(p => p.role)
                     .Include(p => p.birthDay)
                     .Include(p => p.gender);
-           
-                UserInfomation au = collection.Find<UserInfomation>(x=>x.Email==autheninfo.UserName && x.Password==autheninfo.Password).Project<UserInfomation>(field).FirstOrDefault();
+  
+                UserInfomation au = await collection.Find<UserInfomation>(x=>x.Email==autheninfo.UserName && x.Password==autheninfo.Password).Project<UserInfomation>(field).FirstOrDefaultAsync();
                 return au;
             }
             return null;

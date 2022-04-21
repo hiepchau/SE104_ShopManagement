@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SE104_OnlineShopManagement.Models.ModelEntity;
@@ -20,16 +21,25 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             this.session = session;
         }
 
-        public string register()
+        public async Task<String> register()
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("ProductTypeInfomation");
+            var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
+            var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", newShip.ID);
+            var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
+            if (lscheck.Count > 0)
+            {
+                Console.WriteLine("Insert error");
+                return null;
+            }
             BsonDocument newProductDoc = new BsonDocument
             {
+                {"_id",newShip.ID },
                 {"ProductTypeName", newShip.name },
                 {"Note", newShip.note }
             };
-            collection.InsertOne(newProductDoc);
+            await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("ProductType Inserted into " + session.CurrnetUser.companyInformation);
             return newProductDoc["_id"].ToString();
         }

@@ -112,9 +112,9 @@
                     </ContentControl>
                 </Grid>
 
-
+                <Button Command="{Binding CurrentMainViewModel.testCommand1}"/>
             </Grid>
-
+            
         </Grid>
     </materialDesign:DialogHost>
 

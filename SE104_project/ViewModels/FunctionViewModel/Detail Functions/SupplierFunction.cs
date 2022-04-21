@@ -47,12 +47,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             });
 
         }
-        public void SaveSupplier(object parameter)
+        public async void SaveSupplier(object parameter)
         {
             var values = (object[])parameter;
             ProducerInformation info = new ProducerInformation("", values[0].ToString(), values[1].ToString(), values[2].ToString());
             RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
-            string s = regist.register();
+            string s = await regist.register();
             Console.WriteLine(s);
             //var filter = Builders<ProducerInformation>.Filter.Empty;
             //GetProducer getter = new GetProducer(_connection.client, _session, filter);

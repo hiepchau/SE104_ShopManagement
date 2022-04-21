@@ -35,7 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session= session;
             listItemsProduct = new List<ProductsInformation>();
             //Test
-            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola"));
+            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola",""));
             //
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
@@ -67,15 +67,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-        public void SaveProduct(object parameter)
+        public async void SaveProduct(object parameter)
         {
             var values = (object[])parameter;
             long cost =long.Parse(values[3].ToString());
             long price = long.Parse(values[4].ToString());
             ProductsInformation info = new ProductsInformation("", values[0].ToString(), 1, price, cost,
-                "", "");
+                "", "","");
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
-            string s = regist.register();
+            string s = await regist.register();
             Console.WriteLine(s);
         }
     }

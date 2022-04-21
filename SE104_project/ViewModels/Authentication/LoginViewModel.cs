@@ -46,7 +46,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             LoginCommand = new RelayCommand<object>(null, Login);
         }
 
-        public void Login(object o)
+        public async void Login(object o)
         {
             var pass = o as PasswordBox;
             password= pass.Password;
@@ -57,7 +57,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             }
             AuthenticationInformation authen = new AuthenticationInformation(username, password, companyname);
             Authenticator LoginNet = new Authenticator(authen, Connection.client);
-            UserInfomation logininfo = LoginNet.Authenticate();
+            UserInfomation logininfo = await LoginNet.Authenticate();
             if (logininfo != null)
             {
                 Session.CurrnetUser = logininfo;

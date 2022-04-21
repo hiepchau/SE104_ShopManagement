@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SE104_OnlineShopManagement.Models.ModelEntity;
@@ -18,7 +19,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             _session = session;
             _filter = filter;
         }
-        public List<ProductsInformation> Get()
+        public async Task<List<ProductsInformation>> Get()
         {
             
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
@@ -33,7 +34,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p=>p.name)
                 .Include(p=>p.Unit);
 
-            var au = collection.Find<ProductsInformation>(_filter).Project<ProductsInformation>(field).ToList();
+            var au = await collection.Find<ProductsInformation>(_filter).Project<ProductsInformation>(field).ToListAsync();
             return au;
 
         }

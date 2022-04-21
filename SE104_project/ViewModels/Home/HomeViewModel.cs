@@ -12,6 +12,8 @@ using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using System.Windows.Controls;
+using SE104_OnlineShopManagement.Services;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
@@ -46,19 +48,24 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             SelectFunctionListCommand = new RelayCommand<object>(null, selectFuncList);
         }
 
-        private void testing1(object o = null)
+        private async void testing1(object o = null)
         {
-            SellingViewModel sell = _factory.CreateViewModel<SellingViewModel>();
-            var filter = Builders<ProductsInformation>.Filter.Eq(x => x.name, "diblo1");
-            GetProducts getter = new GetProducts(_connection.client, _session, filter);
-            var ls = getter.Get();
-            foreach(ProductsInformation pro in ls)
-            {
-                Console.WriteLine(pro.quantity);
-            }
+            //SellingViewModel sell = _factory.CreateViewModel<SellingViewModel>();
+            //var filter = Builders<ProductsInformation>.Filter.Eq(x => x.name, "testproduct");
+            //GetProducts getter = new GetProducts(_connection.client, _session, filter);
+            //var ls = getter.Get();
+            //foreach (ProductsInformation pro in ls)
+            //{
+            //    Console.WriteLine(pro.quantity);
+            //}
+            IDGenerator gen = new AutoStockingIDGenerator(_session, _connection.client);
+            Task<string> task = gen.Generate();
+            string s = await task;
+            
+            Console.WriteLine(s);
         }
 
-        private void testing(object o = null)
+        private async void testing(object o = null)
         {
             string name;
             string producer;
@@ -78,9 +85,9 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             quantity = int.Parse(Console.ReadLine());
             Console.Write("Category:");
             category = Console.ReadLine();
-            ProductsInformation product = new ProductsInformation("",name, quantity, price, cost, category, producer,"Cai");
+            ProductsInformation product = new ProductsInformation(await new AutoProductsIDGenerator(_session,_connection.client).Generate(),name, quantity, price, cost, category, producer,"Cai");
             RegisterProducts regist = new RegisterProducts(product, _connection.client, _session);
-            string s = regist.register();
+            string s = await regist.register();
             Console.WriteLine(s);
         }
 

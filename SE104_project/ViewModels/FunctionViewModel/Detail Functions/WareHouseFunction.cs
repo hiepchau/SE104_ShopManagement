@@ -27,7 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             listItemsWareHouse = new List<ProductsInformation>();
             //ItemTest
-            listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye"));
+            listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye",""));
             //
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;

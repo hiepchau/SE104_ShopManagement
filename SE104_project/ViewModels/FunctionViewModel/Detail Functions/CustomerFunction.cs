@@ -81,12 +81,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu.changeSelectedItem(1);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-        public void SaveCustomer(object parameter)
+        public async void SaveCustomer(object parameter)
         {
             var values = (object[])parameter;
             CustomerInformation info = new CustomerInformation("", values[0].ToString(), values[1].ToString(), values[2].ToString(), values[3].ToString(),"123");
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
-            string s = regist.register();
+            string s = await regist.register();
             Console.WriteLine(s);
         }
     }

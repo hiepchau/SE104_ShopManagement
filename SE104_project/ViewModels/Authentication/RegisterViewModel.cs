@@ -50,7 +50,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             //authenticationWindow.DataContext = _factory.CreateViewModel<MainViewModel>();
         }
 
-        public void Register(object o)
+        public async void Register(object o)
         {
             var ob = (object[])o;
             var pass1 = ob[0] as PasswordBox;
@@ -80,9 +80,9 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                 }
             }
             company = new CompanyInformation(Guid.NewGuid().ToString(), ComName);
-            user = new UserInfomation(Guid.NewGuid().ToString(),FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
+            user = new UserInfomation("",FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
             RegisterUser regist= new RegisterUser(user,DBConnection.client);
-            regist.registerUser();
+            string s = await regist.registerUser();
             FirstName = "";
             LastName = "";
             Email = "";

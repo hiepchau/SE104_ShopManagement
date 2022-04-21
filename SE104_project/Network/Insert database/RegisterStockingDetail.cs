@@ -8,30 +8,30 @@ using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.Network.Insert_database
 {
-    class RegisterMembership
+    public class RegisterStockingDetail
     {
-        private MembershipInformation newShip;
+        private StockDetails detail;
         private MongoClient mongoClient;
         private AppSession session;
-
-        public RegisterMembership(MembershipInformation info, MongoClient client, AppSession session)
+        public RegisterStockingDetail(StockDetails detail, MongoClient client, AppSession ses)
         {
-            this.newShip = info;
+            this.detail = detail;
             this.mongoClient = client;
-            this.session = session;
+            this.session = ses;
         }
-
         public async Task<string> register()
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
-            var collection = database.GetCollection<BsonDocument>("MembershipInformation");
+            var collection = database.GetCollection<BsonDocument>("StockDetailInformation");
             BsonDocument newProductDoc = new BsonDocument
             {
-                {"MembershipName", newShip.name },
-                {"Priority", newShip.priority }
+                {"ProductID",detail.productID},
+                {"BillID", detail.stockID},
+                {"Amount", detail.amount},
+                {"SumPrice", detail.sumPrice},
             };
             await collection.InsertOneAsync(newProductDoc);
-            Console.WriteLine("Membership Inserted into " + session.CurrnetUser.companyInformation);
+            Console.WriteLine("User Inserted into " + session.CurrnetUser.companyInformation);
             return newProductDoc["_id"].ToString();
         }
     }

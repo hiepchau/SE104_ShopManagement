@@ -10,6 +10,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("_id")]
         public string ID { get; private set; }
         [BsonElement("ProductName")]
         public string name { get; set; }  
@@ -25,6 +26,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string ProducerInformation { get; set; }
         [BsonElement("Unit")]
         public string Unit { get; set; }
+
         public ProductsInformation(string id,string Name, int quan, long price, long cost, string category, string pcinfo, string unit)
         {
             this.ID = id;
