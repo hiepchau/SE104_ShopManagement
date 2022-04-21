@@ -45,6 +45,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                     .Include(p => p.companyInformation)
                     .Include(p => p.role)
                     .Include(p => p.birthDay)
+                    .Include(p => p.salary)
                     .Include(p => p.gender);
   
                 UserInfomation au = await collection.Find<UserInfomation>(x=>x.Email==autheninfo.UserName && x.Password==autheninfo.Password).Project<UserInfomation>(field).FirstOrDefaultAsync();

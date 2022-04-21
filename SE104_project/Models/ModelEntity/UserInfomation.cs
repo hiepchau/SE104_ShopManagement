@@ -43,9 +43,11 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public Role role { get; set; } 
         [BsonElement("UserGender")]
         public Gender gender { get; set; }
+        [BsonElement("UserSalary")]
+        public long salary { get; set; }
         [BsonElement("UserBirthday")]
         public DateTime birthDay { get; set; }
-        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role, Gender gen, DateTime birth)
+        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role, Gender gen, long salary, DateTime birth)
         {
             this.ID = id;
             this.FirstName = name;  
@@ -56,6 +58,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
             this.companyInformation = compa;
             this.role = role;
             this.gender = gen;
+            this.salary = salary;
             this.birthDay = birth;
         }
     }

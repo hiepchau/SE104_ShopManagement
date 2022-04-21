@@ -35,11 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session= session;
             listItemsProduct = new List<ProductsInformation>();
             //Test
-<<<<<<< HEAD
-            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola",""));
-=======
             listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"));
->>>>>>> 13736bdc6f887259e95b8c5e4af1c2603c32ab73
             //
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
@@ -77,11 +73,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             long cost =long.Parse(values[3].ToString());
             long price = long.Parse(values[4].ToString());
             ProductsInformation info = new ProductsInformation("", values[0].ToString(), 1, price, cost,
-<<<<<<< HEAD
-                "", "","");
-=======
                 values[1].ToString(), "",values[2].ToString());
->>>>>>> 13736bdc6f887259e95b8c5e4af1c2603c32ab73
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
             string s = await regist.register();
             Console.WriteLine(s);

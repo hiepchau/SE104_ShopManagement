@@ -26,7 +26,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session = session;
             //Item
             listItemsUserInfo = new List<UserInfomation>();
-            listItemsUserInfo.Add(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com", "1234556", "012345678", "None", 0, 0, new DateTime(2002, 2, 22)));
+            listItemsUserInfo.Add(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com", "1234556", "012345678", "None", 0, 0, 123456, new DateTime(2002, 2, 22)));
             //
             CancelCommand = new RelayCommand<Object>(null, Cancel);
             SaveCommand=new RelayCommand<Object>(null,SaveUser);

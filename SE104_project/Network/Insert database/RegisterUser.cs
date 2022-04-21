@@ -35,8 +35,9 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserPhoneNumber",newUser.PhoneNumber },
                 {"UserRole",(int)newUser.role },
                 {"UserGender",(int)newUser.gender },
+                {"UserSalary",(long)newUser.salary},
                 {"UserBirthday",newUser.birthDay }
-                    };
+                };
                 await collection.InsertOneAsync(newUserDoc1);
                 Console.WriteLine("User Inserted into", newUser.companyInformation);
                 return newUserDoc1["_id"].ToString();
@@ -51,6 +52,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserPhoneNumber",newUser.PhoneNumber },
                 {"UserRole",(int)newUser.role },
                 {"UserGender",(int)newUser.gender },
+                {"UserSalary",(long)newUser.salary },
                 {"UserBirthday",newUser.birthDay }
             };
             await collection.InsertOneAsync(newUserDoc);
