@@ -25,6 +25,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         public string PhoneNumber { get; set; }
         public string birthDay { get; set; } 
         public Gender gender { get; set; }
+        public long salary;
         public string ComName { get; set; }
         private MongoConnect DBConnection;
         #endregion
@@ -80,7 +81,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                 }
             }
             company = new CompanyInformation(Guid.NewGuid().ToString(), ComName);
-            user = new UserInfomation("",FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
+            user = new UserInfomation("",FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,salary,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
             RegisterUser regist= new RegisterUser(user,DBConnection.client);
             string s = await regist.registerUser();
             FirstName = "";
