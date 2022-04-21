@@ -73,7 +73,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             long cost =long.Parse(values[3].ToString());
             long price = long.Parse(values[4].ToString());
             ProductsInformation info = new ProductsInformation("", values[0].ToString(), 1, price, cost,
-                "", "","");
+                values[1].ToString(), "",values[2].ToString());
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
             string s = regist.register();
             Console.WriteLine(s);

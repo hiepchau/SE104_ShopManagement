@@ -175,7 +175,8 @@
                         Style="{StaticResource TextBox}"
                         materialDesign:HintAssist.Hint="Hạng thành viên"
                         TabIndex="0"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" >
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                        Text="{Binding membershipname, Mode=TwoWay}">
                         <!--<TextBox.Text>
                             <Binding 
                                 Path="Membership"
@@ -209,7 +210,8 @@
                         x:Name="txtTarget"
                         Style="{StaticResource TextBox}"
                         materialDesign:HintAssist.Hint="Ghi chú"
-                        TabIndex="1">
+                        TabIndex="1"
+                        Text="{Binding priority, Mode=TwoWay}">
                     </TextBox>
                 </Grid>
             </StackPanel>
@@ -222,6 +224,7 @@
                     x:Name="btnSave"
                     Content="Lưu"
                     ToolTip="Lưu thay đổi"
+                    Command="{Binding SaveCommand}"
                     Style="{StaticResource PrimaryButton}"
                     Margin="0,0,20,0" 
                     IsDefault="True"
