@@ -26,11 +26,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
         }
-        public void SaveMemberShip(object o = null)
+        public async void SaveMemberShip(object o = null)
         {
             MembershipInformation info = new MembershipInformation("", membershipname, priority);
             RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
-            string s = regist.register();
+            string s = await regist.register();
             Console.WriteLine(s);
             //var filter = Builders<MembershipInformation>.Filter.Empty;
             //GetMembership getter = new GetMembership(_connection.client, _session, filter);

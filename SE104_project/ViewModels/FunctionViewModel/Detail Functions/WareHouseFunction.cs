@@ -27,12 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             listItemsWareHouse = new List<ProductsInformation>();
             //ItemTest
-<<<<<<< HEAD
-            listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye",""));
-=======
-            listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye","nguoi"));
->>>>>>> 13736bdc6f887259e95b8c5e4af1c2603c32ab73
-            //
+            listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye","nguoi"));            //
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);

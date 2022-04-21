@@ -25,12 +25,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsProductType.Add(new ProductTypeInfomation("1", "Nuoc giai khat"));
             SaveCommand = new RelayCommand<Object>(null, SaveProductType);
         }
-        public void SaveProductType(object parameter)
+        public async void SaveProductType(object parameter)
         {
             var values=(object[])parameter;
             ProductTypeInfomation info = new ProductTypeInfomation("",values[0].ToString(),values[1].ToString());
             RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
-            string s = regist.register();
+            string s = await regist.register();
             Console.WriteLine(s);
         }
     }
