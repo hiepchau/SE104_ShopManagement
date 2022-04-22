@@ -44,12 +44,36 @@
                             RadiusX="4"
                             Grid.RowSpan="4"
                             Panel.ZIndex="-1"/>
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource HeadingText2}"
-                            Text="Danh sách nhân viên" 
-                            FontSize="22"
-                            Margin="20,0,0,0"/>
+
+                        <!--HEADER-->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <TextBlock
+                                Style="{StaticResource HeadingText2}"
+                                Text="Danh sách nhân viên"                             
+                                FontSize="22"
+                                Margin="20,0,0,0"/>
+                            
+                            <Button                             
+                                x:Name="btnSetupSalary"
+                                Content="Thiết lập lương"                            
+                                ToolTip="Thiết lập lương nhân viên"
+                                FontSize="19"                            
+                                Style="{StaticResource PrimaryButton}"
+                                Command="{Binding OpenSalaryCommand}" 
+                                HorizontalAlignment="Right"
+                                Margin="200,0,50,0" 
+                                Width="180"/>
+                            <Button 
+                                x:Name="btnImportProducts"                           
+                                Content="Kết toán lương"
+                                ToolTip="Nhập kho"                           
+                                Height="40"
+                                FontSize="20"                          
+                                Style="{StaticResource PrimaryButton}"
+                                Command="{Binding OpenImportProductsCommand}"
+                                Width="180" />
+                        </StackPanel>
+
                         <Border 
                             Grid.Row="1" 
                             CornerRadius="4,4,0,0"
