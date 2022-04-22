@@ -26,7 +26,6 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             var field = Builders<CustomerInformation>.Projection
                 .Include(p => p.ID)
                 .Include(p => p.Name)
-                .Include(p => p.Email)
                 .Include(p => p.PhoneNumber)
                 .Include(p=>p.CustomerLevel);
 
