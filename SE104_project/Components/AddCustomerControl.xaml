@@ -4,16 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
-             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              x:Name="ucAddCus"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             Height="440"  Width="500"
             Background="{StaticResource White}" >
-    <UserControl.Resources>
-        <cv:MultiConverter x:Key="multiconverter"/>
-    </UserControl.Resources>
-        <Grid>
+    <Grid>
         <StackPanel
             Margin="30,30,30,0"
             VerticalAlignment="Top" >
@@ -59,7 +55,8 @@
                     materialDesign:HintAssist.Hint="Họ và tên"
                     Style="{StaticResource TextBox}"
                     TabIndex="0"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding customerName, Mode=TwoWay}"/>
 
             </Grid>
             <Grid 
@@ -82,7 +79,8 @@
                     Style="{StaticResource TextBox}"
                     MaxLength="10"
                     TabIndex="1"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding customerPhone, Mode=TwoWay}"/>
 
             </Grid>
             <Grid 
@@ -105,7 +103,8 @@
                     materialDesign:HintAssist.Hint="CMND"
                     TabIndex="2"
                     MaxLength="12"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding customerCMND, Mode=TwoWay}"/>
 
             </Grid>
             <Grid 
@@ -128,7 +127,8 @@
                     materialDesign:HintAssist.Hint="Địa chỉ" 
                     Width="230"
                     TabIndex="3"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding customerAddress, Mode=TwoWay}"/>
             </Grid>
             <StackPanel 
                 Margin="0,30,0,0" 
@@ -160,14 +160,6 @@
                     ToolTip="Thêm nhân viên"
                     Content="Lưu"
                     HorizontalAlignment="Left">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource multiconverter}">
-                            <Binding ElementName="txtName" Path="Text"/>
-                            <Binding ElementName="txtPhoneNumber" Path="Text"/>
-                            <Binding ElementName="txtCMND" Path="Text"/>
-                            <Binding ElementName="txtAddress" Path="Text"/>
-                        </MultiBinding>
-                    </Button.CommandParameter>
 
                 </Button>
             </StackPanel>

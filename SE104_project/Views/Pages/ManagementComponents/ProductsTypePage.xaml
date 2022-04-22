@@ -6,12 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
-             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
-    <UserControl.Resources>
-        <cv:MultiConverter x:Key="multiconverter"/>
-    </UserControl.Resources>
     <Grid>
         <TabControl 
             x:Name="tabControl"
@@ -208,7 +204,8 @@
                                     Style="{StaticResource TextBox}"
                                     materialDesign:HintAssist.Hint="Tên loại"
                                     Margin="140 0 0 0" 
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                                    Text="{Binding productTypeName, Mode=TwoWay}">
                                 </TextBox>
                             </Grid>
                             <Grid 
@@ -230,7 +227,8 @@
                                     materialDesign:HintAssist.Hint="Mô tả"
                                     TabIndex="1"
                                     Width="180" Margin="140 0 0 0" 
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                                    Text="{Binding note, Mode=TwoWay}">
                                     <!--<TextBox.Text>
                                         <Binding 
                                             Path="Unit"
@@ -261,12 +259,6 @@
                                 materialDesign:ButtonAssist.CornerRadius="2"
                                 ToolTip="Lưu thông tin" 
                                 Content="Lưu" >
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource multiconverter}">
-                                        <Binding ElementName="txtName" Path="Text"/>
-                                        <Binding ElementName="txtDetail" Path="Text"/>
-                                    </MultiBinding>
-                                </Button.CommandParameter>
                                 <!--<Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
                                                   Mode="TwoWay">

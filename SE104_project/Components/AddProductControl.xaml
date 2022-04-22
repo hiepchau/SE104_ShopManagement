@@ -9,9 +9,6 @@
              mc:Ignorable="d" 
              Background="{StaticResource White}"
              Height="470" Width="700">
-    <UserControl.Resources>
-        <cv:MultiConverter x:Key="multiconverter"/>
-    </UserControl.Resources>
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -86,7 +83,8 @@
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Tên hàng"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    TabIndex="0"/>
+                    TabIndex="0"
+                    Text="{Binding productName, Mode=TwoWay}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0"
@@ -118,7 +116,8 @@
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
-                    TabIndex="1">
+                    TabIndex="1"
+                    SelectedValue="{Binding productCategory, Mode=TwoWay}">
                 </ComboBox>
             </Grid>
             <Grid 
@@ -141,7 +140,8 @@
                     materialDesign:HintAssist.Hint="Đơn vị tính"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
-                    TabIndex="2"/>
+                    TabIndex="2"
+                    Text="{Binding productUnit, Mode=TwoWay}"/>
 
             </Grid>
 
@@ -165,7 +165,8 @@
                     materialDesign:HintAssist.Hint="Giá nhập"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
-                    TabIndex="2"/>
+                    TabIndex="2"
+                    Text="{Binding productCost, Mode=TwoWay}"/>
 
             </Grid>
             <Grid 
@@ -188,7 +189,8 @@
                     materialDesign:HintAssist.Hint="Giá bán"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
-                    TabIndex="2"/>
+                    TabIndex="2"
+                    Text="{Binding productPrice, Mode=TwoWay}"/>
 
             </Grid>
 
@@ -210,15 +212,6 @@
                     Content="Lưu" 
                     VerticalAlignment="Center"
                     IsTabStop="False">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource multiconverter}">
-                            <Binding ElementName="txtName" Path="Text"/>
-                            <Binding ElementName="cboProductsType" Path="Text"/>
-                            <Binding ElementName="txtUnit" Path="Text"/>
-                            <Binding ElementName="txtImportPrice" Path="Text"/>
-                            <Binding ElementName="txtPrice" Path="Text"/>
-                        </MultiBinding>
-                    </Button.CommandParameter>
                 </Button>
                 <Button
                     x:Name="btnCancel"

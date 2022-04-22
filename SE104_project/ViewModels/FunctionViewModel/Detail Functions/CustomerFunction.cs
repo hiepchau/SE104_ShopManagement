@@ -18,6 +18,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class CustomerFunction : BaseFunction
     {
+        #region properties
+        public string customerName { get; set; }
+        public string customerPhone { get; set; }
+        public string customerCMND { get; set; }
+        public string customerAddress { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public int selectedItem { get; set; }
@@ -26,7 +31,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         private ManagingFunctionsViewModel managingFunction;
         private CustomerSelectMenu customerSelectMenu;
-
+        #endregion
         #region ICommand
         //Customer
         public ICommand LoadCustomerCommand { get; set; }
@@ -57,7 +62,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             listItemsCustomer = new List<CustomerInformation>();
             //Test
-            listItemsCustomer.Add(new CustomerInformation("12", "Hip", "abc@gmail.com", "0123456789", "1","123"));
+            listItemsCustomer.Add(new CustomerInformation("12", "Hip", "0123456789", "1","123"));
             //
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
@@ -81,10 +86,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu.changeSelectedItem(1);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-        public async void SaveCustomer(object parameter)
+        public async void SaveCustomer(object o = null)
         {
-            var values = (object[])parameter;
-            CustomerInformation info = new CustomerInformation("", values[0].ToString(), values[1].ToString(), values[2].ToString(), values[3].ToString(),"123");
+            CustomerInformation info = new CustomerInformation("", customerName,customerPhone,"1",customerCMND);
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
             string s = await regist.register();
             Console.WriteLine(s);

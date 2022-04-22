@@ -13,10 +13,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class MembershipFunction : BaseFunction
     {
+        #region properties
         public string membershipname { get; set; }
         public int priority { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
+        #endregion
         #region ICommand
         public ICommand SaveCommand { get; set; }
         #endregion

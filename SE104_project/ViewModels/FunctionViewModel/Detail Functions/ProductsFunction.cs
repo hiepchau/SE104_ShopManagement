@@ -14,11 +14,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class ProductsFunction : BaseFunction
     {
+        #region properties
+        public string productName { get; set; }
+        public string productCategory { get; set; }
+        public string productUnit { get; set; }
+        public long productCost { get; set; }
+        public long productPrice { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
         public List<ProductsInformation> listItemsProduct { get; set; }
+        #endregion
 
         #region ICommand
         //Product
@@ -67,13 +74,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-        public async void SaveProduct(object parameter)
+        public async void SaveProduct(object o = null)
         {
-            var values = (object[])parameter;
-            long cost =long.Parse(values[3].ToString());
-            long price = long.Parse(values[4].ToString());
-            ProductsInformation info = new ProductsInformation("", values[0].ToString(), 1, price, cost,
-                values[1].ToString(), "",values[2].ToString());
+            ProductsInformation info = new ProductsInformation("", productName,1,productPrice,productCost,"","",productUnit);
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
             string s = await regist.register();
             Console.WriteLine(s);

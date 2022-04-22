@@ -11,6 +11,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class ProductsTypeFunction:BaseFunction
     {
+        public string productTypeName { get; set; }
+        public string note { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         #region
@@ -25,10 +27,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsProductType.Add(new ProductTypeInfomation("1", "Nuoc giai khat"));
             SaveCommand = new RelayCommand<Object>(null, SaveProductType);
         }
-        public async void SaveProductType(object parameter)
+        public async void SaveProductType(object o = null)
         {
-            var values=(object[])parameter;
-            ProductTypeInfomation info = new ProductTypeInfomation("",values[0].ToString(),values[1].ToString());
+            ProductTypeInfomation info = new ProductTypeInfomation("",productTypeName,note);
             RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
             string s = await regist.register();
             Console.WriteLine(s);

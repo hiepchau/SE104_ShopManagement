@@ -5,12 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" Background="{StaticResource White}"
              Height="430" Width="500">
-    <UserControl.Resources>
-        <cv:MultiConverter x:Key="multiconverter"/>
-    </UserControl.Resources>
     <Grid>
         <StackPanel 
             HorizontalAlignment="Center"
@@ -55,7 +51,8 @@
                     Style="{StaticResource TextBox}"
                     TabIndex="0"
                     materialDesign:HintAssist.Hint="Tên nhà cung cấp"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding supplierName, Mode=TwoWay}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0">
@@ -74,7 +71,8 @@
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Địa chỉ"
                     TabIndex="1"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding supplierAddress, Mode=TwoWay}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0">
@@ -93,7 +91,8 @@
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="abc@domain.com"
                     TabIndex="1"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding supplierMail, Mode=TwoWay}"/>
             </Grid>
 
             <Grid 
@@ -114,7 +113,8 @@
                     materialDesign:HintAssist.Hint="Số điện thoại"
                     MaxLength="11"
                     TabIndex="2"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                    Text="{Binding supplierPhone, Mode=TwoWay}"/>
             </Grid>
         </StackPanel>
         <Grid 
@@ -133,13 +133,6 @@
                 ToolTip="Lưu thông tin"
                 HorizontalAlignment="Left"
                 Content="Lưu">
-                <Button.CommandParameter>
-                    <MultiBinding Converter="{StaticResource multiconverter}">
-                        <Binding ElementName="txtName" Path="Text"/>
-                        <Binding ElementName="txtEmail" Path="Text"/>
-                        <Binding ElementName="txtPhoneNumber" Path="Text"/>
-                    </MultiBinding> 
-                </Button.CommandParameter>
             </Button>
             <Button 
                 x:Name="btnCancel"
