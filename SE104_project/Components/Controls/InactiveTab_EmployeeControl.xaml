@@ -5,29 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="45">
+             d:DesignHeight="45" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="60*"/>
             <ColumnDefinition Width="35*"/>
-            <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
             x:Name="txtID"
             Grid.Column="0"
-            Text="{Binding ID}"                                  
-            Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
+            Text="{Binding LastName}"      
+            HorizontalAlignment="Left"
+            Style="{StaticResource Text}"
+            Margin="10,0,0,0" />
         <TextBlock          
             x:Name="txtEmail"
             Grid.Column="1" 
             HorizontalAlignment="Left"                               
             Text="{Binding Email}"
-            Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
+            TextTrimming="CharacterEllipsis"
+            Style="{StaticResource Text}" 
+            Margin="10,0,0,0" />
         <TextBlock      
             x:Name="txtRole"
             Grid.Column="2" 
             Text="{Binding role}" 
-            Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
+            Style="{StaticResource Text}" 
+            Margin="20,0,0,0" />
     </Grid>
 </UserControl>

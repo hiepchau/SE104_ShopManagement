@@ -9,40 +9,55 @@
              d:DesignHeight="45">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
-                x:Name="txtID"
-                Grid.Column="0"                
-                Text="{Binding ID}" 
-                HorizontalAlignment="Left"
-                Margin="10 0 0 0"
-                Style="{StaticResource Text}"/>
+            x:Name="txtID"
+            Grid.Column="0"            
+            Text="{Binding ID}" 
+            HorizontalAlignment="Left"
+            Style="{StaticResource Text}"
+            Margin="10 0 0 0"/>
+        <TextBlock 
+            x:Name="txtName"
+            Grid.Column="1"            
+            Text="{Binding LastName}" 
+            HorizontalAlignment="Left"
+            Style="{StaticResource Text}" 
+            Margin="10 0 0 0"/>
+        <TextBlock
+            x:Name="txtEmail"
+            Grid.Column="2" 
+            HorizontalAlignment="Left"             
+            Text="{Binding Email}"
+            TextTrimming="CharacterEllipsis"
+            Style="{StaticResource Text}"/>
         <TextBlock    
-                x:Name="txtName"
-                Grid.Column="1"
-                HorizontalAlignment="Left"
-                Margin="30 0 0 0"
-                Text="{Binding LastName}" 
-                Style="{StaticResource Text}" />
+            x:Name="txtRole"
+            Grid.Column="3" 
+            Text="{Binding role}" 
+            HorizontalAlignment="Center"                                    
+            Style="{StaticResource Text}"/>
         <TextBlock
-                x:Name="txtEmail"
-                Grid.Column="2"                 
-                HorizontalAlignment="Left" 
-                TextTrimming="CharacterEllipsis"
-                Text="{Binding Email}"                
-                Style="{StaticResource Text}"/>
-        <TextBlock
-                x:Name="txtRole"
-                Grid.Column="3"                 
-                Text="{Binding role}" 
-                Style="{StaticResource Text}"/>
+            x:Name="txtPhone"
+            Grid.Column="4" 
+            Text="{Binding PhoneNumber}"             
+            HorizontalAlignment="Center"
+            Style="{StaticResource Text}"/>
+        <TextBlock          
+            x:Name="txtSalary"
+            Grid.Column="5" 
+            Text="{Binding salary}"             
+            HorizontalAlignment="Center"
+            Style="{StaticResource Text}"/>
         <Button
-            Grid.Column="4"
+            Grid.Column="6"
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"
@@ -59,7 +74,7 @@
                 Foreground="{StaticResource WordBlueBrush}" />
         </Button>
         <Button 
-            Grid.Column="4"
+            Grid.Column="6"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
             ToolTip="Xóa nhà cung cấp" 
@@ -75,7 +90,5 @@
                 Width="24"
                 Foreground="{StaticResource Error}"/>
         </Button>
-
-
     </Grid>
 </UserControl>

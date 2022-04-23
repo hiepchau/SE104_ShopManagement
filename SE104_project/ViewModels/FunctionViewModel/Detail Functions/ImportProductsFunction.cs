@@ -25,9 +25,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"));
             //
-            OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddAddReceiptControl);
+            OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
         }
-        public void OpenAddAddReceiptControl(Object o = null)
+        public void OpenAddReceiptControl(Object o = null)
         {
             AddReceiptControl addReceiptControl = new AddReceiptControl();
             addReceiptControl.DataContext = this;

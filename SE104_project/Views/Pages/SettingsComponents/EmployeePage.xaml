@@ -52,25 +52,24 @@
                                 Text="Danh sách nhân viên"                             
                                 FontSize="22"
                                 Margin="20,0,0,0"/>
-                            
                             <Button                             
                                 x:Name="btnSetupSalary"
-                                Content="Thiết lập lương"                            
-                                ToolTip="Thiết lập lương nhân viên"
+                                Content="Xuất excel"                            
+                                ToolTip="Xuất danh sách nhân viên"
                                 FontSize="19"                            
                                 Style="{StaticResource PrimaryButton}"
                                 Command="{Binding OpenSalaryCommand}" 
                                 HorizontalAlignment="Right"
-                                Margin="200,0,50,0" 
-                                Width="180"/>
+                                Margin="250,0,50,0" 
+                                Width="160"/>
                             <Button 
                                 x:Name="btnImportProducts"                           
-                                Content="Kết toán lương"
+                                Content="Thêm nhân viên"
                                 ToolTip="Nhập kho"                           
                                 Height="40"
                                 FontSize="20"                          
                                 Style="{StaticResource PrimaryButton}"
-                                Command="{Binding OpenImportProductsCommand}"
+                                Command="{Binding OpenAddEmployeeControlCommand}"
                                 Width="180" />
                         </StackPanel>
 
@@ -83,10 +82,12 @@
                             Margin="20,0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20*"/>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                    <ColumnDefinition Width="35*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="90"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
@@ -105,7 +106,21 @@
                                 <TextBlock
                                     Grid.Column="3" 
                                     Text="Chức vụ" 
+                                    HorizontalAlignment="Center"
+                                    
                                     Style="{StaticResource TitleText}"/>
+                                <TextBlock
+                                    Grid.Column="4" 
+                                    Text="SĐT" 
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource TitleText}"
+                                    Margin="-5 0 0 0"/>
+                                <TextBlock
+                                    Grid.Column="5" 
+                                    Text="Lương" 
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource TitleText}"
+                                    Margin="-5 0 0 0"/>
                             </Grid>
                         </Border>
                         <Border 
@@ -131,11 +146,9 @@
                         HorizontalAlignment="Right" 
                         Margin="0,0,20,0">
                             <TextBlock 
-                   
                             Style="{StaticResource Text}"
                             Margin="0,0,40,0"/>
                             <Button 
-    
                             Margin="8,0"
                             ToolTip="Trang trước"
                             Style="{StaticResource PaginationButton}"
@@ -168,333 +181,9 @@
                 </Grid>
             </TabItem>
             <!--Item 2-->
-            <TabItem               
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
-                Header="Đang làm"
-                FontSize="18"
-                FontWeight="SemiBold"
-                Foreground="{StaticResource WordBlueBrush}"
-                Width="180" 
-                Height="40" 
-                Padding="0">
-                <Grid 
-                    Margin="0,10,0,0" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="350"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid 
-                        Grid.Column="0"
-                        Style="{StaticResource DropShadow}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="60"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition />
-                            <RowDefinition Height="50"/>
-                        </Grid.RowDefinitions>
-                        <Rectangle 
-                            Fill="{DynamicResource White}" 
-                            RadiusY="4" 
-                            RadiusX="4"
-                            Grid.RowSpan="4"
-                            Panel.ZIndex="-1"/>
-                        <TextBlock
-                            Grid.Row="0"
-                            Style="{StaticResource HeadingText2}"
-                            Text="Danh sách nhân viên" 
-                            FontSize="22"
-                            Margin="20,0,0,0"/>
-                        <Border 
-                            Grid.Row="1" 
-                            CornerRadius="4,4,0,0"
-                            Height="40"
-                            Background="{StaticResource WordBlueBrush}"
-                            VerticalAlignment="Bottom" 
-                            Margin="20,0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20*"/>
-                                    <ColumnDefinition Width="50*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                    <ColumnDefinition Width="35*"/>
-                                    <ColumnDefinition Width="90"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock 
-                                    Grid.Column="0"
-                                    Text="ID" 
-                                    Style="{StaticResource TitleText}"/>
-                                <TextBlock 
-                                    Grid.Column="1"
-                                    Text="Nhân viên" 
-                                    Style="{StaticResource TitleText}" />
-                                <TextBlock
-                                    Grid.Column="2" 
-                                    HorizontalAlignment="Left" 
-                                    Text="Mã đăng nhập"
-                                    Style="{StaticResource TitleText}"/>
-                                <TextBlock
-                                    Grid.Column="3" 
-                                    Text="Chức vụ" 
-                                    Style="{StaticResource TitleText}"/>
-                            </Grid>
-                        </Border>
-                        <Border 
-                            Grid.Row="2"
-                            BorderBrush="{DynamicResource LightBrush}"
-                            CornerRadius="4,0,4,4"
-                            BorderThickness="2,0,2,2" 
-                            Margin="20,0,20,0">
-                            <StackPanel>
-                                <ItemsControl ItemsSource="{Binding listItemsUserInfo}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <uc:EmployeeControl/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
-                        <StackPanel
-                        Grid.Row="3"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right" 
-                        Margin="0,0,20,0">
-                            <TextBlock 
-                            x:Name="txtNumOfStock"
-                            Style="{StaticResource Text}"
-                            Margin="0,0,40,0"/>
-                            <Button 
-                            x:Name="btnPrePageStock" 
-                            Margin="8,0"
-                            ToolTip="Trang trước"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronLeft" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center" />
-                            </Button>
-                            <Button 
-                            x:Name="btnNextPageStock" 
-                            Margin="8,0,0,0" 
-                            ToolTip="Trang tiếp theo"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronRight" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                    <Grid
-                        Grid.Column="1" />
-                    <Grid 
-                        Grid.Column="2"
-                        Background="{StaticResource White}"
-                        Style="{StaticResource DropShadow}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition/>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            x:Name="txbTitle"
-                            Grid.Row="0"
-                            Style="{StaticResource HeadingText2}"
-                            Text="Thêm nhân viên" 
-                            FontSize="22"
-                            Margin="20,0,0,0"/>
-                        <StackPanel 
-                            Grid.Row="1"
-                            VerticalAlignment="Top"
-                            Margin="20,10,10,0">
-                            <Grid>
-                                <Label
-                                    Content="Tài khoản" 
-                                    Foreground="{StaticResource Black1}"
-                                    Style="{StaticResource LabelText}"/>
-                                <Rectangle
-                                    Width="180" 
-                                    Height="40"
-                                    RadiusY="4"
-                                    RadiusX="4" 
-                                    HorizontalAlignment="Right"
-                                    Stroke="{StaticResource Gray2}"/>
-                                <TextBox 
-                                    x:Name="txtId"
-                                    Style="{StaticResource TextBox}"
-                                    materialDesign:HintAssist.Hint="Tên đăng nhập/Email"
-                                    Width="180" 
-                                    Height="40" 
-                                    TabIndex="0"
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                                    HorizontalAlignment="Left" Margin="140,0,0,0" />
-                            </Grid>
-                            <Grid 
-                                Margin="0,20,0,0">
-                                <Label
-                                    Content="Mật Khẩu" 
-                                    Foreground="{StaticResource Black1}"
-                                    Style="{StaticResource LabelText}"/>
-                                <Rectangle
-                                    Width="180" 
-                                    Height="40"
-                                    RadiusY="4"
-                                    RadiusX="4" 
-                                    HorizontalAlignment="Right"
-                                    Stroke="{StaticResource Gray2}"/>
-                                <PasswordBox
-                                    Width="180" 
-                                    Height="40" 
-                                    Margin="140 0 0 0" BorderBrush="{StaticResource Gray2}"
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" >
-                                </PasswordBox>
-                            </Grid>
-                            <Grid 
-                                Margin="0,20,0,0">
-                                <Label
-                                    Content="Tên nhân viên" 
-                                    Foreground="{StaticResource Black1}"
-                                    Style="{StaticResource LabelText}"/>
-                                <Rectangle
-                                    Width="180" 
-                                    Height="40"
-                                    RadiusY="4"
-                                    RadiusX="4" 
-                                    HorizontalAlignment="Right"
-                                    Stroke="{StaticResource Gray2}"/>
-                                <TextBox 
-                                    x:Name="txtUnit"
-                                    Style="{StaticResource TextBox}"
-                                    materialDesign:HintAssist.Hint="Họ và tên"
-                                    TabIndex="1"
-                                    Width="180" Margin="140 0 0 0" 
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
-                                    <!--<TextBox.Text>
-                                        <Binding 
-                                            Path="Unit"
-                                            Source="{StaticResource ProductsType}"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <vd:NotNullValidation ErrorMessage="Vui lòng nhập đơn vị tính!" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>-->
-                                </TextBox>
-                            </Grid>
-                            <Grid 
-                                Margin="0,20,0,0">
-                                <Label
-                                    Content="Giới tính" 
-                                    Foreground="{StaticResource Black1}"
-                                    Style="{StaticResource LabelText}"/>
-                                <Rectangle
-                                    Width="180" 
-                                    Height="40"
-                                    RadiusY="4"
-                                    RadiusX="4" 
-                                    HorizontalAlignment="Right"
-                                    Stroke="{StaticResource Gray2}"/>
-                                <TextBox 
-                                    x:Name="cbSex"
-                                    Style="{StaticResource TextBox}"
-                                    materialDesign:HintAssist.Hint="Nam"
-                                    TabIndex="2"
-                                    Width="180"  Margin="140 0 0 0"
-                                    MaxLength="10"
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
-                                </TextBox>
-                            </Grid>
-
-                            <Grid 
-                                Margin="0,20,0,0">
-                                <Label
-                                    Content="Số điện thoại" 
-                                    Foreground="{StaticResource Black1}"
-                                    Style="{StaticResource LabelText}"/>
-                                <Rectangle
-                                    Width="180" 
-                                    Height="40"
-                                    RadiusY="4"
-                                    RadiusX="4" 
-                                    HorizontalAlignment="Right"
-                                    Stroke="{StaticResource Gray2}"/>
-                                <TextBox 
-                                    x:Name="txtPhone"
-                                    Style="{StaticResource TextBox}"
-                                    materialDesign:HintAssist.Hint="Số điện thoại"
-                                    TabIndex="2"
-                                    Width="180"  Margin="140 0 0 0"
-                                    MaxLength="10"
-                                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
-                                </TextBox>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel 
-                            Grid.Row="2" 
-                            Margin="20"
-                            VerticalAlignment="Bottom"
-                            Orientation="Horizontal" 
-                            HorizontalAlignment="Right">
-                            <Button
-                                x:Name="btnSave"
-                                IsDefault="True"
-                                Style="{StaticResource PrimaryButton}"
-                                Command="{Binding SaveCommand}"
-                                Height="40" 
-                                Width="100"
-                                TabIndex="3"
-                                materialDesign:ButtonAssist.CornerRadius="2"
-                                ToolTip="Lưu thông tin" 
-                                Content="Lưu" >
-                                <!--<Button.IsEnabled>
-                                    <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
-                                                  Mode="TwoWay">
-                                        <Binding ElementName="txtName"
-                                                 Path="(Validation.HasError)" />
-                                        <Binding ElementName="txtUnit"
-                                                 Path="(Validation.HasError)" />
-                                        <Binding ElementName="txtProfitPercentage"
-                                                 Path="(Validation.HasError)" />
-                                    </MultiBinding>
-                                </Button.IsEnabled>-->
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource multiconverter}">
-                                        <Binding ElementName="txtId" Path="Text"/>
-                                        <Binding ElementName="txtUnit" Path="Text"/>
-                                        <Binding ElementName="txtPhone" Path="Text"/>
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
-                            <Button
-                                x:Name="btnCancel"
-                                Command="{Binding CancelCommand}"
-                                CommandParameter="{Binding ElementName=wdProductsType}"
-                                Style="{StaticResource CancelButton}"
-                                Height="40" 
-                                Width="100"
-                                TabIndex="4"
-                                ToolTip="Hủy thông tin" 
-                                Margin="20,0,0,0" 
-                                materialDesign:ButtonAssist.CornerRadius="2"
-                                Content="Hủy" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-
-            </TabItem>
             <TabItem
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
-                Header="Đã nghỉ"
+                Header="Trạng thái"
                 FontSize="18"
                 FontWeight="SemiBold"
                 Width="180" 
@@ -541,7 +230,6 @@
                                     <ColumnDefinition Width="50*"/>
                                     <ColumnDefinition Width="60*"/>
                                     <ColumnDefinition Width="35*"/>
-                                    <ColumnDefinition Width="15*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
@@ -564,13 +252,17 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <ListBox>
+                            <ListBox ItemsSource="{Binding listItemsUserInfo}">
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
-                                <uc:InactiveTab_EmployeeControl/>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:InactiveTab_EmployeeControl/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
                             </ListBox>
                         </Border>
                         <StackPanel
@@ -618,8 +310,7 @@
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center">
                         <Button 
-                            Style="{StaticResource PaginationButton}"
-                           
+                            Style="{StaticResource PaginationButton}" 
                             ToolTip="Ngừng hoạt động"
                             Width="40"
                             Height="40">
