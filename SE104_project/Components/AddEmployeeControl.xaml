@@ -9,6 +9,7 @@
              Background="{StaticResource White}"
              mc:Ignorable="d" 
              Height="650" Width="700">
+
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -166,8 +167,12 @@
                     FontSize="16" 
                     Height="24"
                     Width="101" 
+<<<<<<< HEAD
                     BorderBrush="{StaticResource WordBlueBrush}" 
                     Background="{StaticResource WordBlueBrush}" 
+=======
+                    TabIndex="3"
+>>>>>>> 7a83aca1fb135d168f53fcd7bc37a0a8b13eaf6a
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Left"/>
             </Grid>
@@ -186,7 +191,11 @@
                     RadiusX="4" 
                     Stroke="{StaticResource Gray2}" />
                 <ComboBox
+<<<<<<< HEAD
                     x:Name="cboRoleType"
+=======
+                    x:Name="cboProductsType"
+>>>>>>> 7a83aca1fb135d168f53fcd7bc37a0a8b13eaf6a
                     materialDesign:HintAssist.Hint="Chức vụ"
                     Height="40" 
                     FontSize="14" 
@@ -194,11 +203,23 @@
                     BorderThickness="0"
                     Margin="0,0,10,0" 
                     HorizontalAlignment="Right"
+<<<<<<< HEAD
                     IsEditable="True"
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold">
+=======
+                    ItemsSource="{Binding ItemSourceProductsType}"
+                    SelectedItem="{Binding SelectedProductsType}"
+                    DisplayMemberPath="Name"
+                    VerticalContentAlignment="Center" 
+                    HorizontalContentAlignment="Left"
+                    Foreground="{StaticResource Black2}"
+                    FontWeight="SemiBold"
+                    TabIndex="1"
+                    SelectedValue="{Binding productCategory, Mode=TwoWay}">
+>>>>>>> 7a83aca1fb135d168f53fcd7bc37a0a8b13eaf6a
                     <ComboBoxItem>Chủ sở hữu</ComboBoxItem>
                     <ComboBoxItem>Quản lí</ComboBoxItem>
                     <ComboBoxItem>Nhân viên</ComboBoxItem>
@@ -242,7 +263,11 @@
                 </DatePicker>
             </Grid>
 
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 7a83aca1fb135d168f53fcd7bc37a0a8b13eaf6a
 
             <Grid 
                 Margin="0,20,0,0" 
@@ -326,4 +351,8 @@
             </Grid>
         </StackPanel>
     </Grid>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a83aca1fb135d168f53fcd7bc37a0a8b13eaf6a
 </UserControl>
