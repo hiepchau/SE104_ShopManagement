@@ -92,7 +92,6 @@
             <Grid Margin="0,20,0,0">
                 <Label
                     Content="Mật Khẩu"                     
-                    Foreground="{StaticResource Black1}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right"                     
@@ -102,13 +101,20 @@
                     RadiusX="4"
                     Stroke="{StaticResource Gray2}"/>
                 <PasswordBox
-                    Style="{StaticResource  MaterialDesignPasswordBox}"
-                    Width="230" 
-                    Height="40"                     
-                    BorderBrush="{StaticResource Gray2}"
-                    Margin="190 0 0 0"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" >
-                </PasswordBox>
+                    x:Name="pwbPassword"
+                    Width="230"
+                    Height="40"
+                    materialDesign:HintAssist.Hint="Nhập mật khẩu"
+                    Foreground="{StaticResource Black2}"
+                    HorizontalAlignment="Right" 
+                    FontSize="14" 
+                    TabIndex="0" 
+                    BorderThickness="0"
+                    VerticalAlignment="Center" 
+                    CaretBrush="{StaticResource WordBlueBrush}" 
+                    FontWeight="SemiBold" 
+                    Padding="8,0,0,0" 
+                    VerticalContentAlignment="Center"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
@@ -189,14 +195,14 @@
                     Stroke="{StaticResource Gray2}" />
                 <ComboBox
                     x:Name="cboRoleType"
-                    materialDesign:HintAssist.Hint="Chức vụ"
-                    Height="40" 
-                    FontSize="14" 
-                    Width="210"
-                    BorderThickness="0"
+                    Width="220"
+                    materialDesign:HintAssist.Hint="Chức vụ"                     
                     Margin="0,0,10,0" 
                     HorizontalAlignment="Right"
-                    IsEditable="True"
+                    Height="40" 
+                    FontSize="14"                              
+                    Padding="10,0,4,0"
+                    BorderThickness="0"                   
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"

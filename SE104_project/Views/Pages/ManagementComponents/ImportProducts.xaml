@@ -19,30 +19,37 @@
             <TextBlock Style="{StaticResource TextHeader}" Text="Nhập Kho" />
             <compo:SearhBar tbWidth="400" ToolTip="Tìm kiếm sản phẩm"
                         Title="Nhập tên sản phẩm" Width="220" Margin="20 0 0 0"/>
-            <ComboBox
-                x:Name="cboSelectFast"                
-                materialDesign:ComboBoxAssist.ClassicMode="True"
-                materialDesign:HintAssist.Hint="Chọn theo loại"                
-                Height="45"
-                FontSize="18"                
-                Width="220"
-                BorderThickness="0"
-                Padding="20,0,0,0" Margin="40 0 0 0"                
-                ItemsSource="{Binding ItemSourceProductsType}"
-                SelectedItem="{Binding SelectedProductsType}"                
-                DisplayMemberPath="Name"
-                VerticalContentAlignment="Center"                
-                HorizontalContentAlignment="Left"
-                FontWeight="SemiBold"                
-                BorderBrush="{StaticResource Black2}" 
-                Background="{StaticResource White}">
-                <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding SelectionChangedProductsTypeCommand}"
-                                                                   CommandParameter="{Binding ElementName=wdImportProducts}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-            </ComboBox>
+            <Grid 
+                            Margin="40 0 0 0" 
+                            Height="45" 
+                            Width="220"
+                            Style="{StaticResource DropShadow}"
+                            HorizontalAlignment="Center" 
+                  
+                            VerticalAlignment="Center">
+                <Rectangle 
+                                Fill="{DynamicResource White}" 
+                                RadiusY="4" 
+                                RadiusX="4"
+                                Panel.ZIndex="-1" />
+                <ComboBox
+                                x:Name="cboMonthStock"
+                                materialDesign:ComboBoxAssist.ClassicMode="True"
+                                materialDesign:HintAssist.Hint="Chọn theo loại"
+                                ItemsSource="{Binding ItemSourceMonth}"
+                                SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Height="40"
+                                FontSize="18"
+                                BorderThickness="0"
+                                Padding="10,0,4,0"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                FontWeight="SemiBold"
+                                BorderBrush="{StaticResource Black2}" 
+                                Background="{StaticResource White}" 
+                                Margin="0 0 0 0"/>
+            </Grid>
+
             <Button x:Name="btnImport"
                         Style="{StaticResource PaginationButton}"
                         Background="{StaticResource WordBlueBrush}"
