@@ -1,6 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Color x:Key="ThemeBackground">#3099c5</Color>
+    <!-- Override material design color -->
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#3099c5"/>
+    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FF1D1D1D"/>
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#3099c5"/>
+    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFF9FEF9"/>
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FFD1E6FA"/>
+    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFEFEFE"/>
     <SolidColorBrush x:Key="ThemeBrush" Color="{StaticResource ThemeBackground}"></SolidColorBrush>
 
     <SolidColorBrush x:Key="PrimaryColor" Color="{DynamicResource Primary500}"></SolidColorBrush>
