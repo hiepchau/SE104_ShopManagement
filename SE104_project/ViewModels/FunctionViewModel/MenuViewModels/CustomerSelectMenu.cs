@@ -15,6 +15,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 
         public CustomerSelectMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
+            selectedItem = -1;
             ChangeViewModelCommand = new RelayCommand<object>(null, change);
         }
         public override void change(object o)
