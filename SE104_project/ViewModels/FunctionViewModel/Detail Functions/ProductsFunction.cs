@@ -4,11 +4,14 @@ using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Insert_database;
+using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using MongoDB.Driver;
+using System.Collections.ObjectModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -24,7 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
-        public List<ProductsInformation> listItemsProduct { get; set; }
+        public ObservableCollection<ProductsInformation> listItemsProduct { get; set; }
         #endregion
 
         #region ICommand
@@ -39,13 +42,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
             this._connection= connect;
-            this._session= session;
-            listItemsProduct = new List<ProductsInformation>();
-            //Test
-            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"));
-            //
+            this._session= session;        
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
+            listItemsProduct = new ObservableCollection<ProductsInformation>();
+            //Test
+            GetData();
+            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"));
+            //
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
@@ -80,6 +84,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
             string s = await regist.register();
             Console.WriteLine(s);
+        }
+        public async void GetData()
+        {
+            var filter = Builders<ProductsInformation>.Filter.Empty;
+            GetProducts getter = new GetProducts(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProductsInformation pro in ls)
+            {
+                listItemsProduct.Add(pro);
+                //Console.WriteLine(listItemsProduct.ToString());
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(listItemsProduct));
+            //foreach(ProductsInformation info in listItemsProduct)
+            //{
+            //    Console.WriteLine(info.name);
+            //}
         }
     }
 }
