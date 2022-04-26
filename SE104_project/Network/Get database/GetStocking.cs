@@ -27,7 +27,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.ID)
                 .Include(p => p.StockDay)
                 .Include(p => p.User)
-                .Include(p => p.customer)
+                .Include(p => p.producer)
                 .Include(p => p.total);
 
             var au = await collection.Find<StockInformation>(_filter).Project<StockInformation>(field).ToListAsync();

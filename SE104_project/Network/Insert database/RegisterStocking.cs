@@ -36,7 +36,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"_id", stock.ID},
                 {"StockDay",stock.StockDay},
                 {"UserID",stock.User},
-                {"CustomerID", stock.customer },
+                {"ProducerID", stock.producer },
                 {"Total", stock.total }
             };
             await collection.InsertOneAsync(newProductDoc);
