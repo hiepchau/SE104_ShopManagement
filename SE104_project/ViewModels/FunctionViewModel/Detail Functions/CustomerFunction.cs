@@ -13,6 +13,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -26,7 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private MongoConnect _connection;
         private AppSession _session;
         public int selectedItem { get; set; }
-        public List<CustomerInformation> listItemsCustomer { get; set; }
+        public ObservableCollection<CustomerInformation> listItemsCustomer { get; set; }
 
 
         private ManagingFunctionsViewModel managingFunction;
@@ -60,8 +61,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session=session;
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
-            listItemsCustomer = new List<CustomerInformation>();
+            listItemsCustomer = new ObservableCollection<CustomerInformation>();
             //Test
+            GetData();
             listItemsCustomer.Add(new CustomerInformation("12", "Hip", "0123456789", "1","123"));
             //
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
@@ -91,7 +93,21 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             CustomerInformation info = new CustomerInformation("", customerName,customerPhone,"1",customerCMND);
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
             string s = await regist.register();
+            listItemsCustomer.Add(info);
+            OnPropertyChanged(nameof(listItemsCustomer));
             Console.WriteLine(s);
+        }
+        public async void GetData()
+        {
+            var filter = Builders<CustomerInformation>.Filter.Empty;
+            GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (CustomerInformation pro in ls)
+            {
+                listItemsCustomer.Add(pro);
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(listItemsCustomer));
         }
     }
 }

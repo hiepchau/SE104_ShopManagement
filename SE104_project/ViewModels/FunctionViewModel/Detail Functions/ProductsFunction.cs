@@ -83,6 +83,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ProductsInformation info = new ProductsInformation("", productName,1,productPrice,productCost,"","",productUnit);
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
             string s = await regist.register();
+            listItemsProduct.Add(info);
+            OnPropertyChanged(nameof(listItemsProduct));
             Console.WriteLine(s);
         }
         public async void GetData()
@@ -93,14 +95,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             foreach (ProductsInformation pro in ls)
             {
                 listItemsProduct.Add(pro);
-                //Console.WriteLine(listItemsProduct.ToString());
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsProduct));
-            //foreach(ProductsInformation info in listItemsProduct)
-            //{
-            //    Console.WriteLine(info.name);
-            //}
         }
     }
 }
