@@ -14,6 +14,10 @@ using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using System.Windows.Controls;
 using SE104_OnlineShopManagement.Services;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using SE104_OnlineShopManagement.Models;
+using System.Linq;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
@@ -24,6 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         private ManagingFunctionsViewModel _managingFunctionsViewModel;
         private SellingViewModel _sellingViewModel;
         public TitleBarViewModel _titleBarViewModel { get; set; }
+        public BitmapImage testimg { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public BaseFunction CurrentState { get => _currentState;set => _currentState = value; }
@@ -58,11 +63,34 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             //{
             //    Console.WriteLine(pro.quantity);
             //}
-            IDGenerator gen = new AutoStockingIDGenerator(_session, _connection.client);
-            Task<string> task = gen.Generate();
-            string s = await task;
+            //IDGenerator gen = new AutoStockingIDGenerator(_session, _connection.client);
+            //Task<string> task = gen.Generate();
+            //string s = await task;
+
+            //Console.WriteLine(s);
+
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Image jpeg(*.jpg)|*.jpg|Image png(*.png)|*.png";
+            ofd.DefaultExt = ".jpeg";
+
+            // Process open file dialog box results 
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
+                ByteImage bimg = new ByteImage("adshfb", tmp);
+                RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
+                await regist.register();
+
+                GetByteImage getter = new GetByteImage(_connection.client,_session,FilterDefinition<ByteImage>.Empty);
+                var ls = await getter.Get();
+                if (ls.Count > 0)
+                {
+                    testimg = ls.FirstOrDefault().convertByteToImage();
+                    OnPropertyChanged(nameof(testimg));
+                }
+            }
+
             
-            Console.WriteLine(s);
         }
 
         private async void testing(object o = null)

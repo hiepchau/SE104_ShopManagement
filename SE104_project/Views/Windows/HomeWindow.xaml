@@ -111,9 +111,10 @@
                         </ContentControl.Resources>
                     </ContentControl>
                 </Grid>
-
+                <Image Width="100" Source="{Binding CurrentMainViewModel.testimg}"/>
+                <Button Command="{Binding CurrentMainViewModel.testCommand1}"/>
             </Grid>
-            
+
         </Grid>
     </materialDesign:DialogHost>
 
