@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -18,6 +19,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public int priority { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
+        public ObservableCollection<MembershipInformation> listMemberShip { get; set; }
         #endregion
         #region ICommand
         public ICommand SaveCommand { get; set; }
@@ -26,6 +28,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._session = session;
             this._connection = connect;
+            listMemberShip = new ObservableCollection<MembershipInformation>();
+            GetData();
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
         }
         public async void SaveMemberShip(object o = null)
@@ -33,14 +37,21 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             MembershipInformation info = new MembershipInformation("", membershipname, priority);
             RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
             string s = await regist.register();
+            listMemberShip.Add(info);
+            OnPropertyChanged(nameof(listMemberShip));
             Console.WriteLine(s);
-            //var filter = Builders<MembershipInformation>.Filter.Empty;
-            //GetMembership getter = new GetMembership(_connection.client, _session, filter);
-            //var ls = getter.Get();
-            //foreach (MembershipInformation pro in ls)
-            //{
-            //    Console.WriteLine(pro.name);
-            //}
+        }
+        public async void GetData()
+        {
+            var filter = Builders<MembershipInformation>.Filter.Empty;
+            GetMembership getter = new GetMembership(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (MembershipInformation pro in ls)
+            {
+                listMemberShip.Add(pro);
+            }
+            OnPropertyChanged(nameof(listMemberShip));
+
         }
     }
 }

@@ -16,16 +16,16 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public DateTime StockDay { get; set; }
         [BsonElement("UserID")]
         public string User { get; set; }
-        [BsonElement("CustomerID")]
-        public string customer { get; set; }
+        [BsonElement("ProducerID")]
+        public string producer { get; set; }
         [BsonElement("Total")]
         public long total { get; set; }
-        public StockInformation(string id, DateTime day, string user, string customer, long total)
+        public StockInformation(string id, DateTime day, string user, string producer, long total)
         {
             this.ID = id;
             this.StockDay = day;
             this.User = user;
-            this.customer = customer;
+            this.producer = producer;
             this.total = total;
         }
     }

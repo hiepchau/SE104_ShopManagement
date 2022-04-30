@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -22,7 +23,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierMail { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
-        public List<ProducerInformation> listItemsProducer { get; set; }
+        public ObservableCollection<ProducerInformation> listItemsProducer { get; set; }
         #endregion
         #region ICommand
         //Supplier
@@ -35,8 +36,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._connection = connect;
             this._session = session;
-            listItemsProducer = new List<ProducerInformation>();
+            listItemsProducer = new ObservableCollection<ProducerInformation>();
             //Test
+            GetData();
             listItemsProducer.Add(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""));
             //
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
@@ -58,15 +60,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ProducerInformation info = new ProducerInformation("", supplierName,supplierMail,supplierPhone,supplierAddress);
             RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
             string s = await regist.register();
+            listItemsProducer.Add(info);
+            OnPropertyChanged(nameof(listItemsProducer));
             Console.WriteLine(s);
-            //var filter = Builders<ProducerInformation>.Filter.Empty;
-            //GetProducer getter = new GetProducer(_connection.client, _session, filter);
-            //var ls = getter.Get();
-            //foreach (ProducerInformation pro in ls)
-            //{
-            //    Console.WriteLine(pro.Email);
-            //}
-            Console.WriteLine("executed");
+        }
+        public async void GetData()
+        {
+            var filter = Builders<ProducerInformation>.Filter.Empty;
+            GetProducer getter = new GetProducer(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProducerInformation pro in ls)
+            {
+                listItemsProducer.Add(pro);
+            }
+            OnPropertyChanged(nameof(listItemsProducer));
         }
     }
 }

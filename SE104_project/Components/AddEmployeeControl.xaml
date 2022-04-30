@@ -86,7 +86,7 @@
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"
-                    Text="{Binding productUnit, Mode=TwoWay}"/>
+                    Text="{Binding userName, Mode=TwoWay}"/>
             </Grid>
 
             <Grid Margin="0,20,0,0">
@@ -136,7 +136,7 @@
                     materialDesign:HintAssist.Hint="Tên nhân viên"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     TabIndex="0"
-                    Text="{Binding productName, Mode=TwoWay}"/>
+                    Text="{Binding name, Mode=TwoWay}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0"
@@ -149,7 +149,6 @@
                 <RadioButton
                     x:Name="rdoMale"
                     Style="{StaticResource MaterialDesignLightRadioButton}"
-                    IsChecked="True"
                     Content="Nam" 
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
@@ -162,7 +161,8 @@
                     BorderBrush="{StaticResource WordBlueBrush}" 
                     Background="{StaticResource WordBlueBrush}" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding isMen, Mode=TwoWay}"/>
                 <RadioButton
                     x:Name="rdoFemale"
                     Style="{StaticResource MaterialDesignLightRadioButton}"
@@ -177,7 +177,8 @@
                     BorderBrush="{StaticResource WordBlueBrush}" 
                     Background="{StaticResource WordBlueBrush}" 
                     TabIndex="3"
-                    HorizontalAlignment="Left"/>
+                    HorizontalAlignment="Left"
+                    IsChecked="{Binding isGirl, Mode=TwoWay}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0"
@@ -206,7 +207,8 @@
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
-                    FontWeight="SemiBold">
+                    FontWeight="SemiBold"
+                    SelectedValue="{Binding role, Mode=TwoWay}">
                     <ComboBoxItem>Chủ sở hữu</ComboBoxItem>
                     <ComboBoxItem>Quản lí</ComboBoxItem>
                     <ComboBoxItem>Nhân viên</ComboBoxItem>
@@ -240,7 +242,8 @@
                     FontWeight="SemiBold"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center"
+                    SelectedDate="{Binding BeginDate, Mode=TwoWay}">
                     <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="CalendarClosed">
                             <ei:CallMethodAction TargetObject="{Binding }"
@@ -271,7 +274,7 @@
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"
-                    Text="{Binding productPrice, Mode=TwoWay}"/>
+                    Text="{Binding salary, Mode=TwoWay}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
@@ -295,7 +298,7 @@
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"
-                    Text="{Binding productPrice, Mode=TwoWay}"/>
+                    Text="{Binding phoneNumber, Mode=TwoWay}"/>
             </Grid>
 
             <Grid 
@@ -307,6 +310,7 @@
                 <Button
                     x:Name="btnSave"
                     Command="{Binding SaveCommand}"
+                    CommandParameter="{Binding ElementName=pwbPassword}"
                     Style="{StaticResource PrimaryButton}"
                     IsDefault="True"
                     Height="40" 
