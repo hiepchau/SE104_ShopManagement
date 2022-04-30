@@ -12,6 +12,7 @@ using MaterialDesignThemes.Wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using MongoDB.Driver;
+using SE104_OnlineShopManagement.Services;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -79,7 +80,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if(role== "Chủ sở hữu") { userRole = Role.Owner; }
             else if (role== "Quản lí") { userRole = Role.Manager; }
             else if (role== "Nhân viên") { userRole= Role.Employee; }
-            UserInfomation info = new UserInfomation("",name,"","",Password,phoneNumber,"None",userRole,userGender,salary,BeginDate);
+
+            //Split Lastname and name
+            name = name.Trim();
+            lastName = name.Substring(name.LastIndexOf(' ') + 1);
+            string _name = name.Substring(0, name.LastIndexOf(' '));
+
+            UserInfomation info = new UserInfomation(await new AutoEmployeeIDGenerator(_session, _connection.client).Generate()
+                , _name, lastName, email, Password, phoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, salary, BeginDate);
             RegisterUser regist = new RegisterUser(info, _connection.client);
             string s = await regist.registerUser();
             listItemsUserInfo.Add(info);

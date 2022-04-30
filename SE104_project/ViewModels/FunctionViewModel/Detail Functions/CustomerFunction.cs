@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using SE104_OnlineShopManagement.Services;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -90,7 +91,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveCustomer(object o = null)
         {
-            CustomerInformation info = new CustomerInformation("", customerName,customerPhone,"1",customerCMND);
+            CustomerInformation info = new CustomerInformation(await new AutoCustomerIDGenerator(_session,_connection.client).Generate(), 
+                customerName,customerPhone,"1",customerCMND);
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
             string s = await regist.register();
             listItemsCustomer.Add(info);

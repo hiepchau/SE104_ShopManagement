@@ -1,10 +1,13 @@
 ﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Driver;
 using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.Network.Get_database;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 
@@ -12,7 +15,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class ImportProductsFunction : BaseFunction
     {
-        public List<ProductsInformation> listItemsImportProduct { get; set; }
+        private MongoConnect _connection;
+        private AppSession _session;
+        public ObservableCollection<ProducerInformation> ItemSourceSupplier { get; set; }
+        public ObservableCollection<ProductsInformation> listItemsImportProduct { get; set; }
         #region ICommand
         public ICommand OpenAddReceiptControlCommand { get; set; }
         //AddReceiptControl
@@ -20,9 +26,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public ImportProductsFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
-            listItemsImportProduct = new List<ProductsInformation>();
+            _connection = connect;
+            _session = session;
+            ItemSourceSupplier = new ObservableCollection<ProducerInformation>();
+            listItemsImportProduct = new ObservableCollection<ProductsInformation>();
             //Test
-
+            GetProducerInfo();
             listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"));
             //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
@@ -37,6 +46,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
+        }
+        public async void GetProducerInfo()
+        {
+            var filter = Builders<ProducerInformation>.Filter.Empty;
+            GetProducer getter = new GetProducer(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProducerInformation pro in ls)
+            {
+                ItemSourceSupplier.Add(pro);
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(ItemSourceSupplier));
         }
     }
 }

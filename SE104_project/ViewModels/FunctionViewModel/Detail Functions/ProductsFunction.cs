@@ -12,12 +12,13 @@ using System.Text;
 using System.Windows.Input;
 using MongoDB.Driver;
 using System.Collections.ObjectModel;
+using SE104_OnlineShopManagement.Services;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
     class ProductsFunction : BaseFunction
     {
-        #region properties
+        #region Properties
         public string productName { get; set; }
         public string productCategory { get; set; }
         public string productUnit { get; set; }
@@ -28,6 +29,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
         public ObservableCollection<ProductsInformation> listItemsProduct { get; set; }
+        public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
         #endregion
 
         #region ICommand
@@ -45,9 +47,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session= session;        
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
+            ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
             listItemsProduct = new ObservableCollection<ProductsInformation>();
             //Test
             GetData();
+            GetProductTypeData();  
             listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"));
             //
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
@@ -80,7 +84,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProduct(object o = null)
         {
-            ProductsInformation info = new ProductsInformation("", productName,1,productPrice,productCost,"","",productUnit);
+            ProductsInformation info = new ProductsInformation(await new AutoProductsIDGenerator(_session,_connection.client).Generate()
+                , productName,1,productPrice,productCost,"","",productUnit);
             RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
             string s = await regist.register();
             listItemsProduct.Add(info);
@@ -98,6 +103,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsProduct));
+        }
+        public async void GetProductTypeData()
+        {
+            var filter = Builders<ProductTypeInfomation>.Filter.Empty;
+            GetProductType getter = new GetProductType(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProductTypeInfomation pro in ls)
+            {
+                ItemSourceProductsType.Add(pro);
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(ItemSourceProductsType));
         }
     }
 }

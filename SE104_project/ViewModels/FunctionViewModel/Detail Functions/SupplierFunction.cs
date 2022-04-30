@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using SE104_OnlineShopManagement.Services;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -57,7 +58,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveSupplier(object o = null)
         {
-            ProducerInformation info = new ProducerInformation("", supplierName,supplierMail,supplierPhone,supplierAddress);
+            ProducerInformation info = new ProducerInformation(await new AutoProducerIDGenerator(_session,_connection.client).Generate()
+                , supplierName,supplierMail,supplierPhone,supplierAddress);
             RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
             string s = await regist.register();
             listItemsProducer.Add(info);

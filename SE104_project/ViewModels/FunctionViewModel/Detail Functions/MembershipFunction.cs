@@ -34,12 +34,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveMemberShip(object o = null)
         {
-            MembershipInformation info = new MembershipInformation("", membershipname, priority);
-            RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
-            string s = await regist.register();
-            listMemberShip.Add(info);
-            OnPropertyChanged(nameof(listMemberShip));
-            Console.WriteLine(s);
+            if (CheckExist() == false)
+            {
+                MembershipInformation info = new MembershipInformation("", membershipname, priority);
+                RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
+                string s = await regist.register();
+                listMemberShip.Add(info);
+                OnPropertyChanged(nameof(listMemberShip));
+                Console.WriteLine(s);
+            }
+            else
+            {
+                Console.WriteLine("Cant insert because MembershipName has existed!");
+            }
         }
         public async void GetData()
         {
@@ -52,6 +59,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             OnPropertyChanged(nameof(listMemberShip));
 
+        }
+        public bool CheckExist()
+        {
+            foreach (MembershipInformation pro in listMemberShip)
+            {
+                if (membershipname == pro.name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

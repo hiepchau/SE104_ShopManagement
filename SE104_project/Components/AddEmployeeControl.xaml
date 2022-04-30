@@ -86,7 +86,7 @@
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}"
                     TabIndex="2"
-                    Text="{Binding userName, Mode=TwoWay}"/>
+                    Text="{Binding email, Mode=TwoWay}"/>
             </Grid>
 
             <Grid Margin="0,20,0,0">

@@ -28,14 +28,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
             var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", newShip.ID);
             var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
-            if (lscheck.Count > 0)
-            {
-                Console.WriteLine("Insert error");
-                return null;
-            }
             BsonDocument newProductDoc = new BsonDocument
             {
-                {"_id",newShip.ID },
                 {"ProductTypeName", newShip.name },
                 {"Note", newShip.note }
             };

@@ -36,12 +36,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProductType(object o = null)
         {
-            ProductTypeInfomation info = new ProductTypeInfomation("",productTypeName,note);
-            RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
-            string s = await regist.register();
-            listItemsProductType.Add(info);
-            OnPropertyChanged(nameof(listItemsProductType));
-            Console.WriteLine(s);
+            if (CheckExist()==false)
+            {
+                ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note);
+                RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
+                string s = await regist.register();
+                listItemsProductType.Add(info);
+                OnPropertyChanged(nameof(listItemsProductType));
+                Console.WriteLine(s);
+            }
+            else
+            {
+                Console.WriteLine("Cant insert because ProductTypeName has existed!");
+            }
         }
         public async void GetData()
         {
@@ -54,6 +61,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsProductType));
+        }
+        public bool CheckExist()
+        {
+            foreach (ProductTypeInfomation pro in listItemsProductType)
+            {
+                if (productTypeName == pro.name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
