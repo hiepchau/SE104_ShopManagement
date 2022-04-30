@@ -111,7 +111,7 @@
                     HorizontalAlignment="Right"
                     ItemsSource="{Binding ItemSourceProductsType}"
                     SelectedItem="{Binding SelectedProductsType}"
-                    DisplayMemberPath="Name"
+                    DisplayMemberPath="name"
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
