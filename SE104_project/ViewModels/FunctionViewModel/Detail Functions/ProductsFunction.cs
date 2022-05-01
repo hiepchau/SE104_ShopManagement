@@ -24,6 +24,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string productUnit { get; set; }
         public long productCost { get; set; }
         public long productPrice { get; set; }
+        public ProductTypeInfomation SelectedProductsType { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
@@ -57,7 +58,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
-
+            SelectedProductsType = null;
         }
         public void OpenAddProductControl(Object o = null)
         {
@@ -84,13 +85,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProduct(object o = null)
         {
-            ProductsInformation info = new ProductsInformation(await new AutoProductsIDGenerator(_session,_connection.client).Generate()
-                , productName,1,productPrice,productCost,"","",productUnit);
-            RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
-            string s = await regist.register();
-            listItemsProduct.Add(info);
-            OnPropertyChanged(nameof(listItemsProduct));
-            Console.WriteLine(s);
+            if (SelectedProductsType != null)
+            {
+                ProductsInformation info = new ProductsInformation(await new AutoProductsIDGenerator(_session, _connection.client).Generate()
+                    , productName, 1, productPrice, productCost, SelectedProductsType.ID, "", productUnit);
+                RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
+                string s = await regist.register();
+                listItemsProduct.Add(info);
+                OnPropertyChanged(nameof(listItemsProduct));
+                Console.WriteLine(s);
+            }
         }
         public async void GetData()
         {

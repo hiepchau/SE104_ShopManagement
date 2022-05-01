@@ -41,6 +41,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note);
                 RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
                 string s = await regist.register();
+                info.ID = s;
                 listItemsProductType.Add(info);
                 OnPropertyChanged(nameof(listItemsProductType));
                 Console.WriteLine(s);

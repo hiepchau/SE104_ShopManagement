@@ -69,26 +69,26 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
 
             //Console.WriteLine(s);
 
-            var ofd = new OpenFileDialog();
-            ofd.Filter = "Image jpeg(*.jpg)|*.jpg|Image png(*.png)|*.png";
-            ofd.DefaultExt = ".jpeg";
+            //var ofd = new OpenFileDialog();
+            //ofd.Filter = "Image jpeg(*.jpg)|*.jpg|Image png(*.png)|*.png";
+            //ofd.DefaultExt = ".jpeg";
 
-            // Process open file dialog box results 
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
-                ByteImage bimg = new ByteImage("adshfb", tmp);
-                RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
-                await regist.register();
+            //// Process open file dialog box results 
+            //if (ofd.ShowDialog() == DialogResult.OK)
+            //{
+            //    BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
+            //    ByteImage bimg = new ByteImage("adshfb", tmp);
+            //    RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
+            //    await regist.register();
 
-                GetByteImage getter = new GetByteImage(_connection.client,_session,FilterDefinition<ByteImage>.Empty);
-                var ls = await getter.Get();
-                if (ls.Count > 0)
-                {
-                    testimg = ls.FirstOrDefault().convertByteToImage();
-                    OnPropertyChanged(nameof(testimg));
-                }
-            }
+            //    GetByteImage getter = new GetByteImage(_connection.client,_session,FilterDefinition<ByteImage>.Empty);
+            //    var ls = await getter.Get();
+            //    if (ls.Count > 0)
+            //    {
+            //        testimg = ls.FirstOrDefault().convertByteToImage();
+            //        OnPropertyChanged(nameof(testimg));
+            //    }
+            //}
 
             
         }

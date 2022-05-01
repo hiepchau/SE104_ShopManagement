@@ -18,12 +18,12 @@
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
-            Text="STT" 
+            Text="{Binding ID}" 
             Grid.Column="0"
             Style="{StaticResource Text}"/>
         <TextBlock 
             Grid.Column="1"
-            Text="Tên sản phẩm" 
+            Text="{Binding Name}" 
             Style="{StaticResource Text}"
             HorizontalAlignment="Left"                                
             Margin="20,0,0,0"/>
@@ -32,7 +32,8 @@
             Width="80" 
             Height="32"
             Margin="0" 
-            Grid.Column="2" >
+            Grid.Column="2"
+            >
         </uc:NumericSnipperControl>
         <TextBlock 
             Grid.Column="3" 

@@ -110,7 +110,7 @@
                     Margin="0,0,10,0" 
                     HorizontalAlignment="Right"
                     ItemsSource="{Binding ItemSourceProductsType}"
-                    SelectedItem="{Binding SelectedProductsType}"
+                    SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"
                     DisplayMemberPath="name"
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
