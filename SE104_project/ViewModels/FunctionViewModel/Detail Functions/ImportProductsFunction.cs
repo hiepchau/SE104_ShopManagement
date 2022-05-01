@@ -15,10 +15,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class ImportProductsFunction : BaseFunction
     {
+        #region Properties
         private MongoConnect _connection;
         private AppSession _session;
         public ObservableCollection<ProducerInformation> ItemSourceSupplier { get; set; }
         public ObservableCollection<ProductsInformation> listItemsImportProduct { get; set; }
+        #endregion
+
         #region ICommand
         public ICommand OpenAddReceiptControlCommand { get; set; }
         //AddReceiptControl
@@ -36,6 +39,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
         }
+
+        #region Function
         public void OpenAddReceiptControl(Object o = null)
         {
             AddReceiptControl addReceiptControl = new AddReceiptControl();
@@ -47,6 +52,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
+        #endregion
+
+        #region DB
         public async void GetProducerInfo()
         {
             var filter = Builders<ProducerInformation>.Filter.Empty;
@@ -58,6 +66,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceSupplier));
+          
         }
+        #endregion
     }
 }

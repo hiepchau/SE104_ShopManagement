@@ -11,8 +11,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class InfoStoreFunction : BaseFunction
     {
+        #region Properties
         private MongoConnect _connection;
         private AppSession _session;
+        #endregion
 
         #region ICommand
         public ICommand SaveCommand { get; set; }
@@ -25,6 +27,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             CancelCommand = new RelayCommand<Object>(null, Cancel);
             SaveCommand = new RelayCommand<Object>(null, SaveUser);
         }
+
+        #region Function
         public void Cancel(object o = null)
         {
             Console.WriteLine("Executed!");
@@ -37,5 +41,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.WriteLine(values[2].ToString());
             Console.WriteLine(values[3].ToString());
         }
+        #endregion
     }
 }

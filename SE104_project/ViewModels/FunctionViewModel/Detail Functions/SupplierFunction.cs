@@ -17,7 +17,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class SupplierFunction : BaseFunction
     {
-        #region properties
+        #region Properties
         public string supplierName { get; set; }
         public string supplierAddress { get; set; }
         public string supplierPhone { get; set; }
@@ -44,6 +44,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
         }
+        #region Function
         public void OpenAddSupplierControl(Object o = null)
         {
             AddSupplierControl addSupplierControl = new AddSupplierControl();
@@ -66,6 +67,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(listItemsProducer));
             Console.WriteLine(s);
         }
+        #endregion
+        #region DB
         public async void GetData()
         {
             var filter = Builders<ProducerInformation>.Filter.Empty;
@@ -77,5 +80,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             OnPropertyChanged(nameof(listItemsProducer));
         }
+        #endregion
     }
 }

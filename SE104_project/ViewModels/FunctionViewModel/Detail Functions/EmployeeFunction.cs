@@ -55,6 +55,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             CancelCommand = new RelayCommand<Object>(null, Cancel);
             SaveCommand= new RelayCommand<Object>(null,SaveUser);
         }
+        #region Function
         public void OpenAddEmployeeControl(object o = null)
         {
             AddEmployeeControl addEmployeeControl = new AddEmployeeControl();
@@ -94,6 +95,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(listItemsUserInfo));
             Console.WriteLine(s);
         }
+        #endregion
+        #region DB
         public async void GetData()
         {
             var filter = Builders<UserInfomation>.Filter.Empty;
@@ -106,5 +109,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsUserInfo));
         }
+        #endregion
     }
 }

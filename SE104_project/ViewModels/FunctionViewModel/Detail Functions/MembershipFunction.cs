@@ -32,6 +32,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GetData();
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
         }
+        public bool CheckExist()
+        {
+            foreach (MembershipInformation pro in listMemberShip)
+            {
+                if (membershipname == pro.name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #region Function
         public async void SaveMemberShip(object o = null)
         {
             if (CheckExist() == false)
@@ -48,6 +61,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 Console.WriteLine("Cant insert because MembershipName has existed!");
             }
         }
+        #endregion
+
+        #region DB
         public async void GetData()
         {
             var filter = Builders<MembershipInformation>.Filter.Empty;
@@ -60,16 +76,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(listMemberShip));
 
         }
-        public bool CheckExist()
-        {
-            foreach (MembershipInformation pro in listMemberShip)
-            {
-                if (membershipname == pro.name)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        #endregion
     }
 }
