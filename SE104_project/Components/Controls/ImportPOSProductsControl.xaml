@@ -23,7 +23,7 @@
             Style="{StaticResource Text}"/>
         <TextBlock 
             Grid.Column="1"
-            Text="{Binding Name}" 
+            Text="{Binding name}" 
             Style="{StaticResource Text}"
             HorizontalAlignment="Left"                                
             Margin="20,0,0,0"/>
@@ -37,7 +37,7 @@
         </uc:NumericSnipperControl>
         <TextBlock 
             Grid.Column="3" 
-            Text="Giá nhập" 
+            Text="{Binding price}" 
             Style="{StaticResource Text}"/>
         <Button 
             Grid.Column="4"
