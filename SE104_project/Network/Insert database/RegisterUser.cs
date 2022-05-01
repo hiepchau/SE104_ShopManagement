@@ -43,7 +43,6 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 return newUserDoc1["_id"].ToString();
             }
             BsonDocument newUserDoc = new BsonDocument{
-                {"_id", newUser.ID},
                 { "Company",newUser.companyInformation},
                 {"UserEmail",newUser.Email },
                 {"UserPassword",newUser.Password },

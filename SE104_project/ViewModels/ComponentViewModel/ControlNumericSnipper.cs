@@ -1,6 +1,4 @@
 ﻿using SE104_OnlineShopManagement.Commands;
-using SE104_OnlineShopManagement.Models.ModelEntity;
-using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,28 +6,17 @@ using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
-    
-    public class ImportPOSProductControlViewModel:ViewModelBase
+    public class ControlNumericSnipper : ViewModelBase
     {
-        public ProductsInformation product { get; set; }
-        public string ID { get; set; }
-        public string name { get; set; }
-        public long price { get; set; }
-        public string quantity { get; set; }   
-        public ICommand DeleteProductsCommand { get; set; }
         public ICommand DecreaseCommand { get; set; }
         public ICommand IncreaseCommand { get; set; }
         public ICommand ChangeCommand { get; set; }
-        private IUpdateSelectedList _parent;
-        public ImportPOSProductControlViewModel(ProductsInformation product, IUpdateSelectedList parent)
+        public string quantity { get; set; }
+        protected int maxquantity { get; set; }
+        public ControlNumericSnipper(int productquantity)
         {
-            this.ID = product.ID;
-            this.product = product;
-            this._parent = parent;
-            name = product.name;
-            price = product.price;
-            DeleteProductsCommand = new RelayCommand<object>(null, deleteproduct);
-            quantity = "1";
+            quantity = "0";
+            maxquantity = productquantity;
             DecreaseCommand = new RelayCommand<object>(null, Decrease);
             IncreaseCommand = new RelayCommand<object>(null, Increase);
             ChangeCommand = new RelayCommand<object>(null, change);
@@ -38,7 +25,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             int i;
             string s = o as string;
-            bool check = int .TryParse(s, out i);
+            bool check = int.TryParse(s, out i);
             if (!check)
             {
                 quantity = "0";
@@ -46,9 +33,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             else if (check)
             {
-                if(i> product.quantity)
+                if (i > maxquantity)
                 {
-                    quantity= product.quantity.ToString();
+                    quantity = maxquantity.ToString();
                     OnPropertyChanged(nameof(quantity));
                 }
                 else if (i < 0)
@@ -76,7 +63,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                     OnPropertyChanged(nameof(quantity));
                 }
             }
-            
+
         }
         private void Increase(Object o)
         {
@@ -84,15 +71,16 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             int i = 0;
             if (int.TryParse(s, out i))
             {
-                if (i <= product.quantity)
+                if (i <= maxquantity)
                 {
                     quantity = (i + 1).ToString();
                     OnPropertyChanged(nameof(quantity));
                 }
-                
+
             }
 
         }
+
         public int GetDetailNum()
         {
             int id;
@@ -102,9 +90,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             else return 0;
         }
-        private void deleteproduct(object o)
-        {
-            _parent.UpdateBoughtList(product);
-        }
+
     }
 }

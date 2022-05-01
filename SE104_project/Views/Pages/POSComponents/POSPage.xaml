@@ -318,7 +318,7 @@
                     <Button                               
                         IsDefault="True"              
                         Style="{StaticResource PrimaryButton}"                                 
-                        CommandParameter="{Binding ElementName=wdProductsType}"                          
+                        Command="{Binding PurchaseCommand}"
                         Height="40"  
                         Width="200"       
                         TabIndex="3"      

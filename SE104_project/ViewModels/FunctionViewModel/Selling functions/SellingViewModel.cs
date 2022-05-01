@@ -3,6 +3,8 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.Network.Insert_database;
+using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System;
 using System.Collections.Generic;
@@ -37,6 +39,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
 
         #region Commands
         public ICommand SearchCommand { get; set; }
+        public ICommand PurchaseCommand { get; set; }
         #endregion
         public SellingViewModel(AppSession session, MongoConnect client) : base(session, client)
         {
@@ -50,6 +53,30 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             clockTicking();
             getdata();
             SearchCommand = new RelayCommand<object>(null, search);
+            PurchaseCommand = new RelayCommand<object>(null, purchase);
+        }
+
+        private async void purchase(object o)
+        {
+            long total = 0;
+            if(listbought.Count > 0)
+            {
+                foreach(var item in listbought)
+                {
+                    total += item.price*item.GetDetailNum();
+                    FilterDefinition<ProductsInformation> filter = Builders<ProductsInformation>.Filter.Eq(x => x.ID, item.product.ID);
+                    var ls = await new GetProducts(_connection.client, _session, filter).Get();
+                    foreach(var product in ls)
+                    {
+                        Console.WriteLine(product.ID);
+                    }
+                }
+            }
+            BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(), DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
+            RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
+            await registbill.register();
+
+            
         }
 
         private async Task getdata()
@@ -113,17 +140,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             clock = DateTime.Now.ToString("HH:mm:ss");
             OnPropertyChanged(nameof(clock));
         }
-        private void search(object o)
+        private async void search(object o)
         {
             searchString = o.ToString();
             if(string.IsNullOrEmpty(searchString))
             {
-                getdata();
+               await getdata();
 
             }
             else
             {
-                getsearchdata();
+               await getsearchdata();
             }
         }
 

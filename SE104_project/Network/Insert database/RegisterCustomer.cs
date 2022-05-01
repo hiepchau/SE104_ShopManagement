@@ -32,7 +32,6 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 return null;
             }
             BsonDocument newProductDoc = new BsonDocument{
-                {"_id", customer.ID},
                 {"Name", customer.Name},
                 {"Phone", customer.PhoneNumber },
                 {"Level", customer.CustomerLevel },
