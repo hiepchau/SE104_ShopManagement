@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions
@@ -30,6 +32,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public string clock { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
+        public string searchString { get; set; }
+        #endregion
+
+        #region Commands
+        public ICommand SearchCommand { get; set; }
         #endregion
         public SellingViewModel(AppSession session, MongoConnect client) : base(session, client)
         {
@@ -42,7 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             listbought = new ObservableCollection<ImportPOSProductControlViewModel>();
             clockTicking();
             getdata();
-            
+            SearchCommand = new RelayCommand<object>(null, search);
         }
 
         private async Task getdata()
@@ -105,6 +112,34 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         {
             clock = DateTime.Now.ToString("HH:mm:ss");
             OnPropertyChanged(nameof(clock));
+        }
+        private void search(object o)
+        {
+            searchString = o.ToString();
+            if(string.IsNullOrEmpty(searchString))
+            {
+                getdata();
+
+            }
+            else
+            {
+                getsearchdata();
+            }
+        }
+
+        private async Task getsearchdata()
+        {
+            listProducts.Clear();
+            OnPropertyChanged(nameof(listProducts));
+            FilterDefinition<ProductsInformation> filter = Builders<ProductsInformation>.Filter.Eq(x => x.name, searchString);
+            var tmp = new GetProducts(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (ProductsInformation pr in ls)
+            {
+                listProducts.Add(new POSProductControlViewModel(pr, this));
+
+            }
+            OnPropertyChanged(nameof(listProducts));
         }
     }
 }

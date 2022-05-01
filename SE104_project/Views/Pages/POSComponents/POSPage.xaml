@@ -6,6 +6,7 @@
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="715" d:DesignWidth="1166">
 
     <Grid   Background="Transparent">
@@ -131,7 +132,16 @@
                                 Height="40"
                                 VerticalAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Padding="2,0,0,0"/>
+                                Padding="2,0,0,0"
+                            Text="{Binding searchString, Mode=TwoWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                         <Button 
                                 
                                 IsDefault="True"
@@ -245,6 +255,7 @@
                              Text="{Binding clock}"
                              Width="60" 
                              Height="40" 
+                            VerticalAlignment="Center"
                              HorizontalAlignment="Right"/>
                         
                     </Grid>
