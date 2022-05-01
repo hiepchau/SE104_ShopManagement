@@ -82,7 +82,7 @@
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled"
                             >
-                            <ListBox ItemsSource="{Binding listProducts, UpdateSourceTrigger=PropertyChanged}"
+                            <ListBox ItemsSource="{Binding listbought, UpdateSourceTrigger=PropertyChanged}"
                                      SelectedItem="{Binding selectedProduct}"
                                      x:Name="ListBoxProduct">
                                 <ListBox.ItemContainerStyle>
@@ -163,9 +163,14 @@
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled">
-                        <StackPanel 
-                        x:Name="stkSellingPro1ducts" Orientation="Vertical">
-                            <uc:POSProductsControl/>
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding listProducts}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:POSProductsControl></uc:POSProductsControl>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </ScrollViewer>
                 </Border>

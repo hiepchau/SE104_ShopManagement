@@ -6,20 +6,23 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              mc:Ignorable="d" 
              >
-    <Border
+    <Grid>
+        <Border
         Background="{DynamicResource White}" 
         BorderBrush="{DynamicResource Gray2}"
         Width="100" 
         Height="120" 
         BorderThickness="1" 
         CornerRadius="4">
-        <Grid Cursor="Hand" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="65*"></RowDefinition>
-                <RowDefinition Height="20*"></RowDefinition>
-                <RowDefinition Height="15*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock 
+
+
+            <Grid Cursor="Hand" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65*"></RowDefinition>
+                    <RowDefinition Height="20*"></RowDefinition>
+                    <RowDefinition Height="15*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock 
                 x:Name="txbId" 
                 Visibility="Hidden"
                 HorizontalAlignment="Left"
@@ -27,7 +30,7 @@
                 VerticalAlignment="Top" 
                 Height="0"
                 Width="0"/>
-            <TextBlock 
+                <TextBlock 
                 x:Name="txbIdBill" 
                 Visibility="Hidden"
                 HorizontalAlignment="Left"
@@ -35,13 +38,13 @@
                 VerticalAlignment="Top" 
                 Height="0" 
                 Width="0"/>
-            <Image x:Name="imgProducts" 
+                <Image x:Name="imgProducts" 
                 Grid.Row="0"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Margin="0,1,0,0"/>
-            <TextBlock x:Name="txbName" 
-                Text="Tên hàng" 
+                <TextBlock x:Name="txbName" 
+                Text="{Binding name}" 
                 TextTrimming="WordEllipsis" 
                 HorizontalAlignment="Center" 
                 Margin="10,0" 
@@ -51,9 +54,9 @@
                 FontSize="12"
                 VerticalAlignment="Center" 
                 TextAlignment="Center"/>
-            <TextBlock 
+                <TextBlock 
                 Name="txbPrice"
-                Text="100.000Đ" 
+                Text="{Binding price}" 
                 TextTrimming="WordEllipsis" 
                 HorizontalAlignment="Center"
                 Margin="20,0,20,0" 
@@ -63,6 +66,12 @@
                 FontSize="12" 
                 FontWeight="SemiBold" 
                 Foreground="{DynamicResource Wor}"/>
-        </Grid>
-    </Border>
+            </Grid>
+        </Border>
+        <Button Height="120"
+                Background="{x:Null}"
+                Command="{Binding UpdateBoughtCommand}">
+            
+        </Button>
+    </Grid>
 </UserControl>
