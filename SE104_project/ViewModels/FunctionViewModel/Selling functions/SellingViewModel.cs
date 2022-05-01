@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions
 {
@@ -22,6 +24,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportPOSProductControlViewModel> listbought { get; set; }
         public ProductsInformation selectedProduct { get; set; }
+        public string CurrentName { get; set; }
+        public string CurrentID { get; set; }
+        public string today { get; set; }
+        public string clock { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
         #endregion
@@ -29,8 +35,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         {
             _session = session;
             _connection = client;
+            CurrentName = _session.CurrnetUser.FirstName + " " + _session.CurrnetUser.LastName;
+            CurrentID = _session.CurrnetUser.ID;
+            today = DateTime.Now.ToString("dd/MM/yyyy");
             listProducts = new ObservableCollection<POSProductControlViewModel>();
             listbought = new ObservableCollection<ImportPOSProductControlViewModel>();
+            clockTicking();
             getdata();
             
         }
@@ -81,6 +91,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             {
                 return;
             }
+        }
+
+        public void clockTicking()
+        {
+            DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(changeTime);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        private void changeTime(Object seneder, EventArgs e)
+        {
+            clock = DateTime.Now.ToString("HH:mm:ss");
+            OnPropertyChanged(nameof(clock));
         }
     }
 }

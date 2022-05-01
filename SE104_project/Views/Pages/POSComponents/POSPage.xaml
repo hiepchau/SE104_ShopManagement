@@ -204,7 +204,7 @@
 
                         <TextBox
                              Style="{StaticResource TextBox}"
-                             Text="#1"
+                             Text="{Binding CurrentID}"
                              Width="40" 
                              Height="40" 
                              TabIndex="0"
@@ -221,7 +221,7 @@
                              Style="{StaticResource Text}"
                              TextWrapping="WrapWithOverflow"
                              TextTrimming="CharacterEllipsis"
-                             Text="Nguyen Huy Tri Dung"
+                             Text="{Binding CurrentName}"
                              Width="185"
                              Height="40" 
                              HorizontalAlignment="Left" Margin="185,0,0,0"/>
@@ -240,13 +240,13 @@
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
 
-                        <TextBox
-                             Style="{StaticResource TextBox}"
-                             Text="11h00"
+                        <TextBlock
+                             Style="{StaticResource Text}"
+                             Text="{Binding clock}"
                              Width="60" 
                              Height="40" 
-                             TabIndex="0"
                              HorizontalAlignment="Right"/>
+                        
                     </Grid>
                     <Grid>
                         <Label
@@ -257,7 +257,7 @@
 
                         <TextBox
                              Style="{StaticResource TextBox}"
-                             Text="01/04/2022"
+                             Text="{Binding today}"
                              Width="95" 
                              Height="40" 
                              TabIndex="0"
