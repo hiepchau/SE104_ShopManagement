@@ -60,6 +60,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SelectedProductsType = null;
         }
+
+        #region Function
         public void OpenAddProductControl(Object o = null)
         {
             AddProductControl addProductControl = new AddProductControl();
@@ -96,6 +98,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 Console.WriteLine(s);
             }
         }
+        #endregion
+
+        #region DB
         public async void GetData()
         {
             var filter = Builders<ProductsInformation>.Filter.Empty;
@@ -120,5 +125,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceProductsType));
         }
+        #endregion
     }
 }

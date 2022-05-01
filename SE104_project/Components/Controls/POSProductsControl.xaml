@@ -10,9 +10,9 @@
         <Border
         Background="{DynamicResource White}" 
         BorderBrush="{DynamicResource Gray2}"
-        Width="100" 
-        Height="120" 
         BorderThickness="1" 
+        Width="100"
+        Height="120"
         CornerRadius="4">
 
 

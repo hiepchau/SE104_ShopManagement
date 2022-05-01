@@ -35,12 +35,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
         }
 
-
+        #region Function
         public void OpenImportProducts(Object o = null)
         {
             managingFunction.Currentdisplaying = new ImportProductsFunction(Session, Connect);
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
+        #endregion
     }
 }

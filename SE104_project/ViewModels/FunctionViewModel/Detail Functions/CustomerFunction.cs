@@ -20,7 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     class CustomerFunction : BaseFunction
     {
-        #region properties
+        #region Properties
         public string customerName { get; set; }
         public string customerPhone { get; set; }
         public string customerCMND { get; set; }
@@ -34,6 +34,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private ManagingFunctionsViewModel managingFunction;
         private CustomerSelectMenu customerSelectMenu;
         #endregion
+
         #region ICommand
         //Customer
         public ICommand LoadCustomerCommand { get; set; }
@@ -71,6 +72,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
         }
 
+        #region Function
         public void OpenAddCustomerControl(Object o = null)
         {
             AddCustomerControl addCustomerControl = new AddCustomerControl();
@@ -99,6 +101,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(listItemsCustomer));
             Console.WriteLine(s);
         }
+        #endregion
+
+        #region DB
         public async void GetData()
         {
             var filter = Builders<CustomerInformation>.Filter.Empty;
@@ -111,5 +116,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsCustomer));
         }
+        #endregion
     }
 }
