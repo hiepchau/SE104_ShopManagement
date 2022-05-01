@@ -11,10 +11,10 @@
              d:DesignHeight="40">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="266*"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
@@ -31,10 +31,8 @@
            x:Name="nmsQuantity"
             Width="80" 
             Height="32"
-            Margin="0" 
-            Grid.Column="2"
-            >
-        </uc:NumericSnipperControl>
+            Margin="-50 0 0 0"
+            Grid.Column="2"/>
         <TextBlock 
             Grid.Column="3" 
             Text="{Binding price}" 

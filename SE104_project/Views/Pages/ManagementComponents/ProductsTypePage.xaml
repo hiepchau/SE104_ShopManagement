@@ -93,7 +93,6 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <uc:ProductsTypeControl/>
-
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

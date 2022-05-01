@@ -44,10 +44,10 @@
                             Margin="20,0,20,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="266*"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="107*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock 
@@ -66,7 +66,7 @@
                                 Style="{StaticResource TitleText}"/>
                             <TextBlock 
                                 Grid.Column="3" 
-                                Text="Giá nhập" 
+                                Text="Giá bán" 
                                 Style="{StaticResource TitleText}"/>
 
                         </Grid>
@@ -85,6 +85,11 @@
                             <ListBox ItemsSource="{Binding listProducts, UpdateSourceTrigger=PropertyChanged}"
                                      SelectedItem="{Binding selectedProduct}"
                                      x:Name="ListBoxProduct">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <uc:ImportPOSProductsControl Width="{Binding ElementName=ListBoxProduct, Path=Width}"></uc:ImportPOSProductsControl>
