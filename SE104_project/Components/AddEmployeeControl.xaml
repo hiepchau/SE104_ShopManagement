@@ -20,7 +20,7 @@
             HorizontalAlignment="Left">
             <Image
                 x:Name="imgProduct"
-                Source="pack://application:,,,/OnlineShopManagement/SE104_project/Resources/Images/omo_product.jpg"/>
+                Source="{Binding employeeImage}"/>
             <Button 
                 x:Name="btnSelectImage"
                 Style="{StaticResource PrimaryButton}"

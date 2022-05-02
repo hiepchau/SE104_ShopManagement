@@ -13,6 +13,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using MongoDB.Driver;
 using SE104_OnlineShopManagement.Services;
+using System.Windows.Media.Imaging;
+using System.Windows.Forms;
+using SE104_OnlineShopManagement.Models;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -28,6 +31,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public bool isMen { get; set; }
         public bool isGirl { get; set; }
         public long salary { get; set; }
+        public BitmapImage employeeImage { get; set; }
         public DateTime BeginDate { get; set; }
         public ObservableCollection<UserInfomation> listItemsUserInfo { get; set; }
         private MongoConnect _connection;
@@ -40,6 +44,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand CancelCommand { get; set; }
         //AddEmployee
         public ICommand ExitCommand { get; set; }
+        public ICommand SelectImageCommand { get; set; }
         #endregion
         public EmployeeFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -54,6 +59,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenAddEmployeeControlCommand = new RelayCommand<Object>(null, OpenAddEmployeeControl);
             CancelCommand = new RelayCommand<Object>(null, Cancel);
             SaveCommand= new RelayCommand<Object>(null,SaveUser);
+            SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
         }
         #region Function
         public void OpenAddEmployeeControl(object o = null)
@@ -83,9 +89,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             else if (role== "Nhân viên") { userRole= Role.Employee; }
 
             //Split Lastname and name
-            name = name.Trim();
-            lastName = name.Substring(name.LastIndexOf(' ') + 1);
-            string _name = name.Substring(0, name.LastIndexOf(' '));
+            string splitName = name.Trim();
+            lastName = splitName.Substring(splitName.LastIndexOf(' ') + 1);
+            string _name = splitName.Substring(0, splitName.LastIndexOf(' '));
 
             UserInfomation info = new UserInfomation(await new AutoEmployeeIDGenerator(_session, _connection.client).Generate()
                 , _name, lastName, email, Password, phoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, salary, BeginDate);
@@ -94,6 +100,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsUserInfo.Add(info);
             OnPropertyChanged(nameof(listItemsUserInfo));
             Console.WriteLine(s);
+        }
+
+        public async void SaveImage(object o = null)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "image jpeg(*.jpg)|*.jpg|image png(*.png)|*.png";
+            ofd.DefaultExt = ".jpeg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
+                ByteImage bimg = new ByteImage(name, tmp);
+                RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
+                employeeImage = tmp;
+                await regist.register();
+                OnPropertyChanged(nameof(employeeImage));
+            }
         }
         #endregion
         #region DB

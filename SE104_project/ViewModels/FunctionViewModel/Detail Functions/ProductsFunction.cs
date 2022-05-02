@@ -13,6 +13,9 @@ using System.Windows.Input;
 using MongoDB.Driver;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.Services;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using SE104_OnlineShopManagement.Models;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -24,11 +27,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string productUnit { get; set; }
         public long productCost { get; set; }
         public long productPrice { get; set; }
+        public BitmapImage productImage { get; set; }
         public ProductTypeInfomation SelectedProductsType { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
+
         public ObservableCollection<ProductsInformation> listItemsProduct { get; set; }
         public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
         #endregion
@@ -41,6 +46,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         //AddProduct
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        public ICommand SelectImageCommand { get; set; }
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
@@ -58,6 +64,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
+            SelectImageCommand = new RelayCommand<Object>(null,SaveImage);
             SelectedProductsType = null;
         }
 
@@ -96,6 +103,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listItemsProduct.Add(info);
                 OnPropertyChanged(nameof(listItemsProduct));
                 Console.WriteLine(s);
+            }
+        }
+        public async void SaveImage(object o = null)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "image jpeg(*.jpg)|*.jpg|image png(*.png)|*.png";
+            ofd.DefaultExt = ".jpeg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
+                ByteImage bimg = new ByteImage(productName, tmp);
+                RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
+                productImage = tmp;
+                await regist.register();
+                OnPropertyChanged(nameof(productImage));
             }
         }
         #endregion
