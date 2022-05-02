@@ -35,7 +35,9 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.role)
                 .Include(p => p.birthDay)
                 .Include(p => p.salary)
-                .Include(p => p.gender);
+                .Include(p => p.gender)
+                .Include(p=>p.displayID)
+                .Include(p=>p.isActivated);
             var ls = await collection.Find<UserInfomation>(_filter).Project<UserInfomation>(field).ToListAsync();
             return ls;
         }

@@ -27,7 +27,8 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.ID)
                 .Include(p => p.Name)
                 .Include(p => p.PhoneNumber)
-                .Include(p=>p.CustomerLevel);
+                .Include(p=>p.CustomerLevel)
+                .Include(p=>p.displayID);
 
             var au = await collection.Find<CustomerInformation>(_filter).Project<CustomerInformation>(field).ToListAsync();
             return au;

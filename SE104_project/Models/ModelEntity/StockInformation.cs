@@ -19,13 +19,16 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string producer { get; set; }
         [BsonElement("Total")]
         public long total { get; set; }
-        public StockInformation(string id, DateTime day, string user, string producer, long total)
+        [BsonElement("DisplayID")]
+        public string displayID { get; set; }
+        public StockInformation(string id, DateTime day, string user, string producer, long total, string display = "")
         {
             this.ID = id;
             this.StockDay = day;
             this.User = user;
             this.producer = producer;
             this.total = total;
+            this.displayID = display;
         }
     }
 }

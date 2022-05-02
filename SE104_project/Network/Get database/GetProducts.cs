@@ -32,7 +32,9 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.ProducerInformation)
                 .Include(p => p.Category)
                 .Include(p=>p.name)
-                .Include(p=>p.Unit);
+                .Include(p=>p.Unit)
+                .Include(p=>p.displayID)
+                .Include(p=>p.isActivated);
 
             var au = await collection.Find<ProductsInformation>(_filter).Project<ProductsInformation>(field).ToListAsync();
             return au;

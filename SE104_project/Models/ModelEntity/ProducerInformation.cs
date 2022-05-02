@@ -19,13 +19,19 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string PhoneNumber { get; set; }
         [BsonElement("Address")]
         public string Address { get; set; }
-        public ProducerInformation(string id, string name, string email, string phonenumber,string address)
+        [BsonElement("DisplayID")]
+        public string displayID { get; set; }
+        [BsonElement("isActivated")]
+        public bool isActivated { get; set; }
+        public ProducerInformation(string id, string name, string email, string phonenumber,string address, bool active = true, string display = "")
         {
             this.ID = id;
             this.Name = name;
             this.Email = email;
             this.PhoneNumber = phonenumber;
             this.Address = address;
+            this.displayID = display;
+            this.isActivated = active;
         }
     }
 }

@@ -28,7 +28,9 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.User)
                 .Include(p => p.saleDay)
                 .Include(p => p.customer)
-                .Include(p => p.total);
+                .Include(p => p.total)
+                .Include(p => p.displayID);
+                
 
             var au = await collection.Find<BillInformation>(_filter).Project<BillInformation>(field).ToListAsync();
             return au;

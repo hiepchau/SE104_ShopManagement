@@ -64,19 +64,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 foreach(var item in listbought)
                 {
                     total += item.price*item.GetDetailNum();
-                    FilterDefinition<ProductsInformation> filter = Builders<ProductsInformation>.Filter.Eq(x => x.ID, item.product.ID);
-                    var ls = await new GetProducts(_connection.client, _session, filter).Get();
-                    foreach(var product in ls)
-                    {
-                        Console.WriteLine(product.ID);
-                    }
                 }
             }
             BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(), DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
             RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
-            await registbill.register();
+            Task<string> registertask = registbill.register();
+            string billid = "";
+            registertask.ContinueWith(async _ =>
+            {
+                if (listbought.Count > 0)
+                {
+                    foreach (var item in listbought)
+                    {
+                        BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
+                        RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
+                        await regist.register();
+                    }
+                }
+            });
 
-            
+            billid = await registertask;
+
         }
 
         private async Task getdata()

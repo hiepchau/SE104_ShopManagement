@@ -31,7 +31,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             BsonDocument newProductDoc = new BsonDocument
             {
                 {"ProductTypeName", newShip.name },
-                {"Note", newShip.note }
+                {"Note", newShip.note },
+                {"isActivated", newShip.isActivated },
             };
             await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("ProductType Inserted into " + session.CurrnetUser.companyInformation);

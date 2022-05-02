@@ -19,13 +19,16 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string CustomerLevel { get; set; }   
         [BsonElement("CMND")]
         public string CMND { get; set; }
-        public CustomerInformation(string id, string name, string phonenum, string level, string cmnd)
+        [BsonElement("DisplayID")]
+        public string displayID { get; set; }
+        public CustomerInformation(string id, string name, string phonenum, string level, string cmnd, string display = "")
         {
             this.ID = id;
             this.Name = name;   
             this.PhoneNumber = phonenum;
             this.CustomerLevel = level;
             this.CMND = cmnd;
+            this.displayID = display;
         }
     }
 }
