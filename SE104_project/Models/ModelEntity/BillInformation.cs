@@ -10,7 +10,6 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [BsonElement("_id")]
         public string ID { get; set; }
         [BsonElement("SaleDay")]
         public DateTime saleDay { get; set; }
@@ -20,13 +19,16 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string customer { get; set; }
         [BsonElement("Total")]
         public long total { get; set; }
-        public BillInformation(string id, DateTime day, string user, string customer, long total)
+        [BsonElement("DisplayID")]
+        public string displayID { get; set; }
+        public BillInformation(string id, DateTime day, string user, string customer, long total, string display ="")
         {
             this.ID = id;
             this.saleDay = day;
             this.User = user;
             this.customer = customer;
             this.total = total;
+            this.displayID = display;
         }
     }
 }

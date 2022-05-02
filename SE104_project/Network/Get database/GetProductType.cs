@@ -27,7 +27,8 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             var field = Builders<ProductTypeInfomation>.Projection
                 .Include(x => x.ID)
                 .Include(X => X.name)
-                .Include(x => x.note);
+                .Include(x => x.note)
+                .Include(x=>x.isActivated);
 
             return await collection.Find<ProductTypeInfomation>(_filter).Project<ProductTypeInfomation>(field).ToListAsync();
         }

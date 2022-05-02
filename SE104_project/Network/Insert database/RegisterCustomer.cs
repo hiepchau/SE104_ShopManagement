@@ -23,23 +23,43 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("CustomerInformation");
-            var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
-            var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", customer.ID);
+            var projectioncheck = Builders<BsonDocument>.Projection.Include("DisplayID");
+            var filtercheck = Builders<BsonDocument>.Filter.Eq("DisplayID", customer.ID);
             var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
+            if(string.IsNullOrEmpty(customer.ID) && string.IsNullOrEmpty(customer.displayID))
+            {
+                Console.WriteLine("Insert error");
+                return null;
+            }
             if (lscheck.Count > 0)
             {
                 Console.WriteLine("Insert error");
                 return null;
             }
-            BsonDocument newProductDoc = new BsonDocument{
-                {"_id", customer.ID},
+            if (string.IsNullOrEmpty(customer.displayID))
+            {
+                BsonDocument newProductDoc = new BsonDocument{
                 {"Name", customer.Name},
                 {"Phone", customer.PhoneNumber },
                 {"Level", customer.CustomerLevel },
+                {"DisplayID",customer.ID},
             };
-            await collection.InsertOneAsync(newProductDoc);
-            Console.WriteLine("User Inserted into " + session.CurrnetUser.companyInformation);
-            return newProductDoc["_id"].ToString();
+                await collection.InsertOneAsync(newProductDoc);
+                Console.WriteLine("User Inserted into " + session.CurrnetUser.companyInformation);
+                return newProductDoc["_id"].ToString();
+            }
+            else
+            {
+                BsonDocument newProductDoc = new BsonDocument{
+                {"Name", customer.Name},
+                {"Phone", customer.PhoneNumber },
+                {"Level", customer.CustomerLevel },
+                {"DisplayID",customer.displayID},
+            };
+                await collection.InsertOneAsync(newProductDoc);
+                Console.WriteLine("User Inserted into " + session.CurrnetUser.companyInformation);
+                return newProductDoc["_id"].ToString();
+            }
         }
     }
 }

@@ -21,10 +21,11 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         {
             var database = mongoClient.GetDatabase(newUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("UserInformation");
-            var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
-            var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", newUser.ID);
+            var projectioncheck = Builders<BsonDocument>.Projection.Include("DisplayID");
+            var filtercheck = Builders<BsonDocument>.Filter.Eq("DisplayID", newUser.ID);
             var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
-            if (lscheck.Count > 0 || newUser.ID=="")
+            
+            if (lscheck.Count > 0 || (string.IsNullOrEmpty(newUser.ID) && string.IsNullOrEmpty(newUser.displayID)))
             {
                 BsonDocument newUserDoc1 = new BsonDocument{
                 { "Company",newUser.companyInformation},
@@ -36,14 +37,17 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserRole",(int)newUser.role },
                 {"UserGender",(int)newUser.gender },
                 {"UserSalary",(long)newUser.salary},
-                {"UserBirthday",newUser.birthDay }
+                {"UserBirthday",newUser.birthDay },
+                {"DisplayID",Guid.NewGuid().ToString()},
+                {"isActivated",true},
                 };
                 await collection.InsertOneAsync(newUserDoc1);
                 Console.WriteLine("User Inserted into", newUser.companyInformation);
                 return newUserDoc1["_id"].ToString();
             }
-            BsonDocument newUserDoc = new BsonDocument{
-                {"_id", newUser.ID},
+            if (string.IsNullOrEmpty(newUser.displayID))
+            {
+                BsonDocument newUserDoc = new BsonDocument{
                 { "Company",newUser.companyInformation},
                 {"UserEmail",newUser.Email },
                 {"UserPassword",newUser.Password },
@@ -53,11 +57,34 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserRole",(int)newUser.role },
                 {"UserGender",(int)newUser.gender },
                 {"UserSalary",(long)newUser.salary },
-                {"UserBirthday",newUser.birthDay }
+                {"UserBirthday",newUser.birthDay },
+                {"DisplayID",newUser.ID},
+                {"isActivated",true }
             };
-            await collection.InsertOneAsync(newUserDoc);
-            Console.WriteLine("User Inserted into", newUser.companyInformation);
-            return newUserDoc["_id"].ToString();
+                await collection.InsertOneAsync(newUserDoc);
+                Console.WriteLine("User Inserted into", newUser.companyInformation);
+                return newUserDoc["_id"].ToString();
+            }
+            else
+            {
+                BsonDocument newUserDoc = new BsonDocument{
+                { "Company",newUser.companyInformation},
+                {"UserEmail",newUser.Email },
+                {"UserPassword",newUser.Password },
+                {"UserFirstName",newUser.FirstName },
+                {"UserLastName",newUser.LastName },
+                {"UserPhoneNumber",newUser.PhoneNumber },
+                {"UserRole",(int)newUser.role },
+                {"UserGender",(int)newUser.gender },
+                {"UserSalary",(long)newUser.salary },
+                {"UserBirthday",newUser.birthDay },
+                {"DisplayID",newUser.displayID},
+                {"isActivated",true }
+            };
+                await collection.InsertOneAsync(newUserDoc);
+                Console.WriteLine("User Inserted into", newUser.companyInformation);
+                return newUserDoc["_id"].ToString();
+            }
         }
     }
 }

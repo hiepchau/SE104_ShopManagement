@@ -23,25 +23,45 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("StockingInformation");
-            var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
-            var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", stock.ID);
+            var projectioncheck = Builders<BsonDocument>.Projection.Include("DisplayID");
+            var filtercheck = Builders<BsonDocument>.Filter.Eq("DisplayID", stock.ID);
             var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
-            if (lscheck.Count > 0 || stock.ID=="")
+            if(string.IsNullOrEmpty(stock.ID) && string.IsNullOrEmpty(stock.displayID)){
+                Console.WriteLine("Insert error");
+                return null;
+            }
+            if (lscheck.Count > 0)
             {
                 Console.WriteLine("Insert error");
                 return null;
             }
+            if (string.IsNullOrEmpty(stock.displayID)) { 
             BsonDocument newProductDoc = new BsonDocument
             {
-                {"_id", stock.ID},
                 {"StockDay",stock.StockDay},
                 {"UserID",stock.User},
                 {"ProducerID", stock.producer },
-                {"Total", stock.total }
+                {"Total", stock.total },
+                {"DisplayID",stock.ID},
             };
             await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("User Inserted into", session.CurrnetUser.companyInformation);
             return newProductDoc["_id"].ToString();
+            }
+            else
+            {
+                BsonDocument newProductDoc = new BsonDocument
+            {
+                {"StockDay",stock.StockDay},
+                {"UserID",stock.User},
+                {"ProducerID", stock.producer },
+                {"Total", stock.total },
+                {"DisplayID",stock.displayID},
+            };
+                await collection.InsertOneAsync(newProductDoc);
+                Console.WriteLine("User Inserted into", session.CurrnetUser.companyInformation);
+                return newProductDoc["_id"].ToString();
+            }
         }
     }
 }

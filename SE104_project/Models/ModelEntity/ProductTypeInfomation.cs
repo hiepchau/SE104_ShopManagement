@@ -10,17 +10,19 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [BsonElement("_id")]
         public string ID { get; set; }
         [BsonElement("ProductTypeName")]
         public string name { get; set; }
         [BsonElement("Note")]
         public string note { get; set; }
-        public ProductTypeInfomation(string id, string name, string note = "")
+        [BsonElement("isActivated")]
+        public bool isActivated { get; set; }
+        public ProductTypeInfomation(string id, string name, string note = "",bool active = true)
         {
             this.ID = id;
             this.name = name;
             this.note = note;
+            this.isActivated = active;
         }
     }
 }

@@ -43,12 +43,12 @@ namespace SE104_OnlineShopManagement.Services
                     tmp = "ST" + (index + 1).ToString();
                     s = tmp;
                     var collectioncheck = database.GetCollection<BsonDocument>("StockingInformation");
-                    var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
-                    var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", tmp);
+                    var projectioncheck = Builders<BsonDocument>.Projection.Include("DisplayID");
+                    var filtercheck = Builders<BsonDocument>.Filter.Eq("DisplayID", tmp);
                     var lscheck = await collectioncheck.Find(filtercheck).Project(projectioncheck).ToListAsync();
                     if (lscheck.Count > 0)
                     {
-                        tmp = "ST" + (index + 2).ToString();
+                        tmp = "ST" + (index + 1).ToString();
                         BsonDocument newdoc = new BsonDocument
                         {
                             {"_id", "SavedStock" },
