@@ -13,21 +13,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Height" Value="25"/>
     </Style>
-
-    <Style x:Key="TextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
-        <Setter Property="Foreground" Value="{StaticResource Black2}"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="MaxLines" Value="1"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Width" Value="230"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Padding" Value="10,0"/>
-    </Style>
-
+    
     <Style x:Key="TextHeader" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{StaticResource WordBlueBrush}"/>
         <Setter Property="FontSize" Value="25"/>
@@ -57,6 +43,23 @@
         <Setter Property="Margin" Value="10 0 0 0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
+ 
+
+    <Style x:Key="TextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+        <Setter Property="Foreground" Value="{StaticResource Black2}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="MaxLines" Value="1"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="230"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Padding" Value="10,0"/>
+    </Style>
+
+
     
     <Style x:Key="PrimaryLabelText" TargetType="{x:Type Label}">
         <Setter Property="Foreground" Value="{StaticResource Black2}"/>

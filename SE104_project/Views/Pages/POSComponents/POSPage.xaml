@@ -212,12 +212,11 @@
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
 
-                        <TextBox
-                             Style="{StaticResource TextBox}"
+                        <TextBlock
+                             Style="{StaticResource Text}"
                              Text="{Binding CurrentID}"
                              Width="40" 
-                             Height="40" 
-                             TabIndex="0"
+                              
                              HorizontalAlignment="Right"/>
                     </Grid>
 
@@ -233,7 +232,6 @@
                              TextTrimming="CharacterEllipsis"
                              Text="{Binding CurrentName}"
                              Width="185"
-                             Height="40" 
                              HorizontalAlignment="Left" Margin="185,0,0,0"/>
                         <Rectangle                
                             Fill="{DynamicResource WordBlueBrush}" 
@@ -254,39 +252,33 @@
                              Style="{StaticResource Text}"
                              Text="{Binding clock}"
                              Width="60" 
-                             Height="40" 
+               
                             VerticalAlignment="Center"
                              HorizontalAlignment="Right"/>
                         
                     </Grid>
-                    <Grid>
+                    <Grid Margin="0 20 0 0">
                         <Label
                             Content="Ngày" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
-
-                        <TextBox
-                             Style="{StaticResource TextBox}"
+                        <TextBlock
+                             Style="{StaticResource Text}"
                              Text="{Binding today}"
                              Width="95" 
-                             Height="40" 
-                             TabIndex="0"
                              HorizontalAlignment="Right"/>
                     </Grid>
-                    <Grid>
+                    <Grid Margin="0 20 0 0">
                         <Label
                             Content="Mã hóa đơn" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
-
-                        <TextBox
-                             Style="{StaticResource TextBox}"
+                        <TextBlock
+                             Style="{StaticResource Text}"
                              Text="1"
-                             Width="30" 
-                             Height="40" 
-                             TabIndex="0"
+                             Width="30"                  
                              HorizontalAlignment="Right"/>
                     </Grid>
                 </StackPanel>
