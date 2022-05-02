@@ -24,7 +24,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
     }
     public class SellingViewModel:BaseFunction, IUpdateSelectedList
     {
-        #region properties
+        #region Properties
         public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportPOSProductControlViewModel> listbought { get; set; }
         public ProductsInformation selectedProduct { get; set; }
@@ -55,7 +55,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             SearchCommand = new RelayCommand<object>(null, search);
             PurchaseCommand = new RelayCommand<object>(null, purchase);
         }
-
+        #region Function
         private async void purchase(object o)
         {
             long total = 0;
@@ -86,24 +86,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             billid = await registertask;
 
         }
-
-        private async Task getdata()
-        {
-            var tmp = new GetProducts(_connection.client, _session, FilterDefinition<ProductsInformation>.Empty);
-            var ls = await tmp.Get();
-            foreach(ProductsInformation pr in ls)
-            {
-                listProducts.Add(new POSProductControlViewModel(pr,this));
-                
-            }
-            OnPropertyChanged(nameof(listProducts));
-        }
-
         public void UpdateSelectedList(ProductsInformation pro)
         {
-            if (listbought.Count>0)
+            if (listbought.Count > 0)
             {
-                foreach(ImportPOSProductControlViewModel pr in listbought)
+                foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
                     if (pr.product.Equals(pro))
                         return;
@@ -118,7 +105,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             int i = 0;
             if (listbought.Count > 0)
             {
-                foreach(ImportPOSProductControlViewModel pr in listbought)
+                foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
                     if (pr.product.Equals(pro))
                     {
@@ -151,17 +138,30 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         private async void search(object o)
         {
             searchString = o.ToString();
-            if(string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(searchString))
             {
-               await getdata();
+                await getdata();
 
             }
             else
             {
-               await getsearchdata();
+                await getsearchdata();
             }
         }
+        #endregion
 
+        #region DB
+        private async Task getdata()
+        {
+            var tmp = new GetProducts(_connection.client, _session, FilterDefinition<ProductsInformation>.Empty);
+            var ls = await tmp.Get();
+            foreach(ProductsInformation pr in ls)
+            {
+                listProducts.Add(new POSProductControlViewModel(pr,this));
+                
+            }
+            OnPropertyChanged(nameof(listProducts));
+        }
         private async Task getsearchdata()
         {
             listProducts.Clear();
@@ -176,5 +176,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             }
             OnPropertyChanged(nameof(listProducts));
         }
+        #endregion
     }
 }

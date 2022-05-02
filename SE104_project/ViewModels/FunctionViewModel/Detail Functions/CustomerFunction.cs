@@ -47,6 +47,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand CountCustomerCommand { get; set; }
         public ICommand FilterCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
 
         //Membership
         public ICommand OpenMemberShipControlCommand { get; set; }
@@ -68,6 +69,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GetData();
             listItemsCustomer.Add(new CustomerInformation("12", "Hip", "0123456789", "1","123"));
             //
+            TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
+            
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
         }
@@ -78,7 +81,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddCustomerControl addCustomerControl = new AddCustomerControl();
             addCustomerControl.DataContext = this;
             DialogHost.Show(addCustomerControl);
-            SaveCommand = new RelayCommand<Object>(null, SaveCustomer);
+            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveCustomer);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
@@ -91,7 +94,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu.changeSelectedItem(1);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-        public async void SaveCustomer(object o = null)
+        public void TextChangedHandle(Object o = null)
+        {
+            (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValidSave(Object o = null)
+        {
+            if(String.IsNullOrEmpty(customerName) || String.IsNullOrEmpty(customerPhone) || String.IsNullOrEmpty(customerAddress) || String.IsNullOrEmpty(customerCMND))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async void SaveCustomer(Object o = null)
         {
             CustomerInformation info = new CustomerInformation(await new AutoCustomerIDGenerator(_session,_connection.client).Generate(), 
                 customerName,customerPhone,"1",customerCMND);

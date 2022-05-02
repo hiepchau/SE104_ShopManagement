@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
+             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              x:Name="ucAddCus"
-            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            Height="440"  Width="500"
-            Background="{StaticResource White}" >
+             Height="440"  Width="500"
+             Background="{StaticResource White}" >
+    <UserControl.Resources>
+        <multiconvert:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+    </UserControl.Resources>
     <Grid>
         <StackPanel
             Margin="30,30,30,0"
@@ -32,9 +37,9 @@
                     x:Name="txtId"
                     materialDesign:HintAssist.Hint="Mã tự động"
                     Style="{StaticResource TextBox}"
-                    IsReadOnly="False"
-                    Focusable="True"
-                    IsTabStop="False"/>
+                    IsReadOnly="True"
+                    IsTabStop="False"
+                    Focusable="False"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
@@ -55,8 +60,25 @@
                     materialDesign:HintAssist.Hint="Họ và tên"
                     Style="{StaticResource TextBox}"
                     TabIndex="0"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Text="{Binding customerName, Mode=TwoWay}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding 
+                            Path="customerName"
+                            Mode="TwoWay"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập tên khách hàng!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                
 
             </Grid>
             <Grid 
@@ -79,8 +101,23 @@
                     Style="{StaticResource TextBox}"
                     MaxLength="10"
                     TabIndex="1"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Text="{Binding customerPhone, Mode=TwoWay}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="customerPhone"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập số điện thoại!"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
 
             </Grid>
             <Grid 
@@ -103,8 +140,23 @@
                     materialDesign:HintAssist.Hint="CMND"
                     TabIndex="2"
                     MaxLength="12"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Text="{Binding customerCMND, Mode=TwoWay}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="customerCMND" 
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập CMND!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
 
             </Grid>
             <Grid 
@@ -127,8 +179,23 @@
                     materialDesign:HintAssist.Hint="Địa chỉ" 
                     Width="230"
                     TabIndex="3"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Text="{Binding customerAddress, Mode=TwoWay}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="customerAddress" 
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập địa chỉ!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
             </Grid>
             <StackPanel 
                 Margin="0,30,0,0" 
@@ -160,7 +227,19 @@
                     ToolTip="Thêm nhân viên"
                     Content="Lưu"
                     HorizontalAlignment="Left">
-
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
+                                      Mode="TwoWay">
+                            <Binding ElementName="txtName"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtPhoneNumber"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtCMND"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtAddress"
+                                     Path="(Validation.HasError)" />
+                        </MultiBinding>
+                    </Button.IsEnabled>
                 </Button>
             </StackPanel>
         </StackPanel>
