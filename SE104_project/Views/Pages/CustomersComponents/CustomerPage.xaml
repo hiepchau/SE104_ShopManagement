@@ -346,11 +346,11 @@
                     </Grid>
                 </Border>
                 <Border
-                            Grid.Row="1"
-                            BorderBrush="{StaticResource LightBrush}"
-                            BorderThickness="2,0,2,2"
-                            CornerRadius="0,0,4,4"
-                            Margin="20,40,20,6" >
+                    Grid.Row="1"                   
+                    BorderBrush="{StaticResource LightBrush}"
+                    BorderThickness="2,0,2,2"                    
+                    CornerRadius="0,0,4,4"
+                    Margin="20,40,20,6" >
                     <Grid>
                         <StackPanel>
                             <ItemsControl ItemsSource="{Binding listItemsCustomer}">

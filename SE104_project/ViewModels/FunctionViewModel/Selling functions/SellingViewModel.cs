@@ -84,8 +84,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             });
 
             billid = await registertask;
-
         }
+
         public void UpdateSelectedList(ProductsInformation pro)
         {
             if (listbought.Count > 0)

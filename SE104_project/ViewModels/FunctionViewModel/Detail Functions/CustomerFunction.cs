@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.Services;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -28,7 +29,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private MongoConnect _connection;
         private AppSession _session;
         public int selectedItem { get; set; }
-        public ObservableCollection<CustomerInformation> listItemsCustomer { get; set; }
+        public ObservableCollection<CustomerControlViewModel> listItemsCustomer { get; set; }
 
 
         private ManagingFunctionsViewModel managingFunction;
@@ -64,10 +65,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session=session;
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
-            listItemsCustomer = new ObservableCollection<CustomerInformation>();
+            listItemsCustomer = new ObservableCollection<CustomerControlViewModel>();
             //Test
             GetData();
-            listItemsCustomer.Add(new CustomerInformation("12", "Hip", "0123456789", "1","123"));
+            listItemsCustomer.Add(new CustomerControlViewModel(new CustomerInformation("12", "Hip", "0123456789", "1", "123")));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
@@ -113,7 +114,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 customerName,customerPhone,"1",customerCMND);
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
             string s = await regist.register();
-            listItemsCustomer.Add(info);
+            listItemsCustomer.Add(new CustomerControlViewModel(info));
             OnPropertyChanged(nameof(listItemsCustomer));
             Console.WriteLine(s);
         }
@@ -125,9 +126,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<CustomerInformation>.Filter.Empty;
             GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
             var ls = await getter.Get();
-            foreach (CustomerInformation pro in ls)
+            foreach (CustomerInformation cus in ls)
             {
-                listItemsCustomer.Add(pro);
+                listItemsCustomer.Add(new CustomerControlViewModel(cus));
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsCustomer));

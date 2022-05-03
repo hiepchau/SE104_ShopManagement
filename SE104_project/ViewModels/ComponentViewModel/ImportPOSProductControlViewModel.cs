@@ -11,15 +11,21 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
     
     public class ImportPOSProductControlViewModel:ViewModelBase
     {
+        #region Properties
         public ProductsInformation product { get; set; }
         public string ID { get; set; }
         public string name { get; set; }
         public long price { get; set; }
-        public string quantity { get; set; }   
+        public string quantity { get; set; }
+        #endregion
+
+        #region ICommand
         public ICommand DeleteProductsCommand { get; set; }
         public ICommand DecreaseCommand { get; set; }
         public ICommand IncreaseCommand { get; set; }
         public ICommand ChangeCommand { get; set; }
+        #endregion
+
         private IUpdateSelectedList _parent;
         public ImportPOSProductControlViewModel(ProductsInformation product, IUpdateSelectedList parent)
         {

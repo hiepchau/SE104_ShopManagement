@@ -79,10 +79,9 @@
                             BorderThickness="2,0,2,2"
                             Margin="20,0,20,0">
                         <ScrollViewer
-                    Style="{StaticResource FavsScrollViewer}"
-                    VerticalScrollBarVisibility="Auto" 
-                    HorizontalScrollBarVisibility="Disabled"
-                            >
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"                    
+                            HorizontalScrollBarVisibility="Disabled">
                             <ListBox ItemsSource="{Binding listbought, UpdateSourceTrigger=PropertyChanged}"
                                      SelectedItem="{Binding selectedProduct}"
                                      x:Name="ListBoxProduct">
@@ -93,7 +92,7 @@
                                 </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ImportPOSProductsControl Width="{Binding ElementName=ListBoxProduct, Path=Width}"></uc:ImportPOSProductsControl>
+                                        <uc:ImportPOSProductsControl Width="{Binding ElementName=ListBoxProduct, Path=Width}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -177,7 +176,7 @@
                             <ItemsControl ItemsSource="{Binding listProducts}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:POSProductsControl></uc:POSProductsControl>
+                                        <uc:POSProductsControl/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
