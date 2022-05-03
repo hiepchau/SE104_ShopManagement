@@ -18,31 +18,32 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string level { get; set; }
         public string cmnd { get; set; }
         public string displayId { get; set; }
+        private IUpdateCustomerList _parent;
         #endregion
 
         #region ICommand
         public ICommand EditCustomerCommand { get; set; }
         public ICommand DeleteCustomerCommand { get; set; }
         #endregion
-        private IUpdateCustomerList _parent;
         public CustomerControlViewModel(CustomerInformation customer, IUpdateCustomerList parent)
         {
             ID = customer.ID;
             Name = customer.Name;
             PhoneNumber = customer.PhoneNumber;
-            level = customer.CustomerLevel;
-            cmnd = customer.CMND;
-            displayId = customer.displayID;
+            //level = customer.CustomerLevel;
+            //cmnd = customer.CMND;
+            //displayId = customer.displayID;
             this.customer = customer;
             _parent = parent;
-
             DeleteCustomerCommand = new RelayCommand<Object>(null, deteleCustomer);
 
         }
 
+        #region Function
         private void deteleCustomer(Object o)
         {
             _parent.UpdateCustomerList(customer);
         }
+        #endregion
     }
 }

@@ -9,17 +9,22 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    class MembershipFunction : BaseFunction
+    public interface IUpdateMembershipList
     {
-        #region properties
+        void UpdateMembershipList(MembershipInformation mem);
+    }
+    class MembershipFunction : BaseFunction, IUpdateMembershipList
+    {
+        #region Properties
         public string membershipname { get; set; }
         public int priority { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
-        public ObservableCollection<MembershipInformation> listMemberShip { get; set; }
+        public ObservableCollection<MembershipControlViewModel> listMembership { get; set; }
         #endregion
         #region ICommand
         public ICommand SaveCommand { get; set; }
@@ -28,15 +33,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._session = session;
             this._connection = connect;
-            listMemberShip = new ObservableCollection<MembershipInformation>();
+            listMembership = new ObservableCollection<MembershipControlViewModel>();
             GetData();
+            //Test
+            listMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
+            //
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
         }
         public bool CheckExist()
         {
-            foreach (MembershipInformation pro in listMemberShip)
+            foreach (MembershipControlViewModel ls in listMembership)
             {
-                if (membershipname == pro.name)
+                if (membershipname == ls.name)
                 {
                     return true;
                 }
@@ -52,15 +60,37 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 MembershipInformation info = new MembershipInformation("", membershipname, priority);
                 RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                 string s = await regist.register();
-                listMemberShip.Add(info);
-                OnPropertyChanged(nameof(listMemberShip));
+                listMembership.Add(new MembershipControlViewModel(info, this));
+                OnPropertyChanged(nameof(listMembership));
                 Console.WriteLine(s);
             }
             else
             {
-                Console.WriteLine("Cant insert because MembershipName has existed!");
+                Console.WriteLine("MembershipName has existed!");
             }
         }
+        public void UpdateMembershipList(MembershipInformation mem)
+        {
+            int i = 0;
+            if (listMembership.Count > 0)
+            {
+                foreach (MembershipControlViewModel ls in listMembership)
+                {
+                    if (ls.membership.Equals(mem))
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                listMembership.RemoveAt(i);
+                OnPropertyChanged(nameof(listMembership));
+            }
+            else
+            {
+                return;
+            }
+        }
+
         #endregion
 
         #region DB
@@ -69,13 +99,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<MembershipInformation>.Filter.Empty;
             GetMembership getter = new GetMembership(_connection.client, _session, filter);
             var ls = await getter.Get();
-            foreach (MembershipInformation pro in ls)
+            foreach (MembershipInformation mem in ls)
             {
-                listMemberShip.Add(pro);
+                listMembership.Add(new MembershipControlViewModel(mem, this));
             }
-            OnPropertyChanged(nameof(listMemberShip));
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(listMembership));
 
         }
+
         #endregion
     }
 }

@@ -72,14 +72,13 @@
                 Margin="20,40,20,0" 
                 CornerRadius="0,0,4,4" >
                 <StackPanel>
-                    <ItemsControl ItemsSource="{Binding listMemberShip}">
+                    <ItemsControl ItemsSource="{Binding listMembership}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <uc:MembershipControl/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <uc:MembershipControl></uc:MembershipControl>
                 </StackPanel>
             </Border>
 
@@ -173,7 +172,7 @@
                     <TextBox 
                         x:Name="txtMembership"
                         Style="{StaticResource TextBox}"
-                        materialDesign:HintAssist.Hint="Hạng thành viên"
+                        materialDesign:HintAssist.Hint="Tên hạng thành viên"
                         TabIndex="0"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                         Text="{Binding membershipname, Mode=TwoWay}">

@@ -122,28 +122,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(listItemsCustomer));
             Console.WriteLine(s);
         }
-        //void UpdateCustomerList(CustomerInformation cus)
-        //{
-        //    int i = 0;
-        //    if (listItemsCustomer.Count > 0)
-        //    {
-        //        foreach (CustomerControlViewModel ls in listItemsCustomer)
-        //        {
-        //            if (ls.customer.Equals(cus))
-        //            {
-        //                break;
-        //            }
-        //            i++;
-        //        }
-        //        listItemsCustomer.RemoveAt(i);
-        //        OnPropertyChanged(nameof(listItemsCustomer));
-        //    }
-        //    else
-        //    {
-        //        return;
-        //    }
-        //}
-        void IUpdateCustomerList.UpdateCustomerList(CustomerInformation cus)
+
+        public void UpdateCustomerList(CustomerInformation cus)
         {
             int i = 0;
             if (listItemsCustomer.Count > 0)
