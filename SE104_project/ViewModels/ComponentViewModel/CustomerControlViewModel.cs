@@ -1,4 +1,6 @@
-﻿using SE104_OnlineShopManagement.Models.ModelEntity;
+﻿using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,8 +24,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand EditCustomerCommand { get; set; }
         public ICommand DeleteCustomerCommand { get; set; }
         #endregion
-
-        public CustomerControlViewModel(CustomerInformation customer)
+        private IUpdateCustomerList _parent;
+        public CustomerControlViewModel(CustomerInformation customer, IUpdateCustomerList parent)
         {
             ID = customer.ID;
             Name = customer.Name;
@@ -32,6 +34,15 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             cmnd = customer.CMND;
             displayId = customer.displayID;
             this.customer = customer;
+            _parent = parent;
+
+            DeleteCustomerCommand = new RelayCommand<Object>(null, deteleCustomer);
+
+        }
+
+        private void deteleCustomer(Object o)
+        {
+            _parent.UpdateCustomerList(customer);
         }
     }
 }

@@ -19,7 +19,11 @@ using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    class CustomerFunction : BaseFunction
+    public interface IUpdateCustomerList
+    {
+        void UpdateCustomerList(CustomerInformation cus);
+    }
+    class CustomerFunction : BaseFunction, IUpdateCustomerList
     {
         #region Properties
         public string customerName { get; set; }
@@ -68,7 +72,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsCustomer = new ObservableCollection<CustomerControlViewModel>();
             //Test
             GetData();
-            listItemsCustomer.Add(new CustomerControlViewModel(new CustomerInformation("12", "Hip", "0123456789", "1", "123")));
+            listItemsCustomer.Add(new CustomerControlViewModel(new CustomerInformation("12", "Hip", "0123456789", "1", "123"), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
@@ -114,10 +118,53 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 customerName,customerPhone,"1",customerCMND);
             RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
             string s = await regist.register();
-            listItemsCustomer.Add(new CustomerControlViewModel(info));
+            listItemsCustomer.Add(new CustomerControlViewModel(info, this));
             OnPropertyChanged(nameof(listItemsCustomer));
             Console.WriteLine(s);
         }
+        //void UpdateCustomerList(CustomerInformation cus)
+        //{
+        //    int i = 0;
+        //    if (listItemsCustomer.Count > 0)
+        //    {
+        //        foreach (CustomerControlViewModel ls in listItemsCustomer)
+        //        {
+        //            if (ls.customer.Equals(cus))
+        //            {
+        //                break;
+        //            }
+        //            i++;
+        //        }
+        //        listItemsCustomer.RemoveAt(i);
+        //        OnPropertyChanged(nameof(listItemsCustomer));
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //}
+        void IUpdateCustomerList.UpdateCustomerList(CustomerInformation cus)
+        {
+            int i = 0;
+            if (listItemsCustomer.Count > 0)
+            {
+                foreach (CustomerControlViewModel ls in listItemsCustomer)
+                {
+                    if (ls.customer.Equals(cus))
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                listItemsCustomer.RemoveAt(i);
+                OnPropertyChanged(nameof(listItemsCustomer));
+            }
+            else
+            {
+                return;
+            }
+        }
+
         #endregion
 
         #region DB
@@ -128,11 +175,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.Get();
             foreach (CustomerInformation cus in ls)
             {
-                listItemsCustomer.Add(new CustomerControlViewModel(cus));
+                listItemsCustomer.Add(new CustomerControlViewModel(cus, this));
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsCustomer));
         }
+
+
         #endregion
     }
 }
