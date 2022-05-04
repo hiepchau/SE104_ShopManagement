@@ -359,20 +359,22 @@
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
                             <!--DATAGRID-->
-                            <ListBox>
+                            <ListBox 
+                                ItemsSource="{Binding listItemsProductType}"
+                                SelectedItem="{Binding selectedProductType}">
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
-                                <uc:InactiveTab_ProductsTypeControl/>
+                                <!--<uc:InactiveTab_ProductsTypeControl/>-->
 
 
-                                <!--<ListBox.ItemTemplate>
+                                <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <uc:InactiveTab_ProductsTypeControl/>
                                     </DataTemplate>
-                                </ListBox.ItemTemplate>-->
+                                </ListBox.ItemTemplate>
                             </ListBox>
                         </Border>
                         <StackPanel
@@ -421,7 +423,7 @@
                         VerticalAlignment="Center">
                         <Button 
                             Style="{StaticResource PaginationButton}"
-                           
+                            Command="{Binding SetUnactiveCommand}"
                             ToolTip="Ngừng hoạt động"
                             Width="40"
                             Height="40">
@@ -433,7 +435,7 @@
                         </Button>
                         <Button 
                             Style="{StaticResource PaginationButton}"
-                          
+                            Command="{Binding SetActiveCommand}"
                             ToolTip="Hoạt động"
                             Width="40"
                             Height="40" 
@@ -501,20 +503,21 @@
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
                             <!--DATAGRID-->
-                            <ListBox>
+                            <ListBox ItemsSource="{Binding listItemsUnactiveProductType}"
+                                     SelectedItem="{Binding selectedProductType}">
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
-                                <uc:InactiveTab_ProductsTypeControl/>
+                                <!--<uc:InactiveTab_ProductsTypeControl/>-->
 
 
-                                <!--<ListBox.ItemTemplate>
+                                <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <uc:InactiveTab_ProductsTypeControl/>
                                     </DataTemplate>
-                                </ListBox.ItemTemplate>-->
+                                </ListBox.ItemTemplate>
                             </ListBox>
                         </Border>
                         <StackPanel

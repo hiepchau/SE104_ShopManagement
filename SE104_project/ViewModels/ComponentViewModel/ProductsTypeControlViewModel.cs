@@ -15,6 +15,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string ID { get; set; }
         public string name { get; set; }
         public string note { get; set; }
+        public bool isActivated { get; set; }
         private IUpdateProductTypeList _parent;
 
         #endregion
@@ -30,6 +31,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = type.ID;
             name = type.name;
             note = type.note;
+            isActivated = type.isActivated;
             _parent = parent;
 
             DeleteProductTypeCommand = new RelayCommand<Object>(null, DeleteType);
