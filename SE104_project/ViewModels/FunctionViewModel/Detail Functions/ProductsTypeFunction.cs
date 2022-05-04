@@ -89,7 +89,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SetUnactive(object o = null)
         {
-            if (selectedProductType.isActivated == true)
+            if (selectedProductType != null && selectedProductType.isActivated == true)
             {
                 var filter = Builders<ProductTypeInfomation>.Filter.Eq("ProductTypeName", selectedProductType.name);
                 var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", false);
@@ -106,7 +106,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SetActive(object o = null)
         {
-            if (selectedProductType.isActivated == false)
+            if (selectedProductType != null && selectedProductType.isActivated == false)
             {
                 var filter = Builders<ProductTypeInfomation>.Filter.Eq("ProductTypeName", selectedProductType.name);
                 var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", true);
