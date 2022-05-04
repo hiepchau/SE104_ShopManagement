@@ -351,7 +351,10 @@
                     BorderThickness="2,0,2,2"                    
                     CornerRadius="0,0,4,4"
                     Margin="20,40,20,6" >
-                    <Grid>
+                    <ScrollViewer                                                
+                        Style="{StaticResource FavsScrollViewer}"                                    
+                        VerticalScrollBarVisibility="Auto"                       
+                        HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
                             <ItemsControl ItemsSource="{Binding listItemsCustomer}">
                                 <ItemsControl.ItemTemplate>
@@ -361,7 +364,7 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </StackPanel>
-                    </Grid>
+                    </ScrollViewer>
                 </Border>
                 <StackPanel
                             Grid.Row="2"

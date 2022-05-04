@@ -92,16 +92,21 @@
         <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,60,20,20">
-            <StackPanel>
-                <uc:SpendingControl></uc:SpendingControl>
-                <!--<ItemsControl ItemsSource="{Binding listItemsSpending}">
+            <ScrollViewer
+                    Style="{StaticResource FavsScrollViewer}"
+                    VerticalScrollBarVisibility="Auto" 
+                    HorizontalScrollBarVisibility="Disabled">
+                <StackPanel>
+                    <uc:SpendingControl></uc:SpendingControl>
+                    <!--<ItemsControl ItemsSource="{Binding listItemsSpending}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <uc:SpendingControl/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>-->
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"

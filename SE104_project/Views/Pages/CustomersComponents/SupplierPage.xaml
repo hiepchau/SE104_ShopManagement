@@ -296,21 +296,26 @@
                                     Style="{StaticResource TitleText}"/>
                     </Grid>
                 </Border>
-                <Border
-                            Grid.Row="2"
-                            BorderBrush="{DynamicResource LightBrush}"
-                            CornerRadius="0,0,4,4"
-                            BorderThickness="2,0,2,2" 
-                            Margin="20,0,20,16">
-                    <StackPanel>
-                        <ItemsControl ItemsSource="{Binding listItemsProducer}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <uc:SupplierControl/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+                <Border                          
+                    Grid.Row="2"                        
+                    BorderBrush="{DynamicResource LightBrush}"                        
+                    CornerRadius="0,0,4,4"                      
+                    BorderThickness="2,0,2,2"                       
+                    Margin="20,0,20,16">
+                    <ScrollViewer
+                        Style="{StaticResource FavsScrollViewer}"                   
+                        VerticalScrollBarVisibility="Auto" 
+                        HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding listItemsProducer}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:SupplierControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
                 <StackPanel
                             Grid.Row="3"

@@ -129,15 +129,20 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel>
-                                <ItemsControl ItemsSource="{Binding listItemsUserInfo}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <uc:EmployeeControl/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
+                            <ScrollViewer
+                                Style="{StaticResource FavsScrollViewer}"                 
+                                VerticalScrollBarVisibility="Auto" 
+                                HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel>
+                                    <ItemsControl ItemsSource="{Binding listItemsUserInfo}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <uc:EmployeeControl/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
@@ -252,18 +257,23 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <ListBox ItemsSource="{Binding listItemsUserInfo}">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <uc:InactiveTab_EmployeeControl/>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                            <ScrollViewer
+                                Style="{StaticResource FavsScrollViewer}"
+                                VerticalScrollBarVisibility="Auto"            
+                                HorizontalScrollBarVisibility="Disabled">
+                                <ListBox ItemsSource="{Binding listItemsUserInfo}">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <uc:InactiveTab_EmployeeControl/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
@@ -390,8 +400,12 @@
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
-                            <StackPanel 
-                                   />
+                            <ScrollViewer
+                                Style="{StaticResource FavsScrollViewer}"
+                                VerticalScrollBarVisibility="Auto"            
+                                HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel/>
+                            </ScrollViewer>
                         </Border>
                         <StackPanel
                         Grid.Row="3"
