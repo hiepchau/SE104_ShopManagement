@@ -16,10 +16,15 @@ using SE104_OnlineShopManagement.Services;
 using System.Windows.Media.Imaging;
 using System.Windows.Forms;
 using SE104_OnlineShopManagement.Models;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    class EmployeeFunction : BaseFunction
+    public interface IUpdateEmployeeList
+    {
+        void UpdateEmployeeList(UserInfomation user);
+    }
+    class EmployeeFunction : BaseFunction, IUpdateEmployeeList
     {
         #region Properties
         public string name { get; set; }
@@ -33,7 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public long salary { get; set; }
         public BitmapImage employeeImage { get; set; }
         public DateTime BeginDate { get; set; }
-        public ObservableCollection<UserInfomation> listItemsUserInfo { get; set; }
+        public ObservableCollection<EmployeeControlViewModel> listItemsUserInfo { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         #endregion
@@ -52,9 +57,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session = session;
             isMen = true;
             //Item
-            listItemsUserInfo = new ObservableCollection<UserInfomation>();
+            listItemsUserInfo = new ObservableCollection<EmployeeControlViewModel>();
             GetData();
-            listItemsUserInfo.Add(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com", "1234556", "012345678", "None", 0, 0, 123456, new DateTime(2002, 2, 22)));
+            listItemsUserInfo.Add(new EmployeeControlViewModel(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com",
+                "1234556", "012345678", "None", 0, 0, 123456, new DateTime(2002, 2, 22)), this));
             //
             OpenAddEmployeeControlCommand = new RelayCommand<Object>(null, OpenAddEmployeeControl);
             CancelCommand = new RelayCommand<Object>(null, Cancel);
@@ -97,7 +103,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 , _name, lastName, email, Password, phoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, salary, BeginDate);
             RegisterUser regist = new RegisterUser(info, _connection.client);
             string s = await regist.registerUser();
-            listItemsUserInfo.Add(info);
+            listItemsUserInfo.Add(new EmployeeControlViewModel(info ,this));
             OnPropertyChanged(nameof(listItemsUserInfo));
             Console.WriteLine(s);
         }
@@ -118,6 +124,28 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(employeeImage));
             }
         }
+        public void UpdateEmployeeList(UserInfomation user)
+        {
+            int i = 0;
+            if (listItemsUserInfo.Count > 0)
+            {
+                foreach (EmployeeControlViewModel ls in listItemsUserInfo)
+                {
+                    if (ls.user.Equals(user))
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                listItemsUserInfo.RemoveAt(i);
+                OnPropertyChanged(nameof(listItemsUserInfo));
+            }
+            else
+            {
+                return;
+            }
+        }
+
         #endregion
         #region DB
         public async void GetData()
@@ -125,9 +153,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<UserInfomation>.Filter.Empty;
             GetUsers getter = new GetUsers(_connection.client, _session, filter);
             var ls = await getter.get();
-            foreach (UserInfomation pro in ls)
+            foreach (UserInfomation user in ls)
             {
-                listItemsUserInfo.Add(pro);
+                listItemsUserInfo.Add(new EmployeeControlViewModel(user, this));
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsUserInfo));
