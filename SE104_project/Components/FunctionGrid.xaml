@@ -11,10 +11,7 @@
              xmlns:managementComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
              xmlns:customersComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.CustomersComponents"
              xmlns:financeComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.FinanceComponents"
-             xmlns:settingsComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.SettingsComponents"
-             
-             
-             
+             xmlns:settingsComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.SettingsComponents"       
              mc:Ignorable="d" 
              Height="715">
 

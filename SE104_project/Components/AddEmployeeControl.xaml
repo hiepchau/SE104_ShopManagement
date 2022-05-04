@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
-             xmlns:cv="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:mcv="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Background="{StaticResource White}"
              mc:Ignorable="d" 
              Height="650" Width="700">
-
+    <UserControl.Resources>
+        <mcv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -80,13 +82,27 @@
                     RadiusX="4"
                     Stroke="{StaticResource Gray2}"/>
                 <TextBox 
-                    x:Name="txtUnit"
+                    x:Name="txtEmail"
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Tên đăng nhập/Email"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Foreground="{StaticResource Black2}"
-                    TabIndex="2"
-                    Text="{Binding email, Mode=TwoWay}"/>
+                    Foreground="{StaticResource Black2}">
+                    <TextBox.Text>
+                        <Binding Path="userEmail"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập email!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
             </Grid>
 
             <Grid Margin="0,20,0,0">
@@ -114,7 +130,14 @@
                     CaretBrush="{StaticResource WordBlueBrush}" 
                     FontWeight="SemiBold" 
                     Padding="8,0,0,0" 
-                    VerticalContentAlignment="Center"/>
+                    VerticalContentAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
@@ -134,9 +157,24 @@
                     x:Name="txtName"
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Tên nhân viên"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    TabIndex="0"
-                    Text="{Binding name, Mode=TwoWay}"/>
+                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="userName"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập tên!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+
             </Grid>
             <Grid 
                 Margin="0,20,0,0"
@@ -203,15 +241,22 @@
                     Height="40" 
                     FontSize="14"                              
                     Padding="10,0,4,0"
-                    BorderThickness="0"                   
+                    BorderThickness="0"             
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
+                    SelectedIndex="{Binding SelectedRoleIndex}"
                     SelectedValue="{Binding role, Mode=TwoWay}">
                     <ComboBoxItem>Chủ sở hữu</ComboBoxItem>
                     <ComboBoxItem>Quản lí</ComboBoxItem>
                     <ComboBoxItem>Nhân viên</ComboBoxItem>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ComboBox>
             </Grid>
             <Grid 
@@ -240,16 +285,15 @@
                     FontSize="14"
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
-                    Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center"
                     SelectedDate="{Binding BeginDate, Mode=TwoWay}">
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="CalendarClosed">
-                            <ei:CallMethodAction TargetObject="{Binding }"
-                                                 MethodName="SetPickedDay" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedDateChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
+                    </i:Interaction.Triggers>
                 </DatePicker>
             </Grid>
 
@@ -268,13 +312,27 @@
                     RadiusX="4"
                     Stroke="{StaticResource Gray2}"/>
                 <TextBox 
-                    x:Name="txtPrice"
+                    x:Name="txtSalary"
                     Style="{StaticResource TextBox}"
                     materialDesign:HintAssist.Hint="Lương cơ bản"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Foreground="{StaticResource Black2}"
-                    TabIndex="2"
-                    Text="{Binding salary, Mode=TwoWay}"/>
+                    Foreground="{StaticResource Black2}">
+                    <TextBox.Text>
+                        <Binding Path="userSalary"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập lương!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
@@ -296,9 +354,23 @@
                     materialDesign:HintAssist.Hint="Số điện thoại"
                     MaxLength="10"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                    Foreground="{StaticResource Black2}"
-                    TabIndex="2"
-                    Text="{Binding phoneNumber, Mode=TwoWay}"/>
+                    Foreground="{StaticResource Black2}">
+                    <TextBox.Text>
+                        <Binding Path="userPhoneNumber"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rl:NotNullValidation ErrorMessage="Vui lòng số điện thoại!" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
             </Grid>
 
             <Grid 
@@ -320,6 +392,23 @@
                     Content="Lưu" 
                     VerticalAlignment="Center"
                     IsTabStop="False">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
+                                      Mode="TwoWay">
+                            <Binding ElementName="txtEmail"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="pwbPassword"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtName"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="dpBirthDate"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtSalary"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtPhoneNumber"
+                                     Path="(Validation.HasError)" />
+                        </MultiBinding>
+                    </Button.IsEnabled>
                 </Button>
                 <Button
                     x:Name="btnCancel"

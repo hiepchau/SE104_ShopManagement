@@ -28,16 +28,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     {
         #region Properties
         public string name { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
+        public string userName { get; set; }
+        public string userEmail { get; set; }
         public string Password { get; set; }
-        public string phoneNumber { get; set; }
+        public string userPhoneNumber { get; set; }
         public string role { get; set; }
+        public int SelectedRoleIndex { get; set; }
         public bool isMen { get; set; }
         public bool isGirl { get; set; }
-        public long salary { get; set; }
+        public long userSalary { get; set; }
         public BitmapImage employeeImage { get; set; }
-        public DateTime BeginDate { get; set; }
+        public string BeginDate { get; set; }
         public ObservableCollection<EmployeeControlViewModel> listItemsUserInfo { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
@@ -50,12 +51,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         //AddEmployee
         public ICommand ExitCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
         #endregion
         public EmployeeFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             this._connection = connect;
             this._session = session;
+            SelectedRoleIndex = -1;
             isMen = true;
+            
             //Item
             listItemsUserInfo = new ObservableCollection<EmployeeControlViewModel>();
             GetData();
@@ -64,7 +68,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //
             OpenAddEmployeeControlCommand = new RelayCommand<Object>(null, OpenAddEmployeeControl);
             CancelCommand = new RelayCommand<Object>(null, Cancel);
-            SaveCommand= new RelayCommand<Object>(null,SaveUser);
+            SaveCommand= new RelayCommand<Object>(CheckValidSave, SaveUser);
+            TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
         }
         #region Function
@@ -82,6 +87,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             Console.WriteLine("Executed!");
         }
+        public void TextChangedHandle(Object o)
+        {
+            (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValidSave(object o)
+        {
+            var pass = o as PasswordBox;
+            Password = pass.Password;
+   
+            
+
+            if (String.IsNullOrEmpty(userEmail) || String.IsNullOrEmpty(userName)
+                || String.IsNullOrEmpty(Password)
+                || String.IsNullOrEmpty(BeginDate)
+                || SelectedRoleIndex == -1
+                || String.IsNullOrEmpty(userPhoneNumber) || String.IsNullOrEmpty(userSalary.ToString()))
+            {
+                return false;
+            }
+            return true;
+        }
         public async void SaveUser(object o)
         {
             var pass = o as PasswordBox;
@@ -90,17 +116,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var userGender = Gender.male;
             if(isMen==true) { userGender = Gender.male; }
             else if (isGirl==true) { userGender = Gender.female; }
-            if(role== "Chủ sở hữu") { userRole = Role.Owner; }
-            else if (role== "Quản lí") { userRole = Role.Manager; }
-            else if (role== "Nhân viên") { userRole= Role.Employee; }
+            if(role == "Chủ sở hữu") { userRole = Role.Owner; }
+            else if (role == "Quản lí") { userRole = Role.Manager; }
+            else if (role == "Nhân viên") { userRole= Role.Employee; }
 
             //Split Lastname and name
             string splitName = name.Trim();
-            lastName = splitName.Substring(splitName.LastIndexOf(' ') + 1);
+            userName = splitName.Substring(splitName.LastIndexOf(' ') + 1);
             string _name = splitName.Substring(0, splitName.LastIndexOf(' '));
 
             UserInfomation info = new UserInfomation(await new AutoEmployeeIDGenerator(_session, _connection.client).Generate()
-                , _name, lastName, email, Password, phoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, salary, BeginDate);
+                , _name, userName, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate));
             RegisterUser regist = new RegisterUser(info, _connection.client);
             string s = await regist.registerUser();
             listItemsUserInfo.Add(new EmployeeControlViewModel(info ,this));
