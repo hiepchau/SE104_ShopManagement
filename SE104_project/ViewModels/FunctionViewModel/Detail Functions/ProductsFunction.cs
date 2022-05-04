@@ -16,10 +16,15 @@ using SE104_OnlineShopManagement.Services;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using SE104_OnlineShopManagement.Models;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    class ProductsFunction : BaseFunction
+    public interface IUpdateProductList
+    {
+        void UpdateProductList(ProductsInformation pro);
+    }
+    class ProductsFunction : BaseFunction, IUpdateProductList
     {
         #region Properties
         public string productName { get; set; }
@@ -34,7 +39,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
 
-        public ObservableCollection<ProductsInformation> listItemsProduct { get; set; }
+        public ObservableCollection<ProductsControlViewModel> listItemsProduct { get; set; }
         public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
         #endregion
 
@@ -55,11 +60,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
-            listItemsProduct = new ObservableCollection<ProductsInformation>();
+            listItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             //Test
             GetData();
             GetProductTypeData();  
-            listItemsProduct.Add(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"));
+            listItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
             //
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
@@ -100,7 +105,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     , productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit);
                 RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
                 string s = await regist.register();
-                listItemsProduct.Add(info);
+                listItemsProduct.Add(new ProductsControlViewModel(info, this));
                 OnPropertyChanged(nameof(listItemsProduct));
                 Console.WriteLine(s);
             }
@@ -121,6 +126,28 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(productImage));
             }
         }
+        public void UpdateProductList(ProductsInformation pro)
+        {
+            int i = 0;
+            if (listItemsProduct.Count > 0)
+            {
+                foreach (ProductsControlViewModel ls in listItemsProduct)
+                {
+                    if (ls.product.Equals(pro))
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                listItemsProduct.RemoveAt(i);
+                OnPropertyChanged(nameof(listItemsProduct));
+            }
+            else
+            {
+                return;
+            }
+        }
+
         #endregion
 
         #region DB
@@ -131,7 +158,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.Get();
             foreach (ProductsInformation pro in ls)
             {
-                listItemsProduct.Add(pro);
+                listItemsProduct.Add(new ProductsControlViewModel(pro, this));
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsProduct));

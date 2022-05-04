@@ -95,9 +95,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             var pass = o as PasswordBox;
             Password = pass.Password;
-   
-            
-
             if (String.IsNullOrEmpty(userEmail) || String.IsNullOrEmpty(userName)
                 || String.IsNullOrEmpty(Password)
                 || String.IsNullOrEmpty(BeginDate)
