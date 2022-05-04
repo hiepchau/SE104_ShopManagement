@@ -88,15 +88,20 @@
                             BorderThickness="2,0,2,2" 
                             Margin="20,0,20,0">
                             <!--DATAGRID-->
-                            <StackPanel Margin="0 2 0 0">
-                                <ItemsControl ItemsSource="{Binding listItemsProductType}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <uc:ProductsTypeControl/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
+                            <ScrollViewer                        
+                                Style="{StaticResource FavsScrollViewer}"                   
+                                VerticalScrollBarVisibility="Auto"                       
+                                HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel Margin="0 2 0 0">
+                                    <ItemsControl ItemsSource="{Binding listItemsProductType}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <uc:ProductsTypeControl/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Border>
                         <StackPanel
                         Grid.Row="3"

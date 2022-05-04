@@ -71,15 +71,20 @@
                 BorderThickness="2,0,2,2" 
                 Margin="20,40,20,0" 
                 CornerRadius="0,0,4,4" >
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding listMembership}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <uc:MembershipControl/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
+                <ScrollViewer
+                    Style="{StaticResource FavsScrollViewer}"
+                    VerticalScrollBarVisibility="Auto" 
+                    HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding listMembership}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:MembershipControl/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
 
             <StackPanel

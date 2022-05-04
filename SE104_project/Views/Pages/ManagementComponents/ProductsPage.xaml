@@ -275,16 +275,21 @@
                         CornerRadius="0,0,4,4"
                         BorderThickness="2,0,2,2" 
                         Margin="20,0,20,3">
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding listItemsProduct,UpdateSourceTrigger=PropertyChanged}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <uc:ProductsControl/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-                </Border>
+                <ScrollViewer                                                
+                    Style="{StaticResource FavsScrollViewer}"                   
+                    VerticalScrollBarVisibility="Auto"                       
+                    HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding listItemsProduct,UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:ProductsControl/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
             <StackPanel
                         Grid.Row="3"
                         Orientation="Horizontal"
