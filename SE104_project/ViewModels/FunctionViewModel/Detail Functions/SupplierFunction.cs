@@ -12,10 +12,15 @@ using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.Services;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    class SupplierFunction : BaseFunction
+    public interface IUpdateSuplierList
+    {
+        void UpdateSuplierList(ProducerInformation producer);
+    }
+    class SupplierFunction : BaseFunction, IUpdateSuplierList
     {
         #region Properties
         public string supplierName { get; set; }
@@ -24,7 +29,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierMail { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
-        public ObservableCollection<ProducerInformation> listItemsProducer { get; set; }
+        public ObservableCollection<SupplierControlViewModel> listItemsProducer { get; set; }
         #endregion
         #region ICommand
         //Supplier
@@ -37,10 +42,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._connection = connect;
             this._session = session;
-            listItemsProducer = new ObservableCollection<ProducerInformation>();
+            listItemsProducer = new ObservableCollection<SupplierControlViewModel>();
             //Test
             GetData();
-            listItemsProducer.Add(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""));
+            listItemsProducer.Add(new SupplierControlViewModel(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""), this));
             //
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
         }
@@ -63,10 +68,32 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 , supplierName,supplierMail,supplierPhone,supplierAddress);
             RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
             string s = await regist.register();
-            listItemsProducer.Add(info);
+            listItemsProducer.Add(new SupplierControlViewModel(info, this));
             OnPropertyChanged(nameof(listItemsProducer));
             Console.WriteLine(s);
         }
+        public void UpdateSuplierList(ProducerInformation producer)
+        {
+            int i = 0;
+            if (listItemsProducer.Count > 0)
+            {
+                foreach (SupplierControlViewModel ls in listItemsProducer)
+                {
+                    if (ls.producer.Equals(producer))
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                listItemsProducer.RemoveAt(i);
+                OnPropertyChanged(nameof(listItemsProducer));
+            }
+            else
+            {
+                return;
+            }
+        }
+
         #endregion
         #region DB
         public async void GetData()
@@ -76,7 +103,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.Get();
             foreach (ProducerInformation pro in ls)
             {
-                listItemsProducer.Add(pro);
+                listItemsProducer.Add(new SupplierControlViewModel(pro,this));
             }
             OnPropertyChanged(nameof(listItemsProducer));
         }

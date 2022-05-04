@@ -5,6 +5,7 @@ using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,10 +14,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     public class WareHouseFunction : BaseFunction
     {
+        #region Properties
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
-        public List<ProductsInformation> listItemsWareHouse { get; set; }
-
+        public ObservableCollection<ProductsInformation> listItemsWareHouse { get; set; }
+        #endregion
 
         #region Icommand
         public ICommand OpenImportProductsCommand { get; set; }
@@ -25,7 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public WareHouseFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
-            listItemsWareHouse = new List<ProductsInformation>();
+            listItemsWareHouse = new ObservableCollection<ProductsInformation>();
             //ItemTest
             listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye","nguoi"));      
             //

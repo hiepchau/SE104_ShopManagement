@@ -49,8 +49,7 @@
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"
-            Command="{Binding EditProductsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayProducts}"
+            Command="{Binding EditSupplierCommand}"
             Height="30"
             Margin="0,0,40,0" 
             Width="30">
@@ -70,8 +69,7 @@
             Margin="0,0,15,0" 
             Width="30"
             HorizontalAlignment="Right" 
-            Command="{Binding DeleteProductsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayProducts}">
+            Command="{Binding DeleteSupplierCommand}">
             <materialDesign:PackIcon 
                 Kind="DeleteOutline" 
                 Height="24"
