@@ -208,7 +208,7 @@
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <rl:NotNullValidation ErrorMessage="Vui lòng giá!" />
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -246,7 +246,7 @@
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <rl:NotNullValidation ErrorMessage="Vui lòng giá!" />
+                                <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -281,17 +281,13 @@
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
                                       Mode="TwoWay">
-                            <Binding ElementName="txtEmail"
-                                     Path="(Validation.HasError)" />
-                            <Binding ElementName="pwbPassword"
-                                     Path="(Validation.HasError)" />
                             <Binding ElementName="txtName"
                                      Path="(Validation.HasError)" />
-                            <Binding ElementName="dpBirthDate"
+                            <Binding ElementName="txtUnit"
                                      Path="(Validation.HasError)" />
-                            <Binding ElementName="txtSalary"
+                            <Binding ElementName="txtImportPrice"
                                      Path="(Validation.HasError)" />
-                            <Binding ElementName="txtPhoneNumber"
+                            <Binding ElementName="txtPrice"
                                      Path="(Validation.HasError)" />
                         </MultiBinding>
                     </Button.IsEnabled>

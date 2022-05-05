@@ -27,6 +27,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierAddress { get; set; }
         public string supplierPhone { get; set; }
         public string supplierMail { get; set; }
+        public int IsSelectedIndex { get; set; }
+
         private MongoConnect _connection;
         private AppSession _session;
         public ObservableCollection<SupplierControlViewModel> listItemsProducer { get; set; }
@@ -37,16 +39,21 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         //AddSupplier
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
+
         #endregion
         public SupplierFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             this._connection = connect;
             this._session = session;
+            IsSelectedIndex = -1;
+
             listItemsProducer = new ObservableCollection<SupplierControlViewModel>();
             //Test
             GetData();
             listItemsProducer.Add(new SupplierControlViewModel(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""), this));
             //
+            TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
         }
         #region Function
@@ -55,12 +62,25 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddSupplierControl addSupplierControl = new AddSupplierControl();
             addSupplierControl.DataContext = this;
             DialogHost.Show(addSupplierControl);
-            SaveCommand = new RelayCommand<Object>(null,SaveSupplier);
+            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveSupplier);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
+        }
+        public void TextChangedHandle(Object o = null)
+        {
+            (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValidSave(Object o = null)
+        {
+            if (String.IsNullOrEmpty(supplierName) || String.IsNullOrEmpty(supplierAddress)
+                || String.IsNullOrEmpty(supplierMail) || String.IsNullOrEmpty(supplierPhone))
+            {
+                return false;
+            }
+            return true;
         }
         public async void SaveSupplier(object o = null)
         {
