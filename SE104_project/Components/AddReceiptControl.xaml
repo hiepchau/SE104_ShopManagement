@@ -101,8 +101,7 @@
             <Button 
                     x:Name="btnAddSupplier"
                     Style="{StaticResource PrimaryButton}"
-                    Command="{Binding OpenAddSupplierWindowCommand}"
-                    CommandParameter="{Binding ElementName=btnAddSupplier}"
+                    Command="{Binding OpenAddSupplierControlCommand}"
                     Height="40"
                     BorderThickness="2"
                     Margin="0,20,0,0" 

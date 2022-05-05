@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="50">
+    <UserControl.Resources>
+        <multiconvert:InventoryValueConverter x:Key="InvenMulti"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -14,9 +17,10 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1.1*"/>
             <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <TextBlock 
             x:Name="txtID"
@@ -36,56 +40,53 @@
             Style="{StaticResource Text}"
             Text="{Binding Category}" 
             HorizontalAlignment="Center"
-            Margin="0,0,0,0" />
+            Margin="-20,0,0,0" />
         <TextBlock   
             x:Name="txtUnit"
             Grid.Column="3"
-            Text="Đơn vị" 
-            Style="{StaticResource Text}" Margin="-5 0 0 0"/>
+            Text="{Binding Unit}" 
+            Style="{StaticResource Text}" 
+            Margin="-10 0 0 0"/>
         <TextBlock 
             x:Name="txtStockCost"
             Grid.Column="4" 
             Style="{StaticResource Text}"
             Text="{Binding StockCost}" 
-            Margin="0,0,0,0"/>
+            Margin="-20,0,0,0"/>
+        <TextBlock 
+            x:Name="txtQuantity"
+            Grid.Column="5" 
+            Style="{StaticResource Text}"
+            Text="{Binding quantity}" 
+            Margin="-20,0,0,0"/>
         <local:NumericSnipperControl 
-            Grid.Column="5"                                      
-            x:Name="nsQuantity"
-            Text="12"                                     
+            Grid.Column="6"                                      
+            x:Name="nsImportQuantity"
+            Text="2"                                     
             MaxValue="10000"
             MinValue="1"                                    
             VerticalAlignment="Center"
             Height="26" 
             Width="70" Margin="-10 0 0 0"/>
         <TextBlock
-            Grid.Column="6" 
+            x:Name="txtPay"
+            Grid.Column="7" 
             Style="{StaticResource Text}"
-            Text="Tổng tiền" 
-            Margin="0,0,0,0"/>
-        <Button
-            Grid.Column="7"
-            x:Name="btnEditProducts"
-            ToolTip="Sửa thông tin"
-            Style="{StaticResource TransparentButton}"
-            Command="{Binding EditProductsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayProducts}"
-            Height="30"
-            Margin="0,0,40,0" 
-            Width="30">
-            <materialDesign:PackIcon
-                Kind="SquareEditOutline" 
-                Width="24"
-                Height="24" 
-                HorizontalAlignment="Left"
-                Foreground="{StaticResource WordBlueBrush}" />
-        </Button>
+            Margin="0,0,0,0">
+            <TextBlock.Text>
+                <!--TODO: Binding nsImportQuantity-->
+                <MultiBinding Converter="{StaticResource InvenMulti}">
+                    <Binding Path="nsImportQuantity"/>
+                    <Binding Path="quantity"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
         <Button 
-            Grid.Column="7"
+            Grid.Column="8"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
             ToolTip="Xóa mặt hàng" 
             Height="30"
-            Margin="0,0,15,0" 
             Width="30"
             HorizontalAlignment="Right" 
             Command="{Binding DeleteProductsCommand}"

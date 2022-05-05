@@ -26,6 +26,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand OpenAddReceiptControlCommand { get; set; }
         //AddReceiptControl
         public ICommand ExitCommand { get; set; }
+        public ICommand OpenAddSupplierControlCommand { get; set; }
         #endregion
         public ImportProductsFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -38,6 +39,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"));
             //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
+
         }
 
         #region Function
@@ -46,11 +48,24 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddReceiptControl addReceiptControl = new AddReceiptControl();
             addReceiptControl.DataContext = this;
             DialogHost.Show(addReceiptControl);
-
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
+            OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
+
+
+        }
+        public void OpenAddSupplierControl(Object o = null)
+        {
+            AddSupplierControl addSupplierControl = new AddSupplierControl();
+            addSupplierControl.DataContext = this;
+            DialogHost.Show(addSupplierControl);
+            ExitCommand = new RelayCommand<Object>(null, exit =>
+            {
+                DialogHost.CloseDialogCommand.Execute(null, null);
+            });
+
         }
         #endregion
 
