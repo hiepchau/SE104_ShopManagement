@@ -5,6 +5,7 @@ using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,13 +14,17 @@ using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
+    public interface IUpdateImportProductList
+    {
+        void UpdateProductList(CustomerInformation cus);
+    }
     class ImportProductsFunction : BaseFunction
     {
         #region Properties
         private MongoConnect _connection;
         private AppSession _session;
         public ObservableCollection<ProducerInformation> ItemSourceSupplier { get; set; }
-        public ObservableCollection<ProductsInformation> listItemsImportProduct { get; set; }
+        public ObservableCollection<ImportProductsControlViewModel> listItemsImportProduct { get; set; }
         #endregion
 
         #region ICommand
@@ -33,10 +38,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             _connection = connect;
             _session = session;
             ItemSourceSupplier = new ObservableCollection<ProducerInformation>();
-            listItemsImportProduct = new ObservableCollection<ProductsInformation>();
+            listItemsImportProduct = new ObservableCollection<ImportProductsControlViewModel>();
             //Test
             GetProducerInfo();
-            listItemsImportProduct.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"));
+            listItemsImportProduct.Add(new ImportProductsControlViewModel(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi")));
             //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
 

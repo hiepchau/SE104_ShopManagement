@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="50">
     <UserControl.Resources>
@@ -59,27 +60,20 @@
             Style="{StaticResource Text}"
             Text="{Binding quantity}" 
             Margin="-20,0,0,0"/>
-        <local:NumericSnipperControl 
-            Grid.Column="6"                                      
+        <uc:NumericSnipperControl             
             x:Name="nsImportQuantity"
-            Text="2"                                     
-            MaxValue="10000"
-            MinValue="1"                                    
-            VerticalAlignment="Center"
-            Height="26" 
-            Width="70" Margin="-10 0 0 0"/>
+            Width="70" 
+            Height="26"
+            Margin="-10 0 0 0"
+            DataContext="{Binding ImportQuantityNumeric}"
+            Grid.Column="6"/>
         <TextBlock
             x:Name="txtPay"
             Grid.Column="7" 
             Style="{StaticResource Text}"
+            Text="{Binding }"
             Margin="0,0,0,0">
-            <TextBlock.Text>
-                <!--TODO: Binding nsImportQuantity-->
-                <MultiBinding Converter="{StaticResource InvenMulti}">
-                    <Binding Path="nsImportQuantity"/>
-                    <Binding Path="quantity"/>
-                </MultiBinding>
-            </TextBlock.Text>
+
         </TextBlock>
         <Button 
             Grid.Column="8"
