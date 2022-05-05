@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
-             mc:Ignorable="d" 
-             >
+             mc:Ignorable="d">
     <Grid>
         <Border
         Background="{DynamicResource White}" 
@@ -14,8 +13,6 @@
         Width="100"
         Height="120"
         CornerRadius="4">
-
-
             <Grid Cursor="Hand" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65*"></RowDefinition>

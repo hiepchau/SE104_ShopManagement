@@ -19,6 +19,8 @@
     <SolidColorBrush x:Key="Gray1" Color="#FF828282" />
     <SolidColorBrush x:Key="Gray2" Color="#FFBDBDBD" />
     <SolidColorBrush x:Key="Gray3" Color="#FFE0E0E0" />
+    <SolidColorBrush x:Key="Gray4" Color="#ececec" />
+
     <SolidColorBrush x:Key="Success" Color="#FF1BA345" />
     <SolidColorBrush x:Key="Error" Color="#FFDE3E44" />
 
