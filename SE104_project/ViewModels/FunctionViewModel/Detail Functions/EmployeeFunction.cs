@@ -33,7 +33,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string Password { get; set; }
         public string userPhoneNumber { get; set; }
         public string role { get; set; }
-        public int SelectedRoleIndex { get; set; }
+        public int IsSelectedIndex { get; set; }
         public bool isMen { get; set; }
         public bool isGirl { get; set; }
         public long userSalary { get; set; }
@@ -57,7 +57,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._connection = connect;
             this._session = session;
-            SelectedRoleIndex = -1;
+            IsSelectedIndex = -1;
             isMen = true;
             
             //Item
@@ -98,7 +98,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (String.IsNullOrEmpty(userEmail) || String.IsNullOrEmpty(userName)
                 || String.IsNullOrEmpty(Password)
                 || String.IsNullOrEmpty(BeginDate)
-                || SelectedRoleIndex == -1
+                || IsSelectedIndex == -1
                 || String.IsNullOrEmpty(userPhoneNumber) || String.IsNullOrEmpty(userSalary.ToString()))
             {
                 return false;

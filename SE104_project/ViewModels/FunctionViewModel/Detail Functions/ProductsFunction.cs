@@ -32,6 +32,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string productUnit { get; set; }
         public long productCost { get; set; }
         public long productPrice { get; set; }
+        public int IsSelectedIndex { get; set; }
         public BitmapImage productImage { get; set; }
         public ProductTypeInfomation SelectedProductsType { get; set; }
         private MongoConnect _connection;
@@ -52,6 +53,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
@@ -59,6 +61,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session= session;        
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
+            IsSelectedIndex = -1;
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
             listItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             //Test
@@ -66,6 +69,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GetProductTypeData();  
             listItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
             //
+            TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
+
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
@@ -74,17 +79,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
 
         #region Function
+        //AddProduct
         public void OpenAddProductControl(Object o = null)
         {
             AddProductControl addProductControl = new AddProductControl();
             addProductControl.DataContext = this;
             DialogHost.Show(addProductControl);
-            SaveCommand = new RelayCommand<Object>(null, SaveProduct);
+            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProduct);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
+        //
         public void OpenProductsType(Object o = null)
         {
             managingFunction.Currentdisplaying = new ProductsTypeFunction(Session, Connect);
@@ -97,7 +104,21 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
         }
-        public async void SaveProduct(object o = null)
+        public void TextChangedHandle(Object o = null)
+        {
+            (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValidSave(Object o = null)
+        {
+            if (String.IsNullOrEmpty(productName) || String.IsNullOrEmpty(productUnit) 
+                || IsSelectedIndex == -1
+                || String.IsNullOrEmpty(productCost.ToString()) || String.IsNullOrEmpty(productPrice.ToString()))
+            {
+                return false;
+            }
+            return true;
+        }
+        public async void SaveProduct(Object o = null)
         {
             if (SelectedProductsType != null)
             {

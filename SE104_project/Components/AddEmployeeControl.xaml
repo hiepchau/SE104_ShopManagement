@@ -246,7 +246,7 @@
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
-                    SelectedIndex="{Binding SelectedRoleIndex}"
+                    SelectedIndex="{Binding IsSelectedIndex}"
                     SelectedValue="{Binding role, Mode=TwoWay}">
                     <ComboBoxItem>Chủ sở hữu</ComboBoxItem>
                     <ComboBoxItem>Quản lí</ComboBoxItem>
