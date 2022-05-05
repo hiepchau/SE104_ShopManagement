@@ -261,7 +261,9 @@
                                 Style="{StaticResource FavsScrollViewer}"
                                 VerticalScrollBarVisibility="Auto"            
                                 HorizontalScrollBarVisibility="Disabled">
-                                <ListBox ItemsSource="{Binding listItemsUserInfo}">
+                                <ListBox 
+                                    ItemsSource="{Binding listItemsUserInfo}"
+                                    SelectedItem="{Binding selectedUser}">
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -323,7 +325,8 @@
                             Style="{StaticResource PaginationButton}" 
                             ToolTip="Ngừng hoạt động"
                             Width="40"
-                            Height="40">
+                            Height="40"
+                            Command="{Binding SetUnactiveCommand}">
                             <materialDesign:PackIcon 
                                 Kind="ArrowRight"
                                 Foreground="{StaticResource WordBlueBrush}"
@@ -332,7 +335,7 @@
                         </Button>
                         <Button 
                             Style="{StaticResource PaginationButton}"
-                          
+                            Command="{Binding SetActiveCommand}"
                             ToolTip="Hoạt động"
                             Width="40"
                             Height="40" 
@@ -404,7 +407,20 @@
                                 Style="{StaticResource FavsScrollViewer}"
                                 VerticalScrollBarVisibility="Auto"            
                                 HorizontalScrollBarVisibility="Disabled">
-                                <StackPanel/>
+                                <ListBox 
+                                    ItemsSource="{Binding listUnactiveUserInfo}"
+                                    SelectedItem="{Binding selectedUser}">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <uc:InactiveTab_EmployeeControl/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                             </ScrollViewer>
                         </Border>
                         <StackPanel

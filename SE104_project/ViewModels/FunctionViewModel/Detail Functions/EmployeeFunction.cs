@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Forms;
 using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Network.Update_database;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -40,6 +41,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public BitmapImage employeeImage { get; set; }
         public string BeginDate { get; set; }
         public ObservableCollection<EmployeeControlViewModel> listItemsUserInfo { get; set; }
+        public ObservableCollection<EmployeeControlViewModel> listUnactiveUserInfo { get; set; }
+        public EmployeeControlViewModel selectedUser { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         #endregion
@@ -52,6 +55,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand ExitCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
+        public ICommand SetActiveCommand { get; set; }
+        public ICommand SetUnactiveCommand { get; set; }
         #endregion
         public EmployeeFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -62,7 +67,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             
             //Item
             listItemsUserInfo = new ObservableCollection<EmployeeControlViewModel>();
+            listUnactiveUserInfo = new ObservableCollection<EmployeeControlViewModel>();
             GetData();
+            GetUnactiveData();
             listItemsUserInfo.Add(new EmployeeControlViewModel(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com",
                 "1234556", "012345678", "None", 0, 0, 123456, new DateTime(2002, 2, 22)), this));
             //
@@ -71,6 +78,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand= new RelayCommand<Object>(CheckValidSave, SaveUser);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
+            SetActiveCommand = new RelayCommand<Object>(null, SetActive);
+            SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
         }
         #region Function
         public void OpenAddEmployeeControl(object o = null)
@@ -118,12 +127,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             else if (role == "Nhân viên") { userRole= Role.Employee; }
 
             //Split Lastname and name
-            string splitName = name.Trim();
-            userName = splitName.Substring(splitName.LastIndexOf(' ') + 1);
+            string splitName = userName.Trim();
+            string _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);
             string _name = splitName.Substring(0, splitName.LastIndexOf(' '));
 
             UserInfomation info = new UserInfomation(await new AutoEmployeeIDGenerator(_session, _connection.client).Generate()
-                , _name, userName, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate));
+                , _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate));
             RegisterUser regist = new RegisterUser(info, _connection.client);
             string s = await regist.registerUser();
             listItemsUserInfo.Add(new EmployeeControlViewModel(info ,this));
@@ -168,12 +177,58 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return;
             }
         }
+        public async void SetActive(object o = null)
+        {
+            if (selectedUser != null && selectedUser.isActivated == false)
+            {
+                var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
+                var update = Builders<UserInfomation>.Update.Set("isActivated", true);
+                UpdateUserInformation updater = new UpdateUserInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listItemsUserInfo.Add(selectedUser);
+                selectedUser.isActivated = true;
+                listUnactiveUserInfo.Remove(selectedUser);
+                OnPropertyChanged(nameof(listItemsUserInfo));
+                OnPropertyChanged(nameof(listUnactiveUserInfo));
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
+        public async void SetUnactive(object o = null)
+        {
+            if (selectedUser != null && selectedUser.isActivated == true)
+            {
+                var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
+                var update = Builders<UserInfomation>.Update.Set("isActivated", false);
+                UpdateUserInformation updater = new UpdateUserInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listUnactiveUserInfo.Add(selectedUser);
+                selectedUser.isActivated = false;
+                listItemsUserInfo.Remove(selectedUser);
+                OnPropertyChanged(nameof(listItemsUserInfo));
+                OnPropertyChanged(nameof(listUnactiveUserInfo));
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
 
         #endregion
         #region DB
+        public async void GetUnactiveData()
+        {
+            var filter = Builders<UserInfomation>.Filter.Eq("isActivated", false);
+            GetUsers getter = new GetUsers(_connection.client, _session, filter);
+            var ls = await getter.get();
+            foreach (UserInfomation user in ls)
+            {
+                listItemsUserInfo.Add(new EmployeeControlViewModel(user, this));
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(listUnactiveUserInfo));
+        }
         public async void GetData()
         {
-            var filter = Builders<UserInfomation>.Filter.Empty;
+            var filter = Builders<UserInfomation>.Filter.Eq("isActivated", true);
             GetUsers getter = new GetUsers(_connection.client, _session, filter);
             var ls = await getter.get();
             foreach (UserInfomation user in ls)
