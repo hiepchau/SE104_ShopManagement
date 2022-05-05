@@ -7,7 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
-             d:DesignHeight="50">
+             d:DesignHeight="50"
+             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
     <UserControl.Resources>
         <multiconvert:InventoryValueConverter x:Key="InvenMulti"/>
     </UserControl.Resources>
@@ -71,7 +72,7 @@
             x:Name="txtPay"
             Grid.Column="7" 
             Style="{StaticResource Text}"
-            Text="{Binding }"
+            Text="{Binding sum}"
             Margin="0,0,0,0">
 
         </TextBlock>

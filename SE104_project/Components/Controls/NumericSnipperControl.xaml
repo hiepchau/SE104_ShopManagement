@@ -80,8 +80,8 @@
                 Grid.Column="0" 
                 Grid.RowSpan="2" 
                 Foreground="{StaticResource Gray1}"
-                Text="{Binding quantity}"
-                IsTabStop="False" >
+                Text="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"
+                IsTabStop="False" TextChanged="tb_main_TextChanged_1" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction

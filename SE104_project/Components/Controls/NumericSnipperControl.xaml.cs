@@ -225,5 +225,30 @@ namespace SE104_OnlineShopManagement.Components.Controls
             }
         }
 
+        public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
+        nameof(NumValueChanged), // Event name
+        RoutingStrategy.Bubble, // Bubble means the event will bubble up through the tree
+        typeof(RoutedEventHandler), // The event type
+        typeof(NumericSnipperControl)); // Belongs to ChildControlBase
+
+        // Allows add and remove of event handlers to handle the custom event
+        public event RoutedEventHandler NumValueChanged
+        {
+            add { AddHandler(ValueChangedEvent, value); }
+            remove { RemoveHandler(ValueChangedEvent, value); }
+        }
+
+        private void tb_main_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            var newevent = new RoutedEventArgs(ValueChangedEvent);
+            RaiseEvent(newevent);
+        }
+
+        public string currentvalue
+        {
+            get { return tb_main.Text; }
+            private set { tb_main.Text = value;}
+        }
     }
+
 }

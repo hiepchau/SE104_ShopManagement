@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,21 @@ namespace SE104_OnlineShopManagement.Components.Controls
         public ImportProductsControl()
         {
             InitializeComponent();
+        }
+
+        public void HandleValueChanged(object sender, RoutedEventArgs e)
+        {
+            var data = e.OriginalSource;
+            if(data != null)
+            {
+                Console.WriteLine("Event detected");
+                int i;
+                if (int.TryParse((data as NumericSnipperControl).currentvalue.ToString(), out i))
+                {
+                    Console.WriteLine((data as NumericSnipperControl).currentvalue.ToString());
+                    (this.DataContext as ImportProductsControlViewModel).onAmountChanged();
+                }
+            }
         }
     }
 }

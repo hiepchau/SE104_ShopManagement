@@ -16,6 +16,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public long StockCost { get; set; }
         public string Category { get; set; }
         public string Unit { get; set; }
+        public long sum { get; set; }
 
         #endregion
         #region ICommand
@@ -24,13 +25,20 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ImportProductsControlViewModel(ProductsInformation product)
         {
             this.product = product;
-            ImportQuantityNumeric = new ControlNumericSnipper(999);
+            ImportQuantityNumeric = new ControlNumericSnipper(9999);
             ID = product.ID;
             name = product.name;
             quantity = product.quantity;
             StockCost = product.StockCost;
             Category = product.Category;
             Unit = product.Unit;
+            sum = 0;
+        }
+
+        public void onAmountChanged()
+        {
+            sum = ImportQuantityNumeric.GetDetailNum() * StockCost;
+            OnPropertyChanged(nameof(sum));
         }
 
         #region Function
