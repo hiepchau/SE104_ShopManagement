@@ -122,8 +122,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             if (SelectedProductsType != null)
             {
-                ProductsInformation info = new ProductsInformation(await new AutoProductsIDGenerator(_session, _connection.client).Generate()
-                    , productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit);
+                ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit,true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
                 RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
                 string s = await regist.register();
                 listItemsProduct.Add(new ProductsControlViewModel(info, this));
