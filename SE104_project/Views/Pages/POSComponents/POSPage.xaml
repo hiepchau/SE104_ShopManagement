@@ -160,9 +160,9 @@
                         </Button>
                     </Grid>
                 </StackPanel>
-
+<!--TAo la ai-->
                 <Border
-
+                    
                     Grid.Row="2"
                     BorderBrush="{DynamicResource LightBrush}"
                     CornerRadius="4,4,4,4"
