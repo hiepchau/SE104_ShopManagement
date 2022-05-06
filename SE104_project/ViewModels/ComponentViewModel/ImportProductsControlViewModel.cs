@@ -52,6 +52,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void deleteImportProducts(Object o)
         {
             _parent.UpdateBoughtList(product);
+            _parent.isCanExecute();
         }
         #endregion
     }

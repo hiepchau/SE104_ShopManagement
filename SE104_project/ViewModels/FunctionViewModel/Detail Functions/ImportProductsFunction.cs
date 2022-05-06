@@ -47,7 +47,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             getdata();
             SearchCommand = new RelayCommand<Object>(null, search);
             
-            OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
+            OpenAddReceiptControlCommand = new RelayCommand<Object>(isEmptyImportList, OpenAddReceiptControl);
         }
 
         #region Function
@@ -61,8 +61,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
-
-
         }
         public void OpenAddSupplierControl(Object o = null)
         {
@@ -74,6 +72,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
+        }
+        public void isCanExecute()
+        {
+            (OpenAddReceiptControlCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool isEmptyImportList(Object o)
+        {
+            if (listItemsImportProduct.Count > 0)
+                return true;
+            OnPropertyChanged(nameof(listItemsImportProduct));
+            return false;
         }
         public void UpdateSelectedList(ProductsInformation pro)
         {

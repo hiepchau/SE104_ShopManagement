@@ -21,6 +21,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
     {
         void UpdateSelectedList(ProductsInformation pro);
         void UpdateBoughtList(ProductsInformation pro);
+        void isCanExecute();
     }
     public class SellingViewModel:BaseFunction, IUpdateSelectedList
     {
@@ -147,6 +148,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 await getsearchdata();
             }
         }
+        public void isCanExecute()
+        {
+            return;
+        }
         #endregion
 
         #region DB
@@ -175,6 +180,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             }
             OnPropertyChanged(nameof(listProducts));
         }
+
+
         #endregion
     }
 }

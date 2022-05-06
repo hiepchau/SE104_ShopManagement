@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" x:Name="ucImportProducts"
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>

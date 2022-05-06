@@ -37,6 +37,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         private void UpdateBought(Object o)
         {
             _parent.UpdateSelectedList(product);
+            _parent.isCanExecute();
         }
         #endregion
 
