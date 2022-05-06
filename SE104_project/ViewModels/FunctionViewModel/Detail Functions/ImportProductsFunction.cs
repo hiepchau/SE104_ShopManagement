@@ -22,6 +22,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Properties
         private MongoConnect _connection;
         private AppSession _session;
+        public long totalReceipt { get; set; }
         public ObservableCollection<ProducerInformation> ItemSourceSupplier { get; set; }
         public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportProductsControlViewModel> listItemsImportProduct { get; set; }
@@ -60,6 +61,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
+            totalReceipt = 0;
+            foreach(ImportProductsControlViewModel pr in listItemsImportProduct)
+            {
+                totalReceipt += pr.sum;
+            }
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
         }
         public void OpenAddSupplierControl(Object o = null)

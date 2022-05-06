@@ -132,7 +132,7 @@
                         x:Name="txbTotalProductsPrice"
                         Style="{StaticResource Text}"
                         HorizontalAlignment="Right"
-                        Text="{Binding Path=TotalPrice, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Path=totalReceipt, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         FontSize="18"
                         TextAlignment="Right"/>
             </Grid>
