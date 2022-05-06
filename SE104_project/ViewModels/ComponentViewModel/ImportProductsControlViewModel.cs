@@ -1,8 +1,10 @@
-﻿using SE104_OnlineShopManagement.Models.ModelEntity;
+﻿using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
@@ -21,6 +23,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         private IUpdateSelectedList _parent;
         #endregion
         #region ICommand
+        public ICommand DeleteImportProductsCommand { get; set; }
         #endregion
 
         public ImportProductsControlViewModel(ProductsInformation product, IUpdateSelectedList parent)
@@ -35,6 +38,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             Unit = product.Unit;
             _parent = parent;
             sum = 0;
+
+            DeleteImportProductsCommand = new RelayCommand<Object>(null, deleteImportProducts);
         }
 
 
@@ -43,6 +48,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             sum = ImportQuantityNumeric.GetDetailNum() * StockCost;
             OnPropertyChanged(nameof(sum));
+        }
+        public void deleteImportProducts(Object o)
+        {
+            _parent.UpdateBoughtList(product);
         }
         #endregion
     }

@@ -40,6 +40,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             IncreaseCommand = new RelayCommand<object>(null, Increase);
             ChangeCommand = new RelayCommand<object>(null, change);
         }
+        #region Function
         private void change(object o)
         {
             int i;
@@ -112,5 +113,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _parent.UpdateBoughtList(product);
         }
+        #endregion
     }
 }

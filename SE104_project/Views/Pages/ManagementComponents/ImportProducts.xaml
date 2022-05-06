@@ -126,15 +126,20 @@
         <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,40,20,20">
-            <StackPanel Margin="0 5 0 0">
-                <ItemsControl ItemsSource="{Binding listItemsImportProduct}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <uc:ImportProductsControl/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <ScrollViewer
+                    Style="{StaticResource FavsScrollViewer}"
+                    VerticalScrollBarVisibility="Auto" 
+                    HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="0 5 0 0">
+                    <ItemsControl ItemsSource="{Binding listItemsImportProduct}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <uc:ImportProductsControl/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
         <StackPanel Grid.Row="2" Orientation="Horizontal" >
             <TextBlock                         

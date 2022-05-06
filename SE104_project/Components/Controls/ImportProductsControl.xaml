@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="50"
-             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
+            uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
     <UserControl.Resources>
         <multiconvert:InventoryValueConverter x:Key="InvenMulti"/>
     </UserControl.Resources>
@@ -83,8 +83,7 @@
             Height="30"
             Width="30"
             HorizontalAlignment="Right" 
-            Command="{Binding DeleteProductsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayProducts}">
+            Command="{Binding DeleteImportProductsCommand}">
             <materialDesign:PackIcon 
                 Kind="DeleteOutline" 
                 Height="24"

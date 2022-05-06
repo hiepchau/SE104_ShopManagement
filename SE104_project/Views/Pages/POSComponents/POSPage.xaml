@@ -357,8 +357,6 @@
                         ToolTip="Thanh toán hóa đơn thông tin"
                         Margin="0 10 0 0"
                         Content="Thanh toán" />
-
-
                     <Button 
                     x:Name="btnPrintBill"
                     Style="{StaticResource PrimaryButton}"
