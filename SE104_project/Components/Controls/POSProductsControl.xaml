@@ -4,15 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
-             mc:Ignorable="d">
-    <Grid>
-        <Border
+             mc:Ignorable="d"                 
+             Width="100" 
+             Height="120"     
+             Margin="4,4,4,8"
+             Cursor="Hand">
+    <Border
         Background="{DynamicResource White}" 
         BorderBrush="{DynamicResource Gray2}"
-        BorderThickness="1" 
+        BorderThickness="2" 
         Width="100"
         Height="120"
         CornerRadius="4">
+        <Grid>
             <Grid Cursor="Hand" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65*"></RowDefinition>
@@ -64,11 +68,14 @@
                 FontWeight="SemiBold" 
                 Foreground="{DynamicResource Wor}"/>
             </Grid>
-        </Border>
-        <Button Height="120"
-                Background="{x:Null}"
+            <Button Height="120"
+                Style="{StaticResource PrimaryButton}"
+                BorderBrush="Transparent"
+                Background="Transparent"
                 Command="{Binding UpdateBoughtCommand}">
-            
-        </Button>
-    </Grid>
+            </Button>
+        </Grid>
+    </Border>
+
+
 </UserControl>

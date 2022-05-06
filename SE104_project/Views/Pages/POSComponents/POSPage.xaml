@@ -142,7 +142,6 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                         <Button 
-                                
                                 IsDefault="True"
                                 Style="{StaticResource TransparentButton}"
                                 Command="{Binding SearchCommand}"
@@ -162,7 +161,8 @@
                     </Grid>
                 </StackPanel>
 
-                <Border 
+                <Border
+
                     Grid.Row="2"
                     BorderBrush="{DynamicResource LightBrush}"
                     CornerRadius="4,4,4,4"
@@ -172,15 +172,20 @@
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled">
-                        <StackPanel>
+                        <WrapPanel>
                             <ItemsControl ItemsSource="{Binding listProducts}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <uc:POSProductsControl/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                        </StackPanel>
+                        </WrapPanel>
                     </ScrollViewer>
                 </Border>
             </Grid>
@@ -361,7 +366,6 @@
                     Style="{StaticResource PrimaryButton}"
                     Height="35"
                     Command="{Binding ViewStockReceiptTemplateCommand}"
-                    CommandParameter="{Binding ElementName=wdImportStock}"
                     BorderThickness="2"
                     Margin="0,15,0,0" 
                     Background="{DynamicResource White}" 
