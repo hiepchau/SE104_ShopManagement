@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Network.Update_database;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -22,9 +23,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Properties
         public string membershipname { get; set; }
         public int priority { get; set; }
+        private MembershipControlViewModel selectedMembership { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
-        public ObservableCollection<MembershipControlViewModel> listMembership { get; set; }
+        public ObservableCollection<MembershipControlViewModel> listActiveMembership { get; set; }
+        public ObservableCollection<MembershipControlViewModel> listAllMembership { get; set; }
         #endregion
         #region ICommand
         public ICommand SaveCommand { get; set; }
@@ -33,19 +36,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             this._session = session;
             this._connection = connect;
-            listMembership = new ObservableCollection<MembershipControlViewModel>();
-            GetData();
+            listActiveMembership = new ObservableCollection<MembershipControlViewModel>();
+            listAllMembership = new ObservableCollection<MembershipControlViewModel>();
+            GetActiveData();
+            GetAllData();
             //Test
-            listMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
+            listActiveMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
             //
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
         }
         public bool CheckExist()
         {
-            foreach (MembershipControlViewModel ls in listMembership)
+            foreach (MembershipControlViewModel ls in listAllMembership)
             {
-                if (membershipname == ls.name)
+                if (membershipname == ls.name && priority == ls.prio)
                 {
+                    selectedMembership = ls;
                     return true;
                 }
             }
@@ -60,54 +66,92 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 MembershipInformation info = new MembershipInformation("", membershipname, priority);
                 RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                 string s = await regist.register();
-                listMembership.Add(new MembershipControlViewModel(info, this));
-                OnPropertyChanged(nameof(listMembership));
+                listActiveMembership.Add(new MembershipControlViewModel(info, this));
+                OnPropertyChanged(nameof(listActiveMembership));
                 Console.WriteLine(s);
             }
             else
             {
-                Console.WriteLine("MembershipName has existed!");
+                SetActive(selectedMembership);
+                Console.WriteLine("MembershipName.isActivated has been set to True!");
             }
         }
         public void UpdateMembershipList(MembershipInformation mem)
         {
             int i = 0;
-            if (listMembership.Count > 0)
+            if (listActiveMembership.Count > 0)
             {
-                foreach (MembershipControlViewModel ls in listMembership)
+                foreach (MembershipControlViewModel ls in listActiveMembership)
                 {
                     if (ls.membership.Equals(mem))
                     {
+                        SetUnactive(ls);
                         break;
                     }
                     i++;
                 }
-                listMembership.RemoveAt(i);
-                OnPropertyChanged(nameof(listMembership));
+                listActiveMembership.RemoveAt(i);
+                OnPropertyChanged(nameof(listActiveMembership));
             }
             else
             {
                 return;
             }
         }
-
+        public async void SetActive(MembershipControlViewModel membershipinfo)
+        {
+            if (membershipinfo.isActivated == false)
+            {
+                var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
+                var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
+                UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listActiveMembership.Add(selectedMembership);
+                OnPropertyChanged(nameof(listActiveMembership));
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
+        public async void SetUnactive(MembershipControlViewModel membershipinfo)
+        {
+            if (membershipinfo.isActivated == true)
+            {
+                var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
+                var update = Builders<MembershipInformation>.Update.Set("isActivated", false);
+                UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
         #endregion
 
         #region DB
-        public async void GetData()
+        public async void GetActiveData()
+        {
+            var filter = Builders<MembershipInformation>.Filter.Eq("isActivated",true);
+            GetMembership getter = new GetMembership(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (MembershipInformation mem in ls)
+            {
+                listActiveMembership.Add(new MembershipControlViewModel(mem, this));
+            }
+            Console.WriteLine("Executed");
+            OnPropertyChanged(nameof(listActiveMembership));
+
+        }
+        public async void GetAllData()
         {
             var filter = Builders<MembershipInformation>.Filter.Empty;
             GetMembership getter = new GetMembership(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (MembershipInformation mem in ls)
             {
-                listMembership.Add(new MembershipControlViewModel(mem, this));
+                listAllMembership.Add(new MembershipControlViewModel(mem, this));
             }
-            Console.Write("Executed");
-            OnPropertyChanged(nameof(listMembership));
+            Console.WriteLine("Executed");
 
         }
-
         #endregion
     }
 }

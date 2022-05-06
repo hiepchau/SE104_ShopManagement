@@ -12,9 +12,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
     {
         #region Properties
         public MembershipInformation membership;
-        public string id { get; set; }
+        public string ID { get; set; }
         public string name { get; set; }
         public int prio { get; set; }
+        public bool isActivated { get; set; }
         private IUpdateMembershipList _parent;
 
         #endregion
@@ -27,9 +28,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public MembershipControlViewModel(MembershipInformation membership, IUpdateMembershipList parent)
         {
             this.membership = membership;
-            id = membership.ID;
+            ID = membership.ID;
             name = membership.name;
             prio = membership.priority;
+            isActivated = membership.isActivated;
             _parent = parent;
  
             DeleteMembershipCommand = new RelayCommand<Object>(null, deleteMembership);

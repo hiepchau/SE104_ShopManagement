@@ -20,7 +20,7 @@
         <TextBlock 
             x:Name="txtID"
             Grid.Column="0"            
-            Text="{Binding ID}" 
+            Text="{Binding displayID}" 
             HorizontalAlignment="Left"
             Style="{StaticResource Text}"
             Margin="10 0 0 0"/>

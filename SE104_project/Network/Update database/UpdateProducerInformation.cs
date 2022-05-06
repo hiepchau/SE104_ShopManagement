@@ -23,7 +23,7 @@ namespace SE104_OnlineShopManagement.Network.Update_database
         public async Task<string> update()
         {
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
-            var collection = database.GetCollection<ProducerInformation>("ProducerInfromation");
+            var collection = database.GetCollection<ProducerInformation>("ProducerInformation");
             object o = await collection.UpdateOneAsync(_filter, _update);
             string s = o.ToString();
             return s;

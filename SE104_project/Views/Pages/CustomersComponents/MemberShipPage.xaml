@@ -76,7 +76,7 @@
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled">
                     <StackPanel>
-                        <ItemsControl ItemsSource="{Binding listMembership}">
+                        <ItemsControl ItemsSource="{Binding listActiveMembership}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <uc:MembershipControl/>
