@@ -19,6 +19,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public long StockCost { get; set; }
         public string Category { get; set; }
         public string Unit { get; set; }
+        public string displayID { get; set; }
         private IUpdateProductList _parent;
         #endregion
 
@@ -37,6 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             StockCost = product.StockCost;
             Category = product.Category;
             Unit = product.Unit;
+            displayID = product.displayID;
             _parent = parent;
             DeleteProductsCommand = new RelayCommand<Object>(null, DeleteProduct);
         }

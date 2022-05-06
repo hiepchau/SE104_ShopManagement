@@ -24,7 +24,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         public async Task<String> register()
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
-            var collection = database.GetCollection<BsonDocument>("ProductTypeInfomation");
+            var collection = database.GetCollection<BsonDocument>("ProductTypeInformation");
             var projectioncheck = Builders<BsonDocument>.Projection.Include("_id");
             var filtercheck = Builders<BsonDocument>.Filter.Eq("_id", newShip.ID);
             var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();

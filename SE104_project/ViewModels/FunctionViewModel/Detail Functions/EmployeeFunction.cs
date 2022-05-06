@@ -131,13 +131,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             string _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);
             string _name = splitName.Substring(0, splitName.LastIndexOf(' '));
 
-            UserInfomation info = new UserInfomation(await new AutoEmployeeIDGenerator(_session, _connection.client).Generate()
-                , _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate));
+            //Register UserInformation
+            UserInfomation info = new UserInfomation("" , _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate),true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
             RegisterUser regist = new RegisterUser(info, _connection.client);
-            string s = await regist.registerUser();
+            string id = await regist.registerUser();
             listItemsUserInfo.Add(new EmployeeControlViewModel(info ,this));
+
+            //Register Image
+            ByteImage bimg = new ByteImage(id, employeeImage);
+            RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
+            await registImage.register();
             OnPropertyChanged(nameof(listItemsUserInfo));
-            Console.WriteLine(s);
+            Console.WriteLine(id);
         }
 
         public async void SaveImage(object o = null)
@@ -148,11 +153,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
-                ByteImage bimg = new ByteImage(name, tmp);
-                RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
+                BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));               
                 employeeImage = tmp;
-                await regist.register();
                 OnPropertyChanged(nameof(employeeImage));
             }
         }

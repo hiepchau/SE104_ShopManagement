@@ -120,17 +120,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProduct(Object o = null)
         {
-            if (SelectedProductsType != null)
+            if (SelectedProductsType != null && productImage != null)
             {
-                ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit,true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
+                ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
                 RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
-                string s = await regist.register();
+                string id = await regist.register();
+
+                //Register Image
+                ByteImage bimg = new ByteImage(id, productImage);
+                RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
+                await registImage.register();
                 listItemsProduct.Add(new ProductsControlViewModel(info, this));
                 OnPropertyChanged(nameof(listItemsProduct));
-                Console.WriteLine(s);
+                Console.WriteLine(id);
             }
         }
-        public async void SaveImage(object o = null)
+        public void SaveImage(Object o = null)
         {
             var ofd = new OpenFileDialog();
             ofd.Filter = "image jpeg(*.jpg)|*.jpg|image png(*.png)|*.png";
@@ -139,10 +144,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
-                ByteImage bimg = new ByteImage(productName, tmp);
-                RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
                 productImage = tmp;
-                await regist.register();
                 OnPropertyChanged(nameof(productImage));
             }
         }
