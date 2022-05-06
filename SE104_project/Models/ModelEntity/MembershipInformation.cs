@@ -15,10 +15,13 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string name { get; set; }
         [BsonElement("Priority")]
         public int priority { get; set; }
-        public MembershipInformation(string id, string name, int prio) {
+        [BsonElement("isActivated")]
+        public bool isActivated { get; set; }
+        public MembershipInformation(string id, string name, int prio, bool isActivated=true) {
             this.ID = id;
             this.name = name;
             this.priority = prio;
+            this.isActivated = isActivated;
         }
     }
 }

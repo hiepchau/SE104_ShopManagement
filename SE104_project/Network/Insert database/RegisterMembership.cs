@@ -28,7 +28,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             BsonDocument newProductDoc = new BsonDocument
             {
                 {"MembershipName", newShip.name },
-                {"Priority", newShip.priority }
+                {"Priority", newShip.priority },
+                {"isActivated", newShip.isActivated },
             };
             await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("Membership Inserted into " + session.CurrnetUser.companyInformation);

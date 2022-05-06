@@ -22,7 +22,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
         {
 
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
-            var collection = database.GetCollection<ProducerInformation>("ProducerInfromation");
+            var collection = database.GetCollection<ProducerInformation>("ProducerInformation");
             var field = Builders<ProducerInformation>.Projection
                 .Include(p => p.ID)
                 .Include(p => p.Name)

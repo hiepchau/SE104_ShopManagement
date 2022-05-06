@@ -43,6 +43,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"Phone", customer.PhoneNumber },
                 {"Level", customer.CustomerLevel },
                 {"DisplayID",customer.ID},
+                {"isActivated", customer.isActivated },
             };
                 await collection.InsertOneAsync(newProductDoc);
                 Console.WriteLine("User Inserted into " + session.CurrnetUser.companyInformation);

@@ -20,6 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string Category { get; set; }
         public string Unit { get; set; }
         public long sum { get; set; }
+        public string displayID { get; set; }
         private IUpdateSelectedList _parent;
         #endregion
         #region ICommand
@@ -36,6 +37,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             StockCost = product.StockCost;
             Category = product.Category;
             Unit = product.Unit;
+            displayID = product.displayID;
             _parent = parent;
             sum = 0;
 

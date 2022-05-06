@@ -84,8 +84,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveSupplier(object o = null)
         {
-            ProducerInformation info = new ProducerInformation(await new AutoProducerIDGenerator(_session,_connection.client).Generate()
-                , supplierName,supplierMail,supplierPhone,supplierAddress);
+            ProducerInformation info = new ProducerInformation("", supplierName,supplierMail,supplierPhone,supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
             RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
             string s = await regist.register();
             listItemsProducer.Add(new SupplierControlViewModel(info, this));

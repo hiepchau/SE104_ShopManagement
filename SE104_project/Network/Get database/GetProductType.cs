@@ -23,7 +23,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
         public async Task<List<ProductTypeInfomation>> Get()
         {
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
-            var collection = database.GetCollection<ProductTypeInfomation>("ProductTypeInfomation");
+            var collection = database.GetCollection<ProductTypeInfomation>("ProductTypeInformation");
             var field = Builders<ProductTypeInfomation>.Projection
                 .Include(x => x.ID)
                 .Include(X => X.name)

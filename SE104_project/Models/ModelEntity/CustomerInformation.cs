@@ -19,15 +19,18 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string CustomerLevel { get; set; }   
         [BsonElement("CMND")]
         public string CMND { get; set; }
+        [BsonElement("isActivated")]
+        public bool isActivated { get; set; }
         [BsonElement("DisplayID")]
         public string displayID { get; set; }
-        public CustomerInformation(string id, string name, string phonenum, string level, string cmnd, string display = "")
+        public CustomerInformation(string id, string name, string phonenum, string level, string cmnd,bool isActivated = true ,string display = "")
         {
             this.ID = id;
             this.Name = name;   
             this.PhoneNumber = phonenum;
             this.CustomerLevel = level;
             this.CMND = cmnd;
+            this.isActivated = isActivated;
             this.displayID = display;
         }
     }

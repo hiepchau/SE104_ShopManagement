@@ -20,6 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public Role role { get; set; }
         public long salary { get; set; }
         public bool isActivated { get; set; }
+        public string displayID { get; set; }
         private IUpdateEmployeeList _parent;
         #endregion
 
@@ -37,6 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             role = user.role;
             salary = user.salary;
             isActivated = user.isActivated;
+            displayID = user.displayID;
             _parent = parent;
 
             DeleteEmployeeCommand = new RelayCommand<Object>(null, deleteEmployee);

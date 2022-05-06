@@ -27,7 +27,8 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             var field = Builders<MembershipInformation>.Projection
                 .Include(x => x.ID)
                 .Include(X => X.name)
-                .Include(x => x.priority);
+                .Include(x => x.priority)
+                .Include(x => x.isActivated);
 
             return await collection.Find<MembershipInformation>(_filter).Project<MembershipInformation>(field).ToListAsync();
         }
