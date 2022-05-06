@@ -103,7 +103,7 @@
                 <StackPanel Grid.Row="1" Orientation="Horizontal" >
                     <TextBlock
                             Style="{StaticResource TextHeader}"
-                            Text="Danh sách bán hàng" 
+                            Text="Danh sách hàng hóa" 
                             FontSize="22"
                             Margin="20,0,0,0"/>
                     <Grid 
@@ -160,9 +160,7 @@
                         </Button>
                     </Grid>
                 </StackPanel>
-<!--TAo la ai-->
                 <Border
-                    
                     Grid.Row="2"
                     BorderBrush="{DynamicResource LightBrush}"
                     CornerRadius="4,4,4,4"

@@ -19,54 +19,44 @@
         <Grid>
             <Grid Cursor="Hand" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="65*"></RowDefinition>
-                    <RowDefinition Height="20*"></RowDefinition>
-                    <RowDefinition Height="15*"></RowDefinition>
+                    <RowDefinition Height="75*"></RowDefinition>
+                    <RowDefinition Height="23*"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock 
-                x:Name="txbId" 
-                Visibility="Hidden"
-                HorizontalAlignment="Left"
-                TextWrapping="Wrap" 
-                VerticalAlignment="Top" 
-                Height="0"
-                Width="0"/>
-                <TextBlock 
-                x:Name="txbIdBill" 
-                Visibility="Hidden"
-                HorizontalAlignment="Left"
-                TextWrapping="Wrap" 
-                VerticalAlignment="Top" 
-                Height="0" 
-                Width="0"/>
                 <Image x:Name="imgProducts" 
                 Grid.Row="0"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Margin="0,1,0,0"/>
                 <TextBlock x:Name="txbName" 
-                Text="{Binding name}" 
-                TextTrimming="WordEllipsis" 
-                HorizontalAlignment="Center" 
-                Margin="10,0" 
-                TextWrapping="Wrap"
-                Grid.Row="1" 
-                Foreground="{DynamicResource Gray1}" 
-                FontSize="12"
-                VerticalAlignment="Center" 
+                           Grid.Row="1"
+                           Text="{Binding name}" 
+                           TextTrimming="WordEllipsis"              
+                           HorizontalAlignment="Center" 
+                           Margin="10,0"              
+                           TextWrapping="Wrap" 
+                           Foreground="{DynamicResource Gray1}"                 
+                           FontSize="12"
+                           VerticalAlignment="Center" 
                 TextAlignment="Center"/>
-                <TextBlock 
-                Name="txbPrice"
-                Text="{Binding price}" 
-                TextTrimming="WordEllipsis" 
-                HorizontalAlignment="Center"
-                Margin="20,0,20,0" 
-                Grid.Row="2" 
-                TextWrapping="Wrap"
-                VerticalAlignment="Top" 
-                FontSize="12" 
-                FontWeight="SemiBold" 
-                Foreground="{DynamicResource Wor}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Label
+                        Content="SL:"
+                        FontSize="12"
+                        Margin="28 -3 0 0"
+                        Foreground="{StaticResource Gray1}"                        
+                        Style="{StaticResource PrimaryLabelText}"/>
+                    <TextBlock 
+                        Name="txtQuantity"                
+                        Text="{Binding quantity}"            
+                        HorizontalAlignment="Center"
+                        TextWrapping="Wrap"               
+                        VerticalAlignment="Center" 
+                        FontSize="12"                
+                        FontWeight="SemiBold" 
+                        Foreground="{DynamicResource Gray1}"/>
+                </StackPanel>
+
             </Grid>
             <Button Height="120"
                 Style="{StaticResource PrimaryButton}"

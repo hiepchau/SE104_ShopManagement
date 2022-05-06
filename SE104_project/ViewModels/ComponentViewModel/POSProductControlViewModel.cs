@@ -14,6 +14,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ProductsInformation product { get; set; }
         public string name { get; set; }
         public long price { get; set; }
+        public int quantity { get; set; }
         private IUpdateSelectedList _parent;
 
         public ICommand UpdateBoughtCommand { get; set; }
@@ -23,6 +24,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this._parent = parent;
             name = product.name;
             price = product.price;
+            quantity = product.quantity;
             UpdateBoughtCommand = new RelayCommand<Object>(null, UpdateBought);
         }
 

@@ -6,25 +6,26 @@ using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    public interface IUpdateImportProductList
-    {
-        void UpdateProductList(CustomerInformation cus);
-    }
-    class ImportProductsFunction : BaseFunction
+
+    class ImportProductsFunction : BaseFunction, IUpdateSelectedList
     {
         #region Properties
         private MongoConnect _connection;
         private AppSession _session;
         public ObservableCollection<ProducerInformation> ItemSourceSupplier { get; set; }
+        public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportProductsControlViewModel> listItemsImportProduct { get; set; }
+        public string searchString { get; set; }
         #endregion
 
         #region ICommand
@@ -39,9 +40,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             _session = session;
             ItemSourceSupplier = new ObservableCollection<ProducerInformation>();
             listItemsImportProduct = new ObservableCollection<ImportProductsControlViewModel>();
+            listProducts = new ObservableCollection<POSProductControlViewModel>();
             //Test
             GetProducerInfo();
-            listItemsImportProduct.Add(new ImportProductsControlViewModel(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi")));
+            listItemsImportProduct.Add(new ImportProductsControlViewModel(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"), this));
             //
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
 
@@ -72,6 +74,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             });
 
         }
+        public void UpdateSelectedList(ProductsInformation pro)
+        {
+            if (listItemsImportProduct.Count > 0)
+            {
+                foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
+                {
+                    if (pr.product.Equals(pro))
+                        return;
+                }
+            }
+            listItemsImportProduct.Add(new ImportProductsControlViewModel(pro, this));
+            OnPropertyChanged(nameof(listItemsImportProduct));
+        }
+        public void UpdateBoughtList(ProductsInformation pro)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region DB
@@ -88,6 +107,32 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(ItemSourceSupplier));
           
         }
+        private async Task getdata()
+        {
+            var tmp = new GetProducts(_connection.client, _session, FilterDefinition<ProductsInformation>.Empty);
+            var ls = await tmp.Get();
+            foreach (ProductsInformation pr in ls)
+            {
+                listProducts.Add(new POSProductControlViewModel(pr, this));
+
+            }
+            OnPropertyChanged(nameof(listProducts));
+        }
+        private async Task getsearchdata()
+        {
+            listProducts.Clear();
+            OnPropertyChanged(nameof(listProducts));
+            FilterDefinition<ProductsInformation> filter = Builders<ProductsInformation>.Filter.Eq(x => x.name, searchString);
+            var tmp = new GetProducts(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (ProductsInformation pr in ls)
+            {
+                listProducts.Add(new POSProductControlViewModel(pr, this));
+
+            }
+            OnPropertyChanged(nameof(listProducts));
+        }
+
         #endregion
     }
 }

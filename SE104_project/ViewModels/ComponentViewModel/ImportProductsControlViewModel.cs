@@ -1,4 +1,5 @@
 ﻿using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,12 +18,12 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string Category { get; set; }
         public string Unit { get; set; }
         public long sum { get; set; }
-
+        private IUpdateSelectedList _parent;
         #endregion
         #region ICommand
         #endregion
 
-        public ImportProductsControlViewModel(ProductsInformation product)
+        public ImportProductsControlViewModel(ProductsInformation product, IUpdateSelectedList parent)
         {
             this.product = product;
             ImportQuantityNumeric = new ControlNumericSnipper(9999);
@@ -32,16 +33,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             StockCost = product.StockCost;
             Category = product.Category;
             Unit = product.Unit;
+            _parent = parent;
             sum = 0;
         }
 
+
+        #region Function
         public void onAmountChanged()
         {
             sum = ImportQuantityNumeric.GetDetailNum() * StockCost;
             OnPropertyChanged(nameof(sum));
         }
-
-        #region Function
         #endregion
     }
 }
