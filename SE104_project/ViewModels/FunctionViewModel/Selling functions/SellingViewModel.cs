@@ -141,7 +141,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             if (string.IsNullOrEmpty(searchString))
             {
                 await getdata();
-
             }
             else
             {

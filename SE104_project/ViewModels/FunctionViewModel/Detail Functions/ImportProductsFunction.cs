@@ -30,6 +30,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         #region ICommand
         public ICommand OpenAddReceiptControlCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         //AddReceiptControl
         public ICommand ExitCommand { get; set; }
         public ICommand OpenAddSupplierControlCommand { get; set; }
@@ -43,8 +44,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listProducts = new ObservableCollection<POSProductControlViewModel>();
             //Test
             GetProducerInfo();
+            getdata();
             listItemsImportProduct.Add(new ImportProductsControlViewModel(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye", "nguoi"), this));
             //
+            SearchCommand = new RelayCommand<Object>(null, search);
+            
             OpenAddReceiptControlCommand = new RelayCommand<Object>(null, OpenAddReceiptControl);
 
         }
@@ -90,6 +94,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public void UpdateBoughtList(ProductsInformation pro)
         {
             throw new NotImplementedException();
+        }
+        private async void search(object o)
+        {
+            searchString = o.ToString();
+            if (string.IsNullOrEmpty(searchString))
+            {
+                await getdata();
+            }
+            else
+            {
+                await getsearchdata();
+            }
         }
         #endregion
 
