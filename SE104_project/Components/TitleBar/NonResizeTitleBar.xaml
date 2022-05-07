@@ -7,7 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              x:Name="_this"
              mc:Ignorable="d"
-             Foreground="Transparent">
+             Foreground="Transparent"
+             xmlns:customCommand="clr-namespace:SE104_OnlineShopManagement.Commands">
     <Grid>
         <DockPanel HorizontalAlignment="Stretch" Background="Transparent" 
                    LastChildFill="false" VerticalAlignment="Top">
@@ -17,7 +18,7 @@
                         Padding="0"
                         x:Name="btnClose"
                         Height="Auto"
-                        Command="{Binding CloseWindowCommand}"
+                        Command="{x:Static customCommand:StaticCommands.CloseWindowCommand}"
                         CommandParameter="{Binding ElementName=_this}">
                     <materialDesign:PackIcon Kind="WindowClose" Width="15" Height="15"
                                              Foreground="{DynamicResource ForegroundResource}" />
@@ -29,8 +30,9 @@
                         BorderThickness="0"
                         Padding="0"
                         x:Name="btnMinimize" Height="Auto"
-                        Command="{Binding MinimizeWindowCommand}"
-                        CommandParameter="{Binding ElementName=_this}">
+                        CommandParameter="{Binding ElementName=_this}"
+                        Command="{x:Static customCommand:StaticCommands.MinimizeWindowCommand}"
+                        >
                     <materialDesign:PackIcon Kind="WindowMinimize" Width="15" Height="15"
                                              Foreground="{DynamicResource ForegroundResource}" />
                 </Button>
