@@ -5,13 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="50"
-            uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
-    <UserControl.Resources>
-        <multiconvert:InventoryValueConverter x:Key="InvenMulti"/>
-    </UserControl.Resources>
+             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>

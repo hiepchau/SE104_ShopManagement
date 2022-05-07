@@ -312,7 +312,7 @@
                             Style="{StaticResource PrimaryLabelText}"/>
                         <TextBlock
                              Style="{StaticResource Text}"
-                             Text="10.000.000đ"
+                             Text="{Binding totalPay}"
                              Width="120"                  
                              HorizontalAlignment="Right"/>
                     </Grid>

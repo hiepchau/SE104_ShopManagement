@@ -33,6 +33,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public string CurrentID { get; set; }
         public string today { get; set; }
         public string clock { get; set; }
+        public long totalPay { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
         public string searchString { get; set; }
@@ -48,9 +49,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             _connection = client;
             CurrentName = _session.CurrnetUser.FirstName + " " + _session.CurrnetUser.LastName;
             CurrentID = _session.CurrnetUser.ID;
-            today = DateTime.Now.ToString("dd/MM/yyyy");
             listProducts = new ObservableCollection<POSProductControlViewModel>();
             listbought = new ObservableCollection<ImportPOSProductControlViewModel>();
+            totalPay = 0;
+            getTotalPay();
+            today = DateTime.Now.ToString("dd/MM/yyyy");
+
             clockTicking();
             getdata();
             SearchCommand = new RelayCommand<object>(null, search);
@@ -122,7 +126,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 return;
             }
         }
+        public void getTotalPay()
+        {
+            if (listbought.Count > 0)
+            {
+                foreach (ImportPOSProductControlViewModel pr in listbought)
+                {
+                    totalPay += pr.sum;
+                }
+                OnPropertyChanged(nameof(totalPay));
+            }
+            else
+            {
+                return;
+            }
 
+        }
         public void clockTicking()
         {
             DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();

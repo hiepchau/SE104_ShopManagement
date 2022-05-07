@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
-             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged"
              mc:Ignorable="d" 
              d:DesignHeight="40">
     <Grid>
@@ -34,7 +34,7 @@
             Grid.Column="2"/>
         <TextBlock 
             Grid.Column="3" 
-            Text="{Binding price}" 
+            Text="{Binding sum}" 
             Style="{StaticResource Text}"/>
         <Button 
             Grid.Column="4"

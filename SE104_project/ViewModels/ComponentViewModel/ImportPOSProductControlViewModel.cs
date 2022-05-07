@@ -17,6 +17,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string name { get; set; }
         public long price { get; set; }
         public string quantity { get; set; }
+        public long sum { get; set; }
+
         #endregion
 
         #region ICommand
@@ -36,6 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             price = product.price;
             DeleteProductsCommand = new RelayCommand<object>(null, deleteproduct);
             quantity = "1";
+            sum = price;
             DecreaseCommand = new RelayCommand<object>(null, Decrease);
             IncreaseCommand = new RelayCommand<object>(null, Increase);
             ChangeCommand = new RelayCommand<object>(null, change);
@@ -53,7 +56,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             else if (check)
             {
-                if(i> product.quantity)
+                if(i > product.quantity)
                 {
                     quantity= product.quantity.ToString();
                     OnPropertyChanged(nameof(quantity));
@@ -96,9 +99,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                     quantity = (i + 1).ToString();
                     OnPropertyChanged(nameof(quantity));
                 }
-                
             }
-
         }
         public int GetDetailNum()
         {
@@ -109,6 +110,12 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             else return 0;
         }
+        public void onAmountChanged()
+        {
+            sum = GetDetailNum() * price;
+            OnPropertyChanged(nameof(sum));
+        }
+
         private void deleteproduct(object o)
         {
             _parent.UpdateBoughtList(product);

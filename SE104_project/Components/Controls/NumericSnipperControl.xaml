@@ -86,7 +86,7 @@
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction
                                         Command="{Binding ChangeCommand}"
-                                        CommandParameter="{Binding ElementName=tb_main, Path=Text}"></i:InvokeCommandAction>
+                                        CommandParameter="{Binding ElementName=tb_main, Path=Text}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
