@@ -125,11 +125,21 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             {
                 return;
             }
+            if(listbought.Count == 0)
+            {
+                getTotalPay();
+            }
         }
         public void getTotalPay()
         {
+            if (listbought.Count == 0)
+            {
+                totalPay = 0;
+                OnPropertyChanged(nameof(totalPay));
+            }    
             if (listbought.Count > 0)
             {
+                totalPay = 0;
                 foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
                     totalPay += pr.sum;
