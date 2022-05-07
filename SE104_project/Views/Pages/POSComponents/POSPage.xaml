@@ -7,8 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             d:DesignHeight="715" d:DesignWidth="1166"
-             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
+             d:DesignHeight="715" d:DesignWidth="1166">
+    <!--uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">-->
 
     <Grid Background="Transparent">
         <Grid  Margin="10" >
@@ -235,7 +235,7 @@
                              TextTrimming="CharacterEllipsis"
                              Text="{Binding CurrentName}"
                              Width="185"
-                             HorizontalAlignment="Left" Margin="185,0,0,0"/>
+                             HorizontalAlignment="Center" Margin="300,0,0,0"/>
                         <Rectangle                
                             Fill="{DynamicResource WordBlueBrush}" 
                             Width="200"                
@@ -276,9 +276,9 @@
                              Style="{StaticResource Text}"
                              Text="{Binding clock}"
                              Width="60" 
-               
-                            VerticalAlignment="Center"
-                             HorizontalAlignment="Right"/>
+                             Margin=" 300 0 0 0"                            
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"/>
 
                     </Grid>
                     <Grid Margin="0 20 0 0">
