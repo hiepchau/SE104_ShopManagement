@@ -8,7 +8,8 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="520" d:DesignWidth="350" Foreground="{DynamicResource ForegroundResource}">
+             d:DesignHeight="500" d:DesignWidth="350"
+             Foreground="{DynamicResource ForegroundResource}">
     <UserControl.Resources>
         <multiconvert:MultiConverter x:Key="Multi"></multiconvert:MultiConverter>
     </UserControl.Resources>
@@ -16,14 +17,24 @@
         <Grid Background="Transparent">
             <!--Text-->
             <DockPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"
-                            DockPanel.Dock="Top" Margin="0 10 0 6">
-                    <TextBlock x:Name="txtAppName" FontSize="20" Foreground="{StaticResource WordBlueBrush}"
-                              Text="App Name"/>
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            DockPanel.Dock="Top"
+                            Margin="0 10 0 6">
+                    <TextBlock x:Name="txtAppName" 
+                               FontSize="20" 
+                               Foreground="{StaticResource WordBlueBrush}"
+                               Text="Shop Name"/>
                 </StackPanel>
-                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top"
-                            Orientation="Horizontal" Height="4">
-                    <Border BorderThickness="8" Width="110" BorderBrush="#FFC5C5C5" />
+                <StackPanel DockPanel.Dock="Top" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal" 
+                            Height="4">
+                    <Border BorderThickness="8" 
+                            Width="110"
+                            BorderBrush="#FFC5C5C5" />
                 </StackPanel>
             </DockPanel>
 
@@ -33,23 +44,26 @@
                     <DockPanel Margin="0 0 0 16" LastChildFill="False">
                         <TextBox x:Name="FirstNameBox"
                                  materialDesign:HintAssist.Hint="Họ"
-                                 Text="{Binding LastName, Mode=TwoWay}" FontSize="12"
-                                 Style="{StaticResource TextBox}" Width="145" />
-                        <TextBox x:Name="LastNameBox"
-                                 materialDesign:HintAssist.Hint="Ten"
                                  Text="{Binding FirstName, Mode=TwoWay}" FontSize="12"
-                                 Style="{StaticResource TextBox}" Width="90"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="145" />
+                        <TextBox x:Name="LastNameBox"
+                                 materialDesign:HintAssist.Hint="Tên"
+                                 Text="{Binding LastName, Mode=TwoWay}" FontSize="12"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90"
                                  DockPanel.Dock="Right" />
                     </DockPanel>
                     <!--Ngay sinh Gioi tinh-->
                     <DockPanel LastChildFill="False" Margin="0 0 0 16">
                         <DatePicker x:Name="BirthdayPicker"
-                                    materialDesign:HintAssist.Hint="Date of birth"
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="145"
+                                    materialDesign:HintAssist.Hint="Ngày sinh"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    Width="145"
                                     Text="{Binding birthDay, Mode=TwoWay}"/>
-                        <ComboBox x:Name="CbSex" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  materialDesign:HintAssist.Hint="Gender"
-                                  DockPanel.Dock="Right" Width="90"
+                        <ComboBox x:Name="CbSex"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  materialDesign:HintAssist.Hint="Giới tính"
+                                  DockPanel.Dock="Right" 
+                                  Width="90"
                                   ItemsSource="{Binding GenderList}">
                             <TextBlock x:Name="MaleBox" Text="Male"></TextBlock>
                             <TextBlock x:Name="FemaleBox" Text="Female"></TextBlock>
@@ -58,8 +72,7 @@
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction
                                         Command="{Binding GenderSelectCommand}"
-                                        CommandParameter="{Binding ElementName=CbSex,Path=SelectedItem}"
-                                        ></i:InvokeCommandAction>
+                                        CommandParameter="{Binding ElementName=CbSex,Path=SelectedItem}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
@@ -67,26 +80,31 @@
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"
                              materialDesign:HintAssist.Hint="Email"
-                             Text="{Binding Email, Mode=TwoWay}" FontSize="12"
-                             Margin="0 0 0 16" Style="{StaticResource TextBox}" Width="245" />
+                             Text="{Binding Email, Mode=TwoWay}" 
+                             Margin="0 0 0 16" 
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <!--Mat khau-->
                     <PasswordBox x:Name="PasswordBox"
                                  materialDesign:HintAssist.Hint="Mat khau" 
-                                 Margin="0 -10 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                                 Margin="0 0 0 16" 
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <!--Nhap lai mat khau-->
                     <PasswordBox x:Name="VerifyPasswordBox"
                                  materialDesign:HintAssist.Hint="Nhap lai mat khau"
-                                 Margin="0 -10 0 16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                                 Margin="0 0 0 16" 
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <TextBox Text="{Binding ComName, Mode=TwoWay}" 
-                             materialDesign:HintAssist.Hint="Company Name" Width="245" FontSize="12"
-                             Style="{StaticResource TextBox}"/>
+                             materialDesign:HintAssist.Hint="Company Name"
+                             Margin="0 0 0 16" 
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                     <!--Button-->
-                    <DockPanel LastChildFill="False" Margin="0 50 0 0">
+                    <DockPanel LastChildFill="False" Margin="0 20 0 0">
                         <Border DockPanel.Dock="Left">
                             <Button x:Name="backBtn" Style="{StaticResource PrimaryButton}"
-                                    Width="100" FontSize="16"
+                                    Width="100" FontSize="13"
                                     Background="White"
+                                    BorderBrush="{StaticResource White}"
                                     Command="{Binding BackCommand}"
                                     Foreground="{StaticResource MaterialDesignLightForeground}"
                                     HorizontalAlignment="Right">
@@ -95,14 +113,13 @@
                         </Border>
                         <Border DockPanel.Dock="Right">
                             <Button x:Name="signUpBtn" Style="{StaticResource PrimaryButton}"
-                                    Width="100" FontSize="16"
-                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                    Width="100" FontSize="13"
                                     Command="{Binding RegisterCommand}">
                                 <Button.CommandParameter>
                                     <MultiBinding Converter="{StaticResource Multi}">
-                                    <Binding ElementName="PasswordBox"></Binding>
-                                    <Binding ElementName="VerifyPasswordBox"></Binding>
-                                </MultiBinding>
+                                        <Binding ElementName="PasswordBox"/>
+                                        <Binding ElementName="VerifyPasswordBox"/>
+                                    </MultiBinding>
                                 </Button.CommandParameter>
                                 <TextBlock Text="Dang ky" />
                             </Button>

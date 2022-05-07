@@ -24,6 +24,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         public string companyname { get; set; }
         public string username { get; set; }    
         public string password { get; set; }
+
         private MongoConnect Connection;
         private AppSession Session;
 

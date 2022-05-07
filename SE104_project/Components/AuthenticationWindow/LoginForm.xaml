@@ -4,78 +4,75 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" 
-             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" 
+             mc:Ignorable="d"
              Foreground="{DynamicResource ForgroundResource}" 
-             MaxHeight="520" MaxWidth="350" >
-    <Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="154*"/>
-            </Grid.ColumnDefinitions>
+             MaxHeight="500" 
+             MaxWidth="350" >
+    <StackPanel>
+        <!--<Image Margin="0,10,0,5" 
+                       Source="pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/logo.png"
+                       Height="25"/>-->
+        <TextBlock 
+            Margin="0,25,0,5"
+            HorizontalAlignment="Center" 
+            FontSize="20" 
+            FontWeight="Bold" 
+            Foreground="{StaticResource WordBlueBrush}"
+            Text="SHOP NAME" />
+        <TextBlock 
+            FontSize="17"
+            FontWeight="SemiBold"
+            HorizontalAlignment="Center" 
+            Text="Login to your existing account"
+            Foreground="{StaticResource WordBlueBrush}"/>
+        <TextBox Margin="0,30,0,0" 
+                 x:Name="txtCompany" Width="250"
+                 FontSize="13"
+                 Text="{Binding companyname, Mode=TwoWay}"
+                 materialDesign:HintAssist.Hint="Company" 
+                 BorderThickness="2" 
+                 BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Margin="0,20,0,0" 
+                 x:Name="txtUsername" Width="250"
+                 FontSize="13"
+                 Text="{Binding username, Mode=TwoWay}"
+                 materialDesign:HintAssist.Hint="Enter Username" 
+                 BorderThickness="2" 
+                 BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <PasswordBox
+            Margin="0,20,0,0" 
+            x:Name="PasswordBox" 
+            Width="250"
+            FontSize="13" 
+            materialDesign:HintAssist.Hint="Enter Password"
+            BorderThickness="2"
+            BorderBrush="{DynamicResource MaterialDesignDivider}" 
+            Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
 
-            <!--App Name-->
-            <DockPanel Grid.ColumnSpan="3">
-                <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal"
-                            HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0 40 0 6">
-                    <TextBlock x:Name="txtAppName" FontSize="20" Foreground="{StaticResource WordBlueBrush}"
-                              Text="App Name"/>
+        <Button  Margin="0,20,0,0"
+                 x:Name="loginBtn" 
+                 Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+                 materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+                 Height="53"
+                 Width="250"
+                 materialDesign:ButtonAssist.CornerRadius="10"
+                 FontSize="13" 
+                 Content="LOG IN"
+                 Command="{Binding LoginCommand}"
+                 CommandParameter="{Binding ElementName=PasswordBox}"/>
 
-                </StackPanel>
-                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top"
-                            Orientation="Horizontal" Height="4">
-                    <Border BorderThickness="8" Width="110" BorderBrush="#FFC5C5C5" />
-                </StackPanel>
-            </DockPanel>
-
-            <StackPanel Margin="6,100,40,4" Grid.Column="2">
-                <StackPanel Margin="0 0 0 10">
-                    <TextBox x:Name="CompanyName"
-                             Text="{Binding companyname, Mode=TwoWay}"
-                              materialDesign:HintAssist.Hint="Company name" 
-                             FontSize="14"
-                             Style="{StaticResource TextBox}" Width="275"/>
-                </StackPanel>
-                <!--User Name-->
-                <StackPanel Margin="0 0 0 10">
-                    <TextBox x:Name="Username"
-                             Text="{Binding username, Mode=TwoWay}"
-                              materialDesign:HintAssist.Hint="Username"
-                             FontSize="14"
-                             Style="{StaticResource TextBox}" Width="275"/>
-                </StackPanel>
-
-                <!--Password-->
-                <StackPanel Margin="0 0 0 48">
-                    <PasswordBox x:Name="PasswordBox"                             
-                                 materialDesign:HintAssist.Hint="Password" Foreground="{StaticResource Black2}"
-                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-                </StackPanel>
-
-                <!--Button-->
-                <StackPanel Orientation="Vertical">
-                    <Button x:Name="LoginBtn" Style="{StaticResource PrimaryButton}"
-                            Width="120"
-                            FontSize="16"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Dang nhap"
-                            Command="{Binding LoginCommand}"
-                            CommandParameter="{Binding ElementName=PasswordBox}"
-                            />
-                    <TextBlock HorizontalAlignment="Center" Foreground="Gray" Margin="0 10 0 10"
-                               Text="Tao tai khoan"/>
-                    <Button x:Name="SignBtn" Style="{StaticResource PrimaryButton}"
-                            Width="120"
-                            Content="Dang ky"
-                            FontSize="16"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Command="{Binding RegisterCommand1}"/>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-
-        <!--APP ICON-->
-    </Border>
+        <Button Margin="0,20,0,0" x:Name="signupBtn" 
+                Style="{StaticResource MaterialDesignFlatButton}"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"                       
+                Height="53" 
+                Width="250"
+                materialDesign:ButtonAssist.CornerRadius="10" 
+                FontSize="13" 
+                Command="{Binding RegisterCommand1}"
+                Content="Create Account"/>
+    </StackPanel>
 </UserControl>

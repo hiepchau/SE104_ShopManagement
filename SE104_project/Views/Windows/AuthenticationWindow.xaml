@@ -7,21 +7,56 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication"
         xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
+        xmlns:titleBarVM="clr-namespace:SE104_OnlineShopManagement.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+        xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
         mc:Ignorable="d"
-        Title="AuthenticationWindow" Height="500" Width="350">
-    <Grid >
-        <ContentControl Content="{Binding CurrentMainViewModel, UpdateSourceTrigger=PropertyChanged}">
-            <ContentControl.Resources>
-                
-                <DataTemplate DataType="{x:Type vm:LoginViewModel}">
-                    <compo:LoginWindow></compo:LoginWindow>
-                </DataTemplate>
-                
-                <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
-                    <compo:RegisterForm></compo:RegisterForm>
-                </DataTemplate>
-                
-            </ContentControl.Resources>
-        </ContentControl>
-    </Grid>
+        Background="{x:Null}"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Height="500" Width="350">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{x:Static command:TitleBarCommand.MouseMoveWindowCommand}"
+                                   CommandParameter="{Binding ElementName=_this}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+    <materialDesign:Card 
+        UniformCornerRadius="10" 
+        Background="{DynamicResource MaterialDesignPaper}" 
+        ClipToBounds="True"
+        materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <!--<ContentControl Content="{Binding LoginViewModel._titleBarViewModel}"
+                                    DockPanel.Dock="Right" >
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type titleBarVM--><!--:TitleBarViewModel}">-->
+                                <uc:NonResizeTitleBar/>
+                            <!--</DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>-->
+                </DockPanel>
+                <ContentControl Grid.Row="1" 
+                                Content="{Binding CurrentMainViewModel, UpdateSourceTrigger=PropertyChanged}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                            <compo:LoginWindow></compo:LoginWindow>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+                            <compo:RegisterForm></compo:RegisterForm>
+                        </DataTemplate>
+
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Grid>
+
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
 </Window>
