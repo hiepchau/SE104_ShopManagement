@@ -34,8 +34,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public long productCost { get; set; }
         public long productPrice { get; set; }
         public int IsSelectedIndex { get; set; }
+        public int IsSelectedProducerIndex { get; set; }
         public BitmapImage productImage { get; set; }
         public ProductTypeInfomation SelectedProductsType { get; set; }
+        public ProducerInformation SelectedProducer { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
@@ -43,6 +45,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         public ObservableCollection<ProductsControlViewModel> listItemsProduct { get; set; }
         public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
+        public ObservableCollection<ProducerInformation> ItemSourceProducer { get; set; }
+
         #endregion
 
         #region ICommand
@@ -63,11 +67,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             IsSelectedIndex = -1;
+            IsSelectedProducerIndex = -1;
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
             listItemsProduct = new ObservableCollection<ProductsControlViewModel>();
+            ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             //Test
             GetData();
-            GetProductTypeData();  
+            GetProductTypeData();
+            GetProducerData();
             listItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
@@ -77,6 +84,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SelectImageCommand = new RelayCommand<Object>(null,SaveImage);
             SelectedProductsType = null;
+            SelectedProducer = null;
         }
 
         #region Function
@@ -111,10 +119,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public bool CheckValidSave(Object o = null)
         {
-            if (String.IsNullOrEmpty(productName) || String.IsNullOrEmpty(productUnit) 
-                || IsSelectedIndex == -1
-                || String.IsNullOrEmpty(productCost.ToString()) || String.IsNullOrEmpty(productPrice.ToString())
-                ||productImage == null)
+
+            if (String.IsNullOrEmpty(productName) ||
+                String.IsNullOrEmpty(productUnit)
+                || IsSelectedIndex == -1 || IsSelectedProducerIndex == -1
+                || String.IsNullOrEmpty(productCost.ToString()) ||
+                String.IsNullOrEmpty(productPrice.ToString())
+                || productImage == null)
             {
                 return false;
             }
@@ -122,9 +133,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProduct(Object o = null)
         {
-            if (SelectedProductsType != null && productImage != null)
+            if (SelectedProductsType != null && productImage != null && SelectedProducer != null)
             {
-                ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
+                ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, 
+                    SelectedProducer.ID, productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
                 RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
                 Task<string> task = regist.register();
                 string id = await task;
@@ -203,6 +215,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceProductsType));
+        }
+        public async void GetProducerData()
+        {
+            var filter = Builders<ProducerInformation>.Filter.Empty;
+            GetProducer getter = new GetProducer(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProducerInformation producer in ls)
+            {
+                ItemSourceProducer.Add(producer);
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(ItemSourceProducer));
         }
         #endregion
     }
