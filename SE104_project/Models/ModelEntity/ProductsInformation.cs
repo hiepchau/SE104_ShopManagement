@@ -10,7 +10,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; private set; }
+        public string ID { get; set; }
         [BsonElement("ProductName")]
         public string name { get; set; }  
         [BsonElement("ProductQuantity")]

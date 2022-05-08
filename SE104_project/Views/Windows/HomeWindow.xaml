@@ -112,9 +112,10 @@
                             </ContentControl.Resources>
                         </ContentControl>
                     </Grid>
-
+                    <!--<Image Source="{Binding CurrentMainViewModel.testimg}" Width="100"/>-->
+                    <!--<Button Command="{Binding CurrentMainViewModel.testCommand1}"/>-->
                 </Grid>
-
+                
             </Grid>
 
 

@@ -1,10 +1,16 @@
-﻿using SE104_OnlineShopManagement.Commands;
+﻿using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
@@ -18,6 +24,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public long price { get; set; }
         public string quantity { get; set; }
         public long sum { get; set; }
+        public BitmapImage ImageSrc { get; set; }
+        public bool isLoaded { get; set; }
 
         #endregion
 
@@ -26,6 +34,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand DecreaseCommand { get; set; }
         public ICommand IncreaseCommand { get; set; }
         public ICommand ChangeCommand { get; set; }
+        public ICommand GetImageCommand { get; set; }
         #endregion
 
         private IUpdateSelectedList _parent;
@@ -42,8 +51,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             DecreaseCommand = new RelayCommand<object>(null, Decrease);
             IncreaseCommand = new RelayCommand<object>(null, Increase);
             ChangeCommand = new RelayCommand<object>(null, change);
+            
         }
         #region Function
+        
         private void change(object o)
         {
             int i;

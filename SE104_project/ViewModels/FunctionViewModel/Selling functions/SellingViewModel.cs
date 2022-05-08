@@ -36,12 +36,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public long totalPay { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
+        public AppSession Session { get => _session; }
+        public MongoConnect Connection { get => _connection; }
         public string searchString { get; set; }
         #endregion
 
         #region Commands
         public ICommand SearchCommand { get; set; }
         public ICommand PurchaseCommand { get; set; }
+        public ICommand ReloadCommand { get; set; }
         #endregion
         public SellingViewModel(AppSession session, MongoConnect client) : base(session, client)
         {
@@ -59,6 +62,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             getdata();
             SearchCommand = new RelayCommand<object>(null, search);
             PurchaseCommand = new RelayCommand<object>(null, purchase);
+            ReloadCommand = new RelayCommand<object>(null,async t=> { 
+                listProducts.Clear();
+                await getdata(); });
         }
         #region Function
         private async void purchase(object o)

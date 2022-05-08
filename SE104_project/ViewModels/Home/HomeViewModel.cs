@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using SE104_OnlineShopManagement.Models;
 using System.Linq;
+using SE104_OnlineShopManagement.Views.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
@@ -32,6 +33,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         private MongoConnect _connection;
         private AppSession _session;
         public BaseFunction CurrentState { get => _currentState;set => _currentState = value; }
+        public BitmapImage ImageSrc { get; set; }
+        private INavigator _navigator;
         #endregion
 
         #region Commands
@@ -40,7 +43,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         public ICommand testCommand1 { get; set; }
         public ICommand SelectFunctionListCommand { get; set; }
         #endregion
-        public HomeViewModel(IViewModelFactory factory, AppSession session,MongoConnect connect)
+        public HomeViewModel(IViewModelFactory factory, AppSession session,MongoConnect connect, MainWindowNavigator<AuthenticationWindow> navigator)
         {
             this._factory= factory;
             this._connection = connect;
@@ -51,6 +54,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             _sellingViewModel = new SellingViewModel(session, connect);
             _titleBarViewModel = new TitleBarViewModel();
             SelectFunctionListCommand = new RelayCommand<object>(null, selectFuncList);
+            _navigator = navigator;
+            
         }
 
         private async void testing1(object o = null)
@@ -73,24 +78,41 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             //ofd.Filter = "Image jpeg(*.jpg)|*.jpg|Image png(*.png)|*.png";
             //ofd.DefaultExt = ".jpeg";
 
-            //// Process open file dialog box results 
+            // Process open file dialog box results 
             //if (ofd.ShowDialog() == DialogResult.OK)
             //{
             //    BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
-            //    ByteImage bimg = new ByteImage("adshfb", tmp);
+            //    ByteImage bimg = new ByteImage("testbyteimgsjsj", tmp);
             //    RegisterByteImage regist = new RegisterByteImage(bimg, _connection.client, _session);
             //    await regist.register();
 
-            //    GetByteImage getter = new GetByteImage(_connection.client,_session,FilterDefinition<ByteImage>.Empty);
-            //    var ls = await getter.Get();
+                //GetByteImage getter = new GetByteImage(_connection.client, _session, Builders<ByteImage>.Filter.Eq(p=>p.obID, "testbyteimgsjsj"));
+                //var ls = await getter.Get();
+                //if (ls.Count > 0)
+                //{
+                //    testimg = ls.FirstOrDefault().convertByteToImage();
+                //    OnPropertyChanged(nameof(testimg));
+                //}
+            //}
+            //Console.WriteLine("test command exec!");
+            //FilterDefinition<ByteImage> filter = Builders<ByteImage>.Filter.Empty;
+            //GetByteImage getter = new GetByteImage(_connection.client, _session, filter);
+            //var ls = new List<ByteImage>();
+            //Task<List<ByteImage>> task = getter.Get();
+            //task.ContinueWith(t =>
+            //{
             //    if (ls.Count > 0)
             //    {
-            //        testimg = ls.FirstOrDefault().convertByteToImage();
-            //        OnPropertyChanged(nameof(testimg));
-            //    }
-            //}
 
-            
+            //        ImageSrc = ls.First().convertByteToImage();
+            //        Console.WriteLine(ImageSrc.ToString());
+            //        OnPropertyChanged(nameof(ImageSrc));
+            //    }
+            //});
+
+            //ls = await task;
+
+
         }
 
         private async void testing(object o = null)
@@ -156,6 +178,13 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
                 CurrentState = _managingFunctionsViewModel;
                 (CurrentState as ManagingFunctionsViewModel).changeMenu("Settings");
                 OnPropertyChanged(nameof(CurrentState));
+            }
+
+            if ((o as string) == "Logout")
+            {
+                _session = null;
+                _factory.CreateViewModel<MainViewModel>().CurrentMainViewModel = _factory.CreateViewModel<LoginViewModel>();
+                _navigator.Navigate();
             }
 
         }

@@ -62,17 +62,17 @@ namespace SE104_OnlineShopManagement.Services
         public static IHostBuilder AddViews(this IHostBuilder host)
         {
             host.ConfigureServices(services => {
-                services.AddSingleton<AuthenticationWindow>(s => new AuthenticationWindow()
+                services.AddTransient<AuthenticationWindow>(s => new AuthenticationWindow()
                 {
                     DataContext = s.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>()
                 }); ; ;
-                services.AddSingleton<MainWindowNavigator<AuthenticationWindow>>();
+                services.AddTransient<MainWindowNavigator<AuthenticationWindow>>();
               
-                services.AddSingleton<HomeWindow>(s => new HomeWindow()
+                services.AddTransient<HomeWindow>(s => new HomeWindow()
                 {
                 DataContext = s.GetRequiredService<IViewModelFactory>().CreateViewModel<MainViewModel>()
                 }); ; ;
-                services.AddSingleton<MainWindowNavigator<HomeWindow>>();
+                services.AddTransient<MainWindowNavigator<HomeWindow>>();
             });
             return host;
         }

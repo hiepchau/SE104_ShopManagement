@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -112,7 +113,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             if (String.IsNullOrEmpty(productName) || String.IsNullOrEmpty(productUnit) 
                 || IsSelectedIndex == -1
-                || String.IsNullOrEmpty(productCost.ToString()) || String.IsNullOrEmpty(productPrice.ToString()))
+                || String.IsNullOrEmpty(productCost.ToString()) || String.IsNullOrEmpty(productPrice.ToString())
+                ||productImage == null)
             {
                 return false;
             }
@@ -124,15 +126,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, "", productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
                 RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
-                string id = await regist.register();
+                Task<string> task = regist.register();
+                string id = await task;
 
-                //Register Image
-                ByteImage bimg = new ByteImage(id, productImage);
-                RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
-                await registImage.register();
-                listItemsProduct.Add(new ProductsControlViewModel(info, this));
-                OnPropertyChanged(nameof(listItemsProduct));
-                Console.WriteLine(id);
+                Task.WaitAll(task);
+                    //Register Image
+                    ByteImage bimg = new ByteImage(id, productImage);
+                    RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
+                    await registImage.register();
+                    info.ID = id;
+                    listItemsProduct.Add(new ProductsControlViewModel(info, this));
+                    OnPropertyChanged(nameof(listItemsProduct));
+                    Console.WriteLine(id);
+                DialogHost.CloseDialogCommand.Execute(null,null);
             }
         }
         public void SaveImage(Object o = null)
@@ -146,6 +152,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));
                 productImage = tmp;
                 OnPropertyChanged(nameof(productImage));
+                (SaveCommand as RelayCommand<object>).OnCanExecuteChanged();
             }
         }
         public void UpdateProductList(ProductsInformation pro)
