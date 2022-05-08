@@ -129,7 +129,7 @@
                     HorizontalAlignment="Right"
                     ItemsSource="{Binding ItemSourceProductsType}"
                     SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"
-                    SelectedIndex="{Binding IsSelectedIndex}"
+                    SelectedIndex="{Binding IsSelectedProducerIndex}"
                     DisplayMemberPath="name"
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"

@@ -33,6 +33,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public long productCost { get; set; }
         public long productPrice { get; set; }
         public int IsSelectedIndex { get; set; }
+        public int IsSelectedProducerIndex { get; set; }
         public BitmapImage productImage { get; set; }
         public ProductTypeInfomation SelectedProductsType { get; set; }
         public ProducerInformation SelectedProducer { get; set; }
@@ -65,6 +66,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             IsSelectedIndex = -1;
+            IsSelectedProducerIndex = -1;
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
             listItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
@@ -116,9 +118,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public bool CheckValidSave(Object o = null)
         {
-            if (String.IsNullOrEmpty(productName) || String.IsNullOrEmpty(productUnit) 
-                || IsSelectedIndex == -1
-                || String.IsNullOrEmpty(productCost.ToString()) || String.IsNullOrEmpty(productPrice.ToString()))
+            if (String.IsNullOrEmpty(productName) ||
+                String.IsNullOrEmpty(productUnit)
+                || IsSelectedIndex == -1 || IsSelectedProducerIndex == -1
+                || String.IsNullOrEmpty(productCost.ToString()) ||
+                String.IsNullOrEmpty(productPrice.ToString()))
             {
                 return false;
             }
