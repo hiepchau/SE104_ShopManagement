@@ -17,8 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Style="{StaticResource TextHeader}"
-                   >
+                   Style="{StaticResource TextHeader}">
             TỔNG QUAN
         </TextBlock>
 
@@ -178,14 +177,21 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal" Margin="28 0 0 15">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="28 0 0 15">
                                 <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
                                 <TextBlock Text="Top Sales" Style="{StaticResource TitleText}"/>
                             </StackPanel>
-
-                            <StackPanel Grid.Row="1">
-
+                            <!--<ScrollViewer
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"                    
+                            HorizontalScrollBarVisibility="Disabled">-->
+                                <StackPanel Grid.Row="1">
+                                <controls:TopSaleItem></controls:TopSaleItem>
+                                <controls:TopSaleItem></controls:TopSaleItem>
+                                <controls:TopSaleItem></controls:TopSaleItem>
+                                <controls:TopSaleItem></controls:TopSaleItem>
                             </StackPanel>
+                                <!--</ScrollViewer>-->
                         </Grid>
                     </Border>
                 </Grid>

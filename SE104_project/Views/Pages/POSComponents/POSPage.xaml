@@ -7,8 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             d:DesignHeight="715" d:DesignWidth="1166">
-    <!--uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">-->
+             d:DesignHeight="715" d:DesignWidth="1166"
+             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
 
     <Grid Background="Transparent">
         <Grid  Margin="10" >
