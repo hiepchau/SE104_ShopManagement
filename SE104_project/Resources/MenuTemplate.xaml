@@ -81,29 +81,32 @@
                                               HorizontalAlignment="Center" Margin="12"/>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding}" Value="POS">
-                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Laptop"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Laptop"/>
                 <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="POS"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Management">
-                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Home"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Home"/>
                 <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Management"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Customer">
-                <Setter TargetName="MenuItemIcon" Property="Kind" Value="People"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="People"/>
                 <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Customer"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Finance">
-                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Wallet"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Wallet"/>
                 <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Finance"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="Report">
-                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Newspaper"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Newspaper"/>
                 <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Report"/>
             </DataTrigger>   
             <DataTrigger Binding="{Binding}" Value="Settings">
-                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Settings"></Setter>
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Settings"/>
                 <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Settings"/>
-
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="Logout">
+                <Setter TargetName="MenuItemIcon" Property="Kind" Value="Logout"/>
+                <Setter TargetName="MenuItemIcon" Property="ToolTip" Value="Logout"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
@@ -120,6 +123,7 @@
         <system:String>Finance</system:String>
         <system:String>Report</system:String>
         <system:String>Settings</system:String>
+        <system:String>Logout</system:String>
     </x:Array>
 
 </ResourceDictionary>
