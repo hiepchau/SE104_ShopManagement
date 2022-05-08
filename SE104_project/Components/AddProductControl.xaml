@@ -9,7 +9,7 @@
              xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              Background="{StaticResource White}"
-             Height="470" Width="700">
+             Height="530" Width="700">
     <UserControl.Resources>
         <cv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
     </UserControl.Resources>
@@ -134,9 +134,7 @@
                     VerticalContentAlignment="Center" 
                     HorizontalContentAlignment="Left"
                     Foreground="{StaticResource Black2}"
-                    FontWeight="SemiBold"
-                    TabIndex="1"
-                    SelectedValue="{Binding productCategory, Mode=TwoWay}">
+                    FontWeight="SemiBold">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction
@@ -145,6 +143,46 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
             </Grid>
+            <Grid 
+                Margin="0,20,0,0"
+                VerticalAlignment="Top" 
+                Height="40">
+                <Label 
+                    Content="Nhà cung cấp"
+                    Style="{StaticResource LabelText}"/>
+                <Rectangle 
+                    HorizontalAlignment="Right" 
+                    Height="40"
+                    Width="230"
+                    RadiusY="4" 
+                    RadiusX="4" 
+                    Stroke="{StaticResource Gray2}" />
+                <ComboBox
+                    x:Name="cboProducer"
+                    materialDesign:HintAssist.Hint="Chọn nhà cung cấp"
+                    Height="40" 
+                    FontSize="14" 
+                    Width="210"
+                    BorderThickness="0"
+                    Margin="0,0,10,0" 
+                    HorizontalAlignment="Right"
+                    ItemsSource="{Binding ItemSourceProducer}"
+                    SelectedItem="{Binding SelectedProducer, Mode=TwoWay}"
+                    SelectedIndex="{Binding IsSelectedIndex}"
+                    DisplayMemberPath="Name"
+                    VerticalContentAlignment="Center" 
+                    HorizontalContentAlignment="Left"
+                    Foreground="{StaticResource Black2}"
+                    FontWeight="SemiBold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </Grid>
+
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
