@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Network.Update_database;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -28,10 +29,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierPhone { get; set; }
         public string supplierMail { get; set; }
         public int IsSelectedIndex { get; set; }
-
+        public SupplierControlViewModel selectedProducer { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
-        public ObservableCollection<SupplierControlViewModel> listItemsProducer { get; set; }
+        public ObservableCollection<SupplierControlViewModel> listActiveItemsProducer { get; set; }
+        public ObservableCollection<SupplierControlViewModel> listAllProducer { get; set; }
         #endregion
         #region ICommand
         //Supplier
@@ -47,11 +49,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             this._session = session;
             IsSelectedIndex = -1;
-
-            listItemsProducer = new ObservableCollection<SupplierControlViewModel>();
+            listAllProducer = new ObservableCollection<SupplierControlViewModel>();
+            listActiveItemsProducer = new ObservableCollection<SupplierControlViewModel>();
             //Test
             GetData();
-            listItemsProducer.Add(new SupplierControlViewModel(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""), this));
+            GetAllData();
+            listActiveItemsProducer.Add(new SupplierControlViewModel(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
@@ -84,47 +87,101 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveSupplier(object o = null)
         {
-            ProducerInformation info = new ProducerInformation("", supplierName,supplierMail,supplierPhone,supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
-            RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
-            string s = await regist.register();
-            listItemsProducer.Add(new SupplierControlViewModel(info, this));
-            OnPropertyChanged(nameof(listItemsProducer));
-            Console.WriteLine(s);
+            if (CheckExist() == false)
+            {
+                ProducerInformation info = new ProducerInformation("", supplierName, supplierMail, supplierPhone, supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
+                RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
+                string s = await regist.register();
+                listActiveItemsProducer.Add(new SupplierControlViewModel(info, this));
+                listAllProducer.Add(new SupplierControlViewModel(info, this));
+                OnPropertyChanged(nameof(listActiveItemsProducer));
+                Console.WriteLine(s);
+            }
+            else
+            {
+                SetActive(selectedProducer);
+            }
         }
         public void UpdateSuplierList(ProducerInformation producer)
         {
             int i = 0;
-            if (listItemsProducer.Count > 0)
+            if (listActiveItemsProducer.Count > 0)
             {
-                foreach (SupplierControlViewModel ls in listItemsProducer)
+                foreach (SupplierControlViewModel ls in listActiveItemsProducer)
                 {
                     if (ls.producer.Equals(producer))
                     {
+                        SetUnactive(ls);
+                        listAllProducer.Clear();
+                        GetAllData();
                         break;
                     }
                     i++;
                 }
-                listItemsProducer.RemoveAt(i);
-                OnPropertyChanged(nameof(listItemsProducer));
+                listActiveItemsProducer.RemoveAt(i);
+                OnPropertyChanged(nameof(listActiveItemsProducer));
             }
             else
             {
                 return;
             }
         }
-
+        public async void SetActive(SupplierControlViewModel producerinfo)
+        {
+            var filter = Builders<ProducerInformation>.Filter.Eq("ID", producerinfo.ID);
+            var update = Builders<ProducerInformation>.Update.Set("isActivated", true);
+            UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            listActiveItemsProducer.Add(selectedProducer);
+            OnPropertyChanged(nameof(listActiveItemsProducer));
+            Console.WriteLine(s);
+        }
+        public async void SetUnactive(SupplierControlViewModel producerinfo)
+        {
+            if (producerinfo.isActivated == true)
+            {
+                var filter = Builders<ProducerInformation>.Filter.Eq("ID", producerinfo.ID);
+                var update = Builders<ProducerInformation>.Update.Set("isActivated", false);
+                UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
+        public bool CheckExist()
+        {
+            foreach (SupplierControlViewModel ls in listAllProducer)
+            {
+                if (supplierName == ls.Name && supplierAddress == ls.Address && supplierMail == ls.Email && supplierPhone == ls.PhoneNumber)
+                {
+                    selectedProducer = ls;
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
         #region DB
         public async void GetData()
+        {
+            var filter = Builders<ProducerInformation>.Filter.Eq("isActivated",true);
+            GetProducer getter = new GetProducer(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProducerInformation pro in ls)
+            {
+                listActiveItemsProducer.Add(new SupplierControlViewModel(pro,this));
+            }
+            OnPropertyChanged(nameof(listActiveItemsProducer));
+        }
+        public async void GetAllData()
         {
             var filter = Builders<ProducerInformation>.Filter.Empty;
             GetProducer getter = new GetProducer(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (ProducerInformation pro in ls)
             {
-                listItemsProducer.Add(new SupplierControlViewModel(pro,this));
+                listAllProducer.Add(new SupplierControlViewModel(pro, this));
             }
-            OnPropertyChanged(nameof(listItemsProducer));
         }
         #endregion
     }

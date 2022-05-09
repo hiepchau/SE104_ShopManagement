@@ -42,6 +42,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"Email", producer.Email },
                 {"Phone", producer.PhoneNumber },
                 {"DisplayID",producer.ID},
+                {"Address",producer.Address }
             };
             await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("Object Inserted into " + session.CurrnetUser.companyInformation);
@@ -54,6 +55,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"Email", producer.Email },
                 {"Phone", producer.PhoneNumber },
                 {"DisplayID",producer.displayID},
+                {"Address", producer.Address },
                 {"isActivated",true},
             };
                 await collection.InsertOneAsync(newProductDoc);
