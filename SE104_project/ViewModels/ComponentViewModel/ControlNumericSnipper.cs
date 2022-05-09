@@ -55,7 +55,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 {
                     quantity = "0";
                     OnPropertyChanged(nameof(quantity));
-
                 }
                 else
                 {

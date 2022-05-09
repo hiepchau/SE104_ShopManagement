@@ -11,8 +11,8 @@
              uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction
-                                        Command="{Binding ReloadCommand}"/>
+            <i:InvokeCommandAction        
+                Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -282,7 +282,7 @@
                              Style="{StaticResource Text}"
                              Text="{Binding clock}"
                              Width="60" 
-                             Margin=" 300 0 0 0"    
+                             Margin="300 0 0 0"    
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"/>
 

@@ -40,7 +40,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             displayID = product.displayID;
             _parent = parent;
             sum = 0;
-
             DeleteImportProductsCommand = new RelayCommand<Object>(null, deleteImportProducts);
         }
 
@@ -50,6 +49,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             sum = ImportQuantityNumeric.GetDetailNum() * StockCost;
             OnPropertyChanged(nameof(sum));
+        }
+        public void GetIncreaseQuantityByClick()
+        {
+            ImportQuantityNumeric.IncreaseCommand.Execute((ImportQuantityNumeric.GetDetailNum().ToString()));
+            OnPropertyChanged(nameof(ImportQuantityNumeric));
         }
         public void deleteImportProducts(Object o)
         {

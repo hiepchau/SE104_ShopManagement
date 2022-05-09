@@ -104,7 +104,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
                     if (pr.product.Equals(pro))
+                    {
+                        pr.GetIncreaseQuantityByClick();
                         return;
+                    }
                 }
             }
             listbought.Add(new ImportPOSProductControlViewModel(pro, this));
