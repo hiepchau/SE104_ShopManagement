@@ -67,6 +67,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                 string s = await regist.register();
                 listActiveMembership.Add(new MembershipControlViewModel(info, this));
+                listAllMembership.Add(new MembershipControlViewModel(info, this));
                 OnPropertyChanged(nameof(listActiveMembership));
                 Console.WriteLine(s);
             }
@@ -86,6 +87,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     if (ls.membership.Equals(mem))
                     {
                         SetUnactive(ls);
+                        listAllMembership.Clear();
+                        GetAllData();
                         break;
                     }
                     i++;
@@ -99,18 +102,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
         }
         public async void SetActive(MembershipControlViewModel membershipinfo)
-        {
-            if (membershipinfo.isActivated == false)
-            {
-                var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
-                var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
-                UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
-                var s = await updater.update();
-                listActiveMembership.Add(selectedMembership);
-                OnPropertyChanged(nameof(listActiveMembership));
-                Console.WriteLine(s);
-            }
-            else Console.WriteLine("Cant execute");
+        {       
+            var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
+            var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
+            UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            listActiveMembership.Add(selectedMembership);
+            OnPropertyChanged(nameof(listActiveMembership));
+            Console.WriteLine(s);    
         }
         public async void SetUnactive(MembershipControlViewModel membershipinfo)
         {

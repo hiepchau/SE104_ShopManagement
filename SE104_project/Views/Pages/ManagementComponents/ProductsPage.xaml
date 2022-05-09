@@ -273,7 +273,7 @@
                     VerticalScrollBarVisibility="Auto"                       
                     HorizontalScrollBarVisibility="Disabled">
                     <StackPanel>
-                        <ItemsControl ItemsSource="{Binding listItemsProduct,UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl ItemsSource="{Binding listActiveItemsProduct,UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <uc:ProductsControl/>

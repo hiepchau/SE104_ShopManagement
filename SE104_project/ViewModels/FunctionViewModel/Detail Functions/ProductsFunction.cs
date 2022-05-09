@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System.Threading.Tasks;
+using SE104_OnlineShopManagement.Network.Update_database;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -29,7 +30,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     {
         #region Properties
         public string productName { get; set; }
-        public string productCategory { get; set; }
         public string productUnit { get; set; }
         public long productCost { get; set; }
         public long productPrice { get; set; }
@@ -38,12 +38,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public BitmapImage productImage { get; set; }
         public ProductTypeInfomation SelectedProductsType { get; set; }
         public ProducerInformation SelectedProducer { get; set; }
+        public ProductsControlViewModel SelectedProduct { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
 
-        public ObservableCollection<ProductsControlViewModel> listItemsProduct { get; set; }
+        public ObservableCollection<ProductsControlViewModel> listActiveItemsProduct { get; set; }
+        public ObservableCollection<ProductsControlViewModel> listAllProduct { get; set; }
         public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
         public ObservableCollection<ProducerInformation> ItemSourceProducer { get; set; }
 
@@ -69,13 +71,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             IsSelectedIndex = -1;
             IsSelectedProducerIndex = -1;
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
-            listItemsProduct = new ObservableCollection<ProductsControlViewModel>();
+            listActiveItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
+            listAllProduct = new ObservableCollection<ProductsControlViewModel>();
             //Test
             GetData();
+            GetAllData();
             GetProductTypeData();
             GetProducerData();
-            listItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
+            listActiveItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
 
@@ -133,7 +137,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProduct(Object o = null)
         {
-            if (SelectedProductsType != null && productImage != null && SelectedProducer != null)
+            if (CheckExist()==false && SelectedProductsType != null && productImage != null && SelectedProducer != null)
             {
                 ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, 
                     SelectedProducer.ID, productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
@@ -147,10 +151,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
                     await registImage.register();
                     info.ID = id;
-                    listItemsProduct.Add(new ProductsControlViewModel(info, this));
-                    OnPropertyChanged(nameof(listItemsProduct));
+                    listActiveItemsProduct.Add(new ProductsControlViewModel(info, this));
+                    listAllProduct.Add(new ProductsControlViewModel(info, this));
+                    OnPropertyChanged(nameof(listActiveItemsProduct));
                     Console.WriteLine(id);
                 DialogHost.CloseDialogCommand.Execute(null,null);
+            }
+            else
+            {
+                SetActive(SelectedProduct);
             }
         }
         public void SaveImage(Object o = null)
@@ -170,39 +179,87 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public void UpdateProductList(ProductsInformation pro)
         {
             int i = 0;
-            if (listItemsProduct.Count > 0)
+            if (listActiveItemsProduct.Count > 0)
             {
-                foreach (ProductsControlViewModel ls in listItemsProduct)
+                foreach (ProductsControlViewModel ls in listActiveItemsProduct)
                 {
                     if (ls.product.Equals(pro))
                     {
+                        SetUnactive(ls);
+                        listAllProduct.Clear();
+                        GetAllData();
                         break;
                     }
                     i++;
                 }
-                listItemsProduct.RemoveAt(i);
-                OnPropertyChanged(nameof(listItemsProduct));
+                listActiveItemsProduct.RemoveAt(i);
+                OnPropertyChanged(nameof(listActiveItemsProduct));
             }
             else
             {
                 return;
             }
         }
-
+        public async void SetActive(ProductsControlViewModel productinfo)
+        {
+            var filter = Builders<ProductsInformation>.Filter.Eq("ID", productinfo.ID);
+            var update = Builders<ProductsInformation>.Update.Set("isActivated", true);
+            UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            listActiveItemsProduct.Add(SelectedProduct);
+            OnPropertyChanged(nameof(listActiveItemsProduct));
+            Console.WriteLine(s);
+        }
+        public async void SetUnactive(ProductsControlViewModel productinfo)
+        {
+            if (productinfo.isActivated == true)
+            {
+                var filter = Builders<ProductsInformation>.Filter.Eq("ID", productinfo.ID);
+                var update = Builders<ProductsInformation>.Update.Set("isActivated", false);
+                UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
+        public bool CheckExist()
+        {
+            foreach (ProductsControlViewModel ls in listAllProduct)
+            {
+                if (productName == ls.name && SelectedProductsType.ID == ls.Category && productCost == ls.StockCost && productPrice == ls.price && productUnit == ls.Unit && SelectedProducer.ID == ls.Producer)
+                {
+                    SelectedProduct = ls;
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
 
         #region DB
         public async void GetData()
+        {
+            var filter = Builders<ProductsInformation>.Filter.Eq("isActivated", true);
+            GetProducts getter = new GetProducts(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProductsInformation pro in ls)
+            {
+                listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(listActiveItemsProduct));
+        }
+        public async void GetAllData()
         {
             var filter = Builders<ProductsInformation>.Filter.Empty;
             GetProducts getter = new GetProducts(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (ProductsInformation pro in ls)
             {
-                listItemsProduct.Add(new ProductsControlViewModel(pro, this));
+                listAllProduct.Add(new ProductsControlViewModel(pro, this));
             }
             Console.Write("Executed");
-            OnPropertyChanged(nameof(listItemsProduct));
+            OnPropertyChanged(nameof(listAllProduct));
         }
         public async void GetProductTypeData()
         {
