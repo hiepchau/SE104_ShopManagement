@@ -89,6 +89,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             DialogHost.Show(addEmployeeControl);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
+                userEmail = "";
+                userName = "";
+                userPhoneNumber = "";
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }

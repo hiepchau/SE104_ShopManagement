@@ -93,6 +93,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveCustomer);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
+                customerName = "";
+                customerPhone = "";
+                customerCMND = "";
+                customerAddress = "";
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
