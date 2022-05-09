@@ -63,6 +63,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"ProductProvider", newProduct.ProducerInformation },
                 {"Unit", newProduct.Unit },
                 {"DisplayID",newProduct.displayID},
+                {"isActivated",newProduct.isActivated},
             };
                 await collection.InsertOneAsync(newProductDoc);
                 Console.WriteLine("User Inserted into", session.CurrnetUser);
