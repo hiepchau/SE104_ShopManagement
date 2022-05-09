@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Network.Update_database;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -33,8 +34,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private MongoConnect _connection;
         private AppSession _session;
         public int selectedItem { get; set; }
+        public CustomerControlViewModel selectedCus { get; set; }
         public ObservableCollection<CustomerControlViewModel> listItemsCustomer { get; set; }
-
+        public ObservableCollection<CustomerControlViewModel> listAllCustomer { get; set; }
 
         private ManagingFunctionsViewModel managingFunction;
         private CustomerSelectMenu customerSelectMenu;
@@ -70,9 +72,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
             listItemsCustomer = new ObservableCollection<CustomerControlViewModel>();
+            listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
             //Test
             GetData();
-            listItemsCustomer.Add(new CustomerControlViewModel(new CustomerInformation("12", "Hip", "0123456789", "1", "123"), this));
+            GetAllData();
+            listItemsCustomer.Add(new CustomerControlViewModel(new CustomerInformation("12", "Hip", "0123456789", "1", "123","321"), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
@@ -114,13 +118,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         public async void SaveCustomer(Object o = null)
         {
-            CustomerInformation info = new CustomerInformation(await new AutoCustomerIDGenerator(_session,_connection.client).Generate(), 
-                customerName,customerPhone,"1",customerCMND);
-            RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
-            string s = await regist.register();
-            listItemsCustomer.Add(new CustomerControlViewModel(info, this));
-            OnPropertyChanged(nameof(listItemsCustomer));
-            Console.WriteLine(s);
+            if (CheckExist() == false)
+            {
+                CustomerInformation info = new CustomerInformation("", customerName, customerPhone, "1", customerCMND, customerAddress, true, await new AutoCustomerIDGenerator(_session, _connection.client).Generate());
+                RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
+                string s = await regist.register();
+                listItemsCustomer.Add(new CustomerControlViewModel(info, this));
+                listAllCustomer.Add(new CustomerControlViewModel(info, this));
+                OnPropertyChanged(nameof(listItemsCustomer));
+                Console.WriteLine(s);
+            }
+            else
+            {
+                SetActive(selectedCus);
+            }
         }
 
         public void UpdateCustomerList(CustomerInformation cus)
@@ -132,6 +143,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 {
                     if (ls.customer.Equals(cus))
                     {
+                        SetUnactive(ls);
+                        listAllCustomer.Clear();
+                        GetAllData();
                         break;
                     }
                     i++;
@@ -144,13 +158,46 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return;
             }
         }
-
+        public async void SetActive(CustomerControlViewModel cusinfo)
+        {
+            var filter = Builders<CustomerInformation>.Filter.Eq("ID", cusinfo.ID);
+            var update = Builders<CustomerInformation>.Update.Set("isActivated", true);
+            UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            listItemsCustomer.Add(selectedCus);
+            OnPropertyChanged(nameof(listItemsCustomer));
+            Console.WriteLine(s);
+        }
+        public async void SetUnactive(CustomerControlViewModel cusinfo)
+        {
+            if (cusinfo.isActivated == true)
+            {
+                var filter = Builders<CustomerInformation>.Filter.Eq("ID", cusinfo.ID);
+                var update = Builders<CustomerInformation>.Update.Set("isActivated", false);
+                UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                Console.WriteLine(s);
+            }
+            else Console.WriteLine("Cant execute");
+        }
+        public bool CheckExist()
+        {
+            foreach (CustomerControlViewModel ls in listAllCustomer)
+            {
+                if (customerName == ls.Name && customerAddress == ls.address && customerCMND == ls.cmnd && customerPhone == ls.PhoneNumber)
+                {
+                    selectedCus = ls;
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
 
         #region DB
         public async void GetData()
         {
-            var filter = Builders<CustomerInformation>.Filter.Empty;
+            var filter = Builders<CustomerInformation>.Filter.Eq("isActivated",true);
             GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (CustomerInformation cus in ls)
@@ -160,7 +207,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsCustomer));
         }
-
+        public async void GetAllData()
+        {
+            var filter = Builders<CustomerInformation>.Filter.Empty;
+            GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (CustomerInformation cus in ls)
+            {
+                listAllCustomer.Add(new CustomerControlViewModel(cus, this));
+            }
+            Console.Write("Executed");
+        }
 
         #endregion
     }
