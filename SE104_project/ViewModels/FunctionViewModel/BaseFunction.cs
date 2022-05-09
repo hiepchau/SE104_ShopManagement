@@ -8,8 +8,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
 {
     public class BaseFunction:ViewModelBase
     {
-        protected AppSession Session { get; set; }
-        protected MongoConnect Connect { get; set; }  
+        public AppSession Session { get; private set; }
+        public MongoConnect Connect { get; private set; } 
         public BaseFunction(AppSession session, MongoConnect connect)
         {
             this.Session = session; 

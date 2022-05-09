@@ -3,6 +3,7 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             
             FilterDefinition<ByteImage> filter = Builders<ByteImage>.Filter.Eq(p => p.obID, product.ID);
-            GetByteImage getter = new GetByteImage((_parent as SellingViewModel).Connection.client, (_parent as SellingViewModel).Session, filter);
+            GetByteImage getter = new GetByteImage((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
             Task<List<ByteImage>> task = getter.Get();
             var ls = await task;
             Task.WaitAll(task);
