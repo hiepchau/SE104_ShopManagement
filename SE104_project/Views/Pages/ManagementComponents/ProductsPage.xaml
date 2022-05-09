@@ -148,30 +148,23 @@
                                     RadiusX="4"
                                     Panel.ZIndex="-1" />
                         <ComboBox 
-                                    x:Name="cboFilterType"
-                                    materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="Loại sản phẩm"
-                                    Height="40"
-                                    FontSize="18"
-                                    Width="200"
-                                    BorderThickness="0"
-                                    Padding="10,0,0,0"
-                                    ItemsSource="{Binding ItemSourceProductsType_Filter}"
-                                    SelectedItem="{Binding SelectedProductsType_Filter}"
-                                    DisplayMemberPath="Name"
-                                    VerticalContentAlignment="Center"
-                                    HorizontalContentAlignment="Left"
-                                    FontWeight="SemiBold"
-                                    BorderBrush="{StaticResource Black2}"
-                                    Background="{StaticResource White}">
-                                    
-                            <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding SelectionChangedProductsTypeCommand}"
-                                                                   CommandParameter="{Binding ElementName=ucProducts}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
-                        </ComboBox>
+                            x:Name="cboFilterType"                                   
+                            materialDesign:ComboBoxAssist.ClassicMode="True"
+                            materialDesign:HintAssist.Hint="Loại sản phẩm"
+                            Height="40"                                  
+                            FontSize="18"
+                            Width="200"                                  
+                            BorderThickness="0"
+                            Padding="10,0,0,0"                 
+                            ItemsSource="{Binding ItemSourceProductsType}"
+                            SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"                 
+                            DisplayMemberPath="name"                                  
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            FontWeight="SemiBold"                                 
+                            BorderBrush="{StaticResource Black2}"
+                            Background="{StaticResource White}"/>
+
                     </Grid>
                     <Grid 
                                 Margin="20,0,0,0"

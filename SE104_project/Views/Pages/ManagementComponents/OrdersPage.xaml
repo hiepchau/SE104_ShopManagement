@@ -25,8 +25,13 @@
             <TextBlock Style="{StaticResource TextHeader}">
                 Đơn Hàng
             </TextBlock>
-            <compo:SearhBar tbWidth="400" ToolTip="Tìm kiếm đơn hàng"
-                        Title="Nhập mã đơn hàng" Width="474" Margin="20 0 0 0"/>
+            <compo:SearhBar 
+                tbWidth="400" 
+                Text="{Binding searchString, Mode=TwoWay}"
+                ToolTip="Tìm kiếm đơn hàng"
+                HintText="Nhập mã đơn hàng" 
+                Width="474"
+                Margin="20 0 0 0"/>
 
 
         </StackPanel>

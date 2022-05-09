@@ -26,8 +26,13 @@
             <TextBlock Style="{StaticResource TextHeader}">
                 Phiếu thu
             </TextBlock>
-            <compo:SearhBar tbWidth="400" ToolTip="Tìm kiếm phiếu thu"
-                        Title="Nhập mã phiếu chi" Width="474" Margin="20 0 0 0"/>
+            <compo:SearhBar 
+                tbWidth="400" 
+                ToolTip="Tìm kiếm phiếu thu"                                   
+                Text="{Binding searchString, Mode=TwoWay}"
+                HintText="Nhập mã phiếu chi"
+                Width="474" 
+                Margin="20 0 0 0"/>
         </StackPanel>
 
         <Border Grid.Row="1"

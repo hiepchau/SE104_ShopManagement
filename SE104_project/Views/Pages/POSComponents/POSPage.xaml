@@ -282,7 +282,7 @@
                              Style="{StaticResource Text}"
                              Text="{Binding clock}"
                              Width="60" 
-                             Margin=" 300 0 0 0"                            
+                             Margin=" 300 0 0 0"    
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"/>
 
@@ -320,7 +320,9 @@
                         <TextBlock
                              Style="{StaticResource Text}"
                              Text="{Binding totalPay}"
-                             Width="120"                  
+                             TextWrapping="Wrap"
+                             MaxWidth="120"  
+                             Margin="-10 0 0 0"
                              HorizontalAlignment="Right"/>
                     </Grid>
                 </StackPanel>
