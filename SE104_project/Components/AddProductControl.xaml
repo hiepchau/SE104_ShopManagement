@@ -128,7 +128,7 @@
                     Margin="0,0,10,0" 
                     HorizontalAlignment="Right"
                     ItemsSource="{Binding ItemSourceProductsType}"
-                    SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedProductsType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedIndex="{Binding IsSelectedProducerIndex}"
                     DisplayMemberPath="name"
                     VerticalContentAlignment="Center" 

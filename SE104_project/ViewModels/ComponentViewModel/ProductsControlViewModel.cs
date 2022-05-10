@@ -44,6 +44,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             isActivated = product.isActivated;
             Producer = product.ProducerInformation;
             _parent = parent;
+            EditProductsCommand = new RelayCommand<Object>(null, EditProduct);
             DeleteProductsCommand = new RelayCommand<Object>(null, DeleteProduct);
         }
 
@@ -51,6 +52,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void DeleteProduct(Object o)
         {
             _parent.UpdateProductList(product);
+        }
+        public void EditProduct(Object o)
+        {
+            _parent.EditProduct(product);  
         }
         #endregion
     }

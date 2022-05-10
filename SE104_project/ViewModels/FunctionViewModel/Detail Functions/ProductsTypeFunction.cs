@@ -35,8 +35,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SaveCommand { get; set; }
         public ICommand SetUnactiveCommand { get; set; }
         public ICommand SetActiveCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
         #endregion
-        
+
         public ProductsTypeFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             this._connection = connect;
@@ -49,8 +50,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(null, SaveProductType);
             SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);
+            CancelCommand = new RelayCommand<Object>(null, SetNull);
         }
         #region Function
+        public void SetNull(object o = null)
+        {
+            selectedProductType = null;
+            productTypeName = "";
+            note = "";
+            OnPropertyChanged(nameof(productTypeName));
+            OnPropertyChanged(nameof(note));
+        }
         public async void SaveProductType(object o = null)
         {
             if (selectedProductType!=null)
@@ -63,11 +73,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 GetData();
                 OnPropertyChanged(nameof(listItemsProductType));
                 //Set Null
-                selectedProductType = null;
-                productTypeName = "";
-                note = "";
-                OnPropertyChanged(nameof(productTypeName));
-                OnPropertyChanged(nameof(note));
+                SetNull();
             }
             else if (CheckExist()==false)
             {

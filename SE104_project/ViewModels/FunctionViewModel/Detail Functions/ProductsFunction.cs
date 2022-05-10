@@ -19,12 +19,14 @@ using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System.Threading.Tasks;
 using SE104_OnlineShopManagement.Network.Update_database;
+using System.Linq;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
     public interface IUpdateProductList
     {
         void UpdateProductList(ProductsInformation pro);
+        void EditProduct(ProductsInformation pro);
     }
     class ProductsFunction : BaseFunction, IUpdateProductList
     {
@@ -101,7 +103,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProduct);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
+
                 DialogHost.CloseDialogCommand.Execute(null, null);
+                SetNull();
             });
         }
         //
@@ -137,7 +141,25 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SaveProduct(Object o = null)
         {
-            if (CheckExist()==false && SelectedProductsType != null && productImage != null && SelectedProducer != null)
+            if (SelectedProduct!=null)
+            {
+                var filter = Builders<ProductsInformation>.Filter.Eq("ID", SelectedProduct.ID);
+                var update = Builders<ProductsInformation>.Update
+                    .Set("ProductName", productName)
+                    .Set("ProductPrice", productPrice)
+                    .Set("ProductStockCost", productCost)
+                    .Set("ProductCategory", SelectedProductsType.ID)
+                    .Set("ProductProvider", SelectedProducer.ID)
+                    .Set("Unit", productUnit);
+                UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listActiveItemsProduct.Clear();
+                GetData();
+                OnPropertyChanged(nameof(listActiveItemsProduct));
+                //Set Null
+                SetNull();
+            }
+            else if (CheckExist()==false && SelectedProductsType != null && productImage != null && SelectedProducer != null)
             {
                 ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, 
                     SelectedProducer.ID, productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
@@ -156,6 +178,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     OnPropertyChanged(nameof(listActiveItemsProduct));
                     Console.WriteLine(id);
                 DialogHost.CloseDialogCommand.Execute(null,null);
+                SelectedProductsType = null;
+                SelectedProducer = null;
             }
             else
             {
@@ -200,6 +224,57 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return;
             }
         }
+        public void EditProduct(ProductsInformation pro)
+        {
+            if (listActiveItemsProduct.Count > 0)
+            {
+                foreach (ProductsControlViewModel ls in listActiveItemsProduct)
+                {
+                    if (ls.product.Equals(pro))
+                    {
+                        SelectedProduct = ls;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            int ProductTypeIndex = 0, ProducerIndex = 0;
+            foreach (ProductTypeInfomation ls in ItemSourceProductsType)
+            {
+                if (ls.ID == SelectedProduct.Category)
+                {
+                    SelectedProductsType = ls;
+                    IsSelectedIndex = ProductTypeIndex;
+                    break;
+                }
+                ProductTypeIndex++;
+            }
+            foreach (ProducerInformation ls in ItemSourceProducer)
+            {
+                if (ls.ID == SelectedProduct.Producer)
+                {
+                    SelectedProducer = ls;
+                    IsSelectedProducerIndex = ProducerIndex;    
+                    break;
+                }
+                ProducerIndex++;
+            }
+            productName = SelectedProduct.name;
+            productCost = SelectedProduct.StockCost;
+            productPrice = SelectedProduct.price;
+            productUnit = SelectedProduct.Unit;
+            GetImage(SelectedProduct);
+            OnPropertyChanged(nameof(productName));
+            OnPropertyChanged(nameof(productCost));
+            OnPropertyChanged(nameof(productPrice));
+            OnPropertyChanged(nameof(productUnit));
+            OnPropertyChanged(nameof(SelectedProducer));
+            OnPropertyChanged(nameof(SelectedProductsType));
+            OpenAddProductControl();
+        }
         public async void SetActive(ProductsControlViewModel productinfo)
         {
             var filter = Builders<ProductsInformation>.Filter.Eq("ID", productinfo.ID);
@@ -209,6 +284,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listActiveItemsProduct.Add(SelectedProduct);
             OnPropertyChanged(nameof(listActiveItemsProduct));
             Console.WriteLine(s);
+            SelectedProduct = null;
         }
         public async void SetUnactive(ProductsControlViewModel productinfo)
         {
@@ -219,6 +295,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 Console.WriteLine(s);
+                SelectedProduct = null;
             }
             else Console.WriteLine("Cant execute");
         }
@@ -234,9 +311,37 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             return false;
         }
+        public void SetNull()
+        {
+            SelectedProduct = null;
+            SelectedProducer = null;
+            SelectedProductsType = null;
+            productName = "";
+            productPrice = 0;
+            productUnit = "";
+            productCost = 0;
+            productImage = null;
+            OnPropertyChanged(nameof(productName));
+            OnPropertyChanged(nameof(productPrice));
+            OnPropertyChanged(nameof(productImage));
+            OnPropertyChanged(nameof(productCost));
+            OnPropertyChanged(nameof(productUnit));
+            OnPropertyChanged(nameof(SelectedProductsType));
+            OnPropertyChanged(nameof(SelectedProducer));
+        }
         #endregion
 
         #region DB
+        public async void GetImage(ProductsControlViewModel pro)
+        {
+            GetByteImage getter = new GetByteImage(_connection.client, _session, Builders<ByteImage>.Filter.Eq(p => p.obID, pro.ID));
+            var ls = await getter.Get();
+            if (ls.Count > 0)
+            {
+                productImage = ls.FirstOrDefault().convertByteToImage();
+                OnPropertyChanged(nameof(productImage));
+            }
+        }
         public async void GetData()
         {
             var filter = Builders<ProductsInformation>.Filter.Eq("isActivated", true);
