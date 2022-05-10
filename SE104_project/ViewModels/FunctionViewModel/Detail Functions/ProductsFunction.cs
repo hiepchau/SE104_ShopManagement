@@ -76,12 +76,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listActiveItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
-            //Test
+            //Get Data
             GetData();
             GetAllData();
             GetProductTypeData();
             GetProducerData();
-            listActiveItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
 
@@ -156,8 +155,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listActiveItemsProduct.Clear();
                 GetData();
                 OnPropertyChanged(nameof(listActiveItemsProduct));
-                //Set Null
-                SetNull();
             }
             else if (CheckExist()==false && SelectedProductsType != null && productImage != null && SelectedProducer != null)
             {
@@ -177,7 +174,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     listAllProduct.Add(new ProductsControlViewModel(info, this));
                     OnPropertyChanged(nameof(listActiveItemsProduct));
                     Console.WriteLine(id);
-                DialogHost.CloseDialogCommand.Execute(null,null);
                 SelectedProductsType = null;
                 SelectedProducer = null;
             }
@@ -185,6 +181,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 SetActive(SelectedProduct);
             }
+            DialogHost.CloseDialogCommand.Execute(null, null);
+            //Set Null
+            SetNull();
         }
         public void SaveImage(Object o = null)
         {

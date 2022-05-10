@@ -22,7 +22,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         private IUpdateSuplierList _parent;
         #endregion
 
-        #region ICommand
+        #region
+        public ICommand EditSupplierCommand { get; set; }
         public ICommand DeleteSupplierCommand { get; set; }
         #endregion
 
@@ -37,7 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             Address = producer.Address;
             Email = producer.Email;
             _parent = parent;
-
+            EditSupplierCommand = new RelayCommand<Object>(null, EditSupplier);
             DeleteSupplierCommand = new RelayCommand<Object>(null, DeleteSupplier);
         }
 
@@ -45,6 +46,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void DeleteSupplier(Object o)
         {
             _parent.UpdateSuplierList(producer);
+        }
+        public void EditSupplier(Object o)
+        {
+            _parent.EditSupplier(producer);
         }
         #endregion
     }

@@ -20,6 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     public interface IUpdateSuplierList
     {
         void UpdateSuplierList(ProducerInformation producer);
+        void EditSupplier(ProducerInformation producer);
     }
     class SupplierFunction : BaseFunction, IUpdateSuplierList
     {
@@ -51,10 +52,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             IsSelectedIndex = -1;
             listAllProducer = new ObservableCollection<SupplierControlViewModel>();
             listActiveItemsProducer = new ObservableCollection<SupplierControlViewModel>();
-            //Test
+            //Get Data
             GetData();
-            GetAllData();
-            listActiveItemsProducer.Add(new SupplierControlViewModel(new ProducerInformation("1", "Pepsico", "pepsivn@pepsi.com", "0123456789",""), this));
+            GetAllData();           
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
@@ -69,6 +69,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
+                SetNull();
             });
 
         }
@@ -85,9 +86,30 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             return true;
         }
+        public void SetNull(Object o = null)
+        {
+            supplierName = "";
+            supplierAddress = "";
+            supplierMail = "";
+            supplierPhone = "";
+            OnPropertyChanged(nameof(supplierPhone));
+            OnPropertyChanged(nameof(supplierAddress));
+            OnPropertyChanged(nameof(supplierName));
+            OnPropertyChanged(nameof(supplierMail));
+        }
         public async void SaveSupplier(object o = null)
         {
-            if (CheckExist() == false)
+            if (selectedProducer != null)
+            {
+                var filter = Builders<ProducerInformation>.Filter.Eq("ID", selectedProducer.ID);
+                var update = Builders<ProducerInformation>.Update.Set("Name", supplierName).Set("Email", supplierAddress).Set("Phone", supplierPhone).Set("Address",supplierAddress);
+                UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listActiveItemsProducer.Clear();
+                GetData();
+                OnPropertyChanged(nameof(listActiveItemsProducer));
+            }
+            else if (CheckExist() == false)
             {
                 ProducerInformation info = new ProducerInformation("", supplierName, supplierMail, supplierPhone, supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
                 RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
@@ -101,6 +123,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 SetActive(selectedProducer);
             }
+            DialogHost.CloseDialogCommand.Execute(null, null);
+            //Set Null
+            SetNull();
         }
         public void UpdateSuplierList(ProducerInformation producer)
         {
@@ -126,6 +151,33 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return;
             }
         }
+        public void EditSupplier(ProducerInformation producer)
+        {
+            if (listActiveItemsProducer.Count > 0)
+            {
+                foreach (SupplierControlViewModel ls in listActiveItemsProducer)
+                {
+                    if (ls.producer.Equals(producer))
+                    {
+                        selectedProducer = ls;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            supplierName = selectedProducer.Name;
+            supplierMail = selectedProducer.Email;
+            supplierAddress = selectedProducer.Address;
+            supplierPhone = selectedProducer.PhoneNumber;
+            OnPropertyChanged(nameof(supplierPhone));
+            OnPropertyChanged(nameof(supplierAddress));
+            OnPropertyChanged(nameof(supplierName));
+            OnPropertyChanged(nameof(supplierMail));
+            OpenAddSupplierControl();
+        }
         public async void SetActive(SupplierControlViewModel producerinfo)
         {
             var filter = Builders<ProducerInformation>.Filter.Eq("ID", producerinfo.ID);
@@ -135,6 +187,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listActiveItemsProducer.Add(selectedProducer);
             OnPropertyChanged(nameof(listActiveItemsProducer));
             Console.WriteLine(s);
+            selectedProducer = null;
         }
         public async void SetUnactive(SupplierControlViewModel producerinfo)
         {
@@ -145,6 +198,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 Console.WriteLine(s);
+                selectedProducer = null;
             }
             else Console.WriteLine("Cant execute");
         }

@@ -40,10 +40,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             listActiveMembership = new ObservableCollection<MembershipControlViewModel>();
             listAllMembership = new ObservableCollection<MembershipControlViewModel>();
+            //Get Data
             GetActiveData();
             GetAllData();
-            //Test
-            listActiveMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
             //
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
             ClearViewCommand = new RelayCommand<Object>(null, SetNull);
@@ -81,8 +80,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listActiveMembership.Clear();
                 GetActiveData();
                 OnPropertyChanged(nameof(listActiveMembership));
-                //Set Null
-                SetNull();
             }
             else if (CheckExist() == false)
             {
@@ -99,6 +96,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 SetActive(selectedMembership);
                 Console.WriteLine("MembershipName.isActivated has been set to True!");
             }
+            //Set Null
+            SetNull();
         }
         public void UpdateMembershipList(MembershipInformation mem)
         {

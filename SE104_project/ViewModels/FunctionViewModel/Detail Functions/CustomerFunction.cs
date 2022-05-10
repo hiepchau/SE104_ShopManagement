@@ -138,8 +138,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listItemsCustomer.Clear();
                 GetData();
                 OnPropertyChanged(nameof(listItemsCustomer));
-                //Set Null
-                SetNull();
             }
             else if (CheckExist() == false)
             {
@@ -155,6 +153,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 SetActive(selectedCus);
             }
+            DialogHost.CloseDialogCommand.Execute(null, null);
+            //Set Null
+            SetNull();
         }
 
         public void UpdateCustomerList(CustomerInformation cus)
