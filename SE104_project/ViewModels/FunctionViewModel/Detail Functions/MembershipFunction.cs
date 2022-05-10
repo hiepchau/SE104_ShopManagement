@@ -32,6 +32,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         #region ICommand
         public ICommand SaveCommand { get; set; }
+        public ICommand ClearViewCommand { get; set; }
         #endregion
         public MembershipFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -45,6 +46,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listActiveMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
             //
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
+            ClearViewCommand = new RelayCommand<Object>(null, SetNull);
+        }
+        public void SetNull(object o = null)
+        {
+            selectedMembership = null;
+            membershipname = "";
+            priority = 0;
+            OnPropertyChanged(nameof(membershipname));
+            OnPropertyChanged(nameof(priority));
         }
         public bool CheckExist()
         {
@@ -72,11 +82,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 GetActiveData();
                 OnPropertyChanged(nameof(listActiveMembership));
                 //Set Null
-                selectedMembership = null;
-                membershipname = "";
-                priority = 0;
-                OnPropertyChanged(nameof(membershipname));
-                OnPropertyChanged(nameof(priority));
+                SetNull();
             }
             else if (CheckExist() == false)
             {
