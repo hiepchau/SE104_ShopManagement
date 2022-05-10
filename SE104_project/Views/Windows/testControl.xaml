@@ -7,7 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Grid.ColumnSpan="3">
     <Grid>
-        <TextBlock>ansdkfjnasdjfajsdfnasdujnfaiuwfnawnfnwaifijasdnfiajsdnfijasnfjianwojasjdfnsakdfjnkajdsnfkjadsfjksdfnvjsdnmfkjgndskfjgnksdfjgkjdsnfgkjdnfgsfegkjdfnsgkjdfg</TextBlock>
-            
+        <TextBlock >ngngoc xinh dep</TextBlock>
+        <TextBlock >ngngoc xinh dep</TextBlock>
+
+        <TextBlock >ngngoc xinh dep</TextBlock>
+        <TextBlock >ngngoc xinh dep</TextBlock>
+        <TextBlock >ngngoc xinh dep</TextBlock>
+        <TextBlock >ngngoc xinh dep</TextBlock>
+        <TextBlock >ngngoc xinh dep</TextBlock>
+        <TextBlock >ngngoc xinh dep</TextBlock>
     </Grid>
 </UserControl>
