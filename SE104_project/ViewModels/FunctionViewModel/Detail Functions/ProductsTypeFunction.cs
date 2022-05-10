@@ -4,6 +4,7 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Network.Insert_database;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.Network.Update_database;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     public interface IUpdateProductTypeList
     {
         void UpdateProductTypeList(ProductTypeInfomation type);
+        void EditProductType(ProductTypeInfomation type);
     }
     class ProductsTypeFunction:BaseFunction, IUpdateProductTypeList
     {
@@ -51,7 +53,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Function
         public async void SaveProductType(object o = null)
         {
-            if (CheckExist()==false)
+            if (selectedProductType!=null)
+            {
+                var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
+                var update = Builders<ProductTypeInfomation>.Update.Set("ProductTypeName", productTypeName).Set("Note", note);
+                UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listItemsProductType.Clear();
+                GetData();
+                OnPropertyChanged(nameof(listItemsProductType));
+                //Set Null
+                selectedProductType = null;
+                productTypeName = "";
+                note = "";
+                OnPropertyChanged(nameof(productTypeName));
+                OnPropertyChanged(nameof(note));
+            }
+            else if (CheckExist()==false)
             {
                 ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note);
                 RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
@@ -101,6 +119,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(listItemsUnactiveProductType));
                 OnPropertyChanged(nameof(listItemsProductType));
                 Console.WriteLine(s);
+                selectedProductType = null;
             }
             else Console.WriteLine("Cant execute");
         }
@@ -118,10 +137,32 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(listItemsUnactiveProductType));
                 OnPropertyChanged(nameof(listItemsProductType));
                 Console.WriteLine(s);
+                selectedProductType = null;
             }
             else Console.WriteLine("Cant execute");
         }
-
+        public void EditProductType(ProductTypeInfomation type)
+        {
+            if (listItemsProductType.Count > 0)
+            {
+                foreach (ProductsTypeControlViewModel ls in listItemsProductType)
+                {
+                    if (ls.type.Equals(type))
+                    {
+                        selectedProductType = ls;
+                        break;
+                    }
+                }              
+            }
+            else
+            {
+                return;
+            }
+            productTypeName = selectedProductType.name;
+            note = selectedProductType.note;
+            OnPropertyChanged(nameof(productTypeName)); 
+            OnPropertyChanged(nameof(note));           
+        }
         #endregion
 
         #region DB

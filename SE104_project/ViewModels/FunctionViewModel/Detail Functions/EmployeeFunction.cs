@@ -226,7 +226,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.get();
             foreach (UserInfomation user in ls)
             {
-                listItemsUserInfo.Add(new EmployeeControlViewModel(user, this));
+                listUnactiveUserInfo.Add(new EmployeeControlViewModel(user, this));
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listUnactiveUserInfo));
