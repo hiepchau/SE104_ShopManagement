@@ -20,6 +20,7 @@ using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System.Threading.Tasks;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Linq;
+using MongoDB.Bson;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -37,6 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public long productPrice { get; set; }
         public int IsSelectedIndex { get; set; }
         public int IsSelectedProducerIndex { get; set; }
+        public string searchString { get; set; }
         public BitmapImage productImage { get; set; }
         public ProductTypeInfomation SelectedProductsType { get; set; }
         public ProducerInformation SelectedProducer { get; set; }
@@ -45,7 +47,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
-
         public ObservableCollection<ProductsControlViewModel> listActiveItemsProduct { get; set; }
         public ObservableCollection<ProductsControlViewModel> listAllProduct { get; set; }
         public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
@@ -58,6 +59,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand OpenAddProductControlCommand { get; set; }
         public ICommand OpenImportProductsCommand { get; set; }
         public ICommand OpenProductsTypeCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         //AddProduct
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
@@ -76,19 +78,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listActiveItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
-            //Test
             GetData();
             GetAllData();
             GetProductTypeData();
             GetProducerData();
-            listActiveItemsProduct.Add(new ProductsControlViewModel(new ProductsInformation("3", "Cocacola", 1, 10000, 5000, "Drink", "Cocacola", "lon"), this));
-            //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
-
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SelectImageCommand = new RelayCommand<Object>(null,SaveImage);
+            SearchCommand = new RelayCommand<Object>(null, search);
             SelectedProductsType = null;
             SelectedProducer = null;
         }
@@ -103,9 +102,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProduct);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
-
-                DialogHost.CloseDialogCommand.Execute(null, null);
                 SetNull();
+                DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
         //
@@ -317,9 +315,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SelectedProducer = null;
             SelectedProductsType = null;
             productName = "";
-            productPrice = 0;
+            productPrice = -1;
             productUnit = "";
-            productCost = 0;
+            productCost = -1;
             productImage = null;
             OnPropertyChanged(nameof(productName));
             OnPropertyChanged(nameof(productPrice));
@@ -328,6 +326,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(productUnit));
             OnPropertyChanged(nameof(SelectedProductsType));
             OnPropertyChanged(nameof(SelectedProducer));
+        }
+        private async void search(object o)
+        {
+            searchString = (o.ToString());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                await GetData();
+            }
+            else
+            {
+                await getsearchdata();
+            }
         }
         #endregion
 
@@ -342,7 +352,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(productImage));
             }
         }
-        public async void GetData()
+        private async Task GetData()
         {
             var filter = Builders<ProductsInformation>.Filter.Eq("isActivated", true);
             GetProducts getter = new GetProducts(_connection.client, _session, filter);
@@ -389,6 +399,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceProducer));
+        }
+        private async Task getsearchdata()
+        {
+            listActiveItemsProduct.Clear();
+            OnPropertyChanged(nameof(listActiveItemsProduct));
+            FilterDefinition<ProductsInformation> filter = Builders<ProductsInformation>.Filter.Eq(x => x.name, searchString);
+            var tmp = new GetProducts(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (ProductsInformation pr in ls)
+            {
+                listActiveItemsProduct.Add(new ProductsControlViewModel(pr, this));
+            }
+            OnPropertyChanged(nameof(listActiveItemsProduct));
         }
         #endregion
     }

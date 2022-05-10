@@ -46,7 +46,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsUnactiveProductType = new ObservableCollection<ProductsTypeControlViewModel>();
             GetData();
             GetUnactiveProductType();
-            listItemsProductType.Add(new ProductsTypeControlViewModel(new ProductTypeInfomation("1", "Nuoc giai khat"), this));
             SaveCommand = new RelayCommand<Object>(null, SaveProductType);
             SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);

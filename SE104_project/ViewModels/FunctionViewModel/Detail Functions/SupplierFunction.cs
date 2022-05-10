@@ -68,6 +68,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveSupplier);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
+                SetNull();
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
@@ -159,6 +160,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 }
             }
             return false;
+        }
+
+        public void SetNull()
+        {
+            supplierName = "";
+            supplierAddress = "";
+            supplierMail = "";
+            supplierPhone = "";
+            OnPropertyChanged(nameof(supplierName));
+            OnPropertyChanged(nameof(supplierAddress));
+            OnPropertyChanged(nameof(supplierMail));
+            OnPropertyChanged(nameof(supplierPhone));
         }
         #endregion
         #region DB

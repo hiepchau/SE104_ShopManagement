@@ -70,8 +70,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listUnactiveUserInfo = new ObservableCollection<EmployeeControlViewModel>();
             GetData();
             GetUnactiveData();
-            listItemsUserInfo.Add(new EmployeeControlViewModel(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com",
-                "1234556", "012345678", "None", 0, 0, 123456, new DateTime(2002, 2, 22)), this));
             //
             OpenAddEmployeeControlCommand = new RelayCommand<Object>(null, OpenAddEmployeeControl);
             CancelCommand = new RelayCommand<Object>(null, Cancel);
@@ -89,9 +87,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             DialogHost.Show(addEmployeeControl);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
-                userEmail = "";
-                userName = "";
-                userPhoneNumber = "";
+                SetNull();
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
@@ -215,6 +211,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 Console.WriteLine(s);
             }
             else Console.WriteLine("Cant execute");
+        }
+
+        public void SetNull()
+        {
+            userEmail = "";
+            userName = "";
+            userPhoneNumber = "";
+            userSalary = 0;
+            IsSelectedIndex = -1;
+            isGirl = false;
+            OnPropertyChanged(nameof(userEmail));
+            OnPropertyChanged(nameof(userName));
+            OnPropertyChanged(nameof(userPhoneNumber));
+            OnPropertyChanged(nameof(userSalary));
+            OnPropertyChanged(nameof(IsSelectedIndex));
+            OnPropertyChanged(nameof(isGirl));
+
         }
 
         #endregion

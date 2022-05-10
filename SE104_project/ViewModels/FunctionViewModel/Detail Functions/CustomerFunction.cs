@@ -93,10 +93,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveCustomer);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
-                customerName = "";
-                customerPhone = "";
-                customerCMND = "";
-                customerAddress = "";
+                SetNull();
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
@@ -195,6 +192,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 }
             }
             return false;
+        }
+        public void SetNull()
+        {
+            customerName = "";
+            customerPhone = "";
+            customerCMND = "";
+            customerAddress = "";
+            OnPropertyChanged(nameof(customerName));
+            OnPropertyChanged(nameof(customerPhone));
+            OnPropertyChanged(nameof(customerCMND));
+            OnPropertyChanged(nameof(customerAddress));
         }
         #endregion
 

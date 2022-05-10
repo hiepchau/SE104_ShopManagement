@@ -42,9 +42,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listAllMembership = new ObservableCollection<MembershipControlViewModel>();
             GetActiveData();
             GetAllData();
-            //Test
-            listActiveMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
-            //
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
             ClearViewCommand = new RelayCommand<Object>(null, SetNull);
         }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
-             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
+             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" x:Name="ucProducts"
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid Background="WhiteSmoke">
@@ -114,7 +114,16 @@
                                 VerticalAlignment="Center"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Center"
-                                Padding="2,0,0,0"/>
+                                Text="{Binding searchString, Mode=TwoWay}"
+                                Padding="2,0,0,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                     <Button 
                                 IsDefault="True"
                                 Style="{StaticResource TransparentButton}"
