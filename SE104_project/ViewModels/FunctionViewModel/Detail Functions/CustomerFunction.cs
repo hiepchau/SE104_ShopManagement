@@ -23,6 +23,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     public interface IUpdateCustomerList
     {
         void UpdateCustomerList(CustomerInformation cus);
+        void EditCustomer(CustomerInformation cus);
     }
     class CustomerFunction : BaseFunction, IUpdateCustomerList
     {
@@ -73,10 +74,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             listItemsCustomer = new ObservableCollection<CustomerControlViewModel>();
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
-            //Test
+            //Get Data
             GetData();
             GetAllData();
-            listItemsCustomer.Add(new CustomerControlViewModel(new CustomerInformation("12", "Hip", "0123456789", "1", "123","321"), this));
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
@@ -93,10 +93,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveCustomer);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
-                customerName = "";
-                customerPhone = "";
-                customerCMND = "";
-                customerAddress = "";
+                SetNull();
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
 
@@ -119,10 +116,32 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             return true;
         }
-
+        public void SetNull(Object o = null)
+        {
+            customerAddress = "";
+            customerCMND = "";
+            customerName = "";
+            customerPhone = "";
+            OnPropertyChanged(nameof(customerCMND));
+            OnPropertyChanged(nameof(customerPhone));
+            OnPropertyChanged(nameof(customerName));
+            OnPropertyChanged(nameof(customerAddress));
+        }
         public async void SaveCustomer(Object o = null)
         {
-            if (CheckExist() == false)
+            if (selectedCus != null)
+            {
+                var filter = Builders<CustomerInformation>.Filter.Eq("ID", selectedCus.ID);
+                var update = Builders<CustomerInformation>.Update.Set("Name", customerName).Set("Phone", customerPhone).Set("CMND",customerCMND).Set("Address",customerAddress);
+                UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listItemsCustomer.Clear();
+                GetData();
+                OnPropertyChanged(nameof(listItemsCustomer));
+                //Set Null
+                SetNull();
+            }
+            else if (CheckExist() == false)
             {
                 CustomerInformation info = new CustomerInformation("", customerName, customerPhone, "1", customerCMND, customerAddress, true, await new AutoCustomerIDGenerator(_session, _connection.client).Generate());
                 RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
@@ -162,6 +181,33 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return;
             }
         }
+        public void EditCustomer(CustomerInformation cus)
+        {
+            if (listItemsCustomer.Count > 0)
+            {
+                foreach (CustomerControlViewModel ls in listItemsCustomer)
+                {
+                    if (ls.customer.Equals(cus))
+                    {
+                        selectedCus = ls;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            customerName = selectedCus.Name;
+            customerAddress = selectedCus.address;
+            customerCMND = selectedCus.cmnd;
+            customerPhone = selectedCus.PhoneNumber;
+            OnPropertyChanged(nameof(customerCMND));
+            OnPropertyChanged(nameof(customerPhone));
+            OnPropertyChanged(nameof(customerName));
+            OnPropertyChanged(nameof(customerAddress));
+            OpenAddCustomerControl();
+        }
         public async void SetActive(CustomerControlViewModel cusinfo)
         {
             var filter = Builders<CustomerInformation>.Filter.Eq("ID", cusinfo.ID);
@@ -170,6 +216,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var s = await updater.update();
             listItemsCustomer.Add(selectedCus);
             OnPropertyChanged(nameof(listItemsCustomer));
+            selectedCus=null;
             Console.WriteLine(s);
         }
         public async void SetUnactive(CustomerControlViewModel cusinfo)
@@ -181,6 +228,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 Console.WriteLine(s);
+                selectedCus = null;
             }
             else Console.WriteLine("Cant execute");
         }
