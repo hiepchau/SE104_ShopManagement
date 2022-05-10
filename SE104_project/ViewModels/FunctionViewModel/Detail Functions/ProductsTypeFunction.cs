@@ -44,8 +44,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session = session;
             listItemsProductType = new ObservableCollection<ProductsTypeControlViewModel>();
             listItemsUnactiveProductType = new ObservableCollection<ProductsTypeControlViewModel>();
+            //Get Data
             GetData();
             GetUnactiveProductType();
+<<<<<<< HEAD
+=======
+            //
+>>>>>>> 7c17710ebaf82afe6e61b61c07cd3feb7a34a7f2
             SaveCommand = new RelayCommand<Object>(null, SaveProductType);
             SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);
@@ -71,8 +76,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listItemsProductType.Clear();
                 GetData();
                 OnPropertyChanged(nameof(listItemsProductType));
-                //Set Null
-                SetNull();
             }
             else if (CheckExist()==false)
             {
@@ -88,6 +91,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 Console.WriteLine("ProductTypeName has existed!");
             }
+            //Set Null
+            SetNull();
         }
         public void UpdateProductTypeList(ProductTypeInfomation type)
         {

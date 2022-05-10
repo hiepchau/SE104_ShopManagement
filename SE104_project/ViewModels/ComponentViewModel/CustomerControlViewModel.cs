@@ -39,13 +39,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this.customer = customer;
             _parent = parent;
             DeleteCustomerCommand = new RelayCommand<Object>(null, deteleCustomer);
-
+            EditCustomerCommand = new RelayCommand<Object>(null, editCustomer);
         }
 
         #region Function
         private void deteleCustomer(Object o)
         {
             _parent.UpdateCustomerList(customer);
+        }
+        private void editCustomer(Object o)
+        {
+            _parent.EditCustomer(customer);
         }
         #endregion
     }
