@@ -113,6 +113,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 }
             }
         }
+        public void GetIncreaseQuantityByClick()
+        {
+            quantity = (GetDetailNum() + 1).ToString();
+            OnPropertyChanged(nameof(quantity));
+        }
         public int GetDetailNum()
         {
             int id;

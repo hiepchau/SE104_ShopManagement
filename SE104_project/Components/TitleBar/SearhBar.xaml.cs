@@ -22,14 +22,18 @@ namespace SE104_OnlineShopManagement.Components.TitleBar
         {
             InitializeComponent();
         }
-        public string Title
+        public string HintText
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string)GetValue(HintTextProperty); }
+            set { SetValue(HintTextProperty, value); }
         }
-
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(SearhBar));
-
+        public static readonly DependencyProperty HintTextProperty = DependencyProperty.Register("HintText", typeof(string), typeof(SearhBar));
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(SearhBar));
         public string tbWidth
         {
             get { return (string)GetValue(NumberProperty); }

@@ -307,7 +307,7 @@
                         VerticalScrollBarVisibility="Auto" 
                         HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
-                            <ItemsControl ItemsSource="{Binding listItemsProducer}">
+                            <ItemsControl ItemsSource="{Binding listActiveItemsProducer}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <uc:SupplierControl/>

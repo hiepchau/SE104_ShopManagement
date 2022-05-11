@@ -20,6 +20,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string Category { get; set; }
         public string Unit { get; set; }
         public string displayID { get; set; }
+        public bool isActivated { get; set; }
+        public string Producer { get; set; }
         private IUpdateProductList _parent;
         #endregion
 
@@ -39,7 +41,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             Category = product.Category;
             Unit = product.Unit;
             displayID = product.displayID;
+            isActivated = product.isActivated;
+            Producer = product.ProducerInformation;
             _parent = parent;
+            EditProductsCommand = new RelayCommand<Object>(null, EditProduct);
             DeleteProductsCommand = new RelayCommand<Object>(null, DeleteProduct);
         }
 
@@ -47,6 +52,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void DeleteProduct(Object o)
         {
             _parent.UpdateProductList(product);
+        }
+        public void EditProduct(Object o)
+        {
+            _parent.EditProduct(product);  
         }
         #endregion
     }

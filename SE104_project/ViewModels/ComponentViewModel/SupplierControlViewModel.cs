@@ -17,10 +17,13 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string displayID { get; set; }
+        public string Address { get; set; }
+        public bool isActivated { get; set; }
         private IUpdateSuplierList _parent;
         #endregion
 
-        #region ICommand
+        #region
+        public ICommand EditSupplierCommand { get; set; }
         public ICommand DeleteSupplierCommand { get; set; }
         #endregion
 
@@ -31,8 +34,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             Name = producer.Name;
             PhoneNumber = producer.PhoneNumber;
             displayID = producer.displayID;
+            isActivated = producer.isActivated;
+            Address = producer.Address;
+            Email = producer.Email;
             _parent = parent;
-
+            EditSupplierCommand = new RelayCommand<Object>(null, EditSupplier);
             DeleteSupplierCommand = new RelayCommand<Object>(null, DeleteSupplier);
         }
 
@@ -40,6 +46,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void DeleteSupplier(Object o)
         {
             _parent.UpdateSuplierList(producer);
+        }
+        public void EditSupplier(Object o)
+        {
+            _parent.EditSupplier(producer);
         }
         #endregion
     }

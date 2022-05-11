@@ -17,11 +17,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             quantity = "0";
             maxquantity = productquantity;
-            DecreaseCommand = new RelayCommand<object>(null, Decrease);
-            IncreaseCommand = new RelayCommand<object>(null, Increase);
-            ChangeCommand = new RelayCommand<object>(null, change);
+            DecreaseCommand = new RelayCommand<Object>(null, Decrease);
+            IncreaseCommand = new RelayCommand<Object>(null, Increase);
+            ChangeCommand = new RelayCommand<Object>(null, change);
         }
-        private void change(object o)
+        private void change(Object o)
         {
             int i;
             string s = o as string;
@@ -55,7 +55,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 {
                     quantity = "0";
                     OnPropertyChanged(nameof(quantity));
-
                 }
                 else
                 {

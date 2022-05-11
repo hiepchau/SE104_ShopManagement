@@ -44,6 +44,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"Name", customer.Name},
                 {"Phone", customer.PhoneNumber },
                 {"Level", customer.CustomerLevel },
+                {"CMND", customer.CMND },
+                {"Address", customer.Address },
                 {"DisplayID",customer.ID},
                 {"isActivated", customer.isActivated },
             };
@@ -57,7 +59,10 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"Name", customer.Name},
                 {"Phone", customer.PhoneNumber },
                 {"Level", customer.CustomerLevel },
+                {"CMND", customer.CMND },
+                {"Address", customer.Address },
                 {"DisplayID",customer.displayID},
+                {"isActivated", customer.isActivated },
             };
                 await collection.InsertOneAsync(newProductDoc);
                 Console.WriteLine("User Inserted into " + session.CurrnetUser.companyInformation);

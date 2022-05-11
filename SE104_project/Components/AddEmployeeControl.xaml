@@ -247,7 +247,7 @@
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
                     SelectedIndex="{Binding IsSelectedIndex}"
-                    SelectedValue="{Binding role, Mode=TwoWay}">
+                    SelectedItem="{Binding role, Mode=TwoWay}">
                     <ComboBoxItem>Chủ sở hữu</ComboBoxItem>
                     <ComboBoxItem>Quản lí</ComboBoxItem>
                     <ComboBoxItem>Nhân viên</ComboBoxItem>

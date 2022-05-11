@@ -5,6 +5,7 @@ using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
@@ -92,16 +94,26 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public void UpdateSelectedList(ProductsInformation pro)
         {
-            if (listItemsImportProduct.Count > 0)
+            if (pro.quantity > 0)
             {
-                foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
+                if (listItemsImportProduct.Count >= 0)
                 {
-                    if (pr.product.Equals(pro))
-                        return;
+                    foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
+                    {
+                        if (pr.product.Equals(pro))
+                        {
+                            pr.GetIncreaseQuantityByClick();
+                            return;
+                        }
+                    }
                 }
+                listItemsImportProduct.Add(new ImportProductsControlViewModel(pro, this));
+                OnPropertyChanged(nameof(listItemsImportProduct));
             }
-            listItemsImportProduct.Add(new ImportProductsControlViewModel(pro, this));
-            OnPropertyChanged(nameof(listItemsImportProduct));
+            else
+            {
+                return;
+            }
         }
         public void UpdateBoughtList(ProductsInformation pro)
         {

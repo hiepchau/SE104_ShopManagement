@@ -99,16 +99,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
 
         public void UpdateSelectedList(ProductsInformation pro)
         {
-            if (listbought.Count > 0)
+            if (pro.quantity > 0)
             {
-                foreach (ImportPOSProductControlViewModel pr in listbought)
+                if (listbought.Count > 0)
                 {
-                    if (pr.product.Equals(pro))
-                        return;
+                    foreach (ImportPOSProductControlViewModel pr in listbought)
+                    {
+                        if (pr.product.Equals(pro))
+                        {
+                            pr.GetIncreaseQuantityByClick();
+                            return;
+                        }
+                    }
                 }
+                listbought.Add(new ImportPOSProductControlViewModel(pro, this));
+                OnPropertyChanged(nameof(listbought));
             }
-            listbought.Add(new ImportPOSProductControlViewModel(pro, this));
-            OnPropertyChanged(nameof(listbought));
+            else return;
         }
 
         public void UpdateBoughtList(ProductsInformation pro)

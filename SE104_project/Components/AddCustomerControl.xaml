@@ -209,8 +209,6 @@
                     Height="40"
                     Content="Thoát"
                     Command="{Binding ExitCommand}"
-                    CommandParameter="{Binding ElementName=ucAddCus}"
-                    
                     Width="100"
                     ToolTip="Thoát"
                     TabIndex="5"

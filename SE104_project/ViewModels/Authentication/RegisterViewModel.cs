@@ -80,7 +80,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                     return;
                 }
             }
-            company = new CompanyInformation(Guid.NewGuid().ToString(), ComName);
+            company = new CompanyInformation(Guid.NewGuid().ToString(), ComName, "","", "", "", "");
             user = new UserInfomation("",FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,salary,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
             RegisterUser regist= new RegisterUser(user,DBConnection.client);
             string s = await regist.registerUser();

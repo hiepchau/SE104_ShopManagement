@@ -28,6 +28,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
                 .Include(p => p.Name)
                 .Include(p => p.Email)
                 .Include(p => p.PhoneNumber)
+                .Include(p=>p.Address)
                 .Include(p => p.isActivated)
                 .Include(p=>p.displayID);
 

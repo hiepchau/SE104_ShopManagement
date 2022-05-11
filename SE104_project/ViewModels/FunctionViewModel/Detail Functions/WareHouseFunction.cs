@@ -28,9 +28,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public WareHouseFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
             listItemsWareHouse = new ObservableCollection<ProductsInformation>();
-            //ItemTest
-            listItemsWareHouse.Add(new ProductsInformation("1", "hip", 12, 1000, 900, "ohye", "ohye","nguoi"));      
-            //
 
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;

@@ -18,17 +18,18 @@ using System.Windows.Forms;
 using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
+using System.Linq;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
     public interface IUpdateEmployeeList
     {
         void UpdateEmployeeList(UserInfomation user);
+        void EditEmployee(UserInfomation user);
     }
     class EmployeeFunction : BaseFunction, IUpdateEmployeeList
     {
         #region Properties
-        public string name { get; set; }
         public string userName { get; set; }
         public string userEmail { get; set; }
         public string Password { get; set; }
@@ -40,6 +41,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public long userSalary { get; set; }
         public BitmapImage employeeImage { get; set; }
         public string BeginDate { get; set; }
+        private Role userRole { get; set; }
+        private Gender userGender { get; set; }
         public ObservableCollection<EmployeeControlViewModel> listItemsUserInfo { get; set; }
         public ObservableCollection<EmployeeControlViewModel> listUnactiveUserInfo { get; set; }
         public EmployeeControlViewModel selectedUser { get; set; }
@@ -70,8 +73,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listUnactiveUserInfo = new ObservableCollection<EmployeeControlViewModel>();
             GetData();
             GetUnactiveData();
-            listItemsUserInfo.Add(new EmployeeControlViewModel(new UserInfomation("1", "Nguyen Huy Tri", "Dung", "dungxautrai@gmail.com",
-                "1234556", "012345678", "None", 0, 0, 123456, new DateTime(2002, 2, 22)), this));
             //
             OpenAddEmployeeControlCommand = new RelayCommand<Object>(null, OpenAddEmployeeControl);
             CancelCommand = new RelayCommand<Object>(null, Cancel);
@@ -89,6 +90,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             DialogHost.Show(addEmployeeControl);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
+                SetNull();
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
@@ -108,7 +110,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 || String.IsNullOrEmpty(Password)
                 || String.IsNullOrEmpty(BeginDate)
                 || IsSelectedIndex == -1
-                || String.IsNullOrEmpty(userPhoneNumber) || String.IsNullOrEmpty(userSalary.ToString()))
+                || String.IsNullOrEmpty(userPhoneNumber)
+                || String.IsNullOrEmpty(userSalary.ToString())
+                || employeeImage==null)
             {
                 return false;
             }
@@ -118,34 +122,61 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             var pass = o as PasswordBox;
             Password = pass.Password;
-            var userRole = Role.Employee;
-            var userGender = Gender.male;
             if(isMen==true) { userGender = Gender.male; }
             else if (isGirl==true) { userGender = Gender.female; }
-            if(role == "Chủ sở hữu") { userRole = Role.Owner; }
-            else if (role == "Quản lí") { userRole = Role.Manager; }
-            else if (role == "Nhân viên") { userRole= Role.Employee; }
+            if(IsSelectedIndex == 0) { userRole = Role.Owner; }
+            else if (IsSelectedIndex==1) { userRole = Role.Manager; }
+            else if (IsSelectedIndex == 2) { userRole= Role.Employee; }
 
             //Split Lastname and name
             string splitName = userName.Trim();
             string _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);
             string _name = splitName.Substring(0, splitName.LastIndexOf(' '));
+            if (selectedUser != null)
+            {
+                var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
+                var update = Builders<UserInfomation>.Update
+                    .Set("UserEmail", userEmail)
+                    .Set("UserFirstName", _name)
+                    .Set("UserLastName", _lastname)
+                    .Set("UserPhoneNumber", userPhoneNumber)
+                    .Set("UserRole", userRole)
+                    .Set("UserGender", userGender)
+                    .Set("UserSalary", userSalary)
+                    .Set("UserBirthday", DateTime.Parse(BeginDate));
+                UpdateUserInformation updater = new UpdateUserInformation(_connection.client,_session,filter,update);
+                var s = updater.update();
+                //Update Image
+                ByteImage bimg = new ByteImage(selectedUser.ID, employeeImage);
+                var filterImage = Builders<ByteImage>.Filter.Eq("ID", selectedUser.ID);
+                var updateImage = Builders<ByteImage>.Update.Set("data", bimg);
+                UpdateImage updaterImage = new UpdateImage(_connection.client, _session, filterImage, updateImage);
+                var p = updaterImage.update();
+                listItemsUserInfo.Clear();
+                GetData();
+                OnPropertyChanged(nameof(listItemsUserInfo));
+            }
+            else if (employeeImage != null)
+            {
+                //Register UserInformation
+                UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate), true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
+                RegisterUser regist = new RegisterUser(info, _connection.client);
+                string id = await regist.registerUser();
+                listItemsUserInfo.Add(new EmployeeControlViewModel(info, this));
 
-            //Register UserInformation
-            UserInfomation info = new UserInfomation("" , _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate),true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
-            RegisterUser regist = new RegisterUser(info, _connection.client);
-            string id = await regist.registerUser();
-            listItemsUserInfo.Add(new EmployeeControlViewModel(info ,this));
-
-            //Register Image
-            ByteImage bimg = new ByteImage(id, employeeImage);
-            RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
-            await registImage.register();
-            OnPropertyChanged(nameof(listItemsUserInfo));
-            Console.WriteLine(id);
+                //Register Image
+                ByteImage bimg = new ByteImage(id, employeeImage);
+                RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
+                await registImage.register();
+                OnPropertyChanged(nameof(listItemsUserInfo));
+                Console.WriteLine(id);
+            }
+            //Set Null
+            SetNull();
+            DialogHost.CloseDialogCommand.Execute(null, null);
         }
 
-        public async void SaveImage(object o = null)
+        public void SaveImage(object o = null)
         {
             var ofd = new OpenFileDialog();
             ofd.Filter = "image jpeg(*.jpg)|*.jpg|image png(*.png)|*.png";
@@ -167,6 +198,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 {
                     if (ls.user.Equals(user))
                     {
+                        SetUnactive(ls);
                         break;
                     }
                     i++;
@@ -177,6 +209,54 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             else
             {
                 return;
+            }
+        }
+        public void EditEmployee(UserInfomation user)
+        {
+            if (listItemsUserInfo.Count > 0)
+            {
+                foreach (EmployeeControlViewModel ls in listItemsUserInfo)
+                {
+                    if (ls.user.Equals(user))
+                    {
+                        selectedUser = ls;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            if (selectedUser.role == Role.Owner) { IsSelectedIndex = 0; role = "Chủ sở hữu"; }
+            else if (selectedUser.role == Role.Manager) { IsSelectedIndex = 1; role = "Quản lí"; }
+            else if (selectedUser.role == Role.Employee) { IsSelectedIndex = 2; role = "Nhân viên"; }
+            if(selectedUser.gender == Gender.male) { isMen = true; isGirl = false; }
+            else if (selectedUser.gender == Gender.female) { isGirl = true; isMen = false; }
+            userName=selectedUser.FirstName + " " + selectedUser.LastName;
+            userEmail=selectedUser.Email;
+            userPhoneNumber = selectedUser.PhoneNumber;
+            userSalary = selectedUser.salary;
+            BeginDate = selectedUser.birthday.ToShortDateString();
+            GetImage(selectedUser);
+            OnPropertyChanged(nameof(userEmail));
+            OnPropertyChanged(nameof(userName));
+            OnPropertyChanged(nameof(userPhoneNumber));
+            OnPropertyChanged(nameof(userSalary));
+            OnPropertyChanged(nameof(IsSelectedIndex));
+            OnPropertyChanged(nameof(isGirl));
+            OnPropertyChanged(nameof(isMen));
+            OnPropertyChanged(nameof(BeginDate));
+            OpenAddEmployeeControl();
+        }
+        public async void GetImage(EmployeeControlViewModel emp)
+        {
+            GetByteImage getter = new GetByteImage(_connection.client, _session, Builders<ByteImage>.Filter.Eq(p => p.obID, emp.ID));
+            var ls = await getter.Get();
+            if (ls.Count > 0)
+            {
+                employeeImage = ls.FirstOrDefault().convertByteToImage();
+                OnPropertyChanged(nameof(employeeImage));
             }
         }
         public async void SetActive(object o = null)
@@ -193,6 +273,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(listItemsUserInfo));
                 OnPropertyChanged(nameof(listUnactiveUserInfo));
                 Console.WriteLine(s);
+                selectedUser = null;
             }
             else Console.WriteLine("Cant execute");
         }
@@ -210,8 +291,31 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 OnPropertyChanged(nameof(listItemsUserInfo));
                 OnPropertyChanged(nameof(listUnactiveUserInfo));
                 Console.WriteLine(s);
+                selectedUser = null;
             }
             else Console.WriteLine("Cant execute");
+        }
+
+        public void SetNull()
+        {
+            userEmail = "";
+            userName = "";
+            userPhoneNumber = "";
+            userSalary = 0;
+            IsSelectedIndex = -1;
+            isGirl = false;
+            userGender = Gender.Empty;
+            userRole = Role.Empty;
+            BeginDate = "";
+            OnPropertyChanged(nameof(userEmail));
+            OnPropertyChanged(nameof(userName));
+            OnPropertyChanged(nameof(userPhoneNumber));
+            OnPropertyChanged(nameof(userSalary));
+            OnPropertyChanged(nameof(IsSelectedIndex));
+            OnPropertyChanged(nameof(isGirl));
+            OnPropertyChanged(nameof(userGender));
+            OnPropertyChanged(nameof(userRole));
+            OnPropertyChanged(nameof(BeginDate));
         }
 
         #endregion
@@ -223,7 +327,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.get();
             foreach (UserInfomation user in ls)
             {
-                listItemsUserInfo.Add(new EmployeeControlViewModel(user, this));
+                listUnactiveUserInfo.Add(new EmployeeControlViewModel(user, this));
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listUnactiveUserInfo));

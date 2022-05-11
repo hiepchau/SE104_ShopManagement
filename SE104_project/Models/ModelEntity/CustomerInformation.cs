@@ -23,7 +23,9 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public bool isActivated { get; set; }
         [BsonElement("DisplayID")]
         public string displayID { get; set; }
-        public CustomerInformation(string id, string name, string phonenum, string level, string cmnd,bool isActivated = true ,string display = "")
+        [BsonElement("Address")]
+        public string Address { get; set; }
+        public CustomerInformation(string id, string name, string phonenum, string level, string cmnd,string address,bool isActivated = true ,string display = "")
         {
             this.ID = id;
             this.Name = name;   
@@ -32,6 +34,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
             this.CMND = cmnd;
             this.isActivated = isActivated;
             this.displayID = display;
+            this.Address = address;
         }
     }
 }

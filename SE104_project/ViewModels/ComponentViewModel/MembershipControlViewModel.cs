@@ -33,7 +33,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             prio = membership.priority;
             isActivated = membership.isActivated;
             _parent = parent;
- 
+            EditMembershipCommand = new RelayCommand<Object>(null, editMembership);
             DeleteMembershipCommand = new RelayCommand<Object>(null, deleteMembership);
         }
 
@@ -41,6 +41,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void deleteMembership(Object o)
         {
             _parent.UpdateMembershipList(membership);
+        }
+        public void editMembership(Object o)
+        {
+            _parent.EditMembership(membership);
         }
         #endregion
     }

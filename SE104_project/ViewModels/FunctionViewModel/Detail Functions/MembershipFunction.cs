@@ -17,6 +17,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     public interface IUpdateMembershipList
     {
         void UpdateMembershipList(MembershipInformation mem);
+        void EditMembership(MembershipInformation mem);
     }
     class MembershipFunction : BaseFunction, IUpdateMembershipList
     {
@@ -31,6 +32,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         #region ICommand
         public ICommand SaveCommand { get; set; }
+        public ICommand ClearViewCommand { get; set; }
         #endregion
         public MembershipFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -38,12 +40,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             listActiveMembership = new ObservableCollection<MembershipControlViewModel>();
             listAllMembership = new ObservableCollection<MembershipControlViewModel>();
+            //Get Data
             GetActiveData();
             GetAllData();
-            //Test
-            listActiveMembership.Add(new MembershipControlViewModel(new MembershipInformation("1", "Vàng", 10), this));
             //
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
+            ClearViewCommand = new RelayCommand<Object>(null, SetNull);
+        }
+        public void SetNull(object o = null)
+        {
+            selectedMembership = null;
+            membershipname = "";
+            priority = 0;
+            OnPropertyChanged(nameof(membershipname));
+            OnPropertyChanged(nameof(priority));
         }
         public bool CheckExist()
         {
@@ -61,12 +71,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Function
         public async void SaveMemberShip(object o = null)
         {
-            if (CheckExist() == false)
+            if (selectedMembership!=null)
+            {
+                var filter = Builders<MembershipInformation>.Filter.Eq("ID", selectedMembership.ID);
+                var update = Builders<MembershipInformation>.Update.Set("MembershipName", membershipname).Set("Priority", priority);
+                UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
+                var s = await updater.update();
+                listActiveMembership.Clear();
+                GetActiveData();
+                OnPropertyChanged(nameof(listActiveMembership));
+            }
+            else if (CheckExist() == false)
             {
                 MembershipInformation info = new MembershipInformation("", membershipname, priority);
                 RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                 string s = await regist.register();
                 listActiveMembership.Add(new MembershipControlViewModel(info, this));
+                listAllMembership.Add(new MembershipControlViewModel(info, this));
                 OnPropertyChanged(nameof(listActiveMembership));
                 Console.WriteLine(s);
             }
@@ -75,6 +96,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 SetActive(selectedMembership);
                 Console.WriteLine("MembershipName.isActivated has been set to True!");
             }
+            //Set Null
+            SetNull();
         }
         public void UpdateMembershipList(MembershipInformation mem)
         {
@@ -86,6 +109,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     if (ls.membership.Equals(mem))
                     {
                         SetUnactive(ls);
+                        listAllMembership.Clear();
+                        GetAllData();
                         break;
                     }
                     i++;
@@ -98,19 +123,38 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return;
             }
         }
-        public async void SetActive(MembershipControlViewModel membershipinfo)
+        public void EditMembership(MembershipInformation mem)
         {
-            if (membershipinfo.isActivated == false)
+            if (listActiveMembership.Count > 0)
             {
-                var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
-                var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
-                UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
-                var s = await updater.update();
-                listActiveMembership.Add(selectedMembership);
-                OnPropertyChanged(nameof(listActiveMembership));
-                Console.WriteLine(s);
+                foreach (MembershipControlViewModel ls in listActiveMembership)
+                {
+                    if (ls.membership.Equals(mem))
+                    {
+                        selectedMembership = ls;
+                        break;
+                    }
+                }
             }
-            else Console.WriteLine("Cant execute");
+            else
+            {
+                return;
+            }
+            membershipname = selectedMembership.name;
+            priority = selectedMembership.prio;
+            OnPropertyChanged(nameof(membershipname));
+            OnPropertyChanged(nameof(priority));
+        }
+        public async void SetActive(MembershipControlViewModel membershipinfo)
+        {       
+            var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
+            var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
+            UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            listActiveMembership.Add(selectedMembership);
+            selectedMembership = null;
+            OnPropertyChanged(nameof(listActiveMembership));
+            Console.WriteLine(s);    
         }
         public async void SetUnactive(MembershipControlViewModel membershipinfo)
         {
@@ -120,6 +164,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<MembershipInformation>.Update.Set("isActivated", false);
                 UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
+                selectedMembership = null;
                 Console.WriteLine(s);
             }
             else Console.WriteLine("Cant execute");

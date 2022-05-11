@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
-             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
+             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" x:Name="ucProducts"
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid Background="WhiteSmoke">
@@ -114,7 +114,16 @@
                                 VerticalAlignment="Center"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Center"
-                                Padding="2,0,0,0"/>
+                                Text="{Binding searchString, Mode=TwoWay}"
+                                Padding="2,0,0,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                     <Button 
                                 IsDefault="True"
                                 Style="{StaticResource TransparentButton}"
@@ -148,30 +157,23 @@
                                     RadiusX="4"
                                     Panel.ZIndex="-1" />
                         <ComboBox 
-                                    x:Name="cboFilterType"
-                                    materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="Loại sản phẩm"
-                                    Height="40"
-                                    FontSize="18"
-                                    Width="200"
-                                    BorderThickness="0"
-                                    Padding="10,0,0,0"
-                                    ItemsSource="{Binding ItemSourceProductsType_Filter}"
-                                    SelectedItem="{Binding SelectedProductsType_Filter}"
-                                    DisplayMemberPath="Name"
-                                    VerticalContentAlignment="Center"
-                                    HorizontalContentAlignment="Left"
-                                    FontWeight="SemiBold"
-                                    BorderBrush="{StaticResource Black2}"
-                                    Background="{StaticResource White}">
-                                    
-                            <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding SelectionChangedProductsTypeCommand}"
-                                                                   CommandParameter="{Binding ElementName=ucProducts}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
-                        </ComboBox>
+                            x:Name="cboFilterType"                                   
+                            materialDesign:ComboBoxAssist.ClassicMode="True"
+                            materialDesign:HintAssist.Hint="Loại sản phẩm"
+                            Height="40"                                  
+                            FontSize="18"
+                            Width="200"                                  
+                            BorderThickness="0"
+                            Padding="10,0,0,0"                 
+                            ItemsSource="{Binding ItemSourceProductsType}"
+                            SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"                 
+                            DisplayMemberPath="name"                                  
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            FontWeight="SemiBold"                                 
+                            BorderBrush="{StaticResource Black2}"
+                            Background="{StaticResource White}"/>
+
                     </Grid>
                     <Grid 
                                 Margin="20,0,0,0"
@@ -280,7 +282,7 @@
                     VerticalScrollBarVisibility="Auto"                       
                     HorizontalScrollBarVisibility="Disabled">
                     <StackPanel>
-                        <ItemsControl ItemsSource="{Binding listItemsProduct,UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl ItemsSource="{Binding listActiveItemsProduct,UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <uc:ProductsControl/>
