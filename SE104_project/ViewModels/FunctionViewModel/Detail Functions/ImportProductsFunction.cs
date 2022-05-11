@@ -94,7 +94,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public void UpdateSelectedList(ProductsInformation pro)
         {
-            if (pro.quantity > 0)
+            if (pro.quantity >= 0)
             {
                 if (listItemsImportProduct.Count >= 0)
                 {
