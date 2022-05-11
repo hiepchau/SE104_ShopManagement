@@ -5,6 +5,7 @@ using SE104_OnlineShopManagement.Models.ModelEntity;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Threading.Tasks;
+using SE104_OnlineShopManagement.Network.Get_database;
 
 namespace SE104_OnlineShopManagement.Network.Insert_database
 {
@@ -21,10 +22,18 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         {
             var database = mongoClient.GetDatabase(newUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("UserInformation");
-            var projectioncheck = Builders<BsonDocument>.Projection.Include("DisplayID");
-            var filtercheck = Builders<BsonDocument>.Filter.Eq("DisplayID", newUser.ID);
-            var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
-            
+            var filtercheck = Builders<UserInfomation>.Filter.Eq(x=>x.displayID,newUser.displayID);
+            var filtercheckuser = Builders<UserInfomation>.Filter.Eq(x => x.Email, newUser.Email);
+            var task1 =  new GetUsers(mongoClient, new AppSession(newUser), filtercheck).get();
+            var task2 = new GetUsers(mongoClient, new AppSession(newUser), filtercheckuser).get();
+            var lscheck = await task1;
+            var lscheckuser = await task2;
+            Task.WaitAll(task1,task2);
+            if(lscheckuser == null || (lscheckuser != null && lscheckuser.Count > 0))
+            {
+                Console.WriteLine("User used!");
+                return "Email used";
+            }
             if (lscheck.Count > 0 || (string.IsNullOrEmpty(newUser.ID) && string.IsNullOrEmpty(newUser.displayID)))
             {
                 BsonDocument newUserDoc1 = new BsonDocument{
