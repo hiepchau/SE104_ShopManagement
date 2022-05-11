@@ -43,10 +43,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //Get Data
             GetActiveData();
             GetAllData();
-<<<<<<< HEAD
-=======
             //
->>>>>>> 7c17710ebaf82afe6e61b61c07cd3feb7a34a7f2
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
             ClearViewCommand = new RelayCommand<Object>(null, SetNull);
         }

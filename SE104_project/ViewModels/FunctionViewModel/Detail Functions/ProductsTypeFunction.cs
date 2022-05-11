@@ -47,10 +47,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //Get Data
             GetData();
             GetUnactiveProductType();
-<<<<<<< HEAD
-=======
             //
->>>>>>> 7c17710ebaf82afe6e61b61c07cd3feb7a34a7f2
             SaveCommand = new RelayCommand<Object>(null, SaveProductType);
             SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);

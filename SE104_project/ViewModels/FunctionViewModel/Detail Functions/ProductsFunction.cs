@@ -78,18 +78,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listActiveItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
-<<<<<<< HEAD
-=======
             //Get Data
->>>>>>> 7c17710ebaf82afe6e61b61c07cd3feb7a34a7f2
-            GetData();
+            _ = GetData();
             GetAllData();
             GetProductTypeData();
             GetProducerData();
-<<<<<<< HEAD
-=======
             //
->>>>>>> 7c17710ebaf82afe6e61b61c07cd3feb7a34a7f2
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
@@ -159,8 +153,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     .Set("Unit", productUnit);
                 UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
+                //Update Image
+                ByteImage bimg = new ByteImage(SelectedProduct.ID, productImage);
+                var filterImage = Builders<ByteImage>.Filter.Eq("ID", SelectedProduct.ID);
+                var updateImage = Builders<ByteImage>.Update.Set("data", bimg);
+                UpdateImage updaterImage = new UpdateImage(_connection.client,_session, filterImage, updateImage);
+                var p = updaterImage.update();
                 listActiveItemsProduct.Clear();
-                GetData();
+                _ = GetData();
                 OnPropertyChanged(nameof(listActiveItemsProduct));
             }
             else if (CheckExist()==false && SelectedProductsType != null && productImage != null && SelectedProducer != null)
