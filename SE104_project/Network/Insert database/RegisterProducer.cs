@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.Network.Get_database;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,9 +24,10 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         {
             var database = mongoClient.GetDatabase(session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<BsonDocument>("ProducerInformation");
-            var projectioncheck = Builders<BsonDocument>.Projection.Include("DisplayID");
-            var filtercheck = Builders<BsonDocument>.Filter.Eq("DisplayID", producer.ID);
-            var lscheck = await collection.Find(filtercheck).Project(projectioncheck).ToListAsync();
+            var filtercheck = Builders<ProducerInformation>.Filter.Eq(x=>x.displayID,producer.displayID) | Builders<ProducerInformation>.Filter.Eq(x => x.displayID, producer.ID);
+            var task1 = new GetProducer(mongoClient, session, filtercheck).Get();
+            var lscheck = await task1;
+            Task.WaitAll(task1);
             if(string.IsNullOrEmpty(producer.ID) && string.IsNullOrEmpty(producer.displayID))
             {
                 Console.WriteLine("Insert Error!");
