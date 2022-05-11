@@ -71,12 +71,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
         #region Function
         private void UpdateBought(Object o)
-        {
-            if (quantity > 0)
-            {
-                _parent.UpdateSelectedList(product);
-                _parent.isCanExecute();
-            }
+        {               
+            _parent.UpdateSelectedList(product);
+            _parent.isCanExecute();
         }
         #endregion
 
