@@ -49,6 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             sum = ImportQuantityNumeric.GetDetailNum() * StockCost;
             OnPropertyChanged(nameof(sum));
+            _parent.isCanExecute();
         }
         public void GetIncreaseQuantityByClick()
         {

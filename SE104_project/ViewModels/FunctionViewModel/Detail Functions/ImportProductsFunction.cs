@@ -116,7 +116,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 {
                     foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
                     {
-                        if (pr.product.Equals(pro))
+                        if (pr.product.ID.Equals(pro.ID))
                         {
                             pr.GetIncreaseQuantityByClick();
                             return;
@@ -165,7 +165,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
         }
         private async void payBill(object o)
-        {        
+        {
+            listProducts.Clear();
+            await getdata();
             StockInformation stockInfo = new StockInformation(await new AutoStockingIDGenerator(_session, _connection.client).Generate(),
                 DateTime.Now, _session.CurrnetUser.ID, "CustomerID", MoneyToPay);
            
