@@ -174,7 +174,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             string stockID = "";
             registertask.ContinueWith(async _ =>
             {
-                foreach (var item in listItemsImportProduct)
+               foreach (var item in listItemsImportProduct)
                 {
                     StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID, item.ImportQuantityNumeric.GetDetailNum(), item.sum);
                     RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
@@ -197,6 +197,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             DialogHost.CloseDialogCommand.Execute(null, null);
             listItemsImportProduct.Clear();
+            listProducts.Clear();
+            await getdata();
             OnPropertyChanged(nameof(listItemsImportProduct));
         }
         #endregion
