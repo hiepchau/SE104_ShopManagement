@@ -30,6 +30,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = type.ID;
             name = type.name;
             note = type.note;
+            
             isActivated = type.isActivated;
             _parent = parent;
             EditProductTypeCommand = new RelayCommand<Object>(null, EditType);

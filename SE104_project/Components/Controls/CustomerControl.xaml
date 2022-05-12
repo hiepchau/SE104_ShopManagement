@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock
             x:Name="txtID"                                
-            Text="{Binding ID}"                                   
+            Text="{Binding displayId}"                                   
             Grid.Column="0"
             Style="{StaticResource Text}" Height="24" Margin="10,0,0,0"/>
         <TextBlock     

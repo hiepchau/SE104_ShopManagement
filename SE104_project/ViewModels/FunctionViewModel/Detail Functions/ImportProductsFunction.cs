@@ -174,31 +174,52 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             RegisterStocking registbill = new RegisterStocking(stockInfo, _connection.client, _session);
             Task<string> registertask = registbill.register();
             string stockID = "";
-             registertask.ContinueWith(async _ =>
-                {
-                    foreach (var item in listItemsImportProduct)
-                    {
-                        StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
-                            item.ImportQuantityNumeric.GetDetailNum(), item.sum);
-                        RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
-                        Task.WaitAll(UpdateAmount(item), regist.register());
+            //registertask.ContinueWith(async _ =>
+            //   {
+            //       foreach (var item in listItemsImportProduct)
+            //       {
+            //           StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
+            //               item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+            //           RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
+            //           Task.WaitAll(UpdateAmount(item), regist.register());
 
-                        foreach (var itemonsale in listProducts)
-                        {
-                            if (item.product.ID.Equals(itemonsale.product.ID))
-                            {
-                                itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
-                                itemonsale.onQuantityChange();
-                            }
-                        }
-                    }
+            //           foreach (var itemonsale in listProducts)
+            //           {
+            //               if (item.product.ID.Equals(itemonsale.product.ID))
+            //               {
+            //                   itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
+            //                   itemonsale.onQuantityChange();
+            //               }
+            //           }
+            //       }
 
-                });
+            //   });
 
             stockID = await registertask;
             Task.WaitAll(registertask);
+            if (listItemsImportProduct.Count > 0)
+            {
+                foreach (var item in listItemsImportProduct)
+                {
+                    StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
+                        item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+                    RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
+                    var task1 = UpdateAmount(item);
+                    var task2 = regist.register();
+                    await task1;
+                    await task2;
+                    Task.WaitAll(task1, task2);
+                    //foreach (var itemonsale in listProducts)
+                    //{
+                    //    if (item.product.ID.Equals(itemonsale.product.ID))
+                    //    {
+                    //        itemonsale.quantity -= item.GetDetailNum();
+                    //        itemonsale.onQuantityChange();
+                    //    }
+                    //}
+                }
+            }
             //Refresh
-
             DialogHost.CloseDialogCommand.Execute(null, null);
             listItemsImportProduct.Clear();
             listProducts.Clear();
