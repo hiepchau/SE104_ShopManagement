@@ -54,61 +54,7 @@
                         Style="{StaticResource Text}" 
                         HorizontalAlignment="Right"/>
             </Grid>
-            <Grid  
-                    Margin="0,30,0,0" 
-                    Height="50" 
-                    Style="{StaticResource DropShadow}" 
-                    VerticalAlignment="Top">
-                <Rectangle 
-                        Fill="{DynamicResource White}" 
-                        RadiusY="4" 
-                        RadiusX="4"
-                        Panel.ZIndex="-1" />
-                <ComboBox
-                        x:Name="cboSupplier"
-                        materialDesign:ComboBoxAssist.ClassicMode="True"
-                        materialDesign:HintAssist.Hint="Chọn nhà cung cấp"
-                        Height="40"
-                        FontSize="18"
-                        BorderThickness="0"
-                        Padding="10,0"
-                        ItemsSource="{Binding ItemSourceSupplier}"
-                        SelectedItem="{Binding SelectedSupplier}"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Left"
-                        FontWeight="SemiBold"
-                        BorderBrush="{StaticResource Black2}" 
-                        Background="{StaticResource White}" 
-                        VerticalAlignment="Center">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
-                                        x:Name="txbName"
-                                        Text="{Binding Name}"
-                                        Height="Auto" 
-                                        HorizontalAlignment="Left"/>
-                                <TextBlock Text=" - "/>
-                                <TextBlock 
-                                        Text="{Binding PhoneNumber}"
-                                        Height="Auto" 
-                                        HorizontalAlignment="Right"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Grid>
-            <Button 
-                    x:Name="btnAddSupplier"
-                    Style="{StaticResource PrimaryButton}"
-                    Command="{Binding OpenAddSupplierControlCommand}"
-                    Height="40"
-                    BorderThickness="2"
-                    Margin="0,20,0,0" 
-                    FontSize="20" 
-                    Content="Thêm nhà cung cấp"
-                    ToolTip="Thêm nhà cung cấp"
-                    VerticalAlignment="Top" />
+
         </StackPanel>
         <StackPanel
                 Grid.Row="1" 
@@ -148,10 +94,9 @@
                         x:Name="txtDiscount"
                         Style="{StaticResource Text}"
                         HorizontalAlignment="Right"
-                        Text="{Binding Path=Discount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Path=discount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                         FontSize="18"
                         TextAlignment="Right"/>
-
             </Grid>
             <Grid 
                     Margin="0,30,0,0">
@@ -176,7 +121,6 @@
                     Height="40"
                     Style="{StaticResource PrimaryButton}"
                     Command="{Binding PayBillCommand}"
-                    CommandParameter="{Binding ElementName=wdImportProducts}"
                     BorderThickness="2"
                     Margin="0,30,0,0" 
                     FontSize="20" 

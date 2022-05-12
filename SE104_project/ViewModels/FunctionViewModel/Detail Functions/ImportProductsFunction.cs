@@ -5,6 +5,8 @@ using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.Network.Insert_database;
+using SE104_OnlineShopManagement.Network.Update_database;
 using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
@@ -25,7 +27,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private MongoConnect _connection;
         private AppSession _session;
         public long totalReceipt { get; set; }
-        public ObservableCollection<ProducerInformation> ItemSourceSupplier { get; set; }
+        public double discount { get; set; }
+        public long MoneyToPay { get; set; }
         public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportProductsControlViewModel> listItemsImportProduct { get; set; }
         public string searchString { get; set; }
@@ -36,17 +39,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SearchCommand { get; set; }
         //AddReceiptControl
         public ICommand ExitCommand { get; set; }
+        public ICommand PayBillCommand { get; set; }
         public ICommand OpenAddSupplierControlCommand { get; set; }
         #endregion
         public ImportProductsFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             _connection = connect;
             _session = session;
-            ItemSourceSupplier = new ObservableCollection<ProducerInformation>();
             listItemsImportProduct = new ObservableCollection<ImportProductsControlViewModel>();
             listProducts = new ObservableCollection<POSProductControlViewModel>();
  
-            GetProducerInfo();
             getdata();
             SearchCommand = new RelayCommand<Object>(null, search);
             
@@ -59,15 +61,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddReceiptControl addReceiptControl = new AddReceiptControl();
             addReceiptControl.DataContext = this;
             DialogHost.Show(addReceiptControl);
+            totalReceipt = 0;
+            discount = 10;
+            foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
+            {
+                totalReceipt += pr.sum;
+            }
+            MoneyToPay = ((long)(totalReceipt - (totalReceipt * (discount / 100))));
+
+            PayBillCommand = new RelayCommand<Object>(null, payBill);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
-            totalReceipt = 0;
-            foreach(ImportProductsControlViewModel pr in listItemsImportProduct)
-            {
-                totalReceipt += pr.sum;
-            }
+
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
         }
         public void OpenAddSupplierControl(Object o = null)
@@ -88,7 +95,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public bool isEmptyImportList(Object o)
         {
             if (listItemsImportProduct.Count > 0)
-                return true;
+            {
+                foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
+                {
+                    if (pr.ImportQuantityNumeric.GetDetailNum() > 0)
+                    {
+                        return true; 
+                    }
+                    return false;
+                }
+            }
             OnPropertyChanged(nameof(listItemsImportProduct));
             return false;
         }
@@ -148,30 +164,55 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 await getsearchdata();
             }
         }
+        private async void payBill(object o)
+        {        
+            StockInformation stockInfo = new StockInformation(await new AutoStockingIDGenerator(_session, _connection.client).Generate(),
+                DateTime.Now, _session.CurrnetUser.ID, "CustomerID", MoneyToPay);
+           
+            RegisterStocking registbill = new RegisterStocking(stockInfo, _connection.client, _session);
+            Task<string> registertask = registbill.register();
+            string stockID = "";
+            registertask.ContinueWith(async _ =>
+            {
+                foreach (var item in listItemsImportProduct)
+                {
+                    StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID, item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+                    RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
+                    Task.WaitAll(UpdateAmount(item), regist.register());
+
+                }
+                foreach (var itemProduct in listProducts)
+                {
+                    foreach (var item in listItemsImportProduct)
+                    {
+                        if (itemProduct.product.ID.Equals(item.ID))
+                        {
+                            itemProduct.quantity += item.ImportQuantityNumeric.GetDetailNum();
+                            itemProduct.onQuantityChange();
+                        }
+                    }
+                }
+            });
+            stockID = await registertask;
+            Task.WaitAll(registertask);
+            //Refresh
+
+            DialogHost.CloseDialogCommand.Execute(null, null);
+            listItemsImportProduct.Clear();
+            OnPropertyChanged(nameof(listItemsImportProduct));
+        }
         #endregion
 
         #region DB
-        public async void GetProducerInfo()
-        {
-            var filter = Builders<ProducerInformation>.Filter.Empty;
-            GetProducer getter = new GetProducer(_connection.client, _session, filter);
-            var ls = await getter.Get();
-            foreach (ProducerInformation pro in ls)
-            {
-                ItemSourceSupplier.Add(pro);
-            }
-            Console.Write("Executed");
-            OnPropertyChanged(nameof(ItemSourceSupplier));
-          
-        }
         private async Task getdata()
         {
             var tmp = new GetProducts(_connection.client, _session, FilterDefinition<ProductsInformation>.Empty);
-            var ls = await tmp.Get();
+            var task = tmp.Get();
+            var ls = await task;
+            Task.WaitAll(task);
             foreach (ProductsInformation pr in ls)
             {
                 listProducts.Add(new POSProductControlViewModel(pr, this));
-
             }
             OnPropertyChanged(nameof(listProducts));
         }
@@ -189,7 +230,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             OnPropertyChanged(nameof(listProducts));
         }
-
+        private async Task UpdateAmount(ImportProductsControlViewModel item)
+        {
+            int newQuantity = item.quantity + item.ImportQuantityNumeric.GetDetailNum();
+            var filter = Builders<ProductsInformation>.Filter.Eq("ID", item.product.ID);
+            var update = Builders<ProductsInformation>.Update.Set("ProductQuantity", newQuantity);
+            UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            Console.WriteLine("Update Successfull: quantity = " + newQuantity);
+        }
         #endregion
     }
 }

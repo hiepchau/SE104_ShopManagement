@@ -70,6 +70,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         }
 
         #region Function
+        public void onQuantityChange()
+        {
+            OnPropertyChanged(nameof(quantity));
+        }
         private void UpdateBought(Object o)
         {               
             _parent.UpdateSelectedList(product);

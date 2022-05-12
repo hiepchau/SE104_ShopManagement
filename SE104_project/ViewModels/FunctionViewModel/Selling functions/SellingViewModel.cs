@@ -77,7 +77,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     total += item.price*item.GetDetailNum();
                 }
             }
-            BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(), DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
+            BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(),
+                DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
             RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
             Task<string> registertask = registbill.register();
             string billid = "";
