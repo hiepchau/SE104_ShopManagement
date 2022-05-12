@@ -180,18 +180,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
                     Task.WaitAll(UpdateAmount(item), regist.register());
 
-                }
-                foreach (var itemProduct in listProducts)
-                {
-                    foreach (var item in listItemsImportProduct)
+                    foreach(var itemonsale in listProducts)
                     {
-                        if (itemProduct.product.ID.Equals(item.ID))
+                        if (item.product.ID.Equals(itemonsale.product.ID))
                         {
-                            itemProduct.quantity += item.ImportQuantityNumeric.GetDetailNum();
-                            itemProduct.onQuantityChange();
+                            itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
+                            itemonsale.onQuantityChange();
                         }
                     }
                 }
+                
             });
             stockID = await registertask;
             Task.WaitAll(registertask);
