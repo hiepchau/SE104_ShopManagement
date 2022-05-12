@@ -323,9 +323,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SelectedProducer = null;
             SelectedProductsType = null;
             productName = "";
-            productPrice = -1;
+            productPrice = 0;
             productUnit = "";
-            productCost = -1;
+            productCost = 0;
             productImage = null;
             OnPropertyChanged(nameof(productName));
             OnPropertyChanged(nameof(productPrice));
