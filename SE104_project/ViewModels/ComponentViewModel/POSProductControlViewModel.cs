@@ -46,7 +46,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
         private async void getImage(object o)
         {
-            
             FilterDefinition<ByteImage> filter = Builders<ByteImage>.Filter.Eq(p => p.obID, product.ID);
             GetByteImage getter = new GetByteImage((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
             Task<List<ByteImage>> task = getter.Get();

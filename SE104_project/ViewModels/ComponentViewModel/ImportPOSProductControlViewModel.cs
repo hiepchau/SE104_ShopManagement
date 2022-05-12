@@ -34,7 +34,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand DecreaseCommand { get; set; }
         public ICommand IncreaseCommand { get; set; }
         public ICommand ChangeCommand { get; set; }
-        public ICommand GetImageCommand { get; set; }
         #endregion
 
         private IUpdateSelectedList _parent;
