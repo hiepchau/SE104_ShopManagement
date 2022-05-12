@@ -51,7 +51,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             DecreaseCommand = new RelayCommand<object>(null, Decrease);
             IncreaseCommand = new RelayCommand<object>(null, Increase);
             ChangeCommand = new RelayCommand<object>(null, change);
-            
         }
         #region Function
         

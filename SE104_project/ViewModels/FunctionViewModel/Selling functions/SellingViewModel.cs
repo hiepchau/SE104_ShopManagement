@@ -4,6 +4,7 @@ using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.Network.Insert_database;
+using SE104_OnlineShopManagement.Network.Update_database;
 using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System;
@@ -90,12 +91,28 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     {
                         BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
                         RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
-                        await regist.register();
+                        Task.WaitAll(UpdateAmount(item), regist.register());
+                        foreach (var itemonsale in listProducts)
+                        {
+                            if (item.product.ID.Equals(itemonsale.product.ID))
+                            {
+                                itemonsale.quantity -= item.GetDetailNum();
+                                itemonsale.onQuantityChange();
+                            }
+                        }
+
                     }
                 }
             });
 
             billid = await registertask;
+            Task.WaitAll(registertask);
+            //Refresh
+
+            listbought.Clear();
+            listProducts.Clear();
+            await getdata();
+            OnPropertyChanged(nameof(listbought));
         }
 
         public void UpdateSelectedList(ProductsInformation pro)
@@ -222,6 +239,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
 
             }
             OnPropertyChanged(nameof(listProducts));
+        }
+        private async Task UpdateAmount(ImportPOSProductControlViewModel item)
+        {
+            int newQuantity = item.product.quantity - item.GetDetailNum();
+            var filter = Builders<ProductsInformation>.Filter.Eq("ID", item.product.ID);
+            var update = Builders<ProductsInformation>.Update.Set("ProductQuantity", newQuantity);
+            UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
+            var s = await updater.update();
+            Console.WriteLine("Update Successfull: quantity = " + newQuantity);
         }
 
 

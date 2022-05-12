@@ -174,25 +174,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             RegisterStocking registbill = new RegisterStocking(stockInfo, _connection.client, _session);
             Task<string> registertask = registbill.register();
             string stockID = "";
-            registertask.ContinueWith(async _ =>
-            {
-               foreach (var item in listItemsImportProduct)
+             registertask.ContinueWith(async _ =>
                 {
-                    StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID, item.ImportQuantityNumeric.GetDetailNum(), item.sum);
-                    RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
-                    Task.WaitAll(UpdateAmount(item), regist.register());
-
-                    foreach(var itemonsale in listProducts)
+                    foreach (var item in listItemsImportProduct)
                     {
-                        if (item.product.ID.Equals(itemonsale.product.ID))
+                        StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
+                            item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+                        RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
+                        Task.WaitAll(UpdateAmount(item), regist.register());
+
+                        foreach (var itemonsale in listProducts)
                         {
-                            itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
-                            itemonsale.onQuantityChange();
+                            if (item.product.ID.Equals(itemonsale.product.ID))
+                            {
+                                itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
+                                itemonsale.onQuantityChange();
+                            }
                         }
                     }
-                }
-                
-            });
+
+                });
+
             stockID = await registertask;
             Task.WaitAll(registertask);
             //Refresh
