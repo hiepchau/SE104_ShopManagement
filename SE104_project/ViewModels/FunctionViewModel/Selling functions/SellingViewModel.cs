@@ -83,35 +83,57 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
             Task<string> registertask = registbill.register();
             string billid = "";
-            registertask.ContinueWith(async _ =>
-            {
-                if (listbought.Count > 0)
-                {
-                    foreach (var item in listbought)
-                    {
-                        BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
-                        RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
-                        Task.WaitAll(UpdateAmount(item), regist.register());
-                        foreach (var itemonsale in listProducts)
-                        {
-                            if (item.product.ID.Equals(itemonsale.product.ID))
-                            {
-                                itemonsale.quantity -= item.GetDetailNum();
-                                itemonsale.onQuantityChange();
-                            }
-                        }
-
-                    }
-                }
-            });
+            //registertask.ContinueWith(async _ => { }
+            ////{
+            ////    if (listbought.Count > 0)
+            ////    {
+            ////        foreach (var item in listbought)
+            ////        {
+            ////            BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
+            ////            RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
+            ////            await UpdateAmount(item);
+            ////            await regist.register();
+            ////            //foreach (var itemonsale in listProducts)
+            ////            //{
+            ////            //    if (item.product.ID.Equals(itemonsale.product.ID))
+            ////            //    {
+            ////            //        itemonsale.quantity -= item.GetDetailNum();
+            ////            //        itemonsale.onQuantityChange();
+            ////            //    }
+            ////            //}
+            ////        }
+            ////    }
+            //});
 
             billid = await registertask;
             Task.WaitAll(registertask);
             //Refresh
 
+            if (listbought.Count > 0)
+            {
+                foreach (var item in listbought)
+                {
+                    BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
+                    RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
+                    var task1 = UpdateAmount(item);
+                    var task2 = regist.register();
+                    await task1;
+                    await task2;
+                    Task.WaitAll(task1,task2);
+                    //foreach (var itemonsale in listProducts)
+                    //{
+                    //    if (item.product.ID.Equals(itemonsale.product.ID))
+                    //    {
+                    //        itemonsale.quantity -= item.GetDetailNum();
+                    //        itemonsale.onQuantityChange();
+                    //    }
+                    //}
+                }
+            }
+
             listbought.Clear();
             listProducts.Clear();
-            await getdata();
+            getdata();
             OnPropertyChanged(nameof(listbought));
         }
 
