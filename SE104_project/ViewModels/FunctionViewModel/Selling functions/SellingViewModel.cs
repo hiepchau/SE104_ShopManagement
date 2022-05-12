@@ -271,8 +271,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             var s = await updater.update();
             Console.WriteLine("Update Successfull: quantity = " + newQuantity);
         }
-
-
         #endregion
     }
 }

@@ -144,7 +144,7 @@
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction
                                         Command="{Binding SearchCommand}"
-                                        CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"></i:InvokeCommandAction>
+                                        CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
