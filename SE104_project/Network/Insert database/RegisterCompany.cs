@@ -26,7 +26,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             BsonDocument newCompanyDoc = new BsonDocument
             {
                 {"CompanyName", company.Name },
-                {"CompanyAddress", company.Name },
+                {"CompanyAddress", company.Address },
                 {"CompanyPhone", company.Phone },
                 {"CompanyEmail", company.Email },
                 {"CompanyFacebook", company.Facebook },
