@@ -166,66 +166,74 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private async void payBill(object o)
         {
-            listProducts.Clear();
-            await getdata();
-            StockInformation stockInfo = new StockInformation(await new AutoStockingIDGenerator(_session, _connection.client).Generate(),
-                DateTime.Now, _session.CurrnetUser.ID, "CustomerID", MoneyToPay);
-           
-            RegisterStocking registbill = new RegisterStocking(stockInfo, _connection.client, _session);
-            Task<string> registertask = registbill.register();
-            string stockID = "";
-            //registertask.ContinueWith(async _ =>
-            //   {
-            //       foreach (var item in listItemsImportProduct)
-            //       {
-            //           StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
-            //               item.ImportQuantityNumeric.GetDetailNum(), item.sum);
-            //           RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
-            //           Task.WaitAll(UpdateAmount(item), regist.register());
-
-            //           foreach (var itemonsale in listProducts)
-            //           {
-            //               if (item.product.ID.Equals(itemonsale.product.ID))
-            //               {
-            //                   itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
-            //                   itemonsale.onQuantityChange();
-            //               }
-            //           }
-            //       }
-
-            //   });
-
-            stockID = await registertask;
-            Task.WaitAll(registertask);
-            if (listItemsImportProduct.Count > 0)
+            var result = CustomMessageBox.Show("Xác nhận thanh toán?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                foreach (var item in listItemsImportProduct)
+                listProducts.Clear();
+                await getdata();
+                StockInformation stockInfo = new StockInformation(await new AutoStockingIDGenerator(_session, _connection.client).Generate(),
+                    DateTime.Now, _session.CurrnetUser.ID, "CustomerID", MoneyToPay);
+
+                RegisterStocking registbill = new RegisterStocking(stockInfo, _connection.client, _session);
+                Task<string> registertask = registbill.register();
+                string stockID = "";
+                //registertask.ContinueWith(async _ =>
+                //   {
+                //       foreach (var item in listItemsImportProduct)
+                //       {
+                //           StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
+                //               item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+                //           RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
+                //           Task.WaitAll(UpdateAmount(item), regist.register());
+
+                //           foreach (var itemonsale in listProducts)
+                //           {
+                //               if (item.product.ID.Equals(itemonsale.product.ID))
+                //               {
+                //                   itemonsale.quantity += item.ImportQuantityNumeric.GetDetailNum();
+                //                   itemonsale.onQuantityChange();
+                //               }
+                //           }
+                //       }
+                //   });
+                stockID = await registertask;
+                Task.WaitAll(registertask);
+                if (listItemsImportProduct.Count > 0)
                 {
-                    StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
-                        item.ImportQuantityNumeric.GetDetailNum(), item.sum);
-                    RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
-                    var task1 = UpdateAmount(item);
-                    var task2 = regist.register();
-                    await task1;
-                    await task2;
-                    Task.WaitAll(task1, task2);
-                    //foreach (var itemonsale in listProducts)
-                    //{
-                    //    if (item.product.ID.Equals(itemonsale.product.ID))
-                    //    {
-                    //        itemonsale.quantity -= item.GetDetailNum();
-                    //        itemonsale.onQuantityChange();
-                    //    }
-                    //}
+                    foreach (var item in listItemsImportProduct)
+                    {
+                        StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
+                            item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+                        RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
+                        var task1 = UpdateAmount(item);
+                        var task2 = regist.register();
+                        await task1;
+                        await task2;
+                        Task.WaitAll(task1, task2);
+                        //foreach (var itemonsale in listProducts)
+                        //{
+                        //    if (item.product.ID.Equals(itemonsale.product.ID))
+                        //    {
+                        //        itemonsale.quantity -= item.GetDetailNum();
+                        //        itemonsale.onQuantityChange();
+                        //    }
+                        //}
+                    }
                 }
+                //Refresh
+                DialogHost.CloseDialogCommand.Execute(null, null);
+                listItemsImportProduct.Clear();
+                listProducts.Clear();
+                await getdata();
+                OnPropertyChanged(nameof(listItemsImportProduct));
+                CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
-            //Refresh
-            DialogHost.CloseDialogCommand.Execute(null, null);
-            listItemsImportProduct.Clear();
-            listProducts.Clear();
-            await getdata();
-            OnPropertyChanged(nameof(listItemsImportProduct));
+            else
+            {
+                return;
+            }
         }
+
         #endregion
 
         #region DB
@@ -252,7 +260,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             foreach (ProductsInformation pr in ls)
             {
                 listProducts.Add(new POSProductControlViewModel(pr, this));
-
             }
             OnPropertyChanged(nameof(listProducts));
         }

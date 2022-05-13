@@ -22,7 +22,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 {
     public interface IUpdateCustomerList
     {
-        void UpdateCustomerList(CustomerInformation cus);
         void EditCustomer(CustomerInformation cus);
     }
     class CustomerFunction : BaseFunction, IUpdateCustomerList
@@ -158,30 +157,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SetNull();
         }
 
-        public void UpdateCustomerList(CustomerInformation cus)
-        {
-            int i = 0;
-            if (listItemsCustomer.Count > 0)
-            {
-                foreach (CustomerControlViewModel ls in listItemsCustomer)
-                {
-                    if (ls.customer.Equals(cus))
-                    {
-                        SetUnactive(ls);
-                        listAllCustomer.Clear();
-                        GetAllData();
-                        break;
-                    }
-                    i++;
-                }
-                listItemsCustomer.RemoveAt(i);
-                OnPropertyChanged(nameof(listItemsCustomer));
-            }
-            else
-            {
-                return;
-            }
-        }
+
         public void EditCustomer(CustomerInformation cus)
         {
             if (listItemsCustomer.Count > 0)

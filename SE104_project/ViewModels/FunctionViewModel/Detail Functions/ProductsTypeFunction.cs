@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using MongoDB.Driver;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using System.Windows;
+using SE104_OnlineShopManagement.Services;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -93,22 +95,31 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public void UpdateProductTypeList(ProductTypeInfomation type)
         {
-            int i = 0;
-            if (listItemsProductType.Count > 0)
+            var result = CustomMessageBox.Show("Bạn có chắc chắn muốn xóa?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                foreach (ProductsTypeControlViewModel ls in listItemsProductType)
+                int i = 0;
+                if (listItemsProductType.Count > 0)
                 {
-                    if (ls.type.Equals(type))
+                    foreach (ProductsTypeControlViewModel ls in listItemsProductType)
                     {
-                        break;
+                        if (ls.type.Equals(type))
+                        {
+                            break;
+                        }
+                        i++;
                     }
-                    i++;
+                    listItemsProductType.RemoveAt(i);
+                    OnPropertyChanged(nameof(listItemsProductType));
                 }
-                listItemsProductType.RemoveAt(i);
-                OnPropertyChanged(nameof(listItemsProductType));
+                else
+                {
+                    return;
+                }
             }
             else
             {
+                CustomMessageBox.Show("Xóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }

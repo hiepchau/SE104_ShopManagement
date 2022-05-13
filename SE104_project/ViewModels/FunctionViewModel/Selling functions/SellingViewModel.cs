@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -70,71 +71,81 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         #region Function
         private async void purchase(object o)
         {
-            long total = 0;
-            if(listbought.Count > 0)
+            var result = CustomMessageBox.Show("Xác nhận thanh toán?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                foreach(var item in listbought)
+                long total = 0;
+                if (listbought.Count > 0)
                 {
-                    total += item.price*item.GetDetailNum();
+                    foreach (var item in listbought)
+                    {
+                        total += item.price * item.GetDetailNum();
+                    }
                 }
+                BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(),
+                    DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
+                RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
+                Task<string> registertask = registbill.register();
+                string billid = "";
+                //registertask.ContinueWith(async _ => { }
+                ////{
+                ////    if (listbought.Count > 0)
+                ////    {
+                ////        foreach (var item in listbought)
+                ////        {
+                ////            BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
+                ////            RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
+                ////            await UpdateAmount(item);
+                ////            await regist.register();
+                ////            //foreach (var itemonsale in listProducts)
+                ////            //{
+                ////            //    if (item.product.ID.Equals(itemonsale.product.ID))
+                ////            //    {
+                ////            //        itemonsale.quantity -= item.GetDetailNum();
+                ////            //        itemonsale.onQuantityChange();
+                ////            //    }
+                ////            //}
+                ////        }
+                ////    }
+                //});
+
+                billid = await registertask;
+                Task.WaitAll(registertask);
+                //Refresh
+
+                if (listbought.Count > 0)
+                {
+                    foreach (var item in listbought)
+                    {
+                        BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
+                        RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
+                        var task1 = UpdateAmount(item);
+                        var task2 = regist.register();
+                        await task1;
+                        await task2;
+                        Task.WaitAll(task1, task2);
+                        //foreach (var itemonsale in listProducts)
+                        //{
+                        //    if (item.product.ID.Equals(itemonsale.product.ID))
+                        //    {
+                        //        itemonsale.quantity -= item.GetDetailNum();
+                        //        itemonsale.onQuantityChange();
+                        //    }
+                        //}
+                    }
+                }
+
+                listbought.Clear();
+                listProducts.Clear();
+                getdata();
+                OnPropertyChanged(nameof(listbought));
+                CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
-            BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(),
-                DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
-            RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
-            Task<string> registertask = registbill.register();
-            string billid = "";
-            //registertask.ContinueWith(async _ => { }
-            ////{
-            ////    if (listbought.Count > 0)
-            ////    {
-            ////        foreach (var item in listbought)
-            ////        {
-            ////            BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
-            ////            RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
-            ////            await UpdateAmount(item);
-            ////            await regist.register();
-            ////            //foreach (var itemonsale in listProducts)
-            ////            //{
-            ////            //    if (item.product.ID.Equals(itemonsale.product.ID))
-            ////            //    {
-            ////            //        itemonsale.quantity -= item.GetDetailNum();
-            ////            //        itemonsale.onQuantityChange();
-            ////            //    }
-            ////            //}
-            ////        }
-            ////    }
-            //});
-
-            billid = await registertask;
-            Task.WaitAll(registertask);
-            //Refresh
-
-            if (listbought.Count > 0)
+            else
             {
-                foreach (var item in listbought)
-                {
-                    BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
-                    RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
-                    var task1 = UpdateAmount(item);
-                    var task2 = regist.register();
-                    await task1;
-                    await task2;
-                    Task.WaitAll(task1,task2);
-                    //foreach (var itemonsale in listProducts)
-                    //{
-                    //    if (item.product.ID.Equals(itemonsale.product.ID))
-                    //    {
-                    //        itemonsale.quantity -= item.GetDetailNum();
-                    //        itemonsale.onQuantityChange();
-                    //    }
-                    //}
-                }
+                return;
             }
-
-            listbought.Clear();
-            listProducts.Clear();
-            getdata();
-            OnPropertyChanged(nameof(listbought));
+                
         }
 
         public void UpdateSelectedList(ProductsInformation pro)
@@ -245,7 +256,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             foreach(ProductsInformation pr in ls)
             {
                 listProducts.Add(new POSProductControlViewModel(pr,this));
-                
             }
             OnPropertyChanged(nameof(listProducts));
         }
