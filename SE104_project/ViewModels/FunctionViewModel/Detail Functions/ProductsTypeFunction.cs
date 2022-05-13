@@ -126,41 +126,59 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SetUnactive(object o = null)
         {
-            if (selectedProductType != null && selectedProductType.isActivated == true)
+            var result = CustomMessageBox.Show("Loại sản phẩm này sẽ ngừng hoạt động ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
-                var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", false);
-                UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
-                var s = await updater.update();
-                listItemsUnactiveProductType.Clear();
-                listItemsProductType.Clear();
-                GetData();
-                GetUnactiveProductType();
-                OnPropertyChanged(nameof(listItemsUnactiveProductType));
-                OnPropertyChanged(nameof(listItemsProductType));
-                Console.WriteLine(s);
-                selectedProductType = null;
+                if (selectedProductType != null && selectedProductType.isActivated == true)
+                {
+                    var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
+                    var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", false);
+                    UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
+                    var s = await updater.update();
+                    listItemsUnactiveProductType.Clear();
+                    listItemsProductType.Clear();
+                    GetData();
+                    GetUnactiveProductType();
+                    OnPropertyChanged(nameof(listItemsUnactiveProductType));
+                    OnPropertyChanged(nameof(listItemsProductType));
+                    Console.WriteLine(s);
+                    selectedProductType = null;
+                }
+                else
+                {
+                    CustomMessageBox.Show("Loại sản phẩm này đang ngừng hoạt động!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine("Cant execute");
+                }
             }
-            else Console.WriteLine("Cant execute");
+            else return;
         }
         public async void SetActive(object o = null)
         {
-            if (selectedProductType != null && selectedProductType.isActivated == false)
+            var result = CustomMessageBox.Show("Loại sản phẩm này sẽ hoạt động trở lại ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
-                var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", true);
-                UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
-                var s = await updater.update();
-                listItemsUnactiveProductType.Clear();
-                listItemsProductType.Clear();
-                GetData();
-                GetUnactiveProductType();
-                OnPropertyChanged(nameof(listItemsUnactiveProductType));
-                OnPropertyChanged(nameof(listItemsProductType));
-                Console.WriteLine(s);
-                selectedProductType = null;
+                if (selectedProductType != null && selectedProductType.isActivated == false)
+                {
+                    var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
+                    var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", true);
+                    UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
+                    var s = await updater.update();
+                    listItemsUnactiveProductType.Clear();
+                    listItemsProductType.Clear();
+                    GetData();
+                    GetUnactiveProductType();
+                    OnPropertyChanged(nameof(listItemsUnactiveProductType));
+                    OnPropertyChanged(nameof(listItemsProductType));
+                    Console.WriteLine(s);
+                    selectedProductType = null;
+                }
+                else
+                {
+                    CustomMessageBox.Show("Loại sản phẩm này đang hoạt động!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine("Cant execute");
+                }
             }
-            else Console.WriteLine("Cant execute");
+            else return;
         }
         public void EditProductType(ProductTypeInfomation type)
         {

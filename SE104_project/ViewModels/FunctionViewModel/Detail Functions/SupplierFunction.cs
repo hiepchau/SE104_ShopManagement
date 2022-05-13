@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -127,6 +128,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 SetActive(selectedProducer);
             }
             DialogHost.CloseDialogCommand.Execute(null, null);
+            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             //Set Null
             SetNull();
         }

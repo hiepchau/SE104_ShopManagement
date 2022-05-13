@@ -154,7 +154,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 SetActive(selectedCus);
             }
+            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
             DialogHost.CloseDialogCommand.Execute(null, null);
+
             //Set Null
             SetNull();
         }

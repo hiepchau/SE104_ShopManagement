@@ -190,6 +190,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 SetActive(SelectedProduct);
             }
             DialogHost.CloseDialogCommand.Execute(null, null);
+
+            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             //Set Null
             SetNull();
         }

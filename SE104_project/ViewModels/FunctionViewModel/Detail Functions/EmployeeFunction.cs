@@ -19,6 +19,7 @@ using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Linq;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -179,6 +180,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //Set Null
             SetNull();
             DialogHost.CloseDialogCommand.Execute(null, null);
+            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
         }
 
         public void SaveImage(object o = null)
@@ -266,39 +269,57 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void SetActive(object o = null)
         {
-            if (selectedUser != null && selectedUser.isActivated == false)
+            var result = CustomMessageBox.Show("Nhân viên này sẽ hoạt động trở lại ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
-                var update = Builders<UserInfomation>.Update.Set("isActivated", true);
-                UpdateUserInformation updater = new UpdateUserInformation(_connection.client, _session, filter, update);
-                var s = await updater.update();
-                listItemsUserInfo.Add(selectedUser);
-                selectedUser.isActivated = true;
-                listUnactiveUserInfo.Remove(selectedUser);
-                OnPropertyChanged(nameof(listItemsUserInfo));
-                OnPropertyChanged(nameof(listUnactiveUserInfo));
-                Console.WriteLine(s);
-                selectedUser = null;
+                if (selectedUser != null && selectedUser.isActivated == false)
+                {
+                    var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
+                    var update = Builders<UserInfomation>.Update.Set("isActivated", true);
+                    UpdateUserInformation updater = new UpdateUserInformation(_connection.client, _session, filter, update);
+                    var s = await updater.update();
+                    listItemsUserInfo.Add(selectedUser);
+                    selectedUser.isActivated = true;
+                    listUnactiveUserInfo.Remove(selectedUser);
+                    OnPropertyChanged(nameof(listItemsUserInfo));
+                    OnPropertyChanged(nameof(listUnactiveUserInfo));
+                    Console.WriteLine(s);
+                    selectedUser = null;
+                }
+                else
+                {
+                    CustomMessageBox.Show("Nhân viên này đang hoạt động!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine("Cant execute");
+                }
             }
-            else Console.WriteLine("Cant execute");
+            else return;
         }
         public async void SetUnactive(object o = null)
         {
-            if (selectedUser != null && selectedUser.isActivated == true)
+            var result = CustomMessageBox.Show("Nhân viên này sẽ ngừng hoạt động ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
-                var update = Builders<UserInfomation>.Update.Set("isActivated", false);
-                UpdateUserInformation updater = new UpdateUserInformation(_connection.client, _session, filter, update);
-                var s = await updater.update();
-                listUnactiveUserInfo.Add(selectedUser);
-                selectedUser.isActivated = false;
-                listItemsUserInfo.Remove(selectedUser);
-                OnPropertyChanged(nameof(listItemsUserInfo));
-                OnPropertyChanged(nameof(listUnactiveUserInfo));
-                Console.WriteLine(s);
-                selectedUser = null;
+                if (selectedUser != null && selectedUser.isActivated == true)
+                {
+                    var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
+                    var update = Builders<UserInfomation>.Update.Set("isActivated", false);
+                    UpdateUserInformation updater = new UpdateUserInformation(_connection.client, _session, filter, update);
+                    var s = await updater.update();
+                    listUnactiveUserInfo.Add(selectedUser);
+                    selectedUser.isActivated = false;
+                    listItemsUserInfo.Remove(selectedUser);
+                    OnPropertyChanged(nameof(listItemsUserInfo));
+                    OnPropertyChanged(nameof(listUnactiveUserInfo));
+                    Console.WriteLine(s);
+                    selectedUser = null;
+                }
+                else
+                {
+                    CustomMessageBox.Show("Nhân viên này đang ngừng hoạt động!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine("Cant execute");
+                }
             }
-            else Console.WriteLine("Cant execute");
+            else return;
         }
 
         public void SetNull()

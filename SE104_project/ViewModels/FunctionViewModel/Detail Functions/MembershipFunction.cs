@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
+using SE104_OnlineShopManagement.Services;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -47,26 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
             ClearViewCommand = new RelayCommand<Object>(null, SetNull);
         }
-        public void SetNull(object o = null)
-        {
-            selectedMembership = null;
-            membershipname = "";
-            priority = 0;
-            OnPropertyChanged(nameof(membershipname));
-            OnPropertyChanged(nameof(priority));
-        }
-        public bool CheckExist()
-        {
-            foreach (MembershipControlViewModel ls in listAllMembership)
-            {
-                if (membershipname == ls.name && priority == ls.prio)
-                {
-                    selectedMembership = ls;
-                    return true;
-                }
-            }
-            return false;
-        }
+      
 
         #region Function
         public async void SaveMemberShip(object o = null)
@@ -98,6 +81,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 SetActive(selectedMembership);
                 Console.WriteLine("MembershipName.isActivated has been set to True!");
             }
+
+            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
             //Set Null
             SetNull();
         }
@@ -148,7 +134,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(priority));
         }
         public async void SetActive(MembershipControlViewModel membershipinfo)
-        {       
+        {
             var filter = Builders<MembershipInformation>.Filter.Eq("ID", membershipinfo.ID);
             var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
             UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
@@ -157,7 +143,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GetActiveData();
             selectedMembership = null;
             OnPropertyChanged(nameof(listActiveMembership));
-            Console.WriteLine(s);    
+            Console.WriteLine(s);
         }
         public async void SetUnactive(MembershipControlViewModel membershipinfo)
         {
@@ -171,6 +157,26 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 Console.WriteLine(s);
             }
             else Console.WriteLine("Cant execute");
+        }
+        public void SetNull(object o = null)
+        {
+            selectedMembership = null;
+            membershipname = "";
+            priority = 0;
+            OnPropertyChanged(nameof(membershipname));
+            OnPropertyChanged(nameof(priority));
+        }
+        public bool CheckExist()
+        {
+            foreach (MembershipControlViewModel ls in listAllMembership)
+            {
+                if (membershipname == ls.name && priority == ls.prio)
+                {
+                    selectedMembership = ls;
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 

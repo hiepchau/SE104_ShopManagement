@@ -77,7 +77,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             {
                 return;
             }
-
         }
         #endregion
     }
