@@ -143,8 +143,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 CustomerInformation info = new CustomerInformation("", customerName, customerPhone, "1", customerCMND, customerAddress, true, await new AutoCustomerIDGenerator(_session, _connection.client).Generate());
                 RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
                 string s = await regist.register();
-                listItemsCustomer.Add(new CustomerControlViewModel(info, this));
-                listAllCustomer.Add(new CustomerControlViewModel(info, this));
+                listItemsCustomer.Clear();
+                listAllCustomer.Clear();
+                GetData();
+                GetAllData();
                 OnPropertyChanged(nameof(listItemsCustomer));
                 Console.WriteLine(s);
             }

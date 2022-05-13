@@ -115,8 +115,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 ProducerInformation info = new ProducerInformation("", supplierName, supplierMail, supplierPhone, supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
                 RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
                 string s = await regist.register();
-                listActiveItemsProducer.Add(new SupplierControlViewModel(info, this));
-                listAllProducer.Add(new SupplierControlViewModel(info, this));
+                listActiveItemsProducer.Clear();
+                listAllProducer.Clear();
+                GetAllData();
+                GetData();
                 OnPropertyChanged(nameof(listActiveItemsProducer));
                 Console.WriteLine(s);
             }
@@ -185,7 +187,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var update = Builders<ProducerInformation>.Update.Set("isActivated", true);
             UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
             var s = await updater.update();
-            listActiveItemsProducer.Add(selectedProducer);
+            listActiveItemsProducer.Clear();
+            GetData();
             OnPropertyChanged(nameof(listActiveItemsProducer));
             Console.WriteLine(s);
             selectedProducer = null;
@@ -222,6 +225,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             supplierAddress = "";
             supplierMail = "";
             supplierPhone = "";
+            selectedProducer = null;
             OnPropertyChanged(nameof(supplierName));
             OnPropertyChanged(nameof(supplierAddress));
             OnPropertyChanged(nameof(supplierMail));

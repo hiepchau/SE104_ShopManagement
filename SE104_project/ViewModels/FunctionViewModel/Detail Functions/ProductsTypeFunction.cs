@@ -82,7 +82,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
                 string s = await regist.register();
                 info.ID = s;
-                listItemsProductType.Add(new ProductsTypeControlViewModel(info,this));
+                listItemsProductType.Clear();
+                GetData();
                 OnPropertyChanged(nameof(listItemsProductType));
                 Console.WriteLine(s);
             }
@@ -131,9 +132,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", false);
                 UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
-                listItemsUnactiveProductType.Add(selectedProductType);
-                selectedProductType.isActivated = false;
-                listItemsProductType.Remove(selectedProductType);
+                listItemsUnactiveProductType.Clear();
+                listItemsProductType.Clear();
+                GetData();
+                GetUnactiveProductType();
                 OnPropertyChanged(nameof(listItemsUnactiveProductType));
                 OnPropertyChanged(nameof(listItemsProductType));
                 Console.WriteLine(s);
@@ -149,9 +151,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", true);
                 UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
-                listItemsProductType.Add(selectedProductType);
-                selectedProductType.isActivated = true;
-                listItemsUnactiveProductType.Remove(selectedProductType);
+                listItemsUnactiveProductType.Clear();
+                listItemsProductType.Clear();
+                GetData();
+                GetUnactiveProductType();
                 OnPropertyChanged(nameof(listItemsUnactiveProductType));
                 OnPropertyChanged(nameof(listItemsProductType));
                 Console.WriteLine(s);

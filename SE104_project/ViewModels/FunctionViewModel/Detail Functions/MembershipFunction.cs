@@ -86,8 +86,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 MembershipInformation info = new MembershipInformation("", membershipname, priority);
                 RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                 string s = await regist.register();
-                listActiveMembership.Add(new MembershipControlViewModel(info, this));
-                listAllMembership.Add(new MembershipControlViewModel(info, this));
+                listActiveMembership.Clear();
+                listAllMembership.Clear();
+                GetActiveData();
+                GetAllData();
                 OnPropertyChanged(nameof(listActiveMembership));
                 Console.WriteLine(s);
             }
@@ -151,7 +153,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var update = Builders<MembershipInformation>.Update.Set("isActivated", true);
             UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
             var s = await updater.update();
-            listActiveMembership.Add(selectedMembership);
+            listActiveMembership.Clear();
+            GetActiveData();
             selectedMembership = null;
             OnPropertyChanged(nameof(listActiveMembership));
             Console.WriteLine(s);    

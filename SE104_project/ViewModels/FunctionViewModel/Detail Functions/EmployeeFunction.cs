@@ -129,9 +129,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             else if (IsSelectedIndex == 2) { userRole= Role.Employee; }
 
             //Split Lastname and name
+            string _lastname, _name;
             string splitName = userName.Trim();
-            string _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);
-            string _name = splitName.Substring(0, splitName.LastIndexOf(' '));
+            if (splitName.Contains(' ') == true) { _lastname = splitName; _name = ""; }
+            else
+            {
+                _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);
+                _name = splitName.Substring(0, splitName.LastIndexOf(' '));
+            }
             if (selectedUser != null)
             {
                 var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
@@ -307,6 +312,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             userGender = Gender.Empty;
             userRole = Role.Empty;
             BeginDate = "";
+            employeeImage = null;
             OnPropertyChanged(nameof(userEmail));
             OnPropertyChanged(nameof(userName));
             OnPropertyChanged(nameof(userPhoneNumber));
@@ -316,6 +322,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(userGender));
             OnPropertyChanged(nameof(userRole));
             OnPropertyChanged(nameof(BeginDate));
+            OnPropertyChanged(nameof(employeeImage));
         }
 
         #endregion
