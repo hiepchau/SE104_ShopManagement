@@ -68,8 +68,16 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             var filter = Builders<ProductTypeInfomation>.Filter.Eq(x => x.ID, product.Category);
             GetProductType getter = new GetProductType((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
             var ls = await getter.Get();
-            Category = ls.First().name;
-            OnPropertyChanged(nameof(Category));
+            if(ls != null && ls.Count > 0)
+            {
+                Category = ls.First().name;
+                OnPropertyChanged(nameof(Category));
+            }
+            else
+            {
+                return;
+            }
+
         }
         #endregion
     }
