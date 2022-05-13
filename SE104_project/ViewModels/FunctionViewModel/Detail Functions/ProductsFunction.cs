@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Linq;
 using MongoDB.Bson;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -208,25 +209,34 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public void UpdateProductList(ProductsInformation pro)
         {
-            int i = 0;
-            if (listActiveItemsProduct.Count > 0)
+            var result = CustomMessageBox.Show("Bạn có chắc chắn muốn xóa?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                foreach (ProductsControlViewModel ls in listActiveItemsProduct)
+                int i = 0;
+                if (listActiveItemsProduct.Count > 0)
                 {
-                    if (ls.product.Equals(pro))
+                    foreach (ProductsControlViewModel ls in listActiveItemsProduct)
                     {
-                        SetUnactive(ls);
-                        listAllProduct.Clear();
-                        GetAllData();
-                        break;
+                        if (ls.product.Equals(pro))
+                        {
+                            SetUnactive(ls);
+                            listAllProduct.Clear();
+                            GetAllData();
+                            break;
+                        }
+                        i++;
                     }
-                    i++;
+                    listActiveItemsProduct.RemoveAt(i);
+                    OnPropertyChanged(nameof(listActiveItemsProduct));
                 }
-                listActiveItemsProduct.RemoveAt(i);
-                OnPropertyChanged(nameof(listActiveItemsProduct));
+                else
+                {
+                    return;
+                }
             }
             else
             {
+                CustomMessageBox.Show("Xóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }

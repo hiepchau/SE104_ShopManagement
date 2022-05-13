@@ -239,7 +239,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         #region DB
         private async Task getdata()
         {
-            var tmp = new GetProducts(_connection.client, _session, FilterDefinition<ProductsInformation>.Empty);
+            FilterDefinition<ProductsInformation> filter = Builders<ProductsInformation>.Filter.Eq("isActivated", true);
+            var tmp = new GetProducts(_connection.client, _session, filter);
             var ls = await tmp.Get();
             foreach(ProductsInformation pr in ls)
             {

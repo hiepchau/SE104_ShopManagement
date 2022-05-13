@@ -191,19 +191,19 @@ namespace SE104_OnlineShopManagement.Components
             switch (image)
             {
                 case MessageBoxImage.Warning:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement/SE104_project/Resources/Images/warning.png"));
+                    bitmapImage = new BitmapImage(new Uri("..//Resources//Images//warning.png", UriKind.Relative));
                     break;
                 case MessageBoxImage.Asterisk:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement/SE104_project/Resources/Images/succes.png"));
+                    bitmapImage = new BitmapImage(new Uri("..//Resources//Images//warning.png", UriKind.Relative));
                     break;
                 case MessageBoxImage.Error:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement/SE104_project/Resources/Images/error.png"));
+                    bitmapImage = new BitmapImage(new Uri("..//Resources//Images//warning.png", UriKind.Relative));
                     break;
                 case MessageBoxImage.Question:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement/SE104_project/Resources/Images/help.png"));
+                    bitmapImage = new BitmapImage(new Uri("..//Resources//Images//warning.png", UriKind.Relative));
                     break;
                 default:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement/SE104_project/Resources/Images/info.png"));
+                    bitmapImage = new BitmapImage(new Uri("..//Resources//Images//warning.png", UriKind.Relative));
                     break;
             }
 

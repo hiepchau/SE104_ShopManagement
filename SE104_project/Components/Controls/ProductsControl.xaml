@@ -41,7 +41,7 @@
             Margin="40,0,0,0"/>
         <TextBlock 
             x:Name="txbProductsType"
-            Text="{Binding Category}" 
+            Text="{Binding Category}"
             Grid.Column="2"
             MaxWidth="180"
             TextTrimming="CharacterEllipsis"
