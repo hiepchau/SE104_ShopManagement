@@ -153,6 +153,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<MembershipInformation>.Update.Set("isActivated", false);
                 UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
+                listActiveMembership.Clear();
+                GetActiveData();
+                OnPropertyChanged(nameof(listActiveMembership));
                 selectedMembership = null;
                 Console.WriteLine(s);
             }
@@ -186,9 +189,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<MembershipInformation>.Filter.Eq("isActivated",true);
             GetMembership getter = new GetMembership(_connection.client, _session, filter);
             var ls = await getter.Get();
+            int No = 1;
             foreach (MembershipInformation mem in ls)
-            {
-                listActiveMembership.Add(new MembershipControlViewModel(mem, this));
+            {             
+                listActiveMembership.Add(new MembershipControlViewModel(mem, this, No.ToString()));
+                No++;
             }
             Console.WriteLine("Executed");
             OnPropertyChanged(nameof(listActiveMembership));
@@ -199,9 +204,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<MembershipInformation>.Filter.Empty;
             GetMembership getter = new GetMembership(_connection.client, _session, filter);
             var ls = await getter.Get();
+            int No = 1;
             foreach (MembershipInformation mem in ls)
             {
-                listAllMembership.Add(new MembershipControlViewModel(mem, this));
+                listAllMembership.Add(new MembershipControlViewModel(mem, this, No.ToString()));
+                No++;
             }
             Console.WriteLine("Executed");
 

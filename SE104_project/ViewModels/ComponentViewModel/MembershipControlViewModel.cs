@@ -13,6 +13,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #region Properties
         public MembershipInformation membership;
         public string ID { get; set; }
+        public string NumberOrder { get; set; }
         public string name { get; set; }
         public int prio { get; set; }
         public bool isActivated { get; set; }
@@ -25,8 +26,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #endregion
         
 
-        public MembershipControlViewModel(MembershipInformation membership, IUpdateMembershipList parent)
+        public MembershipControlViewModel(MembershipInformation membership, IUpdateMembershipList parent, string no)
         {
+            this.NumberOrder=no;
             this.membership = membership;
             ID = membership.ID;
             name = membership.name;
