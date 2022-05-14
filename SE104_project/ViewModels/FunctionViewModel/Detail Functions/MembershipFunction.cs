@@ -94,7 +94,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 foreach (MembershipControlViewModel ls in listActiveMembership)
                 {
-                    if (ls.membership.Equals(mem))
+                    if (ls.membership.ID.Equals(mem.ID))
                     {
                         SetUnactive(ls);
                         listAllMembership.Clear();

@@ -138,7 +138,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
                 {
-                    if (pr.product.Equals(pro))
+                    if (pr.product.ID.Equals(pro.ID))
                     {
                         break;
                     }

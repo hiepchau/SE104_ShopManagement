@@ -104,7 +104,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 {
                     foreach (ProductsTypeControlViewModel ls in listItemsProductType)
                     {
-                        if (ls.type.Equals(type))
+                        if (ls.type.ID.Equals(type.ID))
                         {
                             break;
                         }

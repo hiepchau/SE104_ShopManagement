@@ -219,7 +219,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 {
                     foreach (ProductsControlViewModel ls in listActiveItemsProduct)
                     {
-                        if (ls.product.Equals(pro))
+                        if (ls.product.ID.Equals(pro.ID))
                         {
                             SetUnactive(ls);
                             listAllProduct.Clear();

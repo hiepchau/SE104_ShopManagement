@@ -139,7 +139,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 foreach (SupplierControlViewModel ls in listActiveItemsProducer)
                 {
-                    if (ls.producer.Equals(producer))
+                    if (ls.producer.ID.Equals(producer.ID))
                     {
                         SetUnactive(ls);
                         listAllProducer.Clear();

@@ -204,7 +204,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 foreach (EmployeeControlViewModel ls in listItemsUserInfo)
                 {
-                    if (ls.user.Equals(user))
+                    if (ls.user.ID.Equals(user.ID))
                     {
                         SetUnactive(ls);
                         break;

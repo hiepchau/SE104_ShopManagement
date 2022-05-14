@@ -156,7 +156,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 {
                     foreach (ImportPOSProductControlViewModel pr in listbought)
                     {
-                        if (pr.product.Equals(pro))
+                        if (pr.product.ID.Equals(pro.ID))
                         {
                             pr.GetIncreaseQuantityByClick();
                             return;
@@ -176,7 +176,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             {
                 foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
-                    if (pr.product.Equals(pro))
+                    if (pr.product.ID.Equals(pro.ID))
                     {
                         break;
                     }
