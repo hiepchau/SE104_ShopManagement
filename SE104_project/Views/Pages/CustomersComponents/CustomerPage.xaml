@@ -79,7 +79,8 @@
                     <ComboBox      
                                 x:Name="cboSelectCustomerIdMembership"
                                 ItemsSource="{Binding ItemSourceMembership}"
-                                SelectedItem="{Binding FilterMembership}"
+                                DisplayMemberPath="name"
+                                SelectedItem="{Binding SelectedMembership, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Grid.Row="1"
                                 materialDesign:ComboBoxAssist.ClassicMode="True"
                                 materialDesign:HintAssist.Hint="Hạng thành viên"
@@ -89,9 +90,8 @@
                                 Padding="10,0,0,0"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Left"
-                                DisplayMemberPath="Membership"
                                 FontWeight="SemiBold"
-                                BorderBrush="{StaticResource Black2}" 
+                                BorderBrush="{StaticResource Black2}"
                                 Background="{StaticResource White}"                           
                                 Margin="30,0" 
                                 VerticalAlignment="Center">

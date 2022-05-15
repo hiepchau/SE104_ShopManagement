@@ -37,6 +37,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public CustomerControlViewModel selectedCus { get; set; }
         public ObservableCollection<CustomerControlViewModel> listItemsCustomer { get; set; }
         public ObservableCollection<CustomerControlViewModel> listAllCustomer { get; set; }
+        public ObservableCollection<MembershipInformation> ItemSourceMembership { get; set; }
+
 
         private ManagingFunctionsViewModel managingFunction;
         private CustomerSelectMenu customerSelectMenu;
@@ -73,9 +75,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             listItemsCustomer = new ObservableCollection<CustomerControlViewModel>();
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
+            ItemSourceMembership = new ObservableCollection<MembershipInformation>();
             //Get Data
             GetData();
             GetAllData();
+            GetMembershipData();
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
@@ -262,6 +266,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listAllCustomer.Add(new CustomerControlViewModel(cus, this));
             }
             Console.Write("Executed");
+        }
+        public async void GetMembershipData()
+        {
+            var filter = Builders<MembershipInformation>.Filter.Empty;
+            GetMembership getter = new GetMembership(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (MembershipInformation mem in ls)
+            {
+                ItemSourceMembership.Add(mem);
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(ItemSourceMembership));
         }
 
         #endregion
