@@ -13,6 +13,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #region Properties
         public ProductTypeInfomation type { get; set; }
         public string ID { get; set; }
+        public string NumberOrder { get; set; }
         public string name { get; set; }
         public string note { get; set; }
         public bool isActivated { get; set; }
@@ -24,8 +25,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand DeleteProductTypeCommand { get; set; }
         #endregion
 
-        public ProductsTypeControlViewModel(ProductTypeInfomation type, IUpdateProductTypeList parent)
+        public ProductsTypeControlViewModel(ProductTypeInfomation type, IUpdateProductTypeList parent, string no)
         {
+            this.NumberOrder = no;
             this.type = type;
             ID = type.ID;
             name = type.name;

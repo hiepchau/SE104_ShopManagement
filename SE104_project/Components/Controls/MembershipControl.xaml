@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock                      
             x:Name="txtID"   
-            Text="{Binding ID}"
+            Text="{Binding NumberOrder}"
             Grid.Column="0"                        
             Style="{StaticResource Text}"/>
         <TextBlock

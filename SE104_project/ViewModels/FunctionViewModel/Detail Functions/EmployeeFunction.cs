@@ -107,13 +107,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             var pass = o as PasswordBox;
             Password = pass.Password;
-            if (String.IsNullOrEmpty(userEmail) || String.IsNullOrEmpty(userName)
+            if (employeeImage == null || String.IsNullOrEmpty(userEmail) || String.IsNullOrEmpty(userName)
                 || String.IsNullOrEmpty(Password)
                 || String.IsNullOrEmpty(BeginDate)
                 || IsSelectedIndex == -1
                 || String.IsNullOrEmpty(userPhoneNumber)
                 || String.IsNullOrEmpty(userSalary.ToString())
-                || employeeImage==null)
+                )
             {
                 return false;
             }
@@ -132,7 +132,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //Split Lastname and name
             string _lastname, _name;
             string splitName = userName.Trim();
-            if (splitName.Contains(' ') == true) { _lastname = splitName; _name = ""; }
+            if (splitName.Contains(' ') == false) { _lastname = splitName; _name = ""; }
             else
             {
                 _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);

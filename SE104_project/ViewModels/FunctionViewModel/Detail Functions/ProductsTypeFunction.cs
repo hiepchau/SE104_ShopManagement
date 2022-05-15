@@ -210,9 +210,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<ProductTypeInfomation>.Filter.Eq("isActivated",true);
             GetProductType getter = new GetProductType(_connection.client, _session, filter);
             var ls = await getter.Get();
+            int No = 1;
             foreach (ProductTypeInfomation type in ls)
             {
-                listItemsProductType.Add(new ProductsTypeControlViewModel(type, this));
+                listItemsProductType.Add(new ProductsTypeControlViewModel(type, this, No.ToString()));
+                No++;
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsProductType));
@@ -222,9 +224,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var filter = Builders<ProductTypeInfomation>.Filter.Eq("isActivated", false);
             GetProductType getter = new GetProductType(_connection.client, _session, filter);
             var ls = await getter.Get();
+            int No = 1;
             foreach (ProductTypeInfomation type in ls)
             {
-                listItemsUnactiveProductType.Add(new ProductsTypeControlViewModel(type, this));
+                listItemsUnactiveProductType.Add(new ProductsTypeControlViewModel(type, this, No.ToString()));
+                No++;
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsUnactiveProductType));
@@ -233,7 +237,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (ProductsTypeControlViewModel type in listItemsProductType)
             {
-                if (productTypeName == type.name)
+                if (productTypeName == type.name&&note==type.note)
                 {
                     return true;
                 }
