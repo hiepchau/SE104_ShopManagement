@@ -68,7 +68,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
-                                    Text="Mã loại" 
+                                    Text="STT" 
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
@@ -344,7 +344,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
-                                    Text="Mã loại" 
+                                    Text="STT" 
                                     Style="{StaticResource TitleText}" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
@@ -488,7 +488,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
-                                    Text="Mã loại" 
+                                    Text="STT" 
                                     Style="{StaticResource TitleText}" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
