@@ -5,13 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
+             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar" xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="71.892"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Rectangle 
                 Fill="{DynamicResource White}"
@@ -44,64 +43,49 @@
                 Margin="20">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="39*"/>
-                    <ColumnDefinition Width="155.687"/>
-                    <ColumnDefinition Width="142*"/>
-                    <ColumnDefinition Width="107*"/>
-                    <ColumnDefinition Width="150*"/>
-                    <ColumnDefinition Width="110*"/>
-                    <ColumnDefinition Width="127*"/>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="90"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Style="{StaticResource PrimaryCheckBox}"
-                          />
-                <TextBlock Grid.Column="1" Style="{StaticResource TitleText}"
+                <TextBlock Grid.Column="0" Style="{StaticResource TitleText}"
                            Text="Mã phiếu" Height="24" Margin="10,0,0,0" />
+                <TextBlock Grid.Column="1" Style="{StaticResource TitleText}"
+                           Text="Ngày bán" Height="24" Margin="40,0,0,0" />
                 <TextBlock Grid.Column="2" Style="{StaticResource TitleText}"
-                           Text="Ngày bán" Height="24" Margin="10,0,0,0" />
-                <ComboBox Grid.Column="3" Style="{StaticResource MaterialDesignDataGridComboBox}"
-                          Text="Nhân viên bán hàng"/>
-                <TextBlock Grid.Column="4" Style="{StaticResource TitleText}"
+                          Text="Nhân viên bán hàng" Margin="0 0 0 0"/>
+                <TextBlock Grid.Column="3" Style="{StaticResource TitleText}"
                            Text="Khách hàng" Height="24" Margin="10,0,0,0"/>
-                <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
+                <TextBlock Grid.Column="4" Style="{StaticResource TitleText}"
                            Text="Trạng thái" Height="24" Margin="10,0,0,0"/>
-                <TextBlock Grid.Column="6" Style="{StaticResource TitleText}"
+                <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
                            Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
             </Grid>
         </Border>
-        <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
-                BorderThickness="2 0 2 2" CornerRadius="4"
-                Margin="20,60,20,20">
-            <StackPanel x:Name="stkOrders" Margin="-2,0,0,0"/>
-        </Border>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Margin="0 0 20 0">
-            <TextBlock 
-                    x:Name="txtNumOfCus"
-                    Style="{StaticResource Text}"
-                    Margin="0,0,20,0"
-                    FontSize="14" />
-            <Button 
-                    x:Name="btnPrePageCus"
-                    Margin="8,0"
-                    ToolTip="Trang trước"
-                    Style="{StaticResource PaginationButton}">
-                <materialDesign:PackIcon 
-                        Width="26"
-                        Height="28"
-                        Kind="ChevronLeft" />
-            </Button>
-            <Button 
-                    x:Name="btnNextPageCus"
-                    Margin="8,0,0,0"
-                    ToolTip="Trang tiếp theo"
-                    Style="{StaticResource PaginationButton}">
-                <materialDesign:PackIcon 
-                        Width="26"
-                        Height="28"
-                        Kind="ChevronRight" />
-            </Button>
-        </StackPanel>
+        <Border 
+            Grid.Row="1" 
+            BorderBrush="{DynamicResource LightBrush}"
+            CornerRadius="0,0,4,4"                  
+            BorderThickness="2,0,2,2"                  
+            Margin="20,60,20,20">
+            <ScrollViewer                                                
+                    Style="{StaticResource FavsScrollViewer}"                   
+                    VerticalScrollBarVisibility="Auto"                       
+                    HorizontalScrollBarVisibility="Disabled">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding listOrders}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <uc:OrdersControl/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </UserControl>

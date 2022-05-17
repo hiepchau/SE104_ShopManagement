@@ -9,41 +9,38 @@
              d:DesignHeight="45">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="39*"/>
-            <ColumnDefinition Width="157*"/>
-            <ColumnDefinition Width="143*"/>
-            <ColumnDefinition Width="108*"/>
-            <ColumnDefinition Width="151*"/>
-            <ColumnDefinition Width="111*"/>
-            <ColumnDefinition Width="128*"/>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
-        <CheckBox Style="{StaticResource PrimaryCheckBox}"
-                          />
+        <TextBlock Grid.Column="0" Style="{StaticResource Text}"
+                   HorizontalAlignment="Center"
+                           Text="{Binding displayID}" Height="24" Margin="0,0,0,0" />
         <TextBlock Grid.Column="1" Style="{StaticResource Text}"
-                           Text="Mã phiếu" Height="24" Margin="10,0,0,0" />
+                           Text="{Binding saleDay}" Height="24" Margin="0,0,0,0" />
         <TextBlock Grid.Column="2" Style="{StaticResource Text}"
-                           Text="Ngày bán" Height="24" Margin="10,0,0,0" />
-        <ComboBox Grid.Column="3" Style="{StaticResource MaterialDesignComboBox}"
-                          Text="Nhân viên bán hàng"/>
+                          Text="{Binding User}"/>
+        <TextBlock Grid.Column="3" Style="{StaticResource Text}"
+                           Text="{Binding customer}" Height="24" Margin="10,0,0,0"/>
         <TextBlock Grid.Column="4" Style="{StaticResource Text}"
-                           Text="Khách hàng" Height="24" Margin="10,0,0,0"/>
-        <TextBlock Grid.Column="5" Style="{StaticResource Text}"
                            Text="Trạng thái" Height="24" Margin="10,0,0,0"/>
-        <TextBlock Grid.Column="6" Style="{StaticResource Text}"
-                           Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
+        <TextBlock Grid.Column="5" Style="{StaticResource Text}"
+                           Text="{Binding total}" Height="24" Margin="10,0,0,0"/>
         <Button
             Grid.Column="7"
-            x:Name="btnEditProducts"
-            ToolTip="Sửa thông tin"
+            x:Name="btnViewOrder"
+            ToolTip="Xem thông tin"
             Style="{StaticResource TransparentButton}"
-            Command="{Binding EditProductsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayProducts}"
+            Command="{Binding ViewOrdersCommand}"
             Height="30"
             Margin="0,0,40,0" 
             Width="30">
             <materialDesign:PackIcon
-                Kind="SquareEditOutline" 
+                Kind="Eye" 
                 Width="24"
                 Height="24" 
                 HorizontalAlignment="Left"
@@ -51,7 +48,7 @@
         </Button>
         <Button 
             Grid.Column="7"
-            x:Name="btnDeleteProducts"
+            x:Name="btnDeleteOrder"
             Style="{StaticResource TransparentButton}"
             ToolTip="Xóa mặt hàng" 
             Height="30"
