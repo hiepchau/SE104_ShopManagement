@@ -268,7 +268,8 @@
                             materialDesign:HintAssist.Hint="Số điện thoại"   
                             Width="150"
                             Style="{StaticResource TextBox}"
-                            MaxLength="10"/>
+                            MaxLength="10"
+                            Text="{Binding CustomerPhoneNumber, Mode=TwoWay}"/>
                     </Grid>
 
                     <Grid Margin="0 20 0 0">

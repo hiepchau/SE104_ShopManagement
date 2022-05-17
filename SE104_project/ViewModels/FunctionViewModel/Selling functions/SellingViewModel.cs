@@ -36,6 +36,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public string today { get; set; }
         public string clock { get; set; }
         public long totalPay { get; set; }
+        public string CustomerPhoneNumber { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
         public AppSession Session { get => _session; }
@@ -83,7 +84,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     }
                 }
                 BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(),
-                    DateTime.Now, _session.CurrnetUser.ID, "CustomerID", total);
+                    DateTime.Now, _session.CurrnetUser.ID, CustomerPhoneNumber, total);
                 RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
                 Task<string> registertask = registbill.register();
                 string billid = "";
