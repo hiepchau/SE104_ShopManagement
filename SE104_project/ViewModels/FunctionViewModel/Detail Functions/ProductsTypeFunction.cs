@@ -89,7 +89,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             else
             {
-                CustomMessageBox.Show("Loại hàng hóa đã có!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine("ProductTypeName has existed!");
             }
             //Set Null
             SetNull();
@@ -237,7 +237,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (ProductsTypeControlViewModel type in listItemsProductType)
             {
-                if (productTypeName == type.name)
+                if (productTypeName == type.name&&note==type.note)
                 {
                     return true;
                 }
