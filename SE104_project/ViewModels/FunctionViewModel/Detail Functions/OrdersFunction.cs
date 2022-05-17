@@ -18,6 +18,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session;
         public bool isLoaded { get; set; }
         public ObservableCollection<OrdersControlViewModel> listOrders { get; set; }
+        public ObservableCollection<UserInfomation> listUser { get; set; }
         #endregion
 
         #region ICommand
@@ -27,8 +28,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session = session;
             this._connection = connect;
             listOrders = new ObservableCollection<OrdersControlViewModel>();
+            listUser = new ObservableCollection<UserInfomation>();
             isLoaded = true;
-            GetData();
+            GetData();       
         }
 
         #region DB
@@ -48,10 +50,38 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 listOrders.Add(new OrdersControlViewModel(bill));
             }
-            isLoaded = false;
-            OnPropertyChanged(nameof(isLoaded));
             Console.Write("Executed");
+            GetEmployeeData();
             OnPropertyChanged(nameof(listOrders));
+            OnPropertyChanged(nameof(isLoaded));
+        }
+        public async void GetEmployeeData()
+        {
+            var filter = Builders<UserInfomation>.Filter.Empty;
+            GetUsers getter = new GetUsers(_connection.client, _session, filter);
+            Task<List<UserInfomation>> task = getter.get();
+            var ls = await task;
+            Task.WaitAll(task);
+            foreach(UserInfomation user in ls)
+            {
+                listUser.Add(user);
+            }
+            Console.WriteLine("execute employee");
+            GetEmployeeName();
+            isLoaded = false;            
+        }
+        public void GetEmployeeName()
+        {
+            foreach(OrdersControlViewModel order in listOrders)
+            {
+                foreach(UserInfomation user in listUser)
+                {
+                    if (order.User==user.ID)
+                    {
+                        order.User = user.LastName;
+                    }
+                }
+            }
         }
         #endregion
     }
