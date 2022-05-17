@@ -1,12 +1,16 @@
-﻿using SE104_OnlineShopManagement.Commands;
+﻿using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components.Controls;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
+using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -15,9 +19,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     public class WareHouseFunction : BaseFunction
     {
         #region Properties
+        private MongoConnect _connection;
+        private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
-        public ObservableCollection<ProductsInformation> listItemsWareHouse { get; set; }
+        public ObservableCollection<WareHouseControlViewModel> listItemWareHouse { get; set; }
         #endregion
 
         #region Icommand
@@ -27,10 +33,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public WareHouseFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
-            listItemsWareHouse = new ObservableCollection<ProductsInformation>();
+            this._session = session;
+            this._connection = connect;
+            listItemWareHouse = new ObservableCollection<WareHouseControlViewModel>();
 
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
+
+            _ = GetData();
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
         }
 
@@ -40,6 +50,21 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction.Currentdisplaying = new ImportProductsFunction(Session, Connect);
             ManagementMenu.changeSelectedItem(4);
             managingFunction.CurrentDisplayPropertyChanged();
+        }
+        #endregion
+
+        #region DB
+        private async Task GetData()
+        {
+            var filter = Builders<ProductsInformation>.Filter.Eq("isActivated", true);
+            GetProducts getter = new GetProducts(_connection.client, _session, filter);
+            var ls = await getter.Get();
+            foreach (ProductsInformation pro in ls)
+            {
+                listItemWareHouse.Add(new WareHouseControlViewModel(pro));
+            }
+            Console.Write("Executed");
+            OnPropertyChanged(nameof(listItemWareHouse));
         }
         #endregion
     }

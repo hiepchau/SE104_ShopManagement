@@ -25,19 +25,21 @@
         </Grid.ColumnDefinitions>
         <TextBlock
             x:Name="txtID"  
-            Text="{Binding ID}" 
+            Text="{Binding displayID}" 
             Grid.Column="0"
+            Margin="-20 0 0 0"
             Style="{StaticResource Text}"  Height="24"/>
         <TextBlock
             x:Name="txtName"
             Text="{Binding name}" 
             Grid.Column="1"
-            Style="{StaticResource Text}" HorizontalAlignment="Left"
-            Margin="40,0,0,0"/>
+            Style="{StaticResource Text}" HorizontalAlignment="Center"
+            Margin="-10,0,0,0"/>
         <TextBlock
             x:Name="txtQuantity"            
             Text="{Binding quantity}" 
             Grid.Column="2"
+            Margin="-10 0 0 0"
             Style="{StaticResource Text}" />
         <TextBlock
             x:Name="txtFunds"
@@ -73,16 +75,15 @@
         </TextBlock>
         <Button
             Grid.Column="7"
-            x:Name="btnEditProducts"
-            ToolTip="Sửa thông tin"
+            x:Name="btnViewProducts"
+            ToolTip="Xem thông tin"
             Style="{StaticResource TransparentButton}"
-            Command="{Binding EditProductsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayProducts}"
+            Command="{Binding ViewProductsCommand}"
             Height="30"
             Margin="0,0,40,0" 
             Width="30">
             <materialDesign:PackIcon
-                Kind="SquareEditOutline" 
+                Kind="Eye" 
                 Width="24"
                 Height="24" 
                 HorizontalAlignment="Left"
