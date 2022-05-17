@@ -11,10 +11,7 @@ using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
-    public interface IOrdersParent
-    {
-    }
-    class OrdersFunction : BaseFunction, IOrdersParent
+    class OrdersFunction : BaseFunction
     {
         #region Properties
         private MongoConnect _connection;
@@ -49,7 +46,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Task.WaitAll(task);
             foreach (BillInformation bill in ls)
             {
-                listOrders.Add(new OrdersControlViewModel(bill, this));
+                listOrders.Add(new OrdersControlViewModel(bill));
             }
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
