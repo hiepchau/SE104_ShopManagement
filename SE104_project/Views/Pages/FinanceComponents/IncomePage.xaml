@@ -7,8 +7,13 @@
              xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Pages.FinanceComponents"
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:com="clr-namespace:SE104_OnlineShopManagement.Components"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
+    <UserControl.Resources>
+        <convert:VisibilityConverter x:Key="visiConvert"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="71.892"/>
@@ -97,21 +102,25 @@
         <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,60,20,20">
-            <ScrollViewer
+            <Grid>
+                <com:LoadingComponent
+                    Visibility="{Binding isLoaded, Converter={StaticResource visiConvert}}"/>
+                <ScrollViewer
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled">
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding listItemsWareHouse}">
-                        <uc:IncomeControl></uc:IncomeControl>
-                        <!--<ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <uc:IncomeControl/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>-->
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollViewer>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding listIncome}">
+                        <!--<uc:IncomeControl></uc:IncomeControl>-->
+                            <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                               <uc:IncomeControl/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Border>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
