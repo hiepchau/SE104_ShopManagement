@@ -22,18 +22,18 @@
 
 
 ## Known Issuses ##
-- 
+
 
 ## Công nghệ và thư viện ##
 - Công nghệ
-	- Ngôn ngữ: C#
-	- Mô hình: [MVVM](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern)
-	- Kỹ thuật: [DependencyInjection](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
-	- Framework: [dotnet](https://github.com/dotnet)
-	- Framework UI: [WPF](https://github.com/dotnet/wpf)
-	- Database: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+  - Ngôn ngữ: C#
+  - Mô hình: [MVVM](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern)
+  - Kỹ thuật: [DependencyInjection](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
+  - Framework: [dotnet](https://github.com/dotnet)
+  - Framework UI: [WPF](https://github.com/dotnet/wpf)
+  - Database: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 - Thư viện
-	- [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
-	- [Live-Charts](https://github.com/Live-Charts/Live-Charts)
-	- [Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
+  - [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+  - [Live-Charts](https://github.com/Live-Charts/Live-Charts)
+  - [Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
