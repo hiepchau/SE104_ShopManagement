@@ -16,7 +16,7 @@
 - Nguyễn Huy Trí Dũng - 20520459
 - Trần Nam Khánh - 20520577
 - Trần Quốc Huy - 20520554
-[![](https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false)](https://github.com/hiepchau/SE104_ShopManagement/graphs/contributors)
+[//][![](https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false)](https://github.com/hiepchau/SE104_ShopManagement/graphs/contributors)
 
 ## TODO ##
 
@@ -34,6 +34,6 @@
 	- Database: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 - Thư viện
-	-[MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
-	-[Live-Charts](https://github.com/Live-Charts/Live-Charts)
-	-[Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
+	- [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+	- [Live-Charts](https://github.com/Live-Charts/Live-Charts)
+	- [Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
