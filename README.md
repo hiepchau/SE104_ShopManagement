@@ -27,7 +27,7 @@
 
 ## Công nghệ và thư viện 
 - Công nghệ
-  - Ngôn ngữ:C#
+  - Ngôn ngữ: C#
   - Mô hình: [MVVM](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern)
   - Kỹ thuật: [DependencyInjection](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
   - Framework: [dotnet](https://github.com/dotnet)
