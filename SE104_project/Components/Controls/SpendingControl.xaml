@@ -22,30 +22,30 @@
             Grid.Column="0" 
             Style="{StaticResource Text}"
             HorizontalAlignment="Left"
-            Text="Mã phiếu" 
+            Text="{Binding displayID}" 
             Margin="10 0 0 0"/>
         <TextBlock 
             Grid.Column="1" 
             Style="{StaticResource Text}"
-            Text="Ngày chi"
+            Text="{Binding spendDay}"
             HorizontalAlignment="Left"
             Margin="0 0 0 0"/>
         <TextBlock 
             Grid.Column="2" 
             Style="{StaticResource Text}"
-            Text="Người chi" 
+            Text="{Binding User}" 
             HorizontalAlignment="Left"
             Margin="10,0,0,0"/>
         <TextBlock 
             Grid.Column="3" 
             Style="{StaticResource Text}"
-            Text="Số tiền" 
+            Text="{Binding total}" 
             HorizontalAlignment="Left"
             Margin="15,0,0,0"/>
         <TextBlock 
             Grid.Column="4" 
             Style="{StaticResource Text}"
-            Text="Hình thức"
+            Text="Nhập hàng"
             Margin="0,0,0,0" />
         <TextBlock 
             Grid.Column="5" 
