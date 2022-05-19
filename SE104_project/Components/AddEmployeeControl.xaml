@@ -331,6 +331,14 @@
                             <i:InvokeCommandAction
                                         Command="{Binding TextChangedCommand}"/>
                         </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <i:CallMethodAction TargetObject="{Binding }" 
+                                                MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewKeyDown">
+                            <i:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
@@ -368,6 +376,13 @@
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction
                                         Command="{Binding TextChangedCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <i:CallMethodAction TargetObject="{Binding }" MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewKeyDown">
+                            <i:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>

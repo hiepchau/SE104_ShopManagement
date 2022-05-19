@@ -15,6 +15,7 @@ using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -232,6 +233,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(supplierAddress));
             OnPropertyChanged(nameof(supplierMail));
             OnPropertyChanged(nameof(supplierPhone));
+        }
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        public void NumberValidationTextBox(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
         #endregion
         #region DB
