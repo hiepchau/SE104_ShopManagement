@@ -16,6 +16,7 @@
             x:Name="txtID"            
             Grid.Column="0"                                    
             Text="{Binding NumberOrder}" 
+            Margin="10 0 0 0"
             Style="{StaticResource Text}" HorizontalAlignment="Left"/>
         <TextBlock
             x:Name="txtName"

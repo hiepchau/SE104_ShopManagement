@@ -6,7 +6,9 @@
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" 
+             xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
              d:DesignHeight="715" d:DesignWidth="1166"
              uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
     <i:Interaction.Triggers>
@@ -15,6 +17,9 @@
                 Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <multiconvert:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+    </UserControl.Resources>
 
     <Grid Background="Transparent">
         <Grid  Margin="10" >
@@ -269,7 +274,24 @@
                             Width="150"
                             Style="{StaticResource TextBox}"
                             MaxLength="10"
-                            Text="{Binding CustomerPhoneNumber, Mode=TwoWay}"/>
+                            Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding 
+                            Path="CustomerPhoneNumber"
+                            Mode="TwoWay"
+                            UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rl:NotNullValidation ErrorMessage="Vui lòng nhập số điện thoại!" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                     </Grid>
 
                     <Grid Margin="0 20 0 0">
@@ -366,7 +388,15 @@
                         materialDesign:ButtonAssist.CornerRadius="2"     
                         ToolTip="Thanh toán hóa đơn thông tin"
                         Margin="0 10 0 0"
-                        Content="Thanh toán" />
+                        Content="Thanh toán">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
+                                      Mode="TwoWay">
+                                <Binding ElementName="txtPhoneNumber"
+                                     Path="(Validation.HasError)" />
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
                     <Button 
                     x:Name="btnPrintBill"
                     Style="{StaticResource PrimaryButton}"

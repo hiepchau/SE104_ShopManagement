@@ -48,6 +48,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public ICommand SearchCommand { get; set; }
         public ICommand PurchaseCommand { get; set; }
         public ICommand ReloadCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
         #endregion
         public SellingViewModel(AppSession session, MongoConnect client) : base(session, client)
         {
@@ -64,7 +65,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             clockTicking();
             getdata();
             SearchCommand = new RelayCommand<object>(null, search);
-            PurchaseCommand = new RelayCommand<object>(null, purchase);
+            PurchaseCommand = new RelayCommand<object>(IsValidPurchase, purchase);
+            TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             ReloadCommand = new RelayCommand<object>(null,async t=> { 
                 listProducts.Clear();
                 await getdata(); });
@@ -147,6 +149,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 return;
             }
                 
+        }
+        public bool IsValidPurchase(Object o = null)
+        {
+            if (CustomerPhoneNumber.Length != 10)
+                return false;
+            return true;
+        }
+        public void TextChangedHandle(Object o = null)
+        {
+            (PurchaseCommand as RelayCommand<Object>).OnCanExecuteChanged();
         }
 
         public void UpdateSelectedList(ProductsInformation pro)

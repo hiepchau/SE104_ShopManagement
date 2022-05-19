@@ -33,7 +33,6 @@
   - Framework: [dotnet](https://github.com/dotnet)
   - Framework UI: [WPF](https://github.com/dotnet/wpf)
   - Database: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-
 - Thư viện
   - [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
   - [Live-Charts](https://github.com/Live-Charts/Live-Charts)
