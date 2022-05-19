@@ -111,7 +111,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 || String.IsNullOrEmpty(Password)
                 || String.IsNullOrEmpty(BeginDate)
                 || IsSelectedIndex == -1
-                || String.IsNullOrEmpty(userPhoneNumber)
+                || userPhoneNumber.Length != 10
                 || String.IsNullOrEmpty(userSalary.ToString())
                 )
             {
