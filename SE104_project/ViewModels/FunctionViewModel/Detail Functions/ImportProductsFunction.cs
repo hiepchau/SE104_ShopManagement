@@ -181,6 +181,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             searchString = o.ToString();
             if (string.IsNullOrEmpty(searchString))
             {
+                listProducts.Clear();
                 await getdata();
             }
             else

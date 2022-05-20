@@ -141,8 +141,7 @@
                     Height="40"                    
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"                    
-                    Padding="2,0,0,0"
-                    Text="{Binding searchString, Mode=TwoWay}">
+                    Padding="2,0,0,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction

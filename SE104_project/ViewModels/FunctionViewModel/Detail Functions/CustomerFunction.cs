@@ -18,6 +18,7 @@ using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -32,11 +33,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string customerPhone { get; set; }
         public string customerCMND { get; set; }
         public string customerAddress { get; set; }
+        public string searchString { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public int selectedItem { get; set; }
         public CustomerControlViewModel selectedCus { get; set; }
-        public ObservableCollection<CustomerControlViewModel> listItemsCustomer { get; set; }
         public ObservableCollection<CustomerControlViewModel> listAllCustomer { get; set; }
         public ObservableCollection<MembershipInformation> ItemSourceMembership { get; set; }
 
@@ -58,6 +59,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand FilterCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
 
         //Membership
         public ICommand OpenMemberShipControlCommand { get; set; }
@@ -74,18 +76,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session=session;
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
-            listItemsCustomer = new ObservableCollection<CustomerControlViewModel>();
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
             ItemSourceMembership = new ObservableCollection<MembershipInformation>();
             //Get Data
-            GetData();
-            GetAllData();
+            _ = GetData();
             GetMembershipData();
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
+            SearchCommand = new RelayCommand<Object>(null, search);
         }
 
         #region Function
@@ -95,6 +96,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             addCustomerControl.DataContext = this;
             DialogHost.Show(addCustomerControl);
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveCustomer);
+
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 SetNull();
@@ -139,20 +141,20 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<CustomerInformation>.Update.Set("Name", customerName).Set("Phone", customerPhone).Set("CMND",customerCMND).Set("Address",customerAddress);
                 UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
-                listItemsCustomer.Clear();
-                GetData();
-                OnPropertyChanged(nameof(listItemsCustomer));
+                listAllCustomer.Clear();
+                _ = GetData();
+                OnPropertyChanged(nameof(listAllCustomer));
             }
             else if (CheckExist() == false)
             {
                 CustomerInformation info = new CustomerInformation("", customerName, customerPhone, "1", customerCMND, customerAddress, true, await new AutoCustomerIDGenerator(_session, _connection.client).Generate());
                 RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
                 string s = await regist.register();
-                listItemsCustomer.Clear();
                 listAllCustomer.Clear();
-                GetData();
-                GetAllData();
-                OnPropertyChanged(nameof(listItemsCustomer));
+                listAllCustomer.Clear();
+                _ = GetData();
+
+                OnPropertyChanged(nameof(listAllCustomer));
                 Console.WriteLine(s);
             }
             else
@@ -170,9 +172,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         public void EditCustomer(CustomerInformation cus)
         {
-            if (listItemsCustomer.Count > 0)
+            if (listAllCustomer.Count > 0)
             {
-                foreach (CustomerControlViewModel ls in listItemsCustomer)
+                foreach (CustomerControlViewModel ls in listAllCustomer)
                 {
                     if (ls.customer.Equals(cus))
                     {
@@ -201,8 +203,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var update = Builders<CustomerInformation>.Update.Set("isActivated", true);
             UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, filter, update);
             var s = await updater.update();
-            listItemsCustomer.Add(selectedCus);
-            OnPropertyChanged(nameof(listItemsCustomer));
+            listAllCustomer.Add(selectedCus);
+            OnPropertyChanged(nameof(listAllCustomer));
             selectedCus=null;
             Console.WriteLine(s);
         }
@@ -252,22 +254,24 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             e.Handled = e.Key == Key.Space;
         }
+        private async void search(object o)
+        {
+            searchString = (o.ToString());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                listAllCustomer.Clear();
+                await GetData();
+            }
+            else
+            {
+                await getsearchdata();
+            }
+        }
         #endregion
 
         #region DB
-        public async void GetData()
-        {
-            var filter = Builders<CustomerInformation>.Filter.Eq("isActivated",true);
-            GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
-            var ls = await getter.Get();
-            foreach (CustomerInformation cus in ls)
-            {
-                listItemsCustomer.Add(new CustomerControlViewModel(cus, this));
-            }
-            Console.Write("Executed");
-            OnPropertyChanged(nameof(listItemsCustomer));
-        }
-        public async void GetAllData()
+
+        public async Task GetData()
         {
             var filter = Builders<CustomerInformation>.Filter.Empty;
             GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
@@ -289,6 +293,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceMembership));
+        }
+        private async Task getsearchdata()
+        {
+            listAllCustomer.Clear();
+            OnPropertyChanged(nameof(listAllCustomer));
+            FilterDefinition<CustomerInformation> filter = Builders<CustomerInformation>.Filter.Eq(x => x.Name, searchString);
+            var tmp = new GetCustomer(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (CustomerInformation pr in ls)
+            {
+                listAllCustomer.Add(new CustomerControlViewModel(pr, this));
+            }
+            OnPropertyChanged(nameof(listAllCustomer));
         }
 
         #endregion

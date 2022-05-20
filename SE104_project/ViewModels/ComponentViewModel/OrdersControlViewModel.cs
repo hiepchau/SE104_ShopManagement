@@ -39,6 +39,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             displayID = bill.displayID;
             _parent = parent;
             GetEmployeeName();
+            //GetCustomerName();
         }
 
         #region Function

@@ -16,6 +16,7 @@ using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Windows;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -32,12 +33,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierPhone { get; set; }
         public string supplierMail { get; set; }
         public int IsSelectedIndex { get; set; }
+        public string searchString { get; set; }
         public SupplierControlViewModel selectedProducer { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public ObservableCollection<SupplierControlViewModel> listActiveItemsProducer { get; set; }
         public ObservableCollection<SupplierControlViewModel> listAllProducer { get; set; }
         #endregion
+
         #region ICommand
         //Supplier
         public ICommand OpenAddSupplierControlCommand { get; set; }
@@ -45,6 +48,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
 
         #endregion
         public SupplierFunction(AppSession session, MongoConnect connect) : base(session, connect)
@@ -55,11 +59,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listAllProducer = new ObservableCollection<SupplierControlViewModel>();
             listActiveItemsProducer = new ObservableCollection<SupplierControlViewModel>();
             //Get Data
-            GetData();
-            GetAllData();           
+            _ = GetData();
+            _ = GetAllData();           
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
-            OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl); 
+            OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
+            SearchCommand = new RelayCommand<Object>(null, search);
         }
         #region Function
         public void OpenAddSupplierControl(Object o = null)
@@ -109,7 +114,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 listActiveItemsProducer.Clear();
-                GetData();
+                _ = GetData();
                 OnPropertyChanged(nameof(listActiveItemsProducer));
             }
             else if (CheckExist() == false)
@@ -119,8 +124,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 string s = await regist.register();
                 listActiveItemsProducer.Clear();
                 listAllProducer.Clear();
-                GetAllData();
-                GetData();
+                _ = GetAllData();
+                _ = GetData();
                 OnPropertyChanged(nameof(listActiveItemsProducer));
                 Console.WriteLine(s);
             }
@@ -144,7 +149,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     {
                         SetUnactive(ls);
                         listAllProducer.Clear();
-                        GetAllData();
+                        _ = GetAllData();
                         break;
                     }
                     i++;
@@ -191,7 +196,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
             var s = await updater.update();
             listActiveItemsProducer.Clear();
-            GetData();
+            _ = GetData();
             OnPropertyChanged(nameof(listActiveItemsProducer));
             Console.WriteLine(s);
             selectedProducer = null;
@@ -244,9 +249,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             e.Handled = e.Key == Key.Space;
         }
+        private async void search(object o)
+        {
+            searchString = (o.ToString());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                await GetData();
+            }
+            else
+            {
+                await getsearchdata();
+            }
+        }
         #endregion
+
         #region DB
-        public async void GetData()
+        public async Task GetData()
         {
             var filter = Builders<ProducerInformation>.Filter.Eq("isActivated",true);
             GetProducer getter = new GetProducer(_connection.client, _session, filter);
@@ -257,7 +275,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             OnPropertyChanged(nameof(listActiveItemsProducer));
         }
-        public async void GetAllData()
+        public async Task GetAllData()
         {
             var filter = Builders<ProducerInformation>.Filter.Empty;
             GetProducer getter = new GetProducer(_connection.client, _session, filter);
@@ -266,6 +284,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 listAllProducer.Add(new SupplierControlViewModel(pro, this));
             }
+        }
+        private async Task getsearchdata()
+        {
+            listActiveItemsProducer.Clear();
+            OnPropertyChanged(nameof(listActiveItemsProducer));
+            FilterDefinition<ProducerInformation> filter = Builders<ProducerInformation>.Filter.Eq(x => x.Name, searchString);
+            var tmp = new GetProducer(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (ProducerInformation pr in ls)
+            {
+                listActiveItemsProducer.Add(new SupplierControlViewModel(pr, this));
+            }
+            OnPropertyChanged(nameof(listActiveItemsProducer));
         }
         #endregion
     }

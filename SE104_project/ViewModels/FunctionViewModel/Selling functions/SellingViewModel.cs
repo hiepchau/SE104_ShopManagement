@@ -249,6 +249,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             searchString = o.ToString();
             if (string.IsNullOrEmpty(searchString))
             {
+                listProducts.Clear();
                 await getdata();
             }
             else

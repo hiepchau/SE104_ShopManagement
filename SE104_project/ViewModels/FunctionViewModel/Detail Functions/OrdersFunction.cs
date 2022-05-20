@@ -45,6 +45,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             searchString = (o.ToString());
             if (string.IsNullOrEmpty(searchString))
             {
+                listOrders.Clear();
                 await GetData();
             }
             else

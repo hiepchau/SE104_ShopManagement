@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>
@@ -271,7 +271,15 @@
                                 Foreground="{DynamicResource Black1}" 
                                 SelectionBrush="{DynamicResource Primary}"
                                 Padding="2,0,0,0"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchCustomer, Path=Text}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                     <Button 
                                 Grid.Row="0"
                                 IsDefault="True"
@@ -356,7 +364,7 @@
                         VerticalScrollBarVisibility="Auto"                       
                         HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
-                            <ItemsControl ItemsSource="{Binding listItemsCustomer}">
+                            <ItemsControl ItemsSource="{Binding listAllCustomer}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <uc:CustomerControl/>

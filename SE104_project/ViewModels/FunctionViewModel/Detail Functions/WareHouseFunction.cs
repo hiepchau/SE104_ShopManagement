@@ -61,6 +61,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             searchString = (o.ToString());
             if (string.IsNullOrEmpty(searchString))
             {
+                listItemWareHouse.Clear();
                 await GetData();
             }
             else
