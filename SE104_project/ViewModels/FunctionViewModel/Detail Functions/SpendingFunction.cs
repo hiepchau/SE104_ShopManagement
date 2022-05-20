@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -21,7 +23,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private MongoConnect _connection;
         private AppSession _session;
         public bool isLoaded { get; set; }
+        public string searchString { get; set; }
         public ObservableCollection<SpendingControlViewModel> listSpending { get; set; }
+        #endregion
+
+        #region ICommand
+        public ICommand SearchCommand { get; set; }
         #endregion
         public SpendingFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -29,13 +36,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             listSpending = new ObservableCollection<SpendingControlViewModel>();
             isLoaded = true;
-            GetData();
+            _ = GetData();
+            SearchCommand = new RelayCommand<Object>(null, search);
         }
+
         #region Function
-    
+        private async void search(object o)
+        {
+            searchString = (o.ToString());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                listSpending.Clear();
+                await GetData();
+            }
+            else
+            {
+                await getsearchdata();
+            }
+        }
         #endregion
         #region DB
-        public async void GetData()
+        public async Task GetData()
         {
             var filter = Builders<StockInformation>.Filter.Empty;
             GetStocking getter = new GetStocking(_connection.client, _session, filter);
@@ -49,6 +70,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
             Console.Write("Executed");
+            OnPropertyChanged(nameof(listSpending));
+        }
+        private async Task getsearchdata()
+        {
+            listSpending.Clear();
+            OnPropertyChanged(nameof(listSpending));
+            FilterDefinition<StockInformation> filter = Builders<StockInformation>.Filter.Eq(x => x.displayID, searchString);
+            var tmp = new GetStocking(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (StockInformation pr in ls)
+            {
+                listSpending.Add(new SpendingControlViewModel(pr, this));
+            }
             OnPropertyChanged(nameof(listSpending));
         }
         #endregion

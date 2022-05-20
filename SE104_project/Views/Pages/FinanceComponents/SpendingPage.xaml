@@ -7,7 +7,7 @@
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              xmlns:com="clr-namespace:SE104_OnlineShopManagement.Components"
-             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
+             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <UserControl.Resources>
@@ -30,12 +30,56 @@
             <TextBlock Style="{StaticResource TextHeader}">
                 Phiếu chi
             </TextBlock>
-            <compo:SearhBar tbWidth="400" 
-                            ToolTip="Tìm kiếm phiếu chi"
-                            Text="{Binding searchString, Mode=TwoWay}"
-                            HintText="Nhập mã phiếu chi" 
-                            Width="474"
-                            Margin="20 0 0 0"/>
+            <Grid 
+                        Margin="20,0,0,0" 
+                        Height="46" 
+                        Width="400"
+                        Style="{StaticResource DropShadow}"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center">
+                <Rectangle 
+                            Fill="{StaticResource White}" 
+                            RadiusY="4" 
+                            RadiusX="4"
+                            Panel.ZIndex="-1" />
+                <TextBox 
+                            x:Name="txtSearchSpending"
+                            materialDesign:HintAssist.Hint="Nhập mã phiếu thu"  
+                            FontSize="18" 
+                            BorderThickness="0" 
+                            MaxLines="1"
+                            Margin="12,0,40,0" 
+                            FontWeight="Medium" 
+                            Height="40" 
+                            HorizontalContentAlignment="Left" 
+                            VerticalContentAlignment="Center"
+                            Foreground="{DynamicResource Black1}" 
+                            SelectionBrush="{DynamicResource Primary}"
+                            Padding="2,0,0,0"
+                            VerticalAlignment="Center" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchSpending, Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Button 
+                            IsDefault="True"
+                            Style="{StaticResource TransparentButton}"
+                            Height="30"
+                            Width="30"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right">
+                    <materialDesign:PackIcon 
+                                Kind="Magnify" 
+                                Foreground="{StaticResource Black2}"
+                                Height="26"
+                                Width="26" />
+                </Button>
+            </Grid>
         </StackPanel>
 
         <Border Grid.Row="1"

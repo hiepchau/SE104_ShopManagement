@@ -254,6 +254,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             searchString = (o.ToString());
             if (string.IsNullOrEmpty(searchString))
             {
+                listActiveItemsProducer.Clear();
                 await GetData();
             }
             else
