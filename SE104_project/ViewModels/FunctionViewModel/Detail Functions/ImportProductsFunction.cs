@@ -26,9 +26,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Properties
         private MongoConnect _connection;
         private AppSession _session;
-        public long totalReceipt { get; set; }
+        public string totalReceipt { get; set; }
         public double discount { get; set; }
-        public long MoneyToPay { get; set; }
+        public string MoneyToPay { get; set; }
         public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportProductsControlViewModel> listItemsImportProduct { get; set; }
         public string searchString { get; set; }
@@ -61,13 +61,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddReceiptControl addReceiptControl = new AddReceiptControl();
             addReceiptControl.DataContext = this;
             DialogHost.Show(addReceiptControl);
-            totalReceipt = 0;
+            totalReceipt = "0";
+            long sum = 0;
             discount = 10;
             foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
             {
-                totalReceipt += pr.sum;
+                sum += ConvertToNumber(pr.sum);
             }
-            MoneyToPay = ((long)(totalReceipt - (totalReceipt * (discount / 100))));
+            totalReceipt=SeparateThousands(sum.ToString());
+            MoneyToPay = SeparateThousands((ConvertToNumber(totalReceipt) - (ConvertToNumber(totalReceipt) * (discount / 100))).ToString());
 
             PayBillCommand = new RelayCommand<Object>(null, payBill);
             ExitCommand = new RelayCommand<Object>(null, exit =>
@@ -76,6 +78,28 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             });
 
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(ConvertToNumber(text).ToString(), System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
         }
         public void OpenAddSupplierControl(Object o = null)
         {
@@ -172,7 +196,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listProducts.Clear();
                 await getdata();
                 StockInformation stockInfo = new StockInformation(await new AutoStockingIDGenerator(_session, _connection.client).Generate(),
-                    DateTime.Now, _session.CurrnetUser.ID, "CustomerID", MoneyToPay);
+                    DateTime.Now, _session.CurrnetUser.ID, "CustomerID", ConvertToNumber(MoneyToPay));
 
                 RegisterStocking registbill = new RegisterStocking(stockInfo, _connection.client, _session);
                 Task<string> registertask = registbill.register();
@@ -203,7 +227,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     foreach (var item in listItemsImportProduct)
                     {
                         StockDetails tmpdetail = new StockDetails("", item.product.ID, stockID,
-                            item.ImportQuantityNumeric.GetDetailNum(), item.sum);
+                            item.ImportQuantityNumeric.GetDetailNum(), ConvertToNumber(item.sum));
                         RegisterStockingDetail regist = new RegisterStockingDetail(tmpdetail, _connection.client, _session);
                         var task1 = UpdateAmount(item);
                         var task2 = regist.register();

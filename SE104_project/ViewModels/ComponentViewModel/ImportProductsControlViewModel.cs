@@ -16,10 +16,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string ID { get; set; }
         public string name { get; set; }
         public int quantity { get; set; }
-        public long StockCost { get; set; }
+        public string StockCost { get; set; }
         public string Category { get; set; }
         public string Unit { get; set; }
-        public long sum { get; set; }
+        public string sum { get; set; }
         public string displayID { get; set; }
         private IUpdateSelectedList _parent;
         #endregion
@@ -34,12 +34,12 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = product.ID;
             name = product.name;
             quantity = product.quantity;
-            StockCost = product.StockCost;
+            StockCost = SeparateThousands(product.StockCost.ToString());
             Category = product.Category;
             Unit = product.Unit;
             displayID = product.displayID;
             _parent = parent;
-            sum = 0;
+            sum = "";
             DeleteImportProductsCommand = new RelayCommand<Object>(null, deleteImportProducts);
         }
 
@@ -47,7 +47,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #region Function
         public void onAmountChanged()
         {
-            sum = ImportQuantityNumeric.GetDetailNum() * StockCost;
+            sum = SeparateThousands((ImportQuantityNumeric.GetDetailNum() * ConvertToNumber(StockCost)).ToString());
             OnPropertyChanged(nameof(sum));
             _parent.isCanExecute();
         }
@@ -60,6 +60,28 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _parent.UpdateBoughtList(product);
             _parent.isCanExecute();
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
         }
         #endregion
     }

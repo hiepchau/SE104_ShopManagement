@@ -35,7 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public string CurrentID { get; set; }
         public string today { get; set; }
         public string clock { get; set; }
-        public long totalPay { get; set; }
+        public string totalPay { get; set; }
         public string CustomerPhoneNumber { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
@@ -58,7 +58,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             CurrentID = _session.CurrnetUser.ID;
             listProducts = new ObservableCollection<POSProductControlViewModel>();
             listbought = new ObservableCollection<ImportPOSProductControlViewModel>();
-            totalPay = 0;
+            totalPay = "0";
             getTotalPay();
             today = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -82,7 +82,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 {
                     foreach (var item in listbought)
                     {
-                        total += item.price * item.GetDetailNum();
+                        total += ConvertToNumber(item.price) * item.GetDetailNum();
                     }
                 }
                 BillInformation billinfo = new BillInformation(await new AutoBillIDGenerator(_session, _connection.client).Generate(),
@@ -152,7 +152,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         }
         public bool IsValidPurchase(Object o = null)
         {
-            if (CustomerPhoneNumber.Length != 10)
+            if (CustomerPhoneNumber==null||CustomerPhoneNumber.Length != 10)
                 return false;
             return true;
         }
@@ -211,16 +211,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         {
             if (listbought.Count == 0)
             {
-                totalPay = 0;
+                totalPay = "0";
                 OnPropertyChanged(nameof(totalPay));
             }    
             if (listbought.Count > 0)
             {
-                totalPay = 0;
+                totalPay = "0";
+                long sum = 0;
                 foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
-                    totalPay += pr.sum;
+                    sum += ConvertToNumber(pr.sum.ToString());
                 }
+                totalPay = SeparateThousands(sum.ToString());
                 OnPropertyChanged(nameof(totalPay));
             }
             else
@@ -257,6 +259,28 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public void isCanExecute()
         {
             return;
+        }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(ConvertToNumber(text).ToString(), System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         #endregion
 

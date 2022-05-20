@@ -17,7 +17,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string ID { get; set; }
         public DateTime saleDay { get; set; }
         public string User { get; set; }
-        public long total { get; set; }
+        public string total { get; set; }
         public string displayID { get; set; }
         private IIncomeParent _parent;
         #endregion
@@ -26,7 +26,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this.bill = billinfo;
             ID=billinfo.ID;
             saleDay = billinfo.saleDay;
-            total = billinfo.total;
+            total = SeparateThousands(billinfo.total.ToString());
             displayID = billinfo.displayID;
             _parent = parent;
             GetEmployeeName();
@@ -46,6 +46,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             {
                 return;
             }
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         #endregion
     }

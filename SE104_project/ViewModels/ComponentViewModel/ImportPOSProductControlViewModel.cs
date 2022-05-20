@@ -21,9 +21,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ProductsInformation product { get; set; }
         public string ID { get; set; }
         public string name { get; set; }
-        public long price { get; set; }
+        public string price { get; set; }
         public string quantity { get; set; }
-        public long sum { get; set; }
+        public string sum { get; set; }
         public BitmapImage ImageSrc { get; set; }
         public bool isLoaded { get; set; }
 
@@ -43,7 +43,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this.product = product;
             this._parent = parent;
             name = product.name;
-            price = product.price;
+            price = SeparateThousands(product.price.ToString());
             DeleteProductsCommand = new RelayCommand<object>(null, deleteproduct);
             quantity = "1";
             sum = price;
@@ -127,13 +127,35 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         }
         public void onAmountChanged()
         {
-            sum = GetDetailNum() * price;
+            sum = SeparateThousands((GetDetailNum() * ConvertToNumber(price)).ToString());
             OnPropertyChanged(nameof(sum));
         }
 
         private void deleteproduct(object o)
         {
             _parent.UpdateBoughtList(product);
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(ConvertToNumber(text).ToString(), System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
         }
         #endregion
     }

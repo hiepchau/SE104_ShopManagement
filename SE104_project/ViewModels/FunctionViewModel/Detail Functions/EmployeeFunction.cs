@@ -246,7 +246,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             userName=selectedUser.FirstName + " " + selectedUser.LastName;
             userEmail=selectedUser.Email;
             userPhoneNumber = selectedUser.PhoneNumber;
-            userSalary = selectedUser.salary;
+            userSalary = ConvertToNumber(selectedUser.salary);
             BeginDate = selectedUser.birthday.ToShortDateString();
             GetImage(selectedUser);
             OnPropertyChanged(nameof(userEmail));
@@ -357,7 +357,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             e.Handled = e.Key == Key.Space;
         }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
 
+            return long.Parse(tmp);
+        }
         #endregion
         #region DB
         public async void GetUnactiveData()

@@ -14,8 +14,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string displayID { get; set; }
         public string name { get; set; }
         public int quantity { get; set; }
-        public long price { get; set; }
-        public long StockCost { get; set; }
+        public string price { get; set; }
+        public string StockCost { get; set; }
         #endregion
 
         #region ICommand
@@ -28,12 +28,23 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = pro.ID;
             name = pro.name;
             quantity = pro.quantity;
-            price = pro.price;
-            StockCost = pro.StockCost;
+            price = SeparateThousands(pro.price.ToString());    
+            StockCost = SeparateThousands(pro.StockCost.ToString());
             displayID = pro.displayID;
         }
 
         #region Function
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
         #endregion
     }
 }

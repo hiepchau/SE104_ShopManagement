@@ -282,8 +282,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 ProducerIndex++;
             }
             productName = SelectedProduct.name;
-            productCost = SelectedProduct.StockCost;
-            productPrice = SelectedProduct.price;
+            productCost = ConvertToNumber(SelectedProduct.StockCost);
+            productPrice = ConvertToNumber(SelectedProduct.price);
             productUnit = SelectedProduct.Unit;
             GetImage(SelectedProduct);
             OnPropertyChanged(nameof(productName));
@@ -322,7 +322,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (ProductsControlViewModel ls in listAllProduct)
             {
-                if (productName == ls.name && SelectedProductsType.ID == ls.Category && productCost == ls.StockCost && productPrice == ls.price && productUnit == ls.Unit && SelectedProducer.ID == ls.Producer)
+                if (productName == ls.name && SelectedProductsType.ID == ls.Category && productCost == ConvertToNumber(ls.StockCost) && productPrice == ConvertToNumber(ls.price) && productUnit == ls.Unit && SelectedProducer.ID == ls.Producer)
                 {
                     SelectedProduct = ls;
                     return true;
@@ -370,7 +370,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             e.Handled = e.Key == Key.Space;
         }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
 
+            return long.Parse(tmp);
+        }
         #endregion
 
         #region DB

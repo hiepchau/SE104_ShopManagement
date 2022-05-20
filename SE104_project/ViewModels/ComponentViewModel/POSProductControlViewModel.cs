@@ -21,7 +21,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #region Properties
         public ProductsInformation product { get; set; }
         public string name { get; set; }
-        public long price { get; set; }
+        public string price { get; set; }
         public int quantity { get; set; }
         private IUpdateSelectedList _parent;
         public bool isLoaded { get; set; }
@@ -37,7 +37,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this.product = product;
             this._parent = parent;
             name = product.name;
-            price = product.price;
+            price = SeparateThousands(product.price.ToString());
             quantity = product.quantity;
             UpdateBoughtCommand = new RelayCommand<Object>(null, UpdateBought);
             isLoaded = true;
@@ -77,6 +77,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {               
             _parent.UpdateSelectedList(product);
             _parent.isCanExecute();
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         #endregion
 

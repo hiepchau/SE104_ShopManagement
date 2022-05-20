@@ -20,8 +20,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string ID { get; private set; }
         public string name { get; set; }
         public int quantity { get; set; }
-        public long price { get; set; }
-        public long StockCost { get; set; }
+        public string price { get; set; }
+        public string StockCost { get; set; }
         public string Category { get; set; }
         public string Unit { get; set; }
         public string displayID { get; set; }
@@ -41,8 +41,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = product.ID;
             name = product.name;
             quantity = product.quantity;
-            price = product.price;
-            StockCost = product.StockCost;
+            price = SeparateThousands(product.price.ToString());
+            StockCost = SeparateThousands(product.StockCost.ToString());
             Unit = product.Unit;
             displayID = product.displayID;
             isActivated = product.isActivated;
@@ -77,6 +77,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             {
                 return;
             }
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         #endregion
     }

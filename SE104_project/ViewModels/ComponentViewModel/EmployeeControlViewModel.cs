@@ -19,7 +19,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string PhoneNumber { get; set; }
         public Role role { get; set; }
         public Gender gender { get; set; }
-        public long salary { get; set; }
+        public string salary { get; set; }
         public bool isActivated { get; set; }
         public string displayID { get; set; }
         public DateTime birthday { get; set; }
@@ -40,7 +40,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             PhoneNumber = user.PhoneNumber;
             role = user.role;
             gender= user.gender;
-            salary = user.salary;
+            salary = SeparateThousands(user.salary.ToString());
             isActivated = user.isActivated;
             birthday = user.birthDay;
             displayID = user.displayID;
@@ -57,6 +57,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public void editEmployee(Object o)
         {
             _parent.EditEmployee(user);
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         #endregion
     }

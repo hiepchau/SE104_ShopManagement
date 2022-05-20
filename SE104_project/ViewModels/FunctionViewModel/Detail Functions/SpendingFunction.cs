@@ -31,6 +31,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = true;
             GetData();
         }
+        #region Function
+    
+        #endregion
         #region DB
         public async void GetData()
         {
