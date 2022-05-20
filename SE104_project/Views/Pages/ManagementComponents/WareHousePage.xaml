@@ -68,7 +68,7 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center">
                 <Rectangle 
-                            Fill="WhiteSmoke" 
+                            Fill="{StaticResource White}" 
                             RadiusY="4" 
                             RadiusX="4"
                             Panel.ZIndex="-1" />
@@ -86,7 +86,15 @@
                             Foreground="{DynamicResource Black1}" 
                             SelectionBrush="{DynamicResource Primary}"
                             Padding="2,0,0,0"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
                 <Button 
                             IsDefault="True"
                             Style="{StaticResource TransparentButton}"
