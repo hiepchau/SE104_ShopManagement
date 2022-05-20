@@ -73,7 +73,7 @@
                             RadiusX="4"
                             Panel.ZIndex="-1" />
                 <TextBox 
-                            x:Name="txtSearchStock"
+                            x:Name="txtSearchProducts"
                             materialDesign:HintAssist.Hint="Tìm theo tên sản phẩm" 
                             FontSize="18" 
                             BorderThickness="0" 

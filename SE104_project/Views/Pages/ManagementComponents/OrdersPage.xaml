@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              xmlns:com="clr-namespace:SE104_OnlineShopManagement.Components"
              xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar" xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
-             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="715" d:DesignWidth="960">
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiConvert"/>
@@ -30,12 +30,21 @@
                 Đơn Hàng
             </TextBlock>
             <compo:SearhBar 
+                x:Name="txtSearchOrder"
                 tbWidth="400" 
                 Text="{Binding searchString, Mode=TwoWay}"
                 ToolTip="Tìm kiếm đơn hàng"
                 HintText="Nhập mã đơn hàng" 
                 Width="474"
-                Margin="20 0 0 0"/>
+                Margin="20 0 0 0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=txtSearchOrder, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </compo:SearhBar>
 
 
         </StackPanel>

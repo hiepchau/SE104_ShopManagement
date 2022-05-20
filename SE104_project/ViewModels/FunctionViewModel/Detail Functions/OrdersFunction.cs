@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -20,10 +22,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private MongoConnect _connection;
         private AppSession _session;
         public bool isLoaded { get; set; }
+        public string searchString { get; set; }
         public ObservableCollection<OrdersControlViewModel> listOrders { get; set; }
         #endregion
 
         #region ICommand
+        public ICommand SearchCommand { get; set; }
         #endregion
         public OrdersFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -31,11 +35,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             listOrders = new ObservableCollection<OrdersControlViewModel>();
             isLoaded = true;
-            GetData();
+            _ = GetData();
+            SearchCommand = new RelayCommand<Object>(null, search);
         }
 
+        #region Function
+        private async void search(object o)
+        {
+            searchString = (o.ToString());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                await GetData();
+            }
+            else
+            {
+                await getsearchdata();
+            }
+        }
+        #endregion
+
         #region DB
-        public async void GetData()
+        public async Task GetData()
         {
             var filter = Builders<BillInformation>.Filter.Empty;
             GetBills getter = new GetBills(_connection.client, _session, filter);
@@ -54,6 +74,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
             Console.Write("Executed");
+            OnPropertyChanged(nameof(listOrders));
+        }
+        private async Task getsearchdata()
+        {
+            listOrders.Clear();
+            OnPropertyChanged(nameof(listOrders));
+            FilterDefinition<BillInformation> filter = Builders<BillInformation>.Filter.Eq(x => x.displayID, searchString);
+            var tmp = new GetBills(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+            foreach (BillInformation pr in ls)
+            {
+                listOrders.Add(new OrdersControlViewModel(pr, this));
+            }
             OnPropertyChanged(nameof(listOrders));
         }
         #endregion
