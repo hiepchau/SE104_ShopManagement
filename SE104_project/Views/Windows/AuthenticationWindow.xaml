@@ -12,6 +12,7 @@
         xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
         mc:Ignorable="d"
         Background="{x:Null}"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
         AllowsTransparency="True"
