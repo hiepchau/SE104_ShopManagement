@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" xmlns:vd="clr-namespace:SE104_OnlineShopManagement.Services.Validations"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>
@@ -179,23 +179,54 @@
                         Style="{StaticResource TextBox}"
                         materialDesign:HintAssist.Hint="Tên hạng thành viên"
                         TabIndex="0"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                        Text="{Binding membershipname, Mode=TwoWay}">
-                        <!--<TextBox.Text>
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                        <TextBox.Text>
                             <Binding 
-                                Path="Membership"
-                                Source="{StaticResource MembershipType}"
+                                Path="membershipname"
+                                Mode="TwoWay"
                                 UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <vd:NotNullValidation ErrorMessage="Vui lòng nhập hạng thành viên!" />
-                                    <vd:ExistValidation 
+                                    <!--<vd:ExistValidation 
                                         ElementName="Membership"
-                                        ErrorMessage="Hạng thành viên đã tồn tại" />
+                                        ErrorMessage="Hạng thành viên đã tồn tại" />-->
                                 </Binding.ValidationRules>
                             </Binding>
-                        </TextBox.Text>-->
+                        </TextBox.Text>
                     </TextBox>
                 </Grid>
+                <Grid
+                    Margin="0,0,0,20" 
+                    VerticalAlignment="Top" 
+                    Height="40">
+                    <Label 
+                        Content="Điều kiện"
+                        Style="{StaticResource LabelText}"/>
+                    <Rectangle 
+                        HorizontalAlignment="Right" 
+                        Height="40" 
+                        Width="230" 
+                        RadiusY="4" 
+                        RadiusX="4"
+                        Stroke="{StaticResource Gray1}" />
+                    <TextBox 
+                        x:Name="txtRule"
+                        Style="{StaticResource TextBox}"
+                        materialDesign:HintAssist.Hint="Điều kiện đạt được: >="
+                        TabIndex="0"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                        <TextBox.Text>
+                            <Binding 
+                                Path="membershipRule"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Vui lòng nhập hạng điều kiện!" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+
                 <Grid 
                     VerticalAlignment="Top" 
                     Height="40">

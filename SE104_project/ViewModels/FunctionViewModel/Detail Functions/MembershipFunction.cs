@@ -64,6 +64,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 GetActiveData();
                 OnPropertyChanged(nameof(listActiveMembership));
             }
+            else if (CheckExist() == true)
+            {
+                CustomMessageBox.Show("Hạng thành viên đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             else if (CheckExist() == false)
             {
                 MembershipInformation info = new MembershipInformation("", membershipname, priority);
@@ -173,7 +178,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (MembershipControlViewModel ls in listAllMembership)
             {
-                if (membershipname == ls.name && priority == ls.prio)
+                if (membershipname == ls.name)
                 {
                     selectedMembership = ls;
                     return true;
