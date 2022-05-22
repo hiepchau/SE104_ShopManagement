@@ -64,30 +64,33 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 GetActiveData();
                 OnPropertyChanged(nameof(listActiveMembership));
             }
-            else if (CheckExist() == true)
-            {
-                CustomMessageBox.Show("Hạng thành viên đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (CheckExist() == false)
-            {
-                MembershipInformation info = new MembershipInformation("", membershipname, priority);
-                RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
-                string s = await regist.register();
-                listActiveMembership.Clear();
-                listAllMembership.Clear();
-                GetActiveData();
-                GetAllData();
-                OnPropertyChanged(nameof(listActiveMembership));
-                Console.WriteLine(s);
-            }
             else
             {
-                SetActive(selectedMembership);
-                Console.WriteLine("MembershipName.isActivated has been set to True!");
+                int flag = CheckExist();
+                switch (flag)
+                {
+                    case 0:
+                        CustomMessageBox.Show("Hạng thành viên đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    case 1:
+                        SetActive(selectedMembership);
+                        Console.WriteLine("MembershipName.isActivated has been set to True!");
+                        break;
+                    case 2:
+                        MembershipInformation info = new MembershipInformation("", membershipname, priority);
+                        RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
+                        string s = await regist.register();
+                        listActiveMembership.Clear();
+                        listAllMembership.Clear();
+                        GetActiveData();
+                        GetAllData();
+                        OnPropertyChanged(nameof(listActiveMembership));
+                        Console.WriteLine(s);
+                        break;
+                }
             }
-
-            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+           
+            CustomMessageBox.Show("Thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
             //Set Null
             SetNull();
@@ -174,17 +177,26 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(membershipname));
             OnPropertyChanged(nameof(priority));
         }
-        public bool CheckExist()
+        public int CheckExist()
         {
-            foreach (MembershipControlViewModel ls in listAllMembership)
+            foreach (MembershipControlViewModel ls in listActiveMembership)
             {
                 if (membershipname == ls.name)
                 {
-                    selectedMembership = ls;
-                    return true;
+                    return 0;
                 }
             }
-            return false;
+                    
+            foreach (MembershipControlViewModel ls1 in listAllMembership)
+            {
+                if (membershipname == ls1.name)
+                {
+                    selectedMembership = ls1;
+                    //Set Active
+                    return 1;
+                }
+            }
+            return 2;
         }
         #endregion
 
