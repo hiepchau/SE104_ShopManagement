@@ -20,6 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string displayId { get; set; }
         public bool isActivated { get; set; }
         public string address { get; set; }
+        public long Sum { get;set; }
         private IUpdateCustomerList _parent;
         #endregion
 
@@ -27,7 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand EditCustomerCommand { get; set; }
         public ICommand DeleteCustomerCommand { get; set; }
         #endregion
-        public CustomerControlViewModel(CustomerInformation customer, IUpdateCustomerList parent)
+        public CustomerControlViewModel(CustomerInformation customer,long sum, IUpdateCustomerList parent)
         {
             ID = customer.ID;
             Name = customer.Name;
@@ -38,6 +39,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             address = customer.Address;
             this.customer = customer;
             _parent = parent;
+            this.Sum = sum;
             EditCustomerCommand = new RelayCommand<Object>(null, editCustomer);
         }
 

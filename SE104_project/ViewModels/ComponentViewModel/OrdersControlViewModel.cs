@@ -34,12 +34,12 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this.billInformation = bill;
             ID = bill.ID;
             saleDay = bill.saleDay;
-            customer = bill.customer;
+            customer = "Unknown";
             total = SeparateThousands(bill.total.ToString());
             displayID = bill.displayID;
             _parent = parent;
             GetEmployeeName();
-            //GetCustomerName();
+            GetCustomerName();
         }
 
         #region Function
@@ -60,18 +60,22 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         }
         public async void GetCustomerName()
         {
-            var filter = Builders<CustomerInformation>.Filter.Eq(x => x.ID, billInformation.customer);
+            var filter = Builders<CustomerInformation>.Filter.Eq(x => x.PhoneNumber, billInformation.customer);
             GetCustomer getter = new GetCustomer((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
-            var ls = await getter.Get();
-            if (ls != null && ls.Count > 0)
-            {
-                customer = ls.First().Name;
-                OnPropertyChanged(nameof(customer));
-            }
-            else
-            {
-                return;
-            }
+            var task = getter.Get();
+            List<CustomerInformation> ls = new List<CustomerInformation>();
+            ls = await task;
+                if (ls.Count > 0)
+                {
+                    customer = ls.FirstOrDefault().Name;
+                    OnPropertyChanged(nameof(customer));
+                }
+                else
+                {
+                    return;
+                }
+   
+          
         }
         public string SeparateThousands(String text)
         {

@@ -30,6 +30,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"MembershipName", newShip.name },
                 {"Priority", newShip.priority },
                 {"isActivated", newShip.isActivated },
+                {"Condition",newShip.condition }
             };
             await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("Membership Inserted into " + session.CurrnetUser.companyInformation);

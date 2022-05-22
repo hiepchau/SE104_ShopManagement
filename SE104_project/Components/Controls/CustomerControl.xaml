@@ -42,7 +42,7 @@
             Style="{StaticResource Text}" Height="24"/>
         <TextBlock
             x:Name="txtTotal"             
-            Text="123456"                                     
+            Text="{Binding Sum}"                                     
             Grid.Column="4"                                    
             Style="{StaticResource Text}" Height="24" />
         <Button

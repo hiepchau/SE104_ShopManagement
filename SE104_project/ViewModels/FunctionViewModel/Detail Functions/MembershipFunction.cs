@@ -25,6 +25,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
     {
         #region Properties
         public string membershipname { get; set; }
+        public long membershipRule { get; set; }
         public int priority { get; set; }
         private MembershipControlViewModel selectedMembership { get; set; }
         private MongoConnect _connection;
@@ -71,7 +72,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             else if (CheckExist() == false)
             {
-                MembershipInformation info = new MembershipInformation("", membershipname, priority);
+                MembershipInformation info = new MembershipInformation("", membershipname, priority, true, membershipRule);
                 RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                 string s = await regist.register();
                 listActiveMembership.Clear();

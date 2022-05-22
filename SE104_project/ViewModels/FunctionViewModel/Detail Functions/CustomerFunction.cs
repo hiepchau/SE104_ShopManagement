@@ -68,6 +68,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         //AddCustomer
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+
+        public ICommand UpdateCustomerLevelCommand { get; set; }
         #endregion
 
         public CustomerFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, CustomerSelectMenu _customerSelectMenu) : base(session, connect)
@@ -78,15 +80,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
             ItemSourceMembership = new ObservableCollection<MembershipInformation>();
+            UpdateCustomerLevelCommand = new RelayCommand<object>(null, reloadMemberRank);
             //Get Data
-            _ = GetData();
-            GetMembershipData();
+            
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
             SearchCommand = new RelayCommand<Object>(null, search);
+            
         }
 
         #region Function
@@ -116,7 +119,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public bool CheckValidSave(Object o = null)
         {
-            if(String.IsNullOrEmpty(customerName) || customerPhone.Length != 10 || String.IsNullOrEmpty(customerAddress) || (customerCMND).Length != 12)
+            if((String.IsNullOrEmpty(customerName)||String.IsNullOrEmpty(customerCMND) || String.IsNullOrEmpty(customerPhone) || customerPhone.Length != 10 || String.IsNullOrEmpty(customerAddress) || (customerCMND).Length != 12))
             {
                 return false;
             }
@@ -273,25 +276,30 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         public async Task GetData()
         {
+            listAllCustomer.Clear();
             var filter = Builders<CustomerInformation>.Filter.Empty;
             GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (CustomerInformation cus in ls)
             {
-                listAllCustomer.Add(new CustomerControlViewModel(cus, this));
+                long sum = await GetSumCustomer(cus);
+                listAllCustomer.Add(new CustomerControlViewModel(cus, sum, this)) ;
             }
             Console.Write("Executed");
         }
-        public async void GetMembershipData()
+        public async Task GetMembershipData()
         {
+            ItemSourceMembership.Clear();
             var filter = Builders<MembershipInformation>.Filter.Empty;
             GetMembership getter = new GetMembership(_connection.client, _session, filter);
-            var ls = await getter.Get();
+            Task<List<MembershipInformation>> task = getter.Get();
+            var ls = await task;
+            Task.WaitAll(task);
             foreach (MembershipInformation mem in ls)
             {
                 ItemSourceMembership.Add(mem);
             }
-            Console.Write("Executed");
+            Console.WriteLine("Executed member ship "+ ItemSourceMembership.Count.ToString());
             OnPropertyChanged(nameof(ItemSourceMembership));
         }
         private async Task getsearchdata()
@@ -303,9 +311,50 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await tmp.Get();
             foreach (CustomerInformation pr in ls)
             {
-                listAllCustomer.Add(new CustomerControlViewModel(pr, this));
+                long sum = await GetSumCustomer(pr);
+                listAllCustomer.Add(new CustomerControlViewModel(pr,sum, this));
             }
             OnPropertyChanged(nameof(listAllCustomer));
+        }
+
+        private async Task<long> GetSumCustomer(CustomerInformation cus)
+        {
+            long sum = 0;
+            FilterDefinition<BillInformation> filter = Builders<BillInformation>.Filter.Eq(x => x.customer, cus.PhoneNumber);
+            GetBills getter = new GetBills(_connection.client, _session, filter);
+            var list = await getter.Get();
+            if (list.Count > 0)
+            {
+                foreach(var item in list)
+                {
+                    sum += item.total;
+                }
+            }
+            return sum;
+        }
+
+        private async void reloadMemberRank(object o =null)
+        {
+            await GetData();
+            await GetMembershipData();
+            Console.WriteLine("Executed member ship for reload " + ItemSourceMembership.Count.ToString());
+            if (ItemSourceMembership.Count>0 && listAllCustomer.Count > 0)
+            {
+                foreach(var member in listAllCustomer)
+                {
+                    foreach(var ship in ItemSourceMembership)
+                    {
+                        if(member.Sum >= ship.condition)
+                        {
+                            FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x=>x.ID,member.ID);
+                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set("Level", ship.ID);
+                            UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil,update);
+                            await updater.update();
+                        }
+                    }
+                }
+            }
+            await GetData();
         }
 
         #endregion
