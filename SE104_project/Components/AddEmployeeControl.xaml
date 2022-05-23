@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components"
-             xmlns:mcv="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mcv="clr-namespace:SE104_OnlineShopManagement.Utils" xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Background="{StaticResource White}"
              mc:Ignorable="d" 
              Height="650" Width="700">

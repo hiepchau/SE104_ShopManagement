@@ -71,7 +71,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             AddSupplierControl addSupplierControl = new AddSupplierControl();
             addSupplierControl.DataContext = this;
-            DialogHost.Show(addSupplierControl);
+            DialogHost.Show(addSupplierControl, delegate (object sender, DialogClosingEventArgs args)
+            {
+                SetNull();
+            });
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveSupplier);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
