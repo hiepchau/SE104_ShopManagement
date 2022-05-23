@@ -7,6 +7,12 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              Height="715" Width="960">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction        
+                Command="{Binding ReloadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <!--<i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">

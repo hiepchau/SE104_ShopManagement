@@ -32,6 +32,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand PreviousWareHousePageCommand { get; set; }
         public ICommand NextWareHousePageCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand ReloadCommand { get; set; }
 
         #endregion
         public WareHouseFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
@@ -43,10 +44,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
 
-            _ = GetData();
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SearchCommand = new RelayCommand<Object>(null, search);
-
+            ReloadCommand = new RelayCommand<object>(null, Reload);
         }
 
         #region Function
@@ -69,11 +69,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 await getsearchdata();
             }
         }
+        private async void Reload(object o = null)
+        {
+            await GetData();
+        }
         #endregion
 
         #region DB
         private async Task GetData()
         {
+            listItemWareHouse.Clear();
             var filter = Builders<ProductsInformation>.Filter.Eq("isActivated", true);
             GetProducts getter = new GetProducts(_connection.client, _session, filter);
             var ls = await getter.Get();
