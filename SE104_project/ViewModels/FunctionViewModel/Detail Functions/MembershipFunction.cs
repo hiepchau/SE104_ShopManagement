@@ -220,7 +220,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public bool CheckValidSave(object o)
         {
             if (String.IsNullOrEmpty(membershipname) 
-                || membershipRule == null || membershipRule > 0
+                || membershipRule == null || membershipRule <= 0
                 || priority == null
                 )
             {

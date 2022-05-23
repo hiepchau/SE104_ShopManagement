@@ -69,12 +69,15 @@
                                 <TextBlock 
                                     Grid.Column="0"
                                     Text="STT" 
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
+                                    Style="{StaticResource TitleText}"
+                                    Height="24"
+                                    Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
                                     HorizontalAlignment="Left" 
                                     Text="Tên loại"
-                                    Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
+                                    Style="{StaticResource TitleText}" 
+                                    Margin="0,0,0,0" />
                                 <TextBlock
                                     Grid.Column="2" 
                                     Text="Mô tả" 
