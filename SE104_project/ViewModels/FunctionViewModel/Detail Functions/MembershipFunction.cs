@@ -179,8 +179,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             selectedMembership = null;
             membershipname = "";
             priority = 0;
+            membershipRule = 0;
             OnPropertyChanged(nameof(membershipname));
             OnPropertyChanged(nameof(priority));
+            OnPropertyChanged(nameof(membershipRule));
         }
         public int CheckExist()
         {
