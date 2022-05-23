@@ -44,13 +44,9 @@
         <TextBlock
             x:Name="txtFunds"
             Grid.Column="3"
-            Style="{StaticResource Text}">
-            <TextBlock.Text>
-                <MultiBinding Converter="{StaticResource FundMulti}">
-                    <Binding Path="StockCost"/>
-                    <Binding Path="quantity"/>
-                </MultiBinding>
-            </TextBlock.Text>
+            Style="{StaticResource Text}"
+            Text="{Binding InWareHouseStockValue}">
+           
         </TextBlock>
         <TextBlock
             x:Name="txtBuyProduct"
@@ -65,13 +61,9 @@
         <TextBlock          
             x:Name="txtValue"
             Grid.Column="6"
-            Style="{StaticResource Text}" HorizontalAlignment="Left" Margin="20 0 0 0">
-            <TextBlock.Text>
-                <MultiBinding Converter="{StaticResource InvenMulti}">
-                    <Binding Path="price"/>
-                    <Binding Path="quantity"/>
-                </MultiBinding>
-            </TextBlock.Text>
+            Style="{StaticResource Text}" HorizontalAlignment="Left" Margin="20 0 0 0"
+            Text="{Binding InWareHouseSellValue}">
+           
         </TextBlock>
         <Button
             Grid.Column="7"
