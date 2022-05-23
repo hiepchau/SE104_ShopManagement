@@ -70,8 +70,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
-            this._connection= connect;
-            this._session= session;        
+            this._connection = connect;
+            this._session = session;
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
             IsSelectedIndex = -1;
@@ -90,7 +90,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
-            SelectImageCommand = new RelayCommand<Object>(null,SaveImage);
+            SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
             SearchCommand = new RelayCommand<Object>(null, search);
             SelectedProductsType = null;
             SelectedProducer = null;
@@ -133,9 +133,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (String.IsNullOrEmpty(productName) ||
                 String.IsNullOrEmpty(productUnit)
                 || IsSelectedIndex == -1 || IsSelectedProducerIndex == -1
-                || String.IsNullOrEmpty(productCost.ToString()) ||
-                String.IsNullOrEmpty(productPrice.ToString())
-                || productImage == null)
+                || String.IsNullOrEmpty(productCost.ToString()) || productCost <= 0 
+                || String.IsNullOrEmpty(productPrice.ToString()) || productPrice <= 0
+                || productImage == null 
+                || productCost > productPrice)
             {
                 return false;
             }
@@ -165,30 +166,39 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 _ = GetData();
                 OnPropertyChanged(nameof(listActiveItemsProduct));
             }
-            else if (CheckExist()==false && SelectedProductsType != null && productImage != null && SelectedProducer != null)
-            {
-                ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID, 
-                    SelectedProducer.ID, productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
-                RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
-                Task<string> task = regist.register();
-                string id = await task;
-
-                Task.WaitAll(task);
-                    //Register Image
-                    ByteImage bimg = new ByteImage(id, productImage);
-                    RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
-                    await registImage.register();
-                    info.ID = id;
-                    listActiveItemsProduct.Add(new ProductsControlViewModel(info, this));
-                    listAllProduct.Add(new ProductsControlViewModel(info, this));
-                    OnPropertyChanged(nameof(listActiveItemsProduct));
-                    Console.WriteLine(id);
-                SelectedProductsType = null;
-                SelectedProducer = null;
-            }
             else
             {
-                SetActive(SelectedProduct);
+                int flag = CheckExist();
+                switch (flag)
+                {
+                    case 0:
+                        CustomMessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    case 1:
+                        SetActive(SelectedProduct);
+                        break;
+                    case 2:
+                        ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID,
+                    SelectedProducer.ID, productUnit, true, await new AutoProductsIDGenerator(_session, _connection.client).Generate());
+                        RegisterProducts regist = new RegisterProducts(info, _connection.client, _session);
+                        Task<string> task = regist.register();
+                        string id = await task;
+
+                        Task.WaitAll(task);
+                        //Register Image
+                        ByteImage bimg = new ByteImage(id, productImage);
+                        RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
+                        await registImage.register();
+                        info.ID = id;
+                        listActiveItemsProduct.Add(new ProductsControlViewModel(info, this));
+                        listAllProduct.Add(new ProductsControlViewModel(info, this));
+                        OnPropertyChanged(nameof(listActiveItemsProduct));
+                        Console.WriteLine(id);
+                        SelectedProductsType = null;
+                        SelectedProducer = null;
+                        break;
+
+                }
             }
             DialogHost.CloseDialogCommand.Execute(null, null);
 
@@ -318,17 +328,26 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             else Console.WriteLine("Cant execute");
         }
-        public bool CheckExist()
+        public int CheckExist()
         {
-            foreach (ProductsControlViewModel ls in listAllProduct)
+            foreach (ProductsControlViewModel ls in listActiveItemsProduct)
             {
-                if (productName == ls.name && SelectedProductsType.ID == ls.Category && productCost == ConvertToNumber(ls.StockCost) && productPrice == ConvertToNumber(ls.price) && productUnit == ls.Unit && SelectedProducer.ID == ls.Producer)
+                if (productName == ls.name)
                 {
-                    SelectedProduct = ls;
-                    return true;
+                    return 0;
                 }
             }
-            return false;
+
+            foreach (ProductsControlViewModel ls1 in listAllProduct)
+            {
+                if (productName == ls1.name)
+                {
+                    SelectedProduct = ls1;
+                    //Set Active
+                    return 1;
+                }
+            }
+            return 2;
         }
         public void SetNull()
         {
