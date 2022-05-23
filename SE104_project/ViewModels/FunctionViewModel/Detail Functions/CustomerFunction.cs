@@ -97,7 +97,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             AddCustomerControl addCustomerControl = new AddCustomerControl();
             addCustomerControl.DataContext = this;
-            DialogHost.Show(addCustomerControl);
+            DialogHost.Show(addCustomerControl, delegate (object sender, DialogClosingEventArgs args)
+            {
+                SetNull();
+            });
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveCustomer);
 
             ExitCommand = new RelayCommand<Object>(null, exit =>
