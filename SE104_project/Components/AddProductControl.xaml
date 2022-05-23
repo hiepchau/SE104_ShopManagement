@@ -12,6 +12,7 @@
              Height="530" Width="700">
     <UserControl.Resources>
         <cv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+        <cv:MoneyFormatConverter x:Key="FormatMoney"/>
     </UserControl.Resources>
     <Grid>
         <Grid
@@ -246,7 +247,7 @@
                         <Binding Path="productCost"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged"
-                                 StringFormat="N{0}">
+                                 Converter="{StaticResource FormatMoney}">
                             <Binding.ValidationRules>
                                 <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
                             </Binding.ValidationRules>
