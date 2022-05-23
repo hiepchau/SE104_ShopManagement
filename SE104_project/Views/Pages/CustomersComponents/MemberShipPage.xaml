@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" xmlns:vd="clr-namespace:SE104_OnlineShopManagement.Services.Validations"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             xmlns:vd="clr-namespace:SE104_OnlineShopManagement.Services.Validations"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mcv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
+    <UserControl.Resources>
+        <mcv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -46,6 +52,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="90"/>
                     </Grid.ColumnDefinitions>
@@ -54,14 +61,19 @@
                         Grid.Column="0"
                         Style="{StaticResource TitleText}"/>
                     <TextBlock
-                        Text="Hạng thành viên" 
+                        Text="HTV" 
                         Grid.Column="1"
                         Style="{StaticResource TitleText}"
                         HorizontalAlignment="Left"
-                        Margin="20,0,0,0"/>
+                        Margin="40,0,0,0"/>
                     <TextBlock
                         Text="Ghi chú" 
                         Grid.Column="2"
+                        Style="{StaticResource TitleText}"
+                        Margin="-25 0 0 0"/>
+                    <TextBlock
+                        Text="Điều kiện" 
+                        Grid.Column="3"
                         Style="{StaticResource TitleText}"/>
                 </Grid>
             </Border>
@@ -193,6 +205,12 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </TextBox>
                 </Grid>
                 <Grid
@@ -224,6 +242,12 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </TextBox>
                 </Grid>
 
@@ -242,11 +266,25 @@
                         Stroke="{StaticResource Gray1}" 
                         Grid.ColumnSpan="2" />
                     <TextBox 
-                        x:Name="txtTarget"
+                        x:Name="txtPrio"
                         Style="{StaticResource TextBox}"
                         materialDesign:HintAssist.Hint="Ghi chú"
                         TabIndex="1"
                         Text="{Binding priority, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding TextChangedCommand}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewTextInput" >
+                                <i:CallMethodAction TargetObject="{Binding }" MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewKeyDown">
+                                <i:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
                     </TextBox>
                 </Grid>
             </StackPanel>
@@ -266,15 +304,17 @@
                     TabIndex="2"
                     Height="40"
                     Width="100">
-                    <!--<Button.IsEnabled>
+                    <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
                                       Mode="TwoWay">
                             <Binding ElementName="txtMembership"
                                      Path="(Validation.HasError)" />
-                            <Binding ElementName="txtTarget"
+                            <Binding ElementName="txtRule"
+                                     Path="(Validation.HasError)" />
+                            <Binding ElementName="txtPrio"
                                      Path="(Validation.HasError)" />
                         </MultiBinding>
-                    </Button.IsEnabled>-->
+                    </Button.IsEnabled>
                 </Button>
                 <Button
                     Content="Hủy"

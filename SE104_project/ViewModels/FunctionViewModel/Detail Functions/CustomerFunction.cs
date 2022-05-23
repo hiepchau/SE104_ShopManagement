@@ -119,7 +119,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public bool CheckValidSave(Object o = null)
         {
-            if((String.IsNullOrEmpty(customerName)||String.IsNullOrEmpty(customerCMND) || String.IsNullOrEmpty(customerPhone) || customerPhone.Length != 10 || String.IsNullOrEmpty(customerAddress) || (customerCMND).Length != 12))
+            if((String.IsNullOrEmpty(customerName)
+                || String.IsNullOrEmpty(customerPhone) || customerPhone.Length != 10 
+                || String.IsNullOrEmpty(customerAddress) 
+                || String.IsNullOrEmpty(customerCMND) || (customerCMND).Length != 12))
             {
                 return false;
             }

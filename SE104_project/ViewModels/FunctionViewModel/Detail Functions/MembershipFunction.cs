@@ -13,6 +13,7 @@ using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
 using SE104_OnlineShopManagement.Services;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -36,6 +37,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region ICommand
         public ICommand SaveCommand { get; set; }
         public ICommand ClearViewCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
         #endregion
         public MembershipFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -47,10 +49,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GetActiveData();
             GetAllData();
             //
-            SaveCommand = new RelayCommand<Object>(null, SaveMemberShip);
+            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveMemberShip);
             ClearViewCommand = new RelayCommand<Object>(null, SetNull);
+            TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
+
         }
-      
+
 
         #region Function
         public async void SaveMemberShip(object o = null)
@@ -71,7 +75,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 switch (flag)
                 {
                     case 0:
-                        CustomMessageBox.Show("Hạng thành viên đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                        CustomMessageBox.Show("Thuộc tính đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     case 1:
                         SetActive(selectedMembership);
@@ -182,7 +186,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (MembershipControlViewModel ls in listActiveMembership)
             {
-                if (membershipname == ls.name)
+                if (membershipname == ls.name || priority != ls.prio)
                 {
                     return 0;
                 }
@@ -190,7 +194,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     
             foreach (MembershipControlViewModel ls1 in listAllMembership)
             {
-                if (membershipname == ls1.name)
+                if (membershipname == ls1.name || priority != ls1.prio)
                 {
                     selectedMembership = ls1;
                     //Set Active
@@ -198,6 +202,31 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 }
             }
             return 2;
+        }
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        public void NumberValidationTextBox(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+        public void TextChangedHandle(Object o)
+        {
+            (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValidSave(object o)
+        {
+            if (String.IsNullOrEmpty(membershipname) 
+                || membershipRule == null || membershipRule > 0
+                || priority == null
+                )
+            {
+                return false;
+            }
+            return true;
         }
         #endregion
 

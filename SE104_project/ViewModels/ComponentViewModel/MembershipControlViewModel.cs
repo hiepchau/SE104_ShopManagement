@@ -16,6 +16,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string NumberOrder { get; set; }
         public string name { get; set; }
         public int prio { get; set; }
+        public long condition { get; set; }
         public bool isActivated { get; set; }
         private IUpdateMembershipList _parent;
 
@@ -33,6 +34,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = membership.ID;
             name = membership.name;
             prio = membership.priority;
+            condition = membership.condition;
             isActivated = membership.isActivated;
             _parent = parent;
             EditMembershipCommand = new RelayCommand<Object>(null, editMembership);

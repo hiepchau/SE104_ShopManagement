@@ -18,16 +18,19 @@
             Grid.Column="0"                                    
             Text="{Binding NumberOrder}" 
             Style="{StaticResource Text}" 
-            HorizontalAlignment="Left" Margin="25 0 0 0"/>
+            HorizontalAlignment="Left" 
+            Margin="25 0 0 0"/>
         <TextBlock
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Text="{Binding name}"
-            Style="{StaticResource Text}" Margin="10 0 0 0" TextTrimming="CharacterEllipsis"/>
+            Style="{StaticResource Text}" Margin="10 0 0 0" 
+            TextTrimming="CharacterEllipsis"/>
         <TextBlock
             Grid.Column="2"
             Text="{Binding note}" 
-            Style="{StaticResource Text}" HorizontalAlignment="Left"
+            Style="{StaticResource Text}" 
+            HorizontalAlignment="Left"
             TextTrimming="CharacterEllipsis"
             Margin="0 0 0 0"/>
         <Button 
