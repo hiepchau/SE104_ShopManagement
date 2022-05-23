@@ -67,6 +67,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand ExitCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
+
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
         {
@@ -92,6 +93,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
             SearchCommand = new RelayCommand<Object>(null, search);
+
             SelectedProductsType = null;
             SelectedProducer = null;
         }
@@ -401,6 +403,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             return long.Parse(tmp);
         }
+
+
         #endregion
 
         #region DB

@@ -245,7 +245,8 @@
                     <TextBox.Text>
                         <Binding Path="productCost"
                                  Mode="TwoWay"
-                                 UpdateSourceTrigger="PropertyChanged">
+                                 UpdateSourceTrigger="PropertyChanged"
+                                 StringFormat="N{0}">
                             <Binding.ValidationRules>
                                 <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
                             </Binding.ValidationRules>
