@@ -165,9 +165,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             else
             {
-                SetActive(selectedCus);
+                CustomMessageBox.Show("Thuộc tính đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            CustomMessageBox.Show("Thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
             DialogHost.CloseDialogCommand.Execute(null, null);
 
@@ -231,7 +232,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (CustomerControlViewModel ls in listAllCustomer)
             {
-                if (customerName == ls.Name && customerAddress == ls.address && customerCMND == ls.cmnd && customerPhone == ls.PhoneNumber)
+                if (customerCMND == ls.cmnd || customerPhone == ls.PhoneNumber)
                 {
                     selectedCus = ls;
                     return true;

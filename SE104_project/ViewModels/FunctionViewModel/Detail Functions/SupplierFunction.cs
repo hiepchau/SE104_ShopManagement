@@ -117,21 +117,29 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 _ = GetData();
                 OnPropertyChanged(nameof(listActiveItemsProducer));
             }
-            else if (CheckExist() == false)
-            {
-                ProducerInformation info = new ProducerInformation("", supplierName, supplierMail, supplierPhone, supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
-                RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
-                string s = await regist.register();
-                listActiveItemsProducer.Clear();
-                listAllProducer.Clear();
-                _ = GetAllData();
-                _ = GetData();
-                OnPropertyChanged(nameof(listActiveItemsProducer));
-                Console.WriteLine(s);
-            }
             else
             {
-                SetActive(selectedProducer);
+                int flag = CheckExist();
+                switch (flag)
+                {
+                    case 0:
+                        CustomMessageBox.Show("Thuộc tính đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    case 1:
+                        SetActive(selectedProducer);
+                        break;
+                    case 2:
+                        ProducerInformation info = new ProducerInformation("", supplierName, supplierMail, supplierPhone, supplierAddress, true, await new AutoProducerIDGenerator(_session, _connection.client).Generate());
+                        RegisterProducer regist = new RegisterProducer(info, _connection.client, _session);
+                        string s = await regist.register();
+                        listActiveItemsProducer.Clear();
+                        listAllProducer.Clear();
+                        _ = GetAllData();
+                        _ = GetData();
+                        OnPropertyChanged(nameof(listActiveItemsProducer));
+                        Console.WriteLine(s);
+                        break;
+                }
             }
             DialogHost.CloseDialogCommand.Execute(null, null);
             CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
@@ -214,19 +222,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             else Console.WriteLine("Cant execute");
         }
-        public bool CheckExist()
+        public int CheckExist()
         {
-            foreach (SupplierControlViewModel ls in listAllProducer)
+            foreach (SupplierControlViewModel ls in listActiveItemsProducer)
             {
-                if (supplierName == ls.Name && supplierAddress == ls.Address && supplierMail == ls.Email && supplierPhone == ls.PhoneNumber)
+                if (supplierMail == ls.Email || supplierPhone == ls.PhoneNumber)
                 {
-                    selectedProducer = ls;
-                    return true;
+                    return 0;
                 }
             }
-            return false;
-        }
 
+            foreach (SupplierControlViewModel ls1 in listAllProducer)
+            {
+                if (supplierMail == ls1.Email || supplierPhone == ls1.PhoneNumber)
+                {
+                    selectedProducer = ls1;
+                    //Set Active
+                    return 1;
+                }
+            }
+            return 2;
+        }
         public void SetNull()
         {
             supplierName = "";
