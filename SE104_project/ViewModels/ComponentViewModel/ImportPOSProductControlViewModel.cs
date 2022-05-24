@@ -66,14 +66,14 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             else if (check)
             {
 
-                if(i> product.quantity)
+                if(i > product.quantity)
                 {
                     quantity= product.quantity.ToString();
                     OnPropertyChanged(nameof(quantity));
                 }
-                else if (i < 0)
+                else if (i < 1)
                 {
-                    quantity = "0";
+                    quantity = "1";
                     OnPropertyChanged(nameof(quantity));
                 }
             }
@@ -84,9 +84,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             int i = 0;
             if (int.TryParse(s, out i))
             {
-                if (i <= 0)
+                if (i <= 1)
                 {
-                    quantity = "0";
+                    quantity = "1";
                     OnPropertyChanged(nameof(quantity));
 
                 }
