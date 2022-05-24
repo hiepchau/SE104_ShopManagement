@@ -246,7 +246,7 @@
                         <Binding Path="productCost"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged"
-                                 StringFormat="N{0}">
+                                 StringFormat="0:N2">
                             <Binding.ValidationRules>
                                 <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
                             </Binding.ValidationRules>
