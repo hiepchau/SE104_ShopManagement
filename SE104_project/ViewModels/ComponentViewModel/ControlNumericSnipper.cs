@@ -33,7 +33,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             else if (check)
             {
-                if (i >= maxquantity)
+                if (i > maxquantity)
                 {
                     quantity = maxquantity.ToString();
                     OnPropertyChanged(nameof(quantity));
