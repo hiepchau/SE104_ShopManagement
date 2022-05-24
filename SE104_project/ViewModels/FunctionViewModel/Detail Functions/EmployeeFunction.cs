@@ -90,10 +90,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             AddEmployeeControl addEmployeeControl = new AddEmployeeControl();
             addEmployeeControl.DataContext = this;
-            DialogHost.Show(addEmployeeControl);
+            DialogHost.Show(addEmployeeControl, delegate(object sender, DialogClosingEventArgs args)
+            {
+                SetNull();
+            });
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 SetNull();
+                Console.WriteLine("Executed!");
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
@@ -140,6 +144,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 _lastname = splitName.Substring(splitName.LastIndexOf(' ') + 1);
                 _name = splitName.Substring(0, splitName.LastIndexOf(' '));
             }
+            //User Function
             if (selectedUser != null)
             {
                 var filter = Builders<UserInfomation>.Filter.Eq("ID", selectedUser.ID);
@@ -164,26 +169,38 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 GetData();
                 OnPropertyChanged(nameof(listItemsUserInfo));
             }
-            else if (employeeImage != null)
+            else 
             {
-                //Register UserInformation
-                UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate), true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
-                RegisterUser regist = new RegisterUser(info, _connection.client);
-                string id = await regist.registerUser();
-                listItemsUserInfo.Add(new EmployeeControlViewModel(info, this));
+                int flag = CheckExist();
+                switch (flag)
+                {
+                    case 0:
+                        CustomMessageBox.Show("Người dùng đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    case 1:
+                        SetActive(selectedUser);
+                        Console.WriteLine("User.isActivated has been set to True!");
+                        return;
+                    case 2:
+                        //Register UserInformation
+                        UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate), true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
+                        RegisterUser regist = new RegisterUser(info, _connection.client);
+                        string id = await regist.registerUser();
+                        listItemsUserInfo.Add(new EmployeeControlViewModel(info, this));
 
-                //Register Image
-                ByteImage bimg = new ByteImage(id, employeeImage);
-                RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
-                await registImage.register();
-                OnPropertyChanged(nameof(listItemsUserInfo));
-                Console.WriteLine(id);
+                        //Register Image
+                        ByteImage bimg = new ByteImage(id, employeeImage);
+                        RegisterByteImage registImage = new RegisterByteImage(bimg, _connection.client, _session);
+                        await registImage.register();
+                        OnPropertyChanged(nameof(listItemsUserInfo));
+                        Console.WriteLine(id);
+                        return;
+                }
             }
             //Set Null
             SetNull();
             DialogHost.CloseDialogCommand.Execute(null, null);
             CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-
         }
 
         public void SaveImage(object o = null)
@@ -367,6 +384,27 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
 
             return long.Parse(tmp);
+        }
+        public int CheckExist()
+        {
+            foreach (EmployeeControlViewModel ls in listItemsUserInfo)
+            {
+                if (userEmail == ls.Email || userPhoneNumber == ls.PhoneNumber)
+                {
+                    return 0;
+                }
+            }
+
+            foreach (EmployeeControlViewModel ls1 in listUnactiveUserInfo)
+            {
+                if (userEmail == ls1.Email || userPhoneNumber == ls1.PhoneNumber)
+                {
+                    selectedUser = ls1;
+                    //Set Active
+                    return 1;
+                }
+            }
+            return 2;
         }
         #endregion
         #region DB
