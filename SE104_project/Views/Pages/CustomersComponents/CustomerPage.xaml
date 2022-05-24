@@ -235,8 +235,9 @@
                                 Style="{StaticResource Text}"
                                 Height="Auto"
                                 FontSize="20"
-                                Margin="20,0,0,0"
-                                HorizontalAlignment="Left"/>
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
+                                Text="{Binding totalRevenue}"/>
                 </Grid>
             </StackPanel>
             <Grid 

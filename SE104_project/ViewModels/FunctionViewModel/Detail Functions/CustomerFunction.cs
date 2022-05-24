@@ -35,6 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string customerAddress { get; set; }
         public string searchString { get; set; }
         public int customerCount { get; set; }
+        public string totalRevenue { get; set; }
 
         private MongoConnect _connection;
         private AppSession _session;
@@ -126,6 +127,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             //Display element
             customerCount = (listAllCustomer.Count > 0) ? listAllCustomer.Count : 0;
             OnPropertyChanged(nameof(customerCount));
+
+            //totalRevenue
+            long displayTotalRevenue = 0;
+            foreach (var member in listAllCustomer)
+            {
+                displayTotalRevenue += member.Sum;
+            }
+            
+            totalRevenue = SeparateThousands(displayTotalRevenue.ToString());
+            OnPropertyChanged(nameof(totalRevenue));
+
             //Reload MemberRank
             if (ItemSourceMembership.Count > 0 && listAllCustomer.Count > 0)
             {
@@ -146,7 +158,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             await GetData();
         }
 
-
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
         public void TextChangedHandle(Object o = null)
         {
             (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
