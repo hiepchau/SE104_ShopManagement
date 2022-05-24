@@ -247,7 +247,7 @@
                         <Binding Path="productCost"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged"
-                      Converter="{StaticResource FormatMoney}">
+                                 Converter="{StaticResource FormatMoney}">
 
                             <Binding.ValidationRules>
                                 <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
@@ -294,7 +294,8 @@
                     <TextBox.Text>
                         <Binding Path="productPrice"
                                  Mode="TwoWay"
-                                 UpdateSourceTrigger="PropertyChanged">
+                                 UpdateSourceTrigger="PropertyChanged"
+                                 Converter="{StaticResource FormatMoney}">
                             <Binding.ValidationRules>
                                 <rl:NotNullValidation ErrorMessage="Vui lòng nhập giá!" />
                             </Binding.ValidationRules>

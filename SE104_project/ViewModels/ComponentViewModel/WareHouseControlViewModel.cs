@@ -16,8 +16,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public int quantity { get; set; }
         public string price { get; set; }
         public string StockCost { get; set; }
-        public long InWareHouseStockValue { get; set; }
-        public long InWareHouseSellValue { get; set; }
+        public string InWareHouseStockValue { get; set; }
+        public string InWareHouseSellValue { get; set; }
         #endregion
 
         #region ICommand
@@ -30,11 +30,13 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ID = pro.ID;
             name = pro.name;
             quantity = pro.quantity;
-            price = SeparateThousands(pro.price.ToString());    
+            price = SeparateThousands(pro.price.ToString());
             StockCost = SeparateThousands(pro.StockCost.ToString());
             displayID = pro.displayID;
-            InWareHouseStockValue = pro.StockCost * pro.quantity;
-            InWareHouseSellValue = pro.price * pro.quantity;
+            long WarehouseCost = pro.StockCost * pro.quantity;
+            long WarehousePrice = pro.price * pro.quantity;
+            InWareHouseStockValue = SeparateThousands(WarehouseCost.ToString());
+            InWareHouseSellValue = SeparateThousands(WarehousePrice.ToString());
         }
 
         #region Function

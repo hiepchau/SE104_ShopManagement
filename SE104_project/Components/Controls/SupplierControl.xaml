@@ -41,7 +41,7 @@
             Style="{StaticResource Text}"/>
         <TextBlock   
             x:Name="txtTotal"
-            Text="122300"                                    
+            Text="Binding"                                    
             Grid.Column="4"                                    
             Style="{StaticResource Text}"/>
         <Button

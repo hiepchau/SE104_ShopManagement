@@ -7,7 +7,12 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction        
+                Command="{Binding ReloadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
@@ -150,8 +155,8 @@
                                 MaxWidth="200"
                                 Height="Auto"
                                 FontSize="24"
-                                Margin="20,0,0,0"
-                                HorizontalAlignment="Left"/>
+                                Text="{Binding supplierCount}"
+                                HorizontalAlignment="Center"/>
                 </Grid>
                 <Grid
                             Height="160"

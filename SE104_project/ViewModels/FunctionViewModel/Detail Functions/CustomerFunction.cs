@@ -34,6 +34,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string customerCMND { get; set; }
         public string customerAddress { get; set; }
         public string searchString { get; set; }
+        public int customerCount { get; set; }
+
         private MongoConnect _connection;
         private AppSession _session;
         public int selectedItem { get; set; }
@@ -69,7 +71,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
 
-        public ICommand UpdateCustomerLevelCommand { get; set; }
+        public ICommand ReloadCommand { get; set; }
         #endregion
 
         public CustomerFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, CustomerSelectMenu _customerSelectMenu) : base(session, connect)
@@ -78,12 +80,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session=session;
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
+            searchString = "";
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
             ItemSourceMembership = new ObservableCollection<MembershipInformation>();
-            UpdateCustomerLevelCommand = new RelayCommand<object>(null, reloadMemberRank);
-            //Get Data
-            
-            //
+            ReloadCommand = new RelayCommand<object>(null, reload);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
@@ -116,6 +116,37 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu.changeSelectedItem(1);
             managingFunction.CurrentDisplayPropertyChanged();
         }
+        private async void reload(Object o = null)
+        {
+            await GetData();
+            await GetMembershipData();
+            Console.WriteLine("Executed membership for reload " + ItemSourceMembership.Count.ToString());
+            Console.WriteLine("Executed customer for reload " + listAllCustomer.Count.ToString());
+
+            //Display element
+            customerCount = (listAllCustomer.Count > 0) ? listAllCustomer.Count : 0;
+            OnPropertyChanged(nameof(customerCount));
+            //Reload MemberRank
+            if (ItemSourceMembership.Count > 0 && listAllCustomer.Count > 0)
+            {
+                foreach (var member in listAllCustomer)
+                {
+                    foreach (var ship in ItemSourceMembership)
+                    {
+                        if (member.Sum >= ship.condition)
+                        {
+                            FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, member.ID);
+                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set("Level", ship.ID);
+                            UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
+                            await updater.update();
+                        }
+                    }
+                }
+            }
+            await GetData();
+        }
+
+
         public void TextChangedHandle(Object o = null)
         {
             (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
@@ -340,29 +371,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             return sum;
         }
 
-        private async void reloadMemberRank(object o =null)
-        {
-            await GetData();
-            await GetMembershipData();
-            Console.WriteLine("Executed member ship for reload " + ItemSourceMembership.Count.ToString());
-            if (ItemSourceMembership.Count>0 && listAllCustomer.Count > 0)
-            {
-                foreach(var member in listAllCustomer)
-                {
-                    foreach(var ship in ItemSourceMembership)
-                    {
-                        if(member.Sum >= ship.condition)
-                        {
-                            FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x=>x.ID,member.ID);
-                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set("Level", ship.ID);
-                            UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil,update);
-                            await updater.update();
-                        }
-                    }
-                }
-            }
-            await GetData();
-        }
+
 
         #endregion
     }

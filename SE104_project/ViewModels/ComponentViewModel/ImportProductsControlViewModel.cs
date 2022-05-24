@@ -1,8 +1,12 @@
-﻿using SE104_OnlineShopManagement.Commands;
+﻿using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
@@ -35,11 +39,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             name = product.name;
             quantity = product.quantity;
             StockCost = SeparateThousands(product.StockCost.ToString());
-            Category = product.Category;
             Unit = product.Unit;
             displayID = product.displayID;
             _parent = parent;
             sum = "";
+            GetTypeName();
             DeleteImportProductsCommand = new RelayCommand<Object>(null, deleteImportProducts);
         }
 
@@ -82,6 +86,21 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
 
             return long.Parse(tmp);
+        }
+        public async void GetTypeName()
+        {
+            var filter = Builders<ProductTypeInfomation>.Filter.Eq(x => x.ID, product.Category);
+            GetProductType getter = new GetProductType((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
+            var ls = await getter.Get();
+            if (ls != null && ls.Count > 0)
+            {
+                Category = ls.First().name;
+                OnPropertyChanged(nameof(Category));
+            }
+            else
+            {
+                return;
+            }
         }
         #endregion
     }

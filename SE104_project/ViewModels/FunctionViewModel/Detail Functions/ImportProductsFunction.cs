@@ -49,7 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listItemsImportProduct = new ObservableCollection<ImportProductsControlViewModel>();
             listProducts = new ObservableCollection<POSProductControlViewModel>();
  
-            getdata();
+            _ = getdata();
             SearchCommand = new RelayCommand<Object>(null, search);
             
             OpenAddReceiptControlCommand = new RelayCommand<Object>(isEmptyImportList, OpenAddReceiptControl);
@@ -68,8 +68,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 sum += ConvertToNumber(pr.sum);
             }
-            totalReceipt=SeparateThousands(sum.ToString());
-            MoneyToPay = SeparateThousands((ConvertToNumber(totalReceipt) - (ConvertToNumber(totalReceipt) * (discount / 100))).ToString());
+            totalReceipt = SeparateThousands(sum.ToString());
+            double displayMoneytoPay = ConvertToNumber(totalReceipt) - (ConvertToNumber(totalReceipt) * (discount / 100));
+            Console.WriteLine("money to pay: " + displayMoneytoPay);
+            MoneyToPay = SeparateThousands(displayMoneytoPay.ToString());
 
             PayBillCommand = new RelayCommand<Object>(null, payBill);
             ExitCommand = new RelayCommand<Object>(null, exit =>

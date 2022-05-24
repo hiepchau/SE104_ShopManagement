@@ -10,7 +10,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction        
-                Command="{Binding UpdateCustomerLevelCommand}"/>
+                Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -197,8 +197,8 @@
                                 MaxWidth="200"
                                 Height="Auto"
                                 FontSize="20"
-                                Margin="20,0,0,0"
-                                HorizontalAlignment="Left"/>
+                                Text="{Binding customerCount}"
+                                HorizontalAlignment="Center"/>
                 </Grid>
                 <Grid
                             Height="125"

@@ -22,7 +22,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         private IUpdateSuplierList _parent;
         #endregion
 
-        #region
+        #region ICommand
         public ICommand EditSupplierCommand { get; set; }
         public ICommand DeleteSupplierCommand { get; set; }
         #endregion

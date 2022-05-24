@@ -61,7 +61,8 @@
         <TextBlock          
             x:Name="txtValue"
             Grid.Column="6"
-            Style="{StaticResource Text}" HorizontalAlignment="Left" Margin="20 0 0 0"
+            Style="{StaticResource Text}" 
+            HorizontalAlignment="Left" Margin="20 0 0 0"
             Text="{Binding InWareHouseSellValue}">
            
         </TextBlock>

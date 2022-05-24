@@ -34,6 +34,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierMail { get; set; }
         public int IsSelectedIndex { get; set; }
         public string searchString { get; set; }
+        public int supplierCount { get; set; }
         public SupplierControlViewModel selectedProducer { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
@@ -49,6 +50,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand ExitCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand ReloadCommand { get; set; }
+
 
         #endregion
         public SupplierFunction(AppSession session, MongoConnect connect) : base(session, connect)
@@ -56,15 +59,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             this._session = session;
             IsSelectedIndex = -1;
+            searchString = "";
             listAllProducer = new ObservableCollection<SupplierControlViewModel>();
             listActiveItemsProducer = new ObservableCollection<SupplierControlViewModel>();
-            //Get Data
-            _ = GetData();
-            _ = GetAllData();           
-            //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
             SearchCommand = new RelayCommand<Object>(null, search);
+            ReloadCommand = new RelayCommand<object>(null, reload);
+
         }
         #region Function
         public void OpenAddSupplierControl(Object o = null)
@@ -82,7 +84,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
                 SetNull();
             });
+        }
+        private async void reload(Object o = null)
+        {
+            await GetData();
+            await GetAllData();
+            Console.WriteLine("Executed active producer for reload " + listActiveItemsProducer.Count.ToString());
+            Console.WriteLine("Executed all producer for reload " + listAllProducer.Count.ToString());
 
+            supplierCount = (listActiveItemsProducer.Count > 0) ? listActiveItemsProducer.Count : 0;
+            OnPropertyChanged(nameof(supplierCount));
         }
         public void TextChangedHandle(Object o = null)
         {
@@ -97,6 +108,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             return true;
         }
+
         public void SetNull(Object o = null)
         {
             supplierName = "";
@@ -151,25 +163,31 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public void UpdateSuplierList(ProducerInformation producer)
         {
-            int i = 0;
-            if (listActiveItemsProducer.Count > 0)
+            var result = CustomMessageBox.Show("Bạn có chắc chắn muốn xóa?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                foreach (SupplierControlViewModel ls in listActiveItemsProducer)
+                int i = 0;
+                if (listActiveItemsProducer.Count > 0)
                 {
-                    if (ls.producer.ID.Equals(producer.ID))
+                    foreach (SupplierControlViewModel ls in listActiveItemsProducer)
                     {
-                        SetUnactive(ls);
-                        listAllProducer.Clear();
-                        _ = GetAllData();
-                        break;
+                        if (ls.producer.ID.Equals(producer.ID))
+                        {
+                            SetUnactive(ls);
+                            listAllProducer.Clear();
+                            _ = GetAllData();
+                            break;
+                        }
+                        i++;
                     }
-                    i++;
+                    listActiveItemsProducer.RemoveAt(i);
+                    OnPropertyChanged(nameof(listActiveItemsProducer));
                 }
-                listActiveItemsProducer.RemoveAt(i);
-                OnPropertyChanged(nameof(listActiveItemsProducer));
+
             }
             else
             {
+                CustomMessageBox.Show("Xóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
