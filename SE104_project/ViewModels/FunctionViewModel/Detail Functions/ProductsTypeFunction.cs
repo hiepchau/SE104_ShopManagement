@@ -76,22 +76,29 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 GetData();
                 OnPropertyChanged(nameof(listItemsProductType));
             }
-            else if (CheckExist()==false)
+            else 
             {
-                ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note);
-                RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
-                string s = await regist.register();
-                info.ID = s;
-                listItemsProductType.Clear();
-                GetData();
-                OnPropertyChanged(nameof(listItemsProductType));
-                Console.WriteLine(s);
+                int flag = CheckExist();
+                switch (flag)
+                {
+                    case 0:
+                        CustomMessageBox.Show("Loại sản phẩm đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    case 1:
+                        SetActive();
+                        return;
+                    case 2:
+                        ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note);
+                        RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
+                        string s = await regist.register();
+                        info.ID = s;
+                        listItemsProductType.Clear();
+                        GetData();
+                        OnPropertyChanged(nameof(listItemsProductType));
+                        Console.WriteLine(s);
+                        return;
+                }           
             }
-            else
-            {
-                CustomMessageBox.Show("Loại sản phẩm đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            //Set Null
             SetNull();
         }
         public void UpdateProductTypeList(ProductTypeInfomation type)
@@ -233,16 +240,26 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.Write("Executed");
             OnPropertyChanged(nameof(listItemsUnactiveProductType));
         }
-        public bool CheckExist()
+        public int CheckExist()
         {
-            foreach (ProductsTypeControlViewModel type in listItemsProductType)
+            foreach (ProductsTypeControlViewModel ls in listItemsProductType)
             {
-                if (productTypeName == type.name)
+                if (productTypeName == ls.name)
                 {
-                    return true;
+                    return 0;
                 }
             }
-            return false;
+
+            foreach (ProductsTypeControlViewModel ls1 in listItemsUnactiveProductType)
+            {
+                if (productTypeName == ls1.name)
+                {
+                    selectedProductType = ls1;
+                    //Set Active
+                    return 1;
+                }
+            }
+            return 2;
         }
         #endregion
     }
