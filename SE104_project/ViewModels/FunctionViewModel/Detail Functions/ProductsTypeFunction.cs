@@ -68,7 +68,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             if (selectedProductType!=null)
             {
-                var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
+                var filter = Builders<ProductTypeInfomation>.Filter.Eq(x=>x.ID, selectedProductType.ID);
                 var update = Builders<ProductTypeInfomation>.Update.Set("ProductTypeName", productTypeName).Set("Note", note);
                 UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
@@ -138,7 +138,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 if (selectedProductType != null && selectedProductType.isActivated == true)
                 {
-                    var filter = Builders<ProductTypeInfomation>.Filter.Eq("ID", selectedProductType.ID);
+                    var filter = Builders<ProductTypeInfomation>.Filter.Eq(x=>x.ID, selectedProductType.ID);
                     var update = Builders<ProductTypeInfomation>.Update.Set("isActivated", false);
                     UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
                     var s = await updater.update();

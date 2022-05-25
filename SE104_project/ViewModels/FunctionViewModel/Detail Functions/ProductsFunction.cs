@@ -67,6 +67,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand ExitCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
+        public ICommand ReloadCommand { get; set; }
 
         #endregion
         public ProductsFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, ManagementMenu managementMenu) : base(session, connect)
@@ -82,10 +83,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
             //Get Data
-            _ = GetData();
-            GetAllData();
-            GetProductTypeData();
-            GetProducerData();
+
             //
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
@@ -93,12 +91,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
             SearchCommand = new RelayCommand<Object>(null, search);
-
+            ReloadCommand = new RelayCommand<object>(null, Reload);
             SelectedProductsType = null;
             SelectedProducer = null;
         }
 
         #region Function
+        private async void Reload(object o = null)
+        {
+            await GetData();
+            GetAllData();
+            GetProductTypeData();
+            GetProducerData();
+        }
         //AddProduct
         public void OpenAddProductControl(Object o = null)
         {
@@ -428,6 +433,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.Get();
             foreach (ProductsInformation pro in ls)
             {
+                FilterDefinition<ProductTypeInfomation> fil = Builders<ProductTypeInfomation>.Filter.Eq(x => x.ID, pro.Category) &
+                    Builders<ProductTypeInfomation>.Filter.Eq(x => x.isActivated, false);
+                List<ProductTypeInfomation> lscheck = new List<ProductTypeInfomation>();
+                GetProductType gettercheck = new GetProductType(_connection.client, _session, fil);
+                lscheck = await gettercheck.Get();
+                if(lscheck.Count == 0)
                 listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
             }
             Console.Write("Executed");

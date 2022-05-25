@@ -60,7 +60,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             bool check = int .TryParse(s, out i);
             if (!check)
             {
-                quantity = "0";
+                quantity = "1";
                 OnPropertyChanged(nameof(quantity));
             }
             else if (check)
@@ -113,8 +113,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         }
         public void GetIncreaseQuantityByClick()
         {
-            quantity = (GetDetailNum() + 1).ToString();
-            OnPropertyChanged(nameof(quantity));
+            if (GetDetailNum() < product.quantity)
+            {
+                quantity = (GetDetailNum() + 1).ToString();
+                OnPropertyChanged(nameof(quantity));
+            }
         }
         public int GetDetailNum()
         {

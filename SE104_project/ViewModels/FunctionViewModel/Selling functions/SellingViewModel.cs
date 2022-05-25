@@ -63,7 +63,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             today = DateTime.Now.ToString("dd/MM/yyyy");
 
             clockTicking();
-            getdata();
             SearchCommand = new RelayCommand<object>(null, search);
             PurchaseCommand = new RelayCommand<object>(IsValidPurchase, purchase);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);

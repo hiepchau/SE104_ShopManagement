@@ -69,7 +69,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 sum += ConvertToNumber(pr.sum);
             }
             totalReceipt = SeparateThousands(sum.ToString());
-            double displayMoneytoPay = ConvertToNumber(totalReceipt) - (ConvertToNumber(totalReceipt) * (discount / 100));
+            double displayMoneytoPay = (double)ConvertToNumber(totalReceipt) - (double)(ConvertToNumber(totalReceipt) * (discount / 100));
             Console.WriteLine("money to pay: " + displayMoneytoPay);
             MoneyToPay = SeparateThousands(displayMoneytoPay.ToString());
 
