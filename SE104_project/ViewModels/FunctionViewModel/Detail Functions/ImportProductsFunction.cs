@@ -271,9 +271,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var task = tmp.Get();
             var ls = await task;
             Task.WaitAll(task);
-            foreach (ProductsInformation pr in ls)
+            foreach (ProductsInformation pro in ls)
             {
-                listProducts.Add(new POSProductControlViewModel(pr, this));
+                var lscheck = await CheckInactiveCategory.listInactiveCategory(_connection.client, _session, pro);
+                if (lscheck.Count == 0)
+                {
+                    listProducts.Add(new POSProductControlViewModel(pro, this));
+                }
             }
             OnPropertyChanged(nameof(listProducts));
         }

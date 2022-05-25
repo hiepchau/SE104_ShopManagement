@@ -23,6 +23,7 @@ using System.Linq;
 using MongoDB.Bson;
 using System.Windows;
 using System.Text.RegularExpressions;
+using System.Windows.Documents;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -433,13 +434,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.Get();
             foreach (ProductsInformation pro in ls)
             {
-                FilterDefinition<ProductTypeInfomation> fil = Builders<ProductTypeInfomation>.Filter.Eq(x => x.ID, pro.Category) &
-                    Builders<ProductTypeInfomation>.Filter.Eq(x => x.isActivated, false);
-                List<ProductTypeInfomation> lscheck = new List<ProductTypeInfomation>();
-                GetProductType gettercheck = new GetProductType(_connection.client, _session, fil);
-                lscheck = await gettercheck.Get();
-                if(lscheck.Count == 0)
-                listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
+                var lscheck = await CheckInactiveCategory.listInactiveCategory(_connection.client, _session, pro);
+                if (lscheck.Count == 0)
+                {
+                    listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
+                }
             }
             Console.Write("Executed");
             OnPropertyChanged(nameof(listActiveItemsProduct));
