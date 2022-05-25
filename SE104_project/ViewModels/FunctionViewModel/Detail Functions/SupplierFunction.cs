@@ -35,6 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public int IsSelectedIndex { get; set; }
         public string searchString { get; set; }
         public int supplierCount { get; set; }
+        public bool isLoaded { get; set; }
         public SupplierControlViewModel selectedProducer { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
@@ -59,6 +60,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             this._session = session;
             IsSelectedIndex = -1;
+            isLoaded= true;
             searchString = "";
             listAllProducer = new ObservableCollection<SupplierControlViewModel>();
             listActiveItemsProducer = new ObservableCollection<SupplierControlViewModel>();
@@ -93,6 +95,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Console.WriteLine("Executed all producer for reload " + listAllProducer.Count.ToString());
 
             supplierCount = (listActiveItemsProducer.Count > 0) ? listActiveItemsProducer.Count : 0;
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(supplierCount));
         }
         public void TextChangedHandle(Object o = null)

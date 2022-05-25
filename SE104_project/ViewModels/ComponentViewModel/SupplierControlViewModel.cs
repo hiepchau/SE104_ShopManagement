@@ -23,8 +23,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string PhoneNumber { get; set; }
         public string displayID { get; set; }
         public string Address { get; set; }
-        public int BillAmount { get; set; }
+        public string BillAmount { get; set; }
         public bool isActivated { get; set; }
+        public string sumPrice { get; set; }
         private IUpdateSuplierList _parent;
         private List<ProductsInformation> listproducts { get; set; }
         private List<StockDetails> liststock { get; set; }
@@ -48,7 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             _parent = parent;
             listproducts=new List<ProductsInformation>();
             liststock=new List<StockDetails>();
-            _ = GetBillAmount();
+            GetBillAmount();
             EditSupplierCommand = new RelayCommand<Object>(null, EditSupplier);
             DeleteSupplierCommand = new RelayCommand<Object>(null, DeleteSupplier);
         }
@@ -62,9 +63,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _parent.EditSupplier(producer);
         }
-        public async Task GetBillAmount()
+        public async void GetBillAmount()
         {
             int sum = 0;
+            long sumPrice = 0;
             //Get Product
             await GetProduct();
             //Get StockDetails
@@ -72,28 +74,26 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
             foreach (ProductsInformation pro in listproducts) 
             {
-                Console.WriteLine(pro.ID);
                 foreach (StockDetails stock in liststock)
                 {
-                    Console.WriteLine(stock.productID);
                     if (pro.ID.Equals(stock.productID))
                     {
+                        sumPrice += stock.sumPrice;
                         sum++;
                     }
                 }
             }          
-            BillAmount = sum;
-            Console.Write(BillAmount);
+            this.sumPrice = SeparateThousands(sumPrice.ToString());
+            BillAmount = SeparateThousands(sum.ToString());
+            OnPropertyChanged(nameof(sumPrice));
             OnPropertyChanged(nameof(BillAmount));
         }
         public async Task GetProduct()
         {
             var productfilter = Builders<ProductsInformation>.Filter.Eq("ProductProvider", ID);
             GetProducts productgetter = new GetProducts((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, productfilter);
-            var producttask = productgetter.Get();
-            var ls1 = await producttask;
-            Task.WaitAll(producttask);
-            foreach(var product in ls1)
+            var ls = await productgetter.Get();
+            foreach(var product in ls)
             {
                 listproducts.Add(product);
             }
@@ -102,13 +102,22 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             var filter = Builders<StockDetails>.Filter.Empty;
             GetStockingDetail getter = new GetStockingDetail((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
-            var task = getter.Get();
-            var ls = await task;
-            Task.WaitAll(task);
+            var ls = await getter.Get();
             foreach(StockDetails stock in ls)
             {
                 liststock.Add(stock);
             }
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         #endregion
     }
