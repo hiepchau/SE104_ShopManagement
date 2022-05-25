@@ -36,7 +36,7 @@
             Style="{StaticResource Text}"/>
         <TextBlock     
             x:Name="txtBillCount"
-            Text="5"                         
+            Text="{Binding BillAmount}"                         
             Grid.Column="3"                                   
             Style="{StaticResource Text}"/>
         <TextBlock   
