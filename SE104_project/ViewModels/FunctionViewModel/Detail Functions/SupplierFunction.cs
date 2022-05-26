@@ -36,6 +36,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string searchString { get; set; }
         public int supplierCount { get; set; }
         public bool isLoaded { get; set; }
+        public string totalSupplierSpent { get; set; }
         public SupplierControlViewModel selectedProducer { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
@@ -98,6 +99,39 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(supplierCount));
+
+            //totalSupplierSpent
+            long displayTotalSupplierSpent = 0;
+            foreach (var producer in listActiveItemsProducer)
+            {
+                await producer.GetBillAmount();
+                displayTotalSupplierSpent += ConvertToNumber(producer.sumPrice);
+            }
+            Console.WriteLine("Total Supplier sent: "+ displayTotalSupplierSpent);
+            totalSupplierSpent = SeparateThousands(displayTotalSupplierSpent.ToString());
+            OnPropertyChanged(nameof(totalSupplierSpent));
+        }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
+        }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
         }
         public void TextChangedHandle(Object o = null)
         {

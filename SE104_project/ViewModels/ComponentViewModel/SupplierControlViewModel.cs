@@ -47,9 +47,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             Address = producer.Address;
             Email = producer.Email;
             _parent = parent;
-            listproducts=new List<ProductsInformation>();
+            listproducts = new List<ProductsInformation>();
             liststock=new List<StockDetails>();
-            GetBillAmount();
+            _ =  GetBillAmount();
             EditSupplierCommand = new RelayCommand<Object>(null, EditSupplier);
             DeleteSupplierCommand = new RelayCommand<Object>(null, DeleteSupplier);
         }
@@ -63,10 +63,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _parent.EditSupplier(producer);
         }
-        public async void GetBillAmount()
+        public async Task GetBillAmount()
         {
             int sum = 0;
-            long sumPrice = 0;
+            long displaysumPrice = 0;
             //Get Product
             await GetProduct();
             //Get StockDetails
@@ -78,16 +78,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 {
                     if (pro.ID.Equals(stock.productID))
                     {
-                        sumPrice += stock.sumPrice;
+                        displaysumPrice += stock.sumPrice;
                         sum++;
                     }
                 }
             }          
-            this.sumPrice = SeparateThousands(sumPrice.ToString());
+            this.sumPrice = SeparateThousands(displaysumPrice.ToString());
             BillAmount = SeparateThousands(sum.ToString());
             OnPropertyChanged(nameof(sumPrice));
             OnPropertyChanged(nameof(BillAmount));
         }
+
         public async Task GetProduct()
         {
             var productfilter = Builders<ProductsInformation>.Filter.Eq("ProductProvider", ID);
