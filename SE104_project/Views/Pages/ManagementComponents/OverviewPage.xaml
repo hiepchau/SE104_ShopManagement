@@ -68,7 +68,7 @@
 
                     </Grid.ColumnDefinitions>
 
-                    <controls:InfoCard Grid.Column="0" Title="Doanh Số" Number="654,947" Icon="ChartBar" 
+                    <controls:InfoCard Grid.Column="0" Title="Doanh Số" Number="{Binding Income}" Icon="ChartBar" 
                                  Background1="{StaticResource WordGreen}" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="{StaticResource LightGreen}" EllipseBackground2="#1090ee90"
                                  Margin="10,22,294,22" Grid.ColumnSpan="2"/>
@@ -76,7 +76,7 @@
                                  Background1="#6AA4E0" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="#68D3F7" EllipseBackground2="#3064EDEC"
                                  Margin="10,22,295,23" Grid.ColumnSpan="2"/>
-                    <controls:InfoCard Grid.Column="2" Title="Lợi Nhuận" Number="654,947" Icon="Coins" 
+                    <controls:InfoCard Grid.Column="2" Title="Lợi Nhuận" Number="{Binding Profit}" Icon="Coins" 
                                  Background1="#FD8A87" Background2="#F3AB92"
                                  EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"
                                  Margin="10,22,-11,23"

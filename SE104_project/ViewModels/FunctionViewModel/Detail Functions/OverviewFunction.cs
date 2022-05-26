@@ -16,16 +16,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session { get; set; }
         public string Income { get; set; }
         public string Spending { get; set; }
+        public string Profit { get; set; }
         public bool isLoaded { get; set; }
         #endregion
         public OverviewFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             _connection = connect;
             _session = session;
-            _ = GetBillData();
-            _ = GetStockData();
+            _ = GetProfit();
         }
         #region Function
+        public async Task GetProfit()
+        {
+            await GetStockData();
+            await GetBillData();
+            Profit = SeparateThousands((ConvertToNumber(Income)-ConvertToNumber(Spending)).ToString());
+            OnPropertyChanged(nameof(Profit));
+        }
         public async Task GetStockData()
         {
             var filter = Builders<StockInformation>.Filter.Empty;
@@ -42,7 +49,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Spending = SeparateThousands(sum.ToString());
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(Spending));
-            Console.Write("Executed");
         }
         public async Task GetBillData()
         {
@@ -60,7 +66,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Income = SeparateThousands(sum.ToString());
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(Income));
-            Console.Write("Executed");
         }
         public string SeparateThousands(String text)
         {
@@ -72,6 +77,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 return res;
             }
             return "";
+        }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
         }
         #endregion
     }

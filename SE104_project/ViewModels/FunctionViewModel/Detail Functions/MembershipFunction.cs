@@ -188,7 +188,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (MembershipControlViewModel ls in listActiveMembership)
             {
-                if (membershipname == ls.name || priority != ls.prio)
+                if (membershipname == ls.name || priority == ls.prio)
                 {
                     return 0;
                 }
@@ -196,7 +196,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     
             foreach (MembershipControlViewModel ls1 in listAllMembership)
             {
-                if (membershipname == ls1.name || priority != ls1.prio)
+                if (membershipname == ls1.name || priority == ls1.prio)
                 {
                     selectedMembership = ls1;
                     //Set Active

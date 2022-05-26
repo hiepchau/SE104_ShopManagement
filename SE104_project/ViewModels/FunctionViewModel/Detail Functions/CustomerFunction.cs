@@ -190,6 +190,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerCMND = "";
             customerName = "";
             customerPhone = "";
+            selectedCus = null;
             OnPropertyChanged(nameof(customerCMND));
             OnPropertyChanged(nameof(customerPhone));
             OnPropertyChanged(nameof(customerName));
