@@ -178,7 +178,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if((String.IsNullOrEmpty(customerName)
                 || String.IsNullOrEmpty(customerPhone) || customerPhone.Length != 10 
                 || String.IsNullOrEmpty(customerAddress) 
-                || String.IsNullOrEmpty(customerCMND) || (customerCMND).Length != 12))
+                || String.IsNullOrEmpty(customerCMND) || customerCMND.Length != 12))
             {
                 return false;
             }
