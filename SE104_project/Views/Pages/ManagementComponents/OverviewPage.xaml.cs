@@ -12,6 +12,5 @@ namespace SE104_OnlineShopManagement.Views.Pages.ManagementComponents
             InitializeComponent();
         }
 
-
     }
 }

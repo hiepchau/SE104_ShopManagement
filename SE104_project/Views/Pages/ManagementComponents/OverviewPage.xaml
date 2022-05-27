@@ -51,7 +51,9 @@
                                     HorizontalContentAlignment="Left"
                                     FontWeight="SemiBold"
                                     BorderBrush="{StaticResource Black2}" 
-                                    Background="{StaticResource White}">
+                                    Background="{StaticResource White}"
+                                    SelectedIndex="{Binding selectedIndex}"
+                                    >
                             <ComboBoxItem Content="Hôm nay"/>
                             <ComboBoxItem Content="7 ngày gần đây"/>
                             <ComboBoxItem Content="30 ngày gần đây"/>
@@ -90,7 +92,7 @@
                     </Grid.ColumnDefinitions>
                     <!--CartesianChart-->
 
-                    <Border CornerRadius="20" Padding="35 25" Background="#7AD7F0" Margin="20,20,0,10" Grid.Column="0">
+                    <Border CornerRadius="20" Padding="35 25" Background="#7AD7F0" Margin="20,20,0,20" Grid.Column="0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -156,7 +158,7 @@
                                 </lvc:CartesianChart.AxisY>
 
                                 <lvc:CartesianChart.Series>
-                                    <lvc:LineSeries Name="Slm" Values="20000,17000,30000,15000,50000,30000,20000" StrokeThickness="2" Stroke="#64EDEC" PointGeometrySize="0">
+                                    <lvc:LineSeries Name="Slm" Values="10000,17000,30000,15000,50000,30000,20000" StrokeThickness="2" Stroke="#64EDEC" PointGeometrySize="0">
                                         <lvc:LineSeries.Fill>
                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                 <GradientStop Color="#B7E9F7" Offset="1.4"/>
