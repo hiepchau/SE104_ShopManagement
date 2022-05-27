@@ -9,8 +9,9 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:rl="clr-namespace:SE104_OnlineShopManagement.Services.Validations" 
              xmlns:multiconvert="clr-namespace:SE104_OnlineShopManagement.Utils"
-             d:DesignHeight="715" d:DesignWidth="1166"
-             uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">
+             d:DesignHeight="715" 
+             d:DesignWidth="1166">
+    <!--uc:NumericSnipperControl.NumValueChanged="HandleValueChanged">-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction        
@@ -401,7 +402,7 @@
                     x:Name="btnPrintBill"
                     Style="{StaticResource PrimaryButton}"
                     Height="35"
-                    Command="{Binding ViewStockReceiptTemplateCommand}"
+                    Command="{Binding PrintBillCommand}"
                     BorderThickness="2"
                     Margin="0,15,0,0" 
                     Background="{DynamicResource White}" 

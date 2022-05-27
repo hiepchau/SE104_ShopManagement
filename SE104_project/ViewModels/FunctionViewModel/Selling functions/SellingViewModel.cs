@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Components.Controls;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
@@ -7,6 +8,7 @@ using SE104_OnlineShopManagement.Network.Insert_database;
 using SE104_OnlineShopManagement.Network.Update_database;
 using SE104_OnlineShopManagement.Services;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +16,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -49,6 +53,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public ICommand PurchaseCommand { get; set; }
         public ICommand ReloadCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
+        public ICommand PrintBillCommand { get; set; }
         #endregion
         public SellingViewModel(AppSession session, MongoConnect client) : base(session, client)
         {
@@ -63,10 +68,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             today = DateTime.Now.ToString("dd/MM/yyyy");
 
             clockTicking();
-            SearchCommand = new RelayCommand<object>(null, search);
-            PurchaseCommand = new RelayCommand<object>(IsValidPurchase, purchase);
+            SearchCommand = new RelayCommand<Object>(null, search);
+            PurchaseCommand = new RelayCommand<Object>(IsValidPurchase, purchase);
+            PrintBillCommand = new RelayCommand<Object>(null, PrintBill);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
-            ReloadCommand = new RelayCommand<object>(null,async t=> { 
+            ReloadCommand = new RelayCommand<Object>(null,async t=> { 
                 listProducts.Clear();
                 await getdata(); });
         }
@@ -89,27 +95,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
                 Task<string> registertask = registbill.register();
                 string billid = "";
-                //registertask.ContinueWith(async _ => { }
-                ////{
-                ////    if (listbought.Count > 0)
-                ////    {
-                ////        foreach (var item in listbought)
-                ////        {
-                ////            BillDetails tmpdetail = new BillDetails("", item.product.ID, billid, item.GetDetailNum(), item.GetDetailNum() * item.product.price);
-                ////            RegisterBillDetails regist = new RegisterBillDetails(tmpdetail, _connection.client, _session);
-                ////            await UpdateAmount(item);
-                ////            await regist.register();
-                ////            //foreach (var itemonsale in listProducts)
-                ////            //{
-                ////            //    if (item.product.ID.Equals(itemonsale.product.ID))
-                ////            //    {
-                ////            //        itemonsale.quantity -= item.GetDetailNum();
-                ////            //        itemonsale.onQuantityChange();
-                ////            //    }
-                ////            //}
-                ////        }
-                ////    }
-                //});
+               
 
                 billid = await registertask;
                 Task.WaitAll(registertask);
@@ -126,14 +112,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                         await task1;
                         await task2;
                         Task.WaitAll(task1, task2);
-                        //foreach (var itemonsale in listProducts)
-                        //{
-                        //    if (item.product.ID.Equals(itemonsale.product.ID))
-                        //    {
-                        //        itemonsale.quantity -= item.GetDetailNum();
-                        //        itemonsale.onQuantityChange();
-                        //    }
-                        //}
                     }
                 }
 
@@ -142,6 +120,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 getdata();
                 OnPropertyChanged(nameof(listbought));
                 CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                //var printBill = CustomMessageBox.Show("Bạn có muốn in hóa đơn?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                //if(printBill == MessageBoxResult.Yes)
+                //{
+                //    PrintBill();
+                //}
             }
             else
             {
@@ -159,7 +142,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         {
             (PurchaseCommand as RelayCommand<Object>).OnCanExecuteChanged();
         }
+        public void PrintBill(Object o = null)
+        {
 
+            PrintDialog printDlg = new PrintDialog();
+            if (printDlg.ShowDialog() != true) return;
+            BillTemplate bill = new BillTemplate();
+            printDlg.PrintVisual(bill, "FirstPrint");
+
+        }
         public void UpdateSelectedList(ProductsInformation pro)
         {
             if (pro.quantity > 0)
