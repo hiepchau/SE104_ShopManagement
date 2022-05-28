@@ -20,6 +20,7 @@
     <SolidColorBrush x:Key="Gray2" Color="#FFBDBDBD" />
     <SolidColorBrush x:Key="Gray3" Color="#FFE0E0E0" />
     <SolidColorBrush x:Key="Gray4" Color="#ececec" />
+    <SolidColorBrush x:Key="Light" Color="#FFEBF0FF" />
 
     <SolidColorBrush x:Key="Success" Color="#4BB543" />
     <SolidColorBrush x:Key="Error" Color="#FFDE3E44" />
