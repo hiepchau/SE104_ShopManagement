@@ -81,7 +81,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                 }
             }
             company = new CompanyInformation(Guid.NewGuid().ToString(), ComName, "","", "", "", "");
-            user = new UserInfomation("Owner",FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,salary,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null));
+            user = new UserInfomation("Owner",FirstName,LastName,Email,Password,"0",company.Name,Role.Owner,gender,salary,DateTime.ParseExact(birthDay,"dd/mm/yyyy",null),DateTime.Today);
             RegisterUser regist= new RegisterUser(user,DBConnection.client);
             string s = await regist.registerUser();
             FirstName = "";
