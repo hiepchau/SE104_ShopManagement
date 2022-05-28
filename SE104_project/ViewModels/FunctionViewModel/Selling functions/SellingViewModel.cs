@@ -12,6 +12,7 @@ using SE104_OnlineShopManagement.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +20,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Threading;
+using System.Xml;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions
 {
@@ -120,11 +123,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 getdata();
                 OnPropertyChanged(nameof(listbought));
                 CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                //var printBill = CustomMessageBox.Show("Bạn có muốn in hóa đơn?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                var printBill = CustomMessageBox.Show("Bạn có muốn in hóa đơn?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 //if(printBill == MessageBoxResult.Yes)
                 //{
                 //    PrintBill();
                 //}
+
+
             }
             else
             {
@@ -138,18 +144,49 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 return false;
             return true;
         }
-        public void TextChangedHandle(Object o = null)
-        {
-            (PurchaseCommand as RelayCommand<Object>).OnCanExecuteChanged();
-        }
+
         public void PrintBill(Object o = null)
         {
 
             PrintDialog printDlg = new PrintDialog();
             if (printDlg.ShowDialog() != true) return;
-            BillTemplate bill = new BillTemplate();
-            printDlg.PrintVisual(bill, "FirstPrint");
+            BillTemplate billTemplate = new BillTemplate();
+            FixedDocument document = new FixedDocument();
+            PageContent temp;
+            document.DocumentPaginator.PageSize = new Size(billTemplate.grdPrint.ActualWidth, billTemplate.grdPrint.ActualHeight);
+            billTemplate.grdPrint.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            billTemplate.grdPrint.Arrange(new Rect(0, 0, billTemplate.grdPrint.DesiredSize.Width, billTemplate.grdPrint.DesiredSize.Height));
+            temp = ConvertToPage(billTemplate.grdPrint);
+            document.Pages.Add(temp);
+            
+            printDlg.PrintDocument(document.DocumentPaginator, "Hehe");
+            CustomMessageBox.Show("In hóa đơn thành công", "Thông tin", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
+
+        }
+        public PageContent ConvertToPage(Grid grid)
+        {
+            FixedPage page = new FixedPage();
+            page.Width = grid.ActualWidth; ;
+            page.Height = grid.ActualHeight;
+            string gridXaml = XamlWriter.Save(grid);
+            gridXaml = gridXaml.Replace("Name=\"txbOrderNum\"", "");
+            gridXaml = gridXaml.Replace("Name=\"txbUnitPrice\"", "");
+            gridXaml = gridXaml.Replace("Name=\"txbName\"", "");
+            gridXaml = gridXaml.Replace("Name=\"txbQuantity\"", "");
+            gridXaml = gridXaml.Replace("Name=\"txbUnit\"", "");
+            gridXaml = gridXaml.Replace("Name=\"txbTotal\"", "");
+            StringReader stringReader = new StringReader(gridXaml);
+            XmlReader xmlReader = XmlReader.Create(stringReader);
+            Grid newGrid = (Grid)XamlReader.Load(xmlReader);
+            page.Children.Add(newGrid);
+            PageContent pageContent = new PageContent();
+            ((IAddChild)pageContent).AddChild(page);
+            return pageContent;
+        }
+        public void TextChangedHandle(Object o = null)
+        {
+            (PurchaseCommand as RelayCommand<Object>).OnCanExecuteChanged();
         }
         public void UpdateSelectedList(ProductsInformation pro)
         {
