@@ -183,7 +183,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         return;
                     case 2:
                         //Register UserInformation
-                        UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate), true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
+                        UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate), DateTime.Today, true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
                         RegisterUser regist = new RegisterUser(info, _connection.client);
                         string id = await regist.registerUser();
                         listItemsUserInfo.Add(new EmployeeControlViewModel(info, this));

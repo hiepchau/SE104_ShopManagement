@@ -49,6 +49,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserBirthday",newUser.birthDay },
                 {"DisplayID",Guid.NewGuid().ToString()},
                 {"isActivated",true},
+                {"WorkDate", newUser.workDate },
                 };
                 await collection.InsertOneAsync(newUserDoc1);
                 Console.WriteLine("User Inserted into", newUser.companyInformation);
@@ -68,7 +69,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserSalary",(long)newUser.salary },
                 {"UserBirthday",newUser.birthDay },
                 {"DisplayID",newUser.ID},
-                {"isActivated",true }
+                {"isActivated",true },
+                {"WorkDate", newUser.workDate },
             };
                 await collection.InsertOneAsync(newUserDoc);
                 Console.WriteLine("User Inserted into", newUser.companyInformation);
@@ -88,7 +90,8 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
                 {"UserSalary",(long)newUser.salary },
                 {"UserBirthday",newUser.birthDay },
                 {"DisplayID",newUser.displayID},
-                {"isActivated",true }
+                {"isActivated",true },
+                {"WorkDate", newUser.workDate },
             };
                 await collection.InsertOneAsync(newUserDoc);
                 Console.WriteLine("User Inserted into", newUser.companyInformation);

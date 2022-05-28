@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using MongoDB.Driver;
 using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
@@ -36,8 +39,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private List<StockInformation> liststock { get; set; }
         private List<BillInformation> listbill { get; set; }
+        public ChartValues<long> GraphValues { get; set; }
         #endregion
         #region ICommand
+        public ICommand Reload { get; set; }
         #endregion
         public OverviewFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
@@ -46,29 +51,33 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listbill = new List<BillInformation>();
             liststock = new List<StockInformation>();
             selectedIndex = 0;
-            GetData();
+            GraphValues = new ChartValues<long>();
+            Reload = new RelayCommand<object>(null,GetData);      
         }
         #region Function
         public async void GetData(object o = null)
         {
+            if (GraphValues != null)
+            {
+                GraphValues.Clear();
+            }
             await GetStockData();
             await GetBillData();
             DateTime today = DateTime.Today;
             long stocksum = 0, billsum = 0;
+            GetChartValue();
             switch (selectedIndex)
             {
                 case 0:
                     foreach (StockInformation stock in liststock)
                     {
-                        string stockday = stock.StockDay.ToShortDateString();
                         if ((today-stock.StockDay).TotalDays<=0)
                         {
                             stocksum += stock.total;
                         }
                     }
                     foreach (BillInformation bill in listbill)
-                    {
-                        string billday = bill.saleDay.ToShortDateString();                   
+                    {                  
                         if ((today-bill.saleDay).TotalDays<=0)
                         {
                             billsum += bill.total;
@@ -82,10 +91,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     listbill.Clear();
                     liststock.Clear();
                     return;
-                case 1:
+                case 1:                   
                     foreach (StockInformation stock in liststock)
                     {
-                        string stockday = stock.StockDay.ToShortDateString();
                         if ((today - stock.StockDay).TotalDays <= 7)
                         {
                             stocksum += stock.total;
@@ -93,7 +101,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     }
                     foreach (BillInformation bill in listbill)
                     {
-                        string billday = bill.saleDay.ToShortDateString();
                         if ((today - bill.saleDay).TotalDays <= 7)
                         {
                             billsum += bill.total;
@@ -110,7 +117,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 case 2:
                     foreach (StockInformation stock in liststock)
                     {
-                        string stockday = stock.StockDay.ToShortDateString();
                         if ((today - stock.StockDay).TotalDays <= 30)
                         {
                             stocksum += stock.total;
@@ -118,7 +124,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     }
                     foreach (BillInformation bill in listbill)
                     {
-                        string billday = bill.saleDay.ToShortDateString();
                         if ((today - bill.saleDay).TotalDays <= 30)
                         {
                             billsum += bill.total;
@@ -132,6 +137,38 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     listbill.Clear();
                     liststock.Clear();
                     return;
+            }
+        }
+        public void GetChartValue()
+        {
+            long[] stocksum = new long[7];
+            long[] billsum = new long[7];
+            DateTime today = DateTime.Today;
+            for (int i = 0; i <= 6; i++)
+            {
+                foreach (StockInformation stock in liststock)
+                {
+                    if ((today-stock.StockDay).TotalDays>i-1&&(today - stock.StockDay).TotalDays <= i)
+                    {
+                        stocksum[i] += stock.total;
+                    }
+                }
+            }
+            for (int i = 0; i <= 6; i++)
+            {
+                foreach (BillInformation bill in listbill)
+                {
+                    if ((today-bill.saleDay).TotalDays>i-1&&(today - bill.saleDay).TotalDays <= i)
+                    {
+                        billsum[i] += bill.total;
+                    }
+                }
+            }
+            long profit;
+            for(int i = 6; i >= 0; i--)
+            {
+                profit = billsum[i]-stocksum[i];
+                GraphValues.Add(profit);
             }
         }
         public void GetProfit()

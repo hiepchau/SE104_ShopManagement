@@ -7,10 +7,16 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:managementComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
-             xmlns:controls="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             xmlns:controls="clr-namespace:SE104_OnlineShopManagement.Components.Controls" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960"
              >
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction        
+                Command="{Binding Reload}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -104,32 +110,9 @@
                                 <TextBlock Text="Profit" Style="{StaticResource TitleText}"/>
                             </StackPanel>
 
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 25" Grid.Row="1">
-                                <TextBlock Text="60000" Foreground="#FFFFFF" Margin="0 0 0 25"/>
-                                <TextBlock Text="50000" Foreground="#FFFFFF" Margin="0 0 0 25"/>
-                                <TextBlock Text="40000" Foreground="#FFFFFF" Margin="0 0 0 25"/>
-                                <TextBlock Text="30000" Foreground="#FFFFFF" Margin="0 0 0 25"/>
-                                <TextBlock Text="20000" Foreground="#FFFFFF" Margin="0 0 0 25"/>
-                                <TextBlock Text="10000" Foreground="#FFFFFF" Margin="0 0 0 25"/>
-                                <TextBlock Text="0" Foreground="#FFFFFF" HorizontalAlignment="Right"/>
-                            </StackPanel>
 
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Orientation="Horizontal" Margin="50 0 0 0">
-                                <TextBlock Text="1" Foreground="#FFFFFF" Margin="25 0 0 0"/>
-                                <TextBlock Text="2" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="3" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="4" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="5" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="6" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="7" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="8" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="9" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="10" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="11" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                                <TextBlock Text="12" Foreground="#FFFFFF" Margin="41 0 0 0"/>
-                            </StackPanel>
-
-                            <lvc:CartesianChart Grid.Row="1" Margin="45 0 0 25">
+                            <lvc:CartesianChart
+                                Grid.Row="1">
                                 <lvc:CartesianChart.Background>
                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                         <GradientStop Color="#7AD7F0" Offset="1.5"/>
@@ -142,7 +125,7 @@
                                 </lvc:CartesianChart.DataTooltip>
 
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis MinValue="1" MaxValue="5" Foreground="#68D3F7" ShowLabels="False">
+                                    <lvc:Axis Foreground="#FFFFFF">
                                         <lvc:Axis.Separator>
                                             <lvc:Separator StrokeThickness="0" Step="1"/>
                                         </lvc:Axis.Separator>
@@ -150,7 +133,7 @@
                                 </lvc:CartesianChart.AxisX>
 
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis MinValue="0" MaxValue="60000" Foreground="#68D3F7" ShowLabels="False">
+                                    <lvc:Axis Foreground="#FFFFFF">
                                         <lvc:Axis.Separator>
                                             <lvc:Separator StrokeThickness="0"/>
                                         </lvc:Axis.Separator>
@@ -158,7 +141,7 @@
                                 </lvc:CartesianChart.AxisY>
 
                                 <lvc:CartesianChart.Series>
-                                    <lvc:LineSeries Name="Slm" Values="10000,17000,30000,15000,50000,30000,20000" StrokeThickness="2" Stroke="#64EDEC" PointGeometrySize="0">
+                                    <lvc:LineSeries Name="Slm" Values="{Binding GraphValues}" StrokeThickness="2" Stroke="#64EDEC" PointGeometrySize="0">
                                         <lvc:LineSeries.Fill>
                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                 <GradientStop Color="#B7E9F7" Offset="1.4"/>
@@ -187,13 +170,13 @@
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"                    
                             HorizontalScrollBarVisibility="Disabled">-->
-                                <StackPanel Grid.Row="1">
+                            <StackPanel Grid.Row="1">
                                 <controls:TopSaleItem></controls:TopSaleItem>
                                 <controls:TopSaleItem></controls:TopSaleItem>
                                 <controls:TopSaleItem></controls:TopSaleItem>
                                 <controls:TopSaleItem></controls:TopSaleItem>
                             </StackPanel>
-                                <!--</ScrollViewer>-->
+                            <!--</ScrollViewer>-->
                         </Grid>
                     </Border>
                 </Grid>

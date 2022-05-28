@@ -51,7 +51,9 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         public string displayID { get; set; }
         [BsonElement("isActivated")]
         public bool isActivated { get; set; }
-        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role, Gender gen, long salary, DateTime birth,bool activated=true, string display = "")
+        [BsonElement("WorkDate")]
+        public DateTime workDate { get; set; }
+        public UserInfomation(string id, string name, string LastName, string email,string pass, string phonenumer, string compa, Role role, Gender gen, long salary, DateTime birth, DateTime work,bool activated=true, string display = "")
         {
             this.ID = id;
             this.FirstName = name;  
@@ -66,6 +68,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
             this.birthDay = birth;
             this.isActivated = activated;
             this.displayID = display;
+            this.workDate = work;
         }
     }
 }
