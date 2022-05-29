@@ -26,7 +26,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             _ = GetBillData();
             _ = GetStockData();
         }
+
         #region Function
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
+        #endregion
+
+        #region DB
         public async Task GetStockData()
         {
             var filter = Builders<StockInformation>.Filter.Empty;
@@ -63,17 +78,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(Income));
             Console.Write("Executed");
         }
-        public string SeparateThousands(String text)
-        {
-            if (!string.IsNullOrEmpty(text))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
-                string res = String.Format(culture, "{0:N0}", valueBefore);
-                return res;
-            }
-            return "";
-        }
+
         #endregion
     }
 }

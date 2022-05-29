@@ -29,9 +29,9 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
         public MembershipControlViewModel(MembershipInformation membership, IUpdateMembershipList parent, string no)
         {
-            this.NumberOrder=no;
             this.membership = membership;
             ID = membership.ID;
+            NumberOrder = no;
             name = membership.name;
             prio = membership.priority;
             condition = membership.condition;

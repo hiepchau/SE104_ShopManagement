@@ -329,13 +329,13 @@
                 Margin="30,25,30,0" 
                 VerticalAlignment="Top" >
                 <StackPanel>
-                    <!--<ItemsControl ItemsSource="{Binding listBillInfo}">
+                    <ItemsControl ItemsSource="{Binding listBillInfo}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <uc:BillTemplateControl/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
+                    </ItemsControl>
                     <uc:BillTemplateControl/>
 
                 </StackPanel>

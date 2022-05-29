@@ -73,7 +73,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             clockTicking();
             SearchCommand = new RelayCommand<Object>(null, search);
             PurchaseCommand = new RelayCommand<Object>(IsValidPurchase, purchase);
-            PrintBillCommand = new RelayCommand<Object>(null, PrintBill);
+            //PrintBillCommand = new RelayCommand<BillInformation>(null, PrintBill);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             ReloadCommand = new RelayCommand<Object>(null,async t=> { 
                 listProducts.Clear();
@@ -125,11 +125,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
                 var printBill = CustomMessageBox.Show("Bạn có muốn in hóa đơn?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                //if(printBill == MessageBoxResult.Yes)
-                //{
-                //    PrintBill();
-                //}
-
+                if (printBill == MessageBoxResult.Yes)
+                {
+                    PrintBill(billinfo);
+                }
 
             }
             else
@@ -145,12 +144,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             return true;
         }
 
-        public void PrintBill(Object o = null)
+        public void PrintBill(BillInformation billinfo)
         {
-
             PrintDialog printDlg = new PrintDialog();
             if (printDlg.ShowDialog() != true) return;
             BillTemplate billTemplate = new BillTemplate();
+            BillTemplateViewModel billTemplateViewModel = new BillTemplateViewModel(billinfo, Session, Connect);
+            billTemplate.DataContext = billTemplateViewModel;
             FixedDocument document = new FixedDocument();
             PageContent temp;
             document.DocumentPaginator.PageSize = new Size(billTemplate.grdPrint.ActualWidth, billTemplate.grdPrint.ActualHeight);
@@ -161,8 +161,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             
             printDlg.PrintDocument(document.DocumentPaginator, "Hehe");
             CustomMessageBox.Show("In hóa đơn thành công", "Thông tin", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-
-
         }
         public PageContent ConvertToPage(Grid grid)
         {
