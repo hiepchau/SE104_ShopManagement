@@ -133,7 +133,7 @@
                     <TextBlock
                         x:Name="txbInvoiceDate"
                         TextWrapping="Wrap" 
-                        Text="26/05/2022" 
+                        Text="{Binding saleDay}" 
                         VerticalAlignment="Bottom" 
                         FontWeight="SemiBold" 
                         Foreground="{DynamicResource WordBlueBrush}"
@@ -354,7 +354,7 @@
                 HorizontalAlignment="Right"
                 Margin="0,30,0,0" 
                 TextWrapping="Wrap" 
-                Text="1.100.000" 
+                Text="{Binding total}" 
                 VerticalAlignment="Top"
                 FontSize="16" 
                 FontWeight="SemiBold" 
@@ -432,7 +432,7 @@
                         TextTrimming="WordEllipsis"
                         FontWeight="SemiBold"
                         Margin="0" 
-                        Text="Nam Khanh"
+                        Text="{Binding User}"
                         Foreground="{DynamicResource Black1}"/>
                 </Grid>
                 <StackPanel

@@ -37,10 +37,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this._connection = connect;
             this._session = session;
             GetProductData(billInformation);
-            this.saleDay = billInformation.saleDay;
+            saleDay = billInformation.saleDay;
             GetEmployeeName(billInformation);
             GetCustomerName(billInformation);
-            this.total = SeparateThousands(billInformation.total.ToString());
+            total = SeparateThousands(billInformation.total.ToString());
         }
 
         #region Function
