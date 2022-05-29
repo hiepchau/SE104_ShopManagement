@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Driver;
 using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components.Controls;
 using SE104_OnlineShopManagement.Models.ModelEntity;
@@ -118,16 +119,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     }
                 }
 
-                listbought.Clear();
-                listProducts.Clear();
-                getdata();
-                OnPropertyChanged(nameof(listbought));
+                
                 CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
                 var printBill = CustomMessageBox.Show("Bạn có muốn in hóa đơn?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (printBill == MessageBoxResult.Yes)
                 {
-                    PrintBill(billinfo);
+                    billinfo.ID = billid;
+                    PrintBill(billinfo, listbought);
                 }
 
             }
@@ -135,7 +134,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             {
                 return;
             }
-                
+
+            listbought.Clear();
+            listProducts.Clear();
+            getdata();
+            OnPropertyChanged(nameof(listbought));
+
         }
         public bool IsValidPurchase(Object o = null)
         {
@@ -144,13 +148,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             return true;
         }
 
-        public void PrintBill(BillInformation billinfo)
+        public void PrintBill(BillInformation billinfo, ObservableCollection<ImportPOSProductControlViewModel> boughtls)
         {
             PrintDialog printDlg = new PrintDialog();
             if (printDlg.ShowDialog() != true) return;
             BillTemplate billTemplate = new BillTemplate();
-            BillTemplateViewModel billTemplateViewModel = new BillTemplateViewModel(billinfo, Session, Connect);
+            BillTemplateViewModel billTemplateViewModel = new BillTemplateViewModel(billinfo,_session, boughtls);
             billTemplate.DataContext = billTemplateViewModel;
+            DialogHost.Show(billTemplate);
             FixedDocument document = new FixedDocument();
             PageContent temp;
             document.DocumentPaginator.PageSize = new Size(billTemplate.grdPrint.ActualWidth, billTemplate.grdPrint.ActualHeight);

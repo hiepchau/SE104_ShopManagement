@@ -104,7 +104,7 @@
                 HorizontalAlignment="Left"
                 Margin="129,0,0,3" 
                 TextWrapping="Wrap" 
-                Text="#123" 
+                Text="{Binding BillID}" 
                 VerticalAlignment="Bottom"
                 FontSize="14" 
                 FontWeight="SemiBold" 
@@ -122,7 +122,7 @@
                     <TextBlock
                         Margin="0" 
                         TextWrapping="Wrap" 
-                        Text="Ngày" 
+                        Text="{Binding saleDay}" 
                         VerticalAlignment="Bottom" 
                         Foreground="{DynamicResource Black1}"
                         FontWeight="SemiBold" 
