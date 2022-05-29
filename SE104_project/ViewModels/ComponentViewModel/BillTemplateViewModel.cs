@@ -38,6 +38,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this._session = session;
             GetProductData(billInformation);
             saleDay = billInformation.saleDay;
+            User = billInformation.User;
+            customer = billInformation.customer;
             GetEmployeeName(billInformation);
             GetCustomerName(billInformation);
             total = SeparateThousands(billInformation.total.ToString());
