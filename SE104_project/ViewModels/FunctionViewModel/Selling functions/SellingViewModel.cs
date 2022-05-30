@@ -163,7 +163,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             billTemplate.grdPrint.Arrange(new Rect(0, 0, billTemplate.grdPrint.DesiredSize.Width, billTemplate.grdPrint.DesiredSize.Height));
             temp = ConvertToPage(billTemplate.grdPrint);
             document.Pages.Add(temp);
-            
+
             printDlg.PrintDocument(document.DocumentPaginator, "Hehe");
             CustomMessageBox.Show("In hóa đơn thành công", "Thông tin", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }

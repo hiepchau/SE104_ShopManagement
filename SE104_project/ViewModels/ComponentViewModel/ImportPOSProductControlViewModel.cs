@@ -3,6 +3,7 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functions;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string price { get; set; }
         public string quantity { get; set; }
         public string sum { get; set; }
+        public string Category { get; set; }
         public BitmapImage ImageSrc { get; set; }
         public bool isLoaded { get; set; }
 
@@ -47,6 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             DeleteProductsCommand = new RelayCommand<object>(null, deleteproduct);
             quantity = "1";
             sum = price;
+            GetTypeName();
             DecreaseCommand = new RelayCommand<object>(null, Decrease);
             IncreaseCommand = new RelayCommand<object>(null, Increase);
             ChangeCommand = new RelayCommand<object>(null, change);
@@ -98,6 +101,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             
         }
+
         private void Increase(Object o)
         {
             string s = o.ToString();
@@ -111,6 +115,22 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 }
             }
         }
+        public async void GetTypeName()
+        {
+            var filter = Builders<ProductTypeInfomation>.Filter.Eq(x => x.ID, product.ID);
+            GetProductType getter = new GetProductType((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
+            var ls = await getter.Get();
+            if (ls != null && ls.Count > 0)
+            {
+                Category = ls.First().name;
+                OnPropertyChanged(nameof(Category));
+            }
+            else
+            {
+                return;
+            }
+        }
+           
         public void GetIncreaseQuantityByClick()
         {
             if (GetDetailNum() < product.quantity)
