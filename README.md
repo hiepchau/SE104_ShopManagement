@@ -1,11 +1,28 @@
 # SE104_ShopManagement 
-Ứng dụng quản lí shop bán hàng với giao diện được xây dựng trên framework WPF.
+QUẢN LÍ SHOP BÁN HÀNG
 
 ## Tính năng 
-
+- Bán hàng: thanh toán, tạo hóa đơn
+- Trang chủ:
+	- Tổng quan: thống kê doanh số
+	- Đơn hàng: quản lí danh sách đơn hàng
+	- Sản phẩm: quản lí, thêm, xóa, sửa sản phẩm
+	- Nhập hàng: nhập hàng
+	- Kho hàng: quản lí kho
+- Đối tác:
+	- Khách hàng: quản lí khách hàng
+	- Hạng thành viên: thêm, xóa, sửa hạng thành viên
+	- Nhà cung cấp: quản lí nhà cung cấp
+- Tài chính:
+	- Tổng quan tài chính
+	- Thu: quản lí phiếu thu
+	- Chi: quản lí phiêu chi
+- Cài đặt:
+	- Nhân viên: quản lí nhân viên
+	- Thông tin cửa hàng
 ## Yêu cầu cài đặt 
 
-
+- Client: .NET Framework 3.1
 ## Hướng dẫn sử dụng 
 - Bước 1: Cài đặt đầy đủ phần mềm yêu cầu
 - Bước 2: Chạy Server
