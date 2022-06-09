@@ -33,13 +33,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             set 
             { 
                 this._selectedIndex=value; 
-                GetData(); 
+                GetData();
+                
                 OnPropertyChanged(nameof(selectedIndex));
             } 
         }
         private List<StockInformation> liststock { get; set; }
         private List<BillInformation> listbill { get; set; }
         public ChartValues<long> GraphValues { get; set; }
+        public string[] Label { get; set; }
         #endregion
         #region ICommand
         public ICommand Reload { get; set; }
@@ -65,7 +67,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             await GetBillData();
             DateTime today = DateTime.Today;
             long stocksum = 0, billsum = 0;
-            GetChartValue();
             switch (selectedIndex)
             {
                 case 0:
@@ -86,6 +87,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     Income =SeparateThousands(billsum.ToString());
                     Spending=SeparateThousands(stocksum.ToString());
                     GetProfit();
+                    GetChartValue(7);
                     OnPropertyChanged(nameof(Income));
                     OnPropertyChanged(nameof(Spending));
                     listbill.Clear();
@@ -109,6 +111,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     Income = SeparateThousands(billsum.ToString());
                     Spending = SeparateThousands(stocksum.ToString());
                     GetProfit();
+                    GetChartValue(7);
                     OnPropertyChanged(nameof(Income));
                     OnPropertyChanged(nameof(Spending));
                     listbill.Clear();
@@ -132,6 +135,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     Income = SeparateThousands(billsum.ToString());
                     Spending = SeparateThousands(stocksum.ToString());
                     GetProfit();
+                    GetChartValue(30);
                     OnPropertyChanged(nameof(Income));
                     OnPropertyChanged(nameof(Spending));
                     listbill.Clear();
@@ -139,37 +143,40 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     return;
             }
         }
-        public void GetChartValue()
+        public void GetChartValue(int days)
         {
-            long[] stocksum = new long[7];
-            long[] billsum = new long[7];
+            Label = new string[days];
+            long[] stocksum = new long[days];
+            long[] billsum = new long[days];
             DateTime today = DateTime.Today;
-            for (int i = 0; i <= 6; i++)
+            for (int i = 0; i <= days-1; i++)
             {
                 foreach (StockInformation stock in liststock)
                 {
-                    if ((today-stock.StockDay).TotalDays>i-1&&(today - stock.StockDay).TotalDays <= i)
+                    if ((today - stock.StockDay).TotalDays > i - 1 && (today - stock.StockDay).TotalDays <= i)
                     {
                         stocksum[i] += stock.total;
                     }
                 }
-            }
-            for (int i = 0; i <= 6; i++)
-            {
                 foreach (BillInformation bill in listbill)
                 {
-                    if ((today-bill.saleDay).TotalDays>i-1&&(today - bill.saleDay).TotalDays <= i)
+                    if ((today - bill.saleDay).TotalDays > i - 1 && (today - bill.saleDay).TotalDays <= i)
                     {
                         billsum[i] += bill.total;
                     }
                 }
             }
             long profit;
-            for(int i = 6; i >= 0; i--)
+            int count = 0;
+            for (int i = days-1; i >= 0; i--)
             {
-                profit = billsum[i]-stocksum[i];
+                Label[count] = (today.AddDays(-i)).Day + "/" + (today.AddDays(-i)).Month;
+                Console.WriteLine(Label[count]);
+                profit = billsum[i] - stocksum[i];
                 GraphValues.Add(profit);
-            }
+                count++;
+            }          
+            OnPropertyChanged(nameof(Label));
         }
         public void GetProfit()
         {

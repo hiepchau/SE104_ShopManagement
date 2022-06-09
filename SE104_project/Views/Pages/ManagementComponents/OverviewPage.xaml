@@ -125,7 +125,7 @@
                                 </lvc:CartesianChart.DataTooltip>
 
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Foreground="#FFFFFF">
+                                    <lvc:Axis Foreground="#FFFFFF" Labels="{Binding Label}">
                                         <lvc:Axis.Separator>
                                             <lvc:Separator StrokeThickness="0" Step="1"/>
                                         </lvc:Axis.Separator>
