@@ -170,7 +170,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             int count = 0;
             for (int i = days-1; i >= 0; i--)
             {
-                Label[count] = (today.AddDays(-i)).Day + "/" + (today.AddDays(-i)).Month;
+                Label[count] = (today.AddDays(-i)).Day + "/\n" + (today.AddDays(-i)).Month;
                 Console.WriteLine(Label[count]);
                 profit = billsum[i] - stocksum[i];
                 GraphValues.Add(profit);
