@@ -66,9 +66,10 @@
             Command="{Binding EditProductsCommand}"
             CommandParameter="{Binding ElementName=ucDisplayProducts}"
             Height="30"
-            Width="30">
+            Width="30"
+            Margin="-20 0 0 0">
             <materialDesign:PackIcon
-                Kind="Printer" 
+                Kind="Eye" 
                 Width="24"
                 Height="24" 
                 Foreground="{StaticResource WordBlueBrush}" />
