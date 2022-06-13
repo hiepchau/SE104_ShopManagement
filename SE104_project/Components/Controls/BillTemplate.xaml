@@ -7,7 +7,11 @@
              mc:Ignorable="d" 
              Height="700" 
              Width="592"
+             xmlns:convert ="clr-namespace:SE104_OnlineShopManagement.Utils"
              >
+    <UserControl.Resources>
+        <convert:MoneyFormatConverter x:Key="moneyFormat"/>
+    </UserControl.Resources>
     <Grid
         x:Name="grdPrint">
         <Grid.RowDefinitions>
@@ -162,7 +166,7 @@
                 FontSize="16" 
                 TextWrapping="NoWrap"
                 TextTrimming="CharacterEllipsis"
-                Text="012345678"
+                Text="{Binding customer}"
                 Foreground="{DynamicResource WordBlueBrush}"/>
 
         </StackPanel>
@@ -339,7 +343,7 @@
                 HorizontalAlignment="Right"
                 Margin="0,30,0,0" 
                 TextWrapping="Wrap" 
-                Text="{Binding total}" 
+                Text="{Binding total, Converter={StaticResource moneyFormat}}" 
                 VerticalAlignment="Top"
                 FontSize="16" 
                 FontWeight="SemiBold" 

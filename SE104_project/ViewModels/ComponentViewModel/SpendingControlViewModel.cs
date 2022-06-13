@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Components.Controls;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
@@ -7,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
@@ -19,6 +23,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string User { get; set; }
         public string total { get; set; }
         public string displayID { get; set; }
+        public ICommand ViewDetailCommand { get; set; }
         private ISpendingParent _parent { get; set; }
 
         #endregion
@@ -30,6 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             this.spendDay = stockinfo.StockDay;
             this.displayID = stockinfo.displayID;
             this.total = SeparateThousands(stockinfo.total.ToString());
+            ViewDetailCommand = new RelayCommand<object>(null, viewdetail);
             GetEmployeeName();
         }
         #region Function
@@ -47,6 +53,15 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             {
                 return;
             }
+        }
+
+        public void viewdetail(object o = null)
+        {
+            ViewDetailDialog viewDetail = new ViewDetailDialog();
+            StockTemplateViewmodel stocktemplate = new StockTemplateViewmodel(stock, (_parent as BaseFunction).Connect, (_parent as BaseFunction).Session);
+            viewDetail.DataContext = stocktemplate;
+            DialogHost.Show(viewDetail);
+
         }
         public string SeparateThousands(String text)
         {
