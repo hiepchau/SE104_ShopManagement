@@ -12,11 +12,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
     public class CustomerSelectMenu : MenuViewModel
     {
         public int selectedItem { get; set; }
+        public bool isMembershipAllowed { get; set; }
+        public bool isProviderAllowed { get; set; }
 
         public CustomerSelectMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             selectedItem = -1;
             ChangeViewModelCommand = new RelayCommand<object>(null, change);
+            isMembershipAllowed = Utils.RoleSeperator.managerRole(session);
+            isProviderAllowed = Utils.RoleSeperator.managerRole(session);
         }
         public override void change(object o)
         {

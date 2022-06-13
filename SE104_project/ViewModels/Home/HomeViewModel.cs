@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using SE104_OnlineShopManagement.Models;
 using System.Linq;
 using SE104_OnlineShopManagement.Views.Windows;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
@@ -35,6 +36,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         public BaseFunction CurrentState { get => _currentState;set => _currentState = value; }
         public BitmapImage ImageSrc { get; set; }
         private INavigator _navigator;
+        public Visibility ismanager { get; set; }
         #endregion
 
         #region Commands
@@ -42,6 +44,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
         public ICommand testCommand { get; set; }
         public ICommand testCommand1 { get; set; }
         public ICommand SelectFunctionListCommand { get; set; }
+        public ICommand ManagerListCommand { get; set; }
         #endregion
         public HomeViewModel(IViewModelFactory factory, AppSession session,MongoConnect connect, MainWindowNavigator<AuthenticationWindow> navigator)
         {
@@ -54,8 +57,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             _sellingViewModel = new SellingViewModel(session, connect);
             _titleBarViewModel = new TitleBarViewModel();
             SelectFunctionListCommand = new RelayCommand<object>(null, selectFuncList);
+            ManagerListCommand = new RelayCommand<object>(null, setManager);
             _navigator = navigator;
-            
         }
 
         private async void testing1(object o = null)
@@ -139,6 +142,11 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             RegisterProducts regist = new RegisterProducts(product, _connection.client, _session);
             string s = await regist.register();
             Console.WriteLine(s);
+        }
+
+        private void setManager(object o) {
+            ItemCollection list = (ItemCollection)o;
+            (list.GetItemAt(2) as ListBoxItem).Visibility = Visibility.Collapsed;
         }
 
         private void selectFuncList(object o)
