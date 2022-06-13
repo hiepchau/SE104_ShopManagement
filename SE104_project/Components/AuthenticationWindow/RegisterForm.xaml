@@ -79,22 +79,22 @@
                     </DockPanel>
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"
-                             materialDesign:HintAssist.Hint="Email"
+                             materialDesign:HintAssist.Hint="Email/Username"
                              Text="{Binding Email, Mode=TwoWay}" 
                              Margin="0 0 0 16" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <!--Mat khau-->
                     <PasswordBox x:Name="PasswordBox"
-                                 materialDesign:HintAssist.Hint="Mat khau" 
+                                 materialDesign:HintAssist.Hint="Mật khẩu" 
                                  Margin="0 0 0 16" 
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <!--Nhap lai mat khau-->
                     <PasswordBox x:Name="VerifyPasswordBox"
-                                 materialDesign:HintAssist.Hint="Nhap lai mat khau"
+                                 materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
                                  Margin="0 0 0 16" 
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <TextBox Text="{Binding ComName, Mode=TwoWay}" 
-                             materialDesign:HintAssist.Hint="Company Name"
+                             materialDesign:HintAssist.Hint="Tên công ti"
                              Margin="0 0 0 16" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 

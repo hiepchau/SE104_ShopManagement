@@ -54,6 +54,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(companyname))
             {
                 Console.WriteLine("Required information left blank");
+                CustomMessageBox.Show("Đăng nhập thất bại", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             AuthenticationInformation authen = new AuthenticationInformation(username, password, companyname);
@@ -69,6 +70,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             else
             {
                 Console.WriteLine("Login failed.");
+                CustomMessageBox.Show("Đăng nhập thất bại", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

@@ -9,6 +9,8 @@ using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Insert_database;
 using System.Windows.Controls;
 using MongoDB.Driver;
+using SE104_OnlineShopManagement.Services;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.Authentication
 {
@@ -60,6 +62,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             {
                 if (pass1.Password != pass2.Password)
                 {
+                    CustomMessageBox.Show("Mật khẩu không trùng khớp", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     Console.WriteLine("Password not matched");
                     return;
 
@@ -68,6 +72,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             }
             if (String.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) || String.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ComName)||string.IsNullOrWhiteSpace(birthDay) || gender==Gender.Empty)
             {
+                CustomMessageBox.Show("Nhập thiếu thông tin", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine("Update failed");
                 return;
             }
@@ -77,6 +82,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
                 if (String.Equals(db,ComName))
                 {
                     Console.WriteLine("Company already existed!");
+                    CustomMessageBox.Show("Tên công ty đã tồn tại", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     return;
                 }
             }
