@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Components.Controls;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
@@ -26,7 +29,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #endregion
 
         #region ICommand
-        public ICommand ViewOrdersCommand { get; set; }
+        public ICommand ViewDetailCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
         #endregion
 
         public OrdersControlViewModel(BillInformation bill, IOrdersParent parent)
@@ -40,9 +44,39 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             _parent = parent;
             GetEmployeeName();
             GetCustomerName();
+
+            ViewDetailCommand = new RelayCommand<Object>(null, ViewDetail);
         }
 
         #region Function
+        public void ViewDetail(Object o = null)
+        {
+            ViewDetailDialog viewDetail = new ViewDetailDialog();
+            BillTemplateViewModel billTemplate = new BillTemplateViewModel(billInformation, (_parent as BaseFunction).Connect, (_parent as BaseFunction).Session);
+            viewDetail.DataContext = billTemplate;
+            DialogHost.Show(viewDetail, delegate (object sender, DialogClosingEventArgs args)
+            {
+       
+            });
+
+
+        }
+
+
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
+        #endregion
+
+        #region DB
         public async void GetEmployeeName()
         {
             var filter = Builders<UserInfomation>.Filter.Eq(x => x.ID, billInformation.User);
@@ -65,29 +99,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             var task = getter.Get();
             List<CustomerInformation> ls = new List<CustomerInformation>();
             ls = await task;
-                if (ls.Count > 0)
-                {
-                    customer = ls.FirstOrDefault().Name;
-                    OnPropertyChanged(nameof(customer));
-                }
-                else
-                {
-                    return;
-                }
-   
-          
-        }
-        public string SeparateThousands(String text)
-        {
-            if (!string.IsNullOrEmpty(text))
+            if (ls.Count > 0)
             {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
-                string res = String.Format(culture, "{0:N0}", valueBefore);
-                return res;
+                customer = ls.FirstOrDefault().Name;
+                OnPropertyChanged(nameof(customer));
             }
-            return "";
+            else
+            {
+                return;
+            }
         }
         #endregion
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
@@ -9,36 +11,68 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
-    public interface IBillTemplateParent
-    {
 
-    }
-    class BillTemplateViewModel : ViewModelBase, IBillTemplateParent
+    class BillTemplateViewModel : ViewModelBase
     {
         #region Properties
         public string saleDay { get; set; }
         public string User { get; set; }
         public string customer { get; set; }
         public string total { get; set; }
-        public string BillID { get; set; }
-
+        public string billID { get; set; }
+        public string displayID { get; set; }
+        public ObservableCollection<BillTemplateControlViewModel> listDetail { get; set; }
         private AppSession _session;
+        private MongoConnect _connection;
         #endregion
 
         #region ICommand
+        public ICommand ExitCommand { get; set; }
         #endregion
 
-        public BillTemplateViewModel(BillInformation billInformation, AppSession session) 
+        public BillTemplateViewModel(BillInformation billInformation, MongoConnect connect, AppSession session) 
         {
-            this._session = session;
+            _connection = connect;
+            _session = session;
+            listDetail = new ObservableCollection<BillTemplateControlViewModel>();
             saleDay = billInformation.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
-            BillID = "akdjsnfkajsdnf";
-            User = billInformation.User;
+            billID =  billInformation.ID;
+            displayID = billInformation.displayID;
+            User = _session.CurrnetUser.LastName;
             customer = billInformation.customer;
-    
+            total = billInformation.total.ToString();
+
+            ExitCommand = new RelayCommand<Object>(null, exit =>
+            {
+
+                DialogHost.CloseDialogCommand.Execute(null, null);
+            });
+            getdata();
         }
+
+        #region Function
+        #endregion
+
+        #region DB
+        private async void getdata()
+        {
+            FilterDefinition<BillDetails> filter = Builders<BillDetails>.Filter.Eq(x => x.billID, billID);
+            var tmp = new GetBillDetails(_connection.client, _session, filter);
+            var ls = await tmp.Get();
+
+            int i = 1;
+            foreach (BillDetails bill in ls)
+            {
+            
+                listDetail.Add(new BillTemplateControlViewModel(bill, _connection, _session, i.ToString()));
+                i++;
+            }
+            OnPropertyChanged(nameof(listDetail));
+        }
+        #endregion
     }
 }

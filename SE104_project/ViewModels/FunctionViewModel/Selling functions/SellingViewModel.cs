@@ -98,6 +98,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     DateTime.Now, _session.CurrnetUser.ID, CustomerPhoneNumber, total);
                 RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
                 Task<string> registertask = registbill.register();
+                string displayPrintID = billinfo.ID;
                 string billid = "";
            
 
@@ -128,7 +129,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 {
                     billinfo.ID = billid;
                     //PrintBill(billinfo, listbought);
-                    PrintPayment(billinfo);
+                    PrintPayment(billinfo, displayPrintID);
                 }
 
             }
@@ -150,13 +151,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             return true;
         }
 
-        private void PrintPayment(BillInformation bill)
+        private void PrintPayment(BillInformation bill, string displayPrintID)
         {
             getTotalPay();
             BillTemplate billTemplate = new BillTemplate();
 
             billTemplate.txbInvoiceDate.Text = bill.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
-            billTemplate.txbIdBill.Text = bill.displayID;
+            billTemplate.txbIdBill.Text = displayPrintID;
             billTemplate.txbCustomerPhoneNumber.Text = bill.customer;
             billTemplate.txbTotal.Text = totalPay;
             billTemplate.txbEmployeeName.Text = _session.CurrnetUser.LastName;

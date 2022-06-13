@@ -63,7 +63,7 @@
             x:Name="btnEditProducts"
             ToolTip="Sửa thông tin"
             Style="{StaticResource TransparentButton}"
-            Command="{Binding EditProductsCommand}"
+            Command="{Binding ViewDetailCommand}"
             CommandParameter="{Binding ElementName=ucDisplayProducts}"
             Height="30"
             Width="30"

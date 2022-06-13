@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using System;
@@ -19,39 +20,45 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string billID { get; set; }
         public string product { get; set; }
         public string price { get; set; }
+        public string unit { get; set; }
         public int amount { get; set; }
         public long sumPrice { get; set; }
         public string Category { get; set; }
         public string CategoryID { get; set; }
-        private IBillTemplateParent _parent;
+        private MongoConnect _connection;
+        private AppSession _session;
         #endregion
 
         #region ICommand
 
         #endregion
 
-        public BillTemplateControlViewModel(BillDetails billDetails, IBillTemplateParent parent, string No)
+        public BillTemplateControlViewModel(BillDetails billDetails, MongoConnect connection, AppSession session, string No)
         {
             this.billDetails = billDetails;
             NumberOrder = No;
             billID = billDetails.billID;
             amount = billDetails.amount;
+      
             sumPrice = billDetails.sumPrice;
-            _parent = parent;
-            GetProductName();
-            GetProductCateGory();
+            _connection = connection;
+            _session = session;
+            GetProductInfo();
             GetTypeName();
-            GetProductPrice();
+
         }
         #region Function
-        public async void GetProductName()
+        public async void GetProductInfo()
         {
             var filter = Builders<ProductsInformation>.Filter.Eq(x => x.ID, billDetails.productID);
-            GetProducts getter = new GetProducts((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
+            GetProducts getter = new GetProducts(_connection.client, _session, filter);
             var ls = await getter.Get();
             if (ls != null && ls.Count > 0)
             {
                 product = ls.First().name;
+                CategoryID = ls.First().Category;
+                price = SeparateThousands(ls.First().price.ToString());
+                unit = ls.First().Unit;
                 OnPropertyChanged(nameof(product));
             }
             else
@@ -59,25 +66,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 return;
             }
         }
-        private async void GetProductCateGory()
-        {
-            var filter = Builders<ProductsInformation>.Filter.Eq(x => x.ID, billDetails.productID);
-            GetProducts getter = new GetProducts((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
-            var ls = await getter.Get();
-            if (ls != null && ls.Count > 0)
-            {
-                CategoryID = ls.First().Category;
-                OnPropertyChanged(nameof(CategoryID));
-            }
-            else
-            {
-                return;
-            }
-        }
+
         public async void GetTypeName()
         {
             var filter = Builders<ProductTypeInfomation>.Filter.Eq(x => x.ID, CategoryID);
-            GetProductType getter = new GetProductType((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
+            GetProductType getter = new GetProductType(_connection.client, _session, filter);
             var ls = await getter.Get();
             if (ls != null && ls.Count > 0)
             {
@@ -90,21 +83,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
         }
 
-        public async void GetProductPrice()
-        {
-            var filter = Builders<ProductsInformation>.Filter.Eq(x => x.ID, billDetails.productID);
-            GetProducts getter = new GetProducts((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
-            var ls = await getter.Get();
-            if (ls != null && ls.Count > 0)
-            {
-                price = SeparateThousands(ls.First().price.ToString());
-                OnPropertyChanged(nameof(price));
-            }
-            else
-            {
-                return;
-            }
-        }
         public string SeparateThousands(String text)
         {
             if (!string.IsNullOrEmpty(text))
