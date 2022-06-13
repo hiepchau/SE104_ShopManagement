@@ -67,9 +67,8 @@
                                         Command="{Binding CurrentMainViewModel.SelectFunctionListCommand}"
                                         CommandParameter="{Binding ElementName=NavigationMenuListBox,Path=SelectedItem}"/>
                                 </i:EventTrigger>
-                                
-                            </i:Interaction.Triggers>
                             
+                            </i:Interaction.Triggers>
                         </ListBox>
 
                     </Grid>

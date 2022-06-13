@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:convert ="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="205.643">
+    <UserControl.Resources>
+        <convert:VisibilityConverter x:Key="visiconvert"/>
+    </UserControl.Resources>
     <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
@@ -21,8 +25,8 @@
         </i:Interaction.Triggers>
 
 
-        <ListBoxItem Name="Overall">Tổng quan</ListBoxItem>
-        <ListBoxItem Name="Income">Thu</ListBoxItem>
-        <ListBoxItem Name="Outcome">Chi</ListBoxItem>
+        <ListBoxItem Name="Overall" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">Tổng quan</ListBoxItem>
+        <ListBoxItem Name="Income" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">Thu</ListBoxItem>
+        <ListBoxItem Name="Outcome" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">Chi</ListBoxItem>
     </ListBox>
 </UserControl>
