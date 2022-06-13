@@ -67,10 +67,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 listSpending.Add(new SpendingControlViewModel(stock, this));
             }
+            OnPropertyChanged(nameof(listSpending));
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
-            Console.Write("Executed");
-            OnPropertyChanged(nameof(listSpending));
         }
         private async Task getsearchdata()
         {

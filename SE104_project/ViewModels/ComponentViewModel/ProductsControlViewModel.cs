@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
-    class ProductsControlViewModel : ViewModelBase
+    public class ProductsControlViewModel : ViewModelBase
     {
         #region Properties
         public ProductsInformation product { get; set; }

@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              d:DesignHeight="715" d:DesignWidth="205.643">
+    <UserControl.Resources>
+        <convert:VisibilityConverter x:Key="visiconvert"></convert:VisibilityConverter>
+    </UserControl.Resources>
     <ListBox x:Name="NavigationFeatureMenuListBox"
              Style="{StaticResource NavigationListBoxStyle}"
              SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
@@ -21,10 +25,14 @@
                                         ></i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <ListBoxItem Name="Overall">Tổng quan</ListBoxItem>
+        <ListBoxItem Name="Overall"
+                     Visibility="{Binding isOverallAllowed, Converter={StaticResource visiconvert}}"
+                     >Tổng quan</ListBoxItem>
         <ListBoxItem Name="Orders">Đơn hàng</ListBoxItem>
-        <ListBoxItem Name="Products">Hàng hóa</ListBoxItem>
-        <ListBoxItem Name="ProductsType">Loại hàng hóa</ListBoxItem>
+        <ListBoxItem Name="Products"
+                     Visibility="{Binding isProductsAllowed, Converter={StaticResource visiconvert}}">Hàng hóa</ListBoxItem>
+        <ListBoxItem Name="ProductsType"
+                     Visibility="{Binding isProducTypeAllowed, Converter={StaticResource visiconvert}}">Loại hàng hóa</ListBoxItem>
         <ListBoxItem Name="Stock">Nhập hàng</ListBoxItem>
         <ListBoxItem Name="Storage">Kho hàng</ListBoxItem>
     </ListBox>

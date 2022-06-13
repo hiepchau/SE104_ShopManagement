@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              d:DesignHeight="715" d:DesignWidth="205.643">
+    <UserControl.Resources>
+        <convert:VisibilityConverter x:Key="visiconvert"/>
+    </UserControl.Resources>
     <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
@@ -21,8 +25,8 @@
         </i:Interaction.Triggers>
 
 
-        <ListBoxItem Name="Employee">Nhân viên</ListBoxItem>
-        <ListBoxItem Name="Store">Cửa hàng</ListBoxItem>
+        <ListBoxItem Name="Employee" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">Nhân viên</ListBoxItem>
+        <ListBoxItem Name="Store" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">Cửa hàng</ListBoxItem>
 
     </ListBox>
 </UserControl>

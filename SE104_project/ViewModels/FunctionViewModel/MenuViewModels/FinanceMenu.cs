@@ -11,9 +11,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class FinanceMenu : MenuViewModel
     {
+        public bool ismanager { get; set; }
         public FinanceMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             ChangeViewModelCommand = new RelayCommand<Object>(null, change);
+            if(Utils.RoleSeperator.managerRole(_session))
+                ismanager = true;
+            else
+                ismanager = false;
         }
         public override void change(object o)
         {

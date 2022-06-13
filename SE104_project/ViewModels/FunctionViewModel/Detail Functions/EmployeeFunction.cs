@@ -214,6 +214,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 BitmapImage tmp = new BitmapImage(new Uri(ofd.FileName));               
                 employeeImage = tmp;
                 OnPropertyChanged(nameof(employeeImage));
+                (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
             }
         }
         public void UpdateEmployeeList(UserInfomation user)

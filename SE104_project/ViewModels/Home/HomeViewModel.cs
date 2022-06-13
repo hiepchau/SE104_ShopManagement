@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using SE104_OnlineShopManagement.Models;
 using System.Linq;
 using SE104_OnlineShopManagement.Views.Windows;
+using System.Windows;
 
 namespace SE104_OnlineShopManagement.ViewModels.Home
 {
@@ -55,7 +56,6 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             _titleBarViewModel = new TitleBarViewModel();
             SelectFunctionListCommand = new RelayCommand<object>(null, selectFuncList);
             _navigator = navigator;
-            
         }
 
         private async void testing1(object o = null)
@@ -140,6 +140,7 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             string s = await regist.register();
             Console.WriteLine(s);
         }
+
 
         private void selectFuncList(object o)
         {
