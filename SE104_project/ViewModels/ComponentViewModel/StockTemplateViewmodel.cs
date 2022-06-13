@@ -4,19 +4,15 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
-using SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
-
-    class BillTemplateViewModel : ViewModelBase
+    public class StockTemplateViewmodel:ViewModelBase
     {
         #region Properties
         public string saleDay { get; set; }
@@ -27,7 +23,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string displayID { get; set; }
         public string state { get; set; }
         public string sateID { get; set; }
-        public ObservableCollection<BillTemplateControlViewModel> listDetail { get; set; }
+        public ObservableCollection<StockTemplateControlViewModel> listDetail { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
         #endregion
@@ -36,19 +32,19 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand ExitCommand { get; set; }
         #endregion
 
-        public BillTemplateViewModel(BillInformation billInformation, MongoConnect connect, AppSession session) 
+        public StockTemplateViewmodel(StockInformation stock, MongoConnect connect, AppSession session)
         {
             _connection = connect;
             _session = session;
-            listDetail = new ObservableCollection<BillTemplateControlViewModel>();
-            saleDay = billInformation.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
-            billID =  billInformation.ID;
-            displayID = billInformation.displayID;
+            listDetail = new ObservableCollection<StockTemplateControlViewModel>();
+            saleDay = stock.StockDay.ToString("dd/MM/yyyy HH:mm:ss");
+            billID = stock.ID;
+            displayID = stock.displayID;
             User = _session.CurrnetUser.LastName;
-            customer = billInformation.customer;
-            total = billInformation.total;
-            state = "Thông tin khách hàng";
-            sateID = "Mã hóa đơn";
+            customer = "";
+            total = stock.total;
+            state = "";
+            sateID = "Mã phiếu nhập";
 
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
@@ -64,19 +60,19 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #region DB
         private async void getdata()
         {
-            FilterDefinition<BillDetails> filter = Builders<BillDetails>.Filter.Eq(x => x.billID, billID);
-            var tmp = new GetBillDetails(_connection.client, _session, filter);
+            FilterDefinition<StockDetails> filter = Builders<StockDetails>.Filter.Eq(x => x.stockID, billID);
+            var tmp = new GetStockingDetail(_connection.client, _session, filter);
             var ls = await tmp.Get();
 
             int i = 1;
-            foreach (BillDetails bill in ls)
+            foreach (StockDetails bill in ls)
             {
-            
-                listDetail.Add(new BillTemplateControlViewModel(bill, _connection, _session, i.ToString()));
+
+                listDetail.Add(new StockTemplateControlViewModel(bill, _connection, _session, i.ToString()));
                 i++;
             }
             OnPropertyChanged(nameof(listDetail));
         }
-        #endregion
     }
+    #endregion
 }

@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using MaterialDesignThemes.Wpf;
+using MongoDB.Driver;
+using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Components.Controls;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
@@ -7,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
@@ -19,6 +23,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string User { get; set; }
         public string total { get; set; }
         public string displayID { get; set; }
+        public ICommand ViewDetailCommand { get; set; }
         private IIncomeParent _parent;
         #endregion
         public IncomeControlViewModel(BillInformation billinfo, IIncomeParent parent)
@@ -30,6 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             displayID = billinfo.displayID;
             _parent = parent;
             GetEmployeeName();
+            ViewDetailCommand = new RelayCommand<object>(null, viewdetail);
         }
         #region Function
         public async void GetEmployeeName()
@@ -57,6 +63,13 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 return res;
             }
             return "";
+        }
+        private void viewdetail(object o)
+        {
+            ViewDetailDialog viewDetail = new ViewDetailDialog();
+            BillTemplateViewModel billTemplate = new BillTemplateViewModel(bill, (_parent as BaseFunction).Connect, (_parent as BaseFunction).Session);
+            viewDetail.DataContext = billTemplate;
+            DialogHost.Show(viewDetail);
         }
         #endregion
     }

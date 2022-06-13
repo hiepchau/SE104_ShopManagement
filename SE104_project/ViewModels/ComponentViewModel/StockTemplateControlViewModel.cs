@@ -2,21 +2,18 @@
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
-using SE104_OnlineShopManagement.ViewModels.FunctionViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
-
 {
-    public class BillTemplateControlViewModel : ViewModelBase
+    public class StockTemplateControlViewModel : ViewModelBase
     {
         #region Properties
-        public BillDetails billDetails { get; set; }
-        public string NumberOrder { get;  set; }
+        public StockDetails billDetails { get; set; }
+        public string NumberOrder { get; set; }
         public string billID { get; set; }
         public string product { get; set; }
         public long price { get; set; }
@@ -33,13 +30,13 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
         #endregion
 
-        public BillTemplateControlViewModel(BillDetails billDetails, MongoConnect connection, AppSession session, string No)
+        public StockTemplateControlViewModel(StockDetails billDetails, MongoConnect connection, AppSession session, string No)
         {
             this.billDetails = billDetails;
             NumberOrder = No;
-            billID = billDetails.billID;
+            billID = billDetails.stockID;
             amount = billDetails.amount;
-      
+
             sumPrice = billDetails.sumPrice;
             _connection = connection;
             _session = session;
@@ -96,6 +93,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             return "";
         }
-        #endregion
     }
+    #endregion
 }
