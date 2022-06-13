@@ -21,14 +21,14 @@
             Style="{StaticResource Text}"
             FontSize="14"
             Height="Auto"
-            Text="{Binding NumberOrder}"/>
+      />
         <TextBlock 
             x:Name="txbName"
             Style="{StaticResource Text}"
             Grid.Column="1"
             Height="Auto"
             FontSize="14"
-            Text="{Binding product}"
+          
             TextTrimming="WordEllipsis"
             MaxWidth="160"
             HorizontalAlignment="Left" 
@@ -38,11 +38,11 @@
             Style="{StaticResource Text}"
             FontSize="14"
             Height="Auto"
-            Text="{Binding price}"
+     
             Grid.Column="2"/>
         <TextBlock 
             x:Name="txbQuantity"
-            Text="{Binding amount}"
+        
             Style="{StaticResource Text}"
             Height="Auto"
             FontSize="14"
@@ -53,13 +53,13 @@
             Style="{StaticResource Text}"
             Height="Auto"
             FontSize="14"
-            Text="{Binding Category}"/>
+            />
         <TextBlock 
             x:Name="txbTotal"
             Style="{StaticResource Text}"
             Height="Auto"
             FontSize="14"
-            Text="{Binding sumPrice}"
+           
             Grid.Column="5"/>
         <Rectangle 
             Grid.ColumnSpan="6"           

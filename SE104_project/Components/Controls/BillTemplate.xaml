@@ -156,30 +156,14 @@
                 FontWeight="Bold"
                 Foreground="{DynamicResource Black1}"/>
             <TextBlock 
-                x:Name="txbCustomerName"
+                x:Name="txbCustomerPhoneNumber"
                 FontWeight="Bold"
                 FontSize="16" 
                 TextWrapping="NoWrap"
                 TextTrimming="CharacterEllipsis"
-                Text="Nguyen Huy Tri Dung"
-                Foreground="{DynamicResource WordBlueBrush}"/>
-            <TextBlock 
-                x:Name="txbCustomerPhoneNumber"
-                FontWeight="SemiBold" 
-                Margin="0,2,0,0"
-                FontSize="13" 
                 Text="012345678"
-                Foreground="{DynamicResource Black2}"/>
-            <TextBlock 
-                x:Name="txbCustomerAddress"
-                TextWrapping="Wrap"
-                TextTrimming="CharacterEllipsis"
-                FontWeight="SemiBold" 
-                Margin="0,2,0,0"
-                FontSize="13" 
-                Text="Bao Loc"
-                Foreground="{DynamicResource Black2}" 
-                MaxHeight="40"/>
+                Foreground="{DynamicResource WordBlueBrush}"/>
+
         </StackPanel>
         <Grid
             Grid.Row="4" 
@@ -323,21 +307,21 @@
                     Foreground="{DynamicResource Black2}"/>
             </Grid>
             <Border
+                
                 BorderBrush="{DynamicResource Light}"
                 CornerRadius="0,0,4,4"
                 BorderThickness="2,0,2,2" 
                 Margin="30,25,30,0" 
                 VerticalAlignment="Top" >
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding listDetail}">
+                <StackPanel x:Name= "stkBillInfo">
+                    <!--<ItemsControl ItemsSource="{Binding listDetail}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <uc:BillTemplateControl/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <uc:BillTemplateControl/>
-
+                    <uc:BillTemplateControl/>-->
                 </StackPanel>
             </Border>
         </Grid>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SE104_OnlineShopManagement.Models.ModelEntity;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,6 +20,7 @@ namespace SE104_OnlineShopManagement.Components.Controls
     /// </summary>
     public partial class BillTemplateControl : UserControl
     {
+
         public BillTemplateControl()
         {
             InitializeComponent();

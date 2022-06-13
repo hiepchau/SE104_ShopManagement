@@ -24,7 +24,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string customer { get; set; }
         public string total { get; set; }
         public string BillID { get; set; }
-        public ObservableCollection<ImportPOSProductControlViewModel> listBillInfo { get; set; }
 
         private AppSession _session;
         #endregion
@@ -32,14 +31,14 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         #region ICommand
         #endregion
 
-        public BillTemplateViewModel(BillInformation billInformation, AppSession session , ObservableCollection<ImportPOSProductControlViewModel> listDetail) 
+        public BillTemplateViewModel(BillInformation billInformation, AppSession session) 
         {
             this._session = session;
-            saleDay = "Day";
+            saleDay = billInformation.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
             BillID = "akdjsnfkajsdnf";
             User = billInformation.User;
             customer = billInformation.customer;
-            this.listBillInfo = listDetail;
+    
         }
     }
 }

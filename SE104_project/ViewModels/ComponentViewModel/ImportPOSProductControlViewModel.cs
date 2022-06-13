@@ -24,6 +24,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string name { get; set; }
         public string price { get; set; }
         public string quantity { get; set; }
+        public string unit { get; set; }
         public string sum { get; set; }
         public string Category { get; set; }
         public BitmapImage ImageSrc { get; set; }
@@ -49,6 +50,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             DeleteProductsCommand = new RelayCommand<object>(null, deleteproduct);
             quantity = "1";
             sum = price;
+            unit = product.Unit;
             GetTypeName();
             DecreaseCommand = new RelayCommand<object>(null, Decrease);
             IncreaseCommand = new RelayCommand<object>(null, Increase);

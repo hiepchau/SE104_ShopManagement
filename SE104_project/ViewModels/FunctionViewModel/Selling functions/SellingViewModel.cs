@@ -99,9 +99,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
                 Task<string> registertask = registbill.register();
                 string billid = "";
-               
+           
 
                 billid = await registertask;
+
                 Task.WaitAll(registertask);
                 //Refresh
 
@@ -126,7 +127,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 if (printBill == MessageBoxResult.Yes)
                 {
                     billinfo.ID = billid;
-                    PrintBill(billinfo, listbought);
+                    //PrintBill(billinfo, listbought);
+                    PrintPayment(billinfo);
                 }
 
             }
@@ -139,8 +141,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             listProducts.Clear();
             getdata();
             OnPropertyChanged(nameof(listbought));
-
         }
+
         public bool IsValidPurchase(Object o = null)
         {
             if (CustomerPhoneNumber==null||CustomerPhoneNumber.Length != 10)
@@ -148,25 +150,50 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             return true;
         }
 
-        public void PrintBill(BillInformation billinfo, ObservableCollection<ImportPOSProductControlViewModel> boughtls)
+        private void PrintPayment(BillInformation bill)
         {
-            PrintDialog printDlg = new PrintDialog();
-            if (printDlg.ShowDialog() != true) return;
+            getTotalPay();
             BillTemplate billTemplate = new BillTemplate();
-            BillTemplateViewModel billTemplateViewModel = new BillTemplateViewModel(billinfo,_session, boughtls);
-            billTemplate.DataContext = billTemplateViewModel;
-            DialogHost.Show(billTemplate);
+
+            billTemplate.txbInvoiceDate.Text = bill.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
+            billTemplate.txbIdBill.Text = bill.displayID;
+            billTemplate.txbCustomerPhoneNumber.Text = bill.customer;
+            billTemplate.txbTotal.Text = totalPay;
+            billTemplate.txbEmployeeName.Text = _session.CurrnetUser.LastName;
+
+            int numOfItems = listbought.Count;
+
+            //print
+            PrintDialog pd = new PrintDialog();
+            if (pd.ShowDialog() != true) return;
             FixedDocument document = new FixedDocument();
             PageContent temp;
-            document.DocumentPaginator.PageSize = new Size(billTemplate.grdPrint.ActualWidth, billTemplate.grdPrint.ActualHeight);
-            billTemplate.grdPrint.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            billTemplate.grdPrint.Arrange(new Rect(0, 0, billTemplate.grdPrint.DesiredSize.Width, billTemplate.grdPrint.DesiredSize.Height));
-            temp = ConvertToPage(billTemplate.grdPrint);
-            document.Pages.Add(temp);
-
-            printDlg.PrintDocument(document.DocumentPaginator, "Hehe");
+            int i = 0;
+            foreach (ImportPOSProductControlViewModel pr in listbought)
+            {
+                BillTemplateControl billInfoControl = new BillTemplateControl();
+                billInfoControl.txbOrderNum.Text = (i + 1 ).ToString();
+                billInfoControl.txbName.Text = pr.name;
+                billInfoControl.txbQuantity.Text = pr.quantity;
+                billInfoControl.txbUnit.Text = pr.unit;
+                billInfoControl.txbUnitPrice.Text = pr.price;
+                billInfoControl.txbTotal.Text = pr.sum;
+                billTemplate.stkBillInfo.Children.Add(billInfoControl);
+                document.DocumentPaginator.PageSize = new Size(billTemplate.grdPrint.ActualWidth, billTemplate.grdPrint.ActualHeight);
+                if (billTemplate.stkBillInfo.Children.Count == 10 || i == numOfItems - 1)
+                {
+                    billTemplate.grdPrint.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    billTemplate.grdPrint.Arrange(new Rect(0, 0, billTemplate.grdPrint.DesiredSize.Width, billTemplate.grdPrint.DesiredSize.Height));
+                    temp = ConvertToPage(billTemplate.grdPrint);
+                    document.Pages.Add(temp);
+                    billTemplate.stkBillInfo.Children.Clear();
+                }
+                i++;
+            }
+            pd.PrintDocument(document.DocumentPaginator, "id");
             CustomMessageBox.Show("In hóa đơn thành công", "Thông tin", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
+
         public PageContent ConvertToPage(Grid grid)
         {
             FixedPage page = new FixedPage();

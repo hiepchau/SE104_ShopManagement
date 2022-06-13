@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
 {
-    class BillTemplateControlViewModel : ViewModelBase
+    public class BillTemplateControlViewModel : ViewModelBase
     {
         #region Properties
         public BillDetails billDetails { get; set; }
