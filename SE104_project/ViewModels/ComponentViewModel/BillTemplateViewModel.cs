@@ -15,7 +15,6 @@ using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
-
     class BillTemplateViewModel : ViewModelBase
     {
         #region Properties
@@ -48,7 +47,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
-
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
             getdata();
@@ -67,7 +65,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             int i = 1;
             foreach (BillDetails bill in ls)
             {
-            
                 listDetail.Add(new BillTemplateControlViewModel(bill, _connection, _session, i.ToString()));
                 i++;
             }

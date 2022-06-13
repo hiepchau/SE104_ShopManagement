@@ -24,6 +24,9 @@ using MongoDB.Bson;
 using System.Windows;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -63,6 +66,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand OpenImportProductsCommand { get; set; }
         public ICommand OpenProductsTypeCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand ExportExcelCommand { get; set; }
+
         //AddProduct
         public ICommand SaveCommand { get; set; }
         public ICommand ExitCommand { get; set; }
@@ -93,6 +98,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
             SearchCommand = new RelayCommand<Object>(null, search);
             ReloadCommand = new RelayCommand<object>(null, Reload);
+            ExportExcelCommand = new RelayCommand<Object>(null, ExportExcel);
             SelectedProductsType = null;
             SelectedProducer = null;
         }
@@ -121,6 +127,133 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
         }
+        //
+        //Export Excel
+        public void ExportExcel(Object o = null)
+        {
+            string filePath = "";
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "Excel |*.xlsx"
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                filePath = saveFileDialog.FileName;
+            }
+            try
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage p = new ExcelPackage())
+                {
+                    // Named
+                    p.Workbook.Properties.Title = string.Format("Danh sách tồn kho");
+                    p.Workbook.Worksheets.Add("sheet");
+
+                    ExcelWorksheet ws = p.Workbook.Worksheets[0];
+                    ws.Name = "DSTK";
+                    ws.Cells.Style.Font.Size = 11;
+                    ws.Cells.Style.Font.Name = "Calibri";
+                    ws.Cells.Style.WrapText = true;
+                    ws.Column(1).Width = 10;
+                    ws.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(2).Width = 30;
+                    ws.Column(3).Width = 30;
+                    ws.Column(4).Width = 20;
+                    ws.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(5).Width = 20;
+                    ws.Column(5).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(6).Width = 20;
+                    ws.Column(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(7).Width = 20;
+                    ws.Column(7).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(8).Width = 20;
+                    ws.Column(8).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    // Create Column Header
+                    string[] arrColumnHeader = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Đơn vị", "Tồn kho", "Giá nhập", "Giá bán"};
+
+                    var countColHeader = arrColumnHeader.Count();
+
+
+                    ws.Row(1).Height = 15;
+                    ws.Cells[1, 1].Value = string.Format("Danh sách tồn kho");
+                    ws.Cells[1, 1, 1, countColHeader].Merge = true;
+
+                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                    ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    int colIndex = 1;
+                    int rowIndex = 2;
+
+                    foreach (var item in arrColumnHeader)
+                    {
+                        ws.Row(rowIndex).Height = 15;
+                        var cell = ws.Cells[rowIndex, colIndex];
+
+                        var fill = cell.Style.Fill;
+                        fill.PatternType = ExcelFillStyle.Solid;
+                        fill.BackgroundColor.SetColor(255, 39, 119, 94);
+                        cell.Style.Font.Bold = true;
+
+                        var border = cell.Style.Border;
+                        border.Bottom.Style =
+                            border.Top.Style =
+                            border.Left.Style =
+                            border.Right.Style = ExcelBorderStyle.Thin;
+
+                        cell.Value = item;
+                        colIndex++;
+                    }
+
+                    // Data
+                    int i = 1;
+                    foreach (ProductsControlViewModel control in listActiveItemsProduct)
+                    {
+                        //WareHouseControl control = new WareHouseControl();
+                        ws.Row(rowIndex).Height = 15;
+                        colIndex = 1;
+                        rowIndex++;
+                        string address = "A" + rowIndex + ":H" + rowIndex;
+                        ws.Cells[address].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        if (rowIndex % 2 != 0)
+                        {
+                            ws.Cells[address].Style.Fill.BackgroundColor.SetColor(255, 255, 255, 255);
+                        }
+                        else
+                        {
+                            ws.Cells[address].Style.Fill.BackgroundColor.SetColor(255, 138, 220, 195);
+                        }
+
+                        ws.Cells[rowIndex, colIndex++].Value = i;
+                        //ID
+                        ws.Cells[rowIndex, colIndex++].Value = control.displayID;
+                        //Name
+                        ws.Cells[rowIndex, colIndex++].Value = control.name;
+                        //txbProductsType
+                        ws.Cells[rowIndex, colIndex++].Value = control.Category;
+                        //txbUnit
+                        ws.Cells[rowIndex, colIndex++].Value = control.Unit;
+                        //txbQuantity
+                        ws.Cells[rowIndex, colIndex++].Value = control.quantity;
+                        //txbImportPrice
+                        ws.Cells[rowIndex, colIndex++].Value = control.StockCost;
+                        //txbSalesPrice
+                        ws.Cells[rowIndex, colIndex++].Value = control.price;
+
+                        i++;
+
+                    }
+                    //Save
+                    Byte[] bin = p.GetAsByteArray();
+                    File.WriteAllBytes(filePath, bin);
+                }
+                CustomMessageBox.Show("Xuất danh sách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            catch
+            {
+            }
+
+        }
+
         //
         public void OpenProductsType(Object o = null)
         {

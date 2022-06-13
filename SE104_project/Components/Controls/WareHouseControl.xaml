@@ -52,17 +52,20 @@
             x:Name="txtBuyProduct"
             Text="{Binding StockCost}"
             Grid.Column="4"
-            Style="{StaticResource Text}" Margin="-10,0,0,0"/>
+            Style="{StaticResource Text}"
+            Margin="-10,0,0,0"/>
         <TextBlock
             x:Name="txtSellProduct"
             Text="{Binding price}"
             Grid.Column="5"
-            Style="{StaticResource Text}" Margin="-10,0,0,0"/>
+            Style="{StaticResource Text}" 
+            Margin="-10,0,0,0"/>
         <TextBlock          
             x:Name="txtValue"
             Grid.Column="6"
             Style="{StaticResource Text}" 
-            HorizontalAlignment="Left" Margin="20 0 0 0"
+            HorizontalAlignment="Left" 
+            Margin="20 0 0 0"
             Text="{Binding InWareHouseSellValue}">
            
         </TextBlock>

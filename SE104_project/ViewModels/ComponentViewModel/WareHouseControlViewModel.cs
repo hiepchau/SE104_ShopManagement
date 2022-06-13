@@ -1,8 +1,11 @@
-﻿using SE104_OnlineShopManagement.Models.ModelEntity;
+﻿using Microsoft.Win32;
+using SE104_OnlineShopManagement.Commands;
+using SE104_OnlineShopManagement.Models.ModelEntity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
@@ -22,6 +25,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 
         #region ICommand
         public ICommand ViewProductCommand { get; set; }
+
         #endregion
 
         public WareHouseControlViewModel(ProductsInformation pro)
@@ -51,6 +55,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             return "";
         }
+
+
         #endregion
     }
 }

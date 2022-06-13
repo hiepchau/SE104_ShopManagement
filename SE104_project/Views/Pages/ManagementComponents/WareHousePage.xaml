@@ -236,7 +236,7 @@
             <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,40,20,20">
-                <StackPanel>
+                <StackPanel x:Name="stkWareHouse">
                     <ItemsControl ItemsSource="{Binding listItemWareHouse}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
