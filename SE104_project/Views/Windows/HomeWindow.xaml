@@ -25,6 +25,7 @@
         Title="HomeWindow" 
         Height="740" Width="1280" 
         AllowsTransparency="True"
+        Name="homewin"
         MaxHeight="740" MaxWidth="1280">
 
     <Window.Resources>
@@ -60,13 +61,13 @@
                          ItemTemplate="{DynamicResource NavigationDataTemplate}"
                          ItemsSource="{StaticResource NavigationMenuItems}"
                          IsSynchronizedWithCurrentItem="False">
-
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction
                                         Command="{Binding CurrentMainViewModel.SelectFunctionListCommand}"
                                         CommandParameter="{Binding ElementName=NavigationMenuListBox,Path=SelectedItem}"/>
                                 </i:EventTrigger>
+                            
                             </i:Interaction.Triggers>
                         </ListBox>
 

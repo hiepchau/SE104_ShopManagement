@@ -12,10 +12,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
     public class ManagementMenu : MenuViewModel
     {
         public int selectedItem { get; set; }
+        public bool isOverallAllowed { get; set; }
+        public bool isProductsAllowed { get; set; }
+        public bool isProducTypeAllowed { get;set; }
         public ManagementMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             selectedItem = -1;
             ChangeViewModelCommand = new RelayCommand<Object>(null, change);
+            isOverallAllowed = Utils.RoleSeperator.managerRole(session);
+            isProductsAllowed = Utils.RoleSeperator.managerRole(session);
+            isProducTypeAllowed = Utils.RoleSeperator.managerRole(session);
         }
 
         public override void change(object o)

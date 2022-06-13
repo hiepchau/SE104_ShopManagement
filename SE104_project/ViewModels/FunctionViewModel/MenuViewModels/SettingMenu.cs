@@ -11,9 +11,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class SettingMenu : MenuViewModel
     {
+        public bool isOwner { get; set; }
         public SettingMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
             ChangeViewModelCommand = new RelayCommand<object>(null, change);
+            if (Utils.RoleSeperator.ownerloyeeRole(_session))
+                isOwner = true;
+            else
+                isOwner = false;
 
         }
         public override void change(object o)

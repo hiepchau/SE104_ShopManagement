@@ -9,9 +9,11 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Background="{StaticResource White}"
              mc:Ignorable="d" 
+             xmlns:convert ="clr-namespace:SE104_OnlineShopManagement.Utils"
              Height="650" Width="700">
     <UserControl.Resources>
         <mcv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+        <convert:MoneyFormatConverter x:Key="moneyconvert"/>
     </UserControl.Resources>
     <Grid>
         <Grid
@@ -321,6 +323,7 @@
                     <TextBox.Text>
                         <Binding Path="userSalary"
                                  Mode="TwoWay"
+                                 Converter="{StaticResource moneyconvert}"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <rl:NotNullValidation ErrorMessage="Vui lòng nhập lương!" />
