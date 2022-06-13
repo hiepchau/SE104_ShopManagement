@@ -6,8 +6,10 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -40,6 +42,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private List<StockInformation> liststock { get; set; }
         private List<BillInformation> listbill { get; set; }
+        private List<BillDetails> listbilldetails { get; set; }
+        private List<TopSaleProductControlViewModel> _listTopSaleProduct { get; set; }
+        public ObservableCollection<TopSaleProductControlViewModel> listTopSaleProduct { get; set; }
         public ChartValues<long> GraphValues { get; set; }
         public string[] Label { get; set; }
         #endregion
@@ -52,6 +57,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             _session = session;
             listbill = new List<BillInformation>();
             liststock = new List<StockInformation>();
+            listbilldetails = new List<BillDetails>();
+            _listTopSaleProduct = new List<TopSaleProductControlViewModel>();
+            listTopSaleProduct = new ObservableCollection<TopSaleProductControlViewModel>();
             selectedIndex = 0;
             GraphValues = new ChartValues<long>();
             Reload = new RelayCommand<object>(null,GetData);      
@@ -63,8 +71,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 GraphValues.Clear();
             }
+            await GetProductData();
+            await GetBillDetailsData();
             await GetStockData();
             await GetBillData();
+            GetTopSaleProduct();
             DateTime today = DateTime.Today;
             long stocksum = 0, billsum = 0;
             switch (selectedIndex)
@@ -171,7 +182,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             for (int i = days-1; i >= 0; i--)
             {
                 Label[count] = (today.AddDays(-i)).Day + "/\n" + (today.AddDays(-i)).Month;
-                Console.WriteLine(Label[count]);
                 profit = billsum[i] - stocksum[i];
                 GraphValues.Add(profit);
                 count++;
@@ -182,30 +192,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             Profit = SeparateThousands((ConvertToNumber(Income)-ConvertToNumber(Spending)).ToString());
             OnPropertyChanged(nameof(Profit));
-        }
-        public async Task GetStockData()
-        {
-            var filter = Builders<StockInformation>.Filter.Empty;
-            GetStocking getter = new GetStocking(_connection.client, _session, filter);
-            Task<List<StockInformation>> task = getter.Get();
-            var ls = await task;
-            Task.WaitAll(task);
-            foreach (StockInformation stock in ls)
-            {
-                liststock.Add(stock);
-            }
-        }
-        public async Task GetBillData()
-        {
-            var filter = Builders<BillInformation>.Filter.Empty;
-            GetBills getter = new GetBills(_connection.client, _session, filter);
-            Task<List<BillInformation>> task = getter.Get();
-            var ls = await task;
-            Task.WaitAll(task);
-            foreach (BillInformation bill in ls)
-            {
-                listbill.Add(bill);
-            }
         }
         public string SeparateThousands(String text)
         {
@@ -234,6 +220,78 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Income = "0";
             Profit = "0";
             Spending = "0"; 
+        }
+        public void GetTopSaleProduct()
+        {   
+            foreach (TopSaleProductControlViewModel topproduct in _listTopSaleProduct)
+            {
+                foreach(BillDetails billdetails in listbilldetails)
+                {
+                    if (billdetails.productID.Equals(topproduct.ID))
+                    {
+                        topproduct.amount += billdetails.amount;               
+                    }
+                }
+            }
+            _listTopSaleProduct.Sort((y, x) => x.amount.CompareTo(y.amount));
+            int count = 0;
+            foreach(TopSaleProductControlViewModel topproduct in _listTopSaleProduct)
+            {
+                if (count == 4) break;
+                Console.WriteLine(topproduct.amount);
+                listTopSaleProduct.Add(topproduct);
+                count++;
+            }
+        }
+        #endregion
+        #region DB
+        public async Task GetProductData()
+        {
+            var filter = Builders<ProductsInformation>.Filter.Eq("isActivated",true);
+            GetProducts getter = new GetProducts(_connection.client, _session, filter);
+            Task<List<ProductsInformation>> task = getter.Get();
+            var ls = await task;
+            Task.WaitAll(task);
+            foreach (ProductsInformation pro in ls)
+            {
+                _listTopSaleProduct.Add(new TopSaleProductControlViewModel(pro,this));
+            }
+        }
+        public async Task GetStockData()
+        {
+            var filter = Builders<StockInformation>.Filter.Empty;
+            GetStocking getter = new GetStocking(_connection.client, _session, filter);
+            Task<List<StockInformation>> task = getter.Get();
+            var ls = await task;
+            Task.WaitAll(task);
+            foreach (StockInformation stock in ls)
+            {
+                liststock.Add(stock);
+            }
+        }
+        public async Task GetBillData()
+        {
+            var filter = Builders<BillInformation>.Filter.Empty;
+            GetBills getter = new GetBills(_connection.client, _session, filter);
+            Task<List<BillInformation>> task = getter.Get();
+            var ls = await task;
+            Task.WaitAll(task);
+            foreach (BillInformation bill in ls)
+            {
+                listbill.Add(bill);
+            }
+        }
+        public async Task GetBillDetailsData()
+        {
+            var filter = Builders<BillDetails>.Filter.Empty;
+            GetBillDetails getter = new GetBillDetails(_connection.client, _session, filter);
+            Task<List<BillDetails>> task = getter.Get();
+            var ls = await task;
+            Task.WaitAll(task);
+            foreach (BillDetails bill in ls)
+            {
+                listbilldetails.Add(bill);
+            }
         }
         #endregion
     }

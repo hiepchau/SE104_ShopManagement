@@ -8,15 +8,10 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:managementComponents="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
              xmlns:controls="clr-namespace:SE104_OnlineShopManagement.Components.Controls" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960"
              >
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction        
-                Command="{Binding Reload}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -171,10 +166,13 @@
                             VerticalScrollBarVisibility="Auto"                    
                             HorizontalScrollBarVisibility="Disabled">-->
                             <StackPanel Grid.Row="1">
-                                <controls:TopSaleItem></controls:TopSaleItem>
-                                <controls:TopSaleItem></controls:TopSaleItem>
-                                <controls:TopSaleItem></controls:TopSaleItem>
-                                <controls:TopSaleItem></controls:TopSaleItem>
+                                <ItemsControl ItemsSource="{Binding listTopSaleProduct}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <uc:TopSaleItem/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                             <!--</ScrollViewer>-->
                         </Grid>
