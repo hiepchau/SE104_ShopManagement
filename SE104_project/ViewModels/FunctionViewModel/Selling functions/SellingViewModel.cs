@@ -81,6 +81,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 listProducts.Clear();
                 await getdata(); });
         }
+
         #region Function
         private async void purchase(object o)
         {
@@ -103,6 +104,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                 var lsmembership = await getMembership.Get();
                 GetCustomer getcus = new GetCustomer(_connection.client, _session, Builders<CustomerInformation>.Filter.Eq(x => x.PhoneNumber, CustomerPhoneNumber));
                 var lscus = await getcus.Get();
+
                 if(lscus.Count > 0)
                 {
                     CustomerInformation cus = lscus.First();
@@ -116,6 +118,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                         }
                     }
                 }
+
                 string displayPrintID = billinfo.ID;
                 string billid = "";
            
@@ -139,7 +142,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     }
                 }
 
-                
                 CustomMessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
                 var printBill = CustomMessageBox.Show("Bạn có muốn in hóa đơn?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -149,7 +151,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     //PrintBill(billinfo, listbought);
                     PrintPayment(billinfo, displayPrintID);
                 }
-
             }
             else
             {

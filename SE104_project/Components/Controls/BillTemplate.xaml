@@ -10,7 +10,7 @@
              xmlns:convert ="clr-namespace:SE104_OnlineShopManagement.Utils"
              >
     <UserControl.Resources>
-        <convert:MoneyFormatConverter x:Key="moneyFormat"/>
+        <convert:MoneyFormatConverter x:Key="convertMoney"/>
     </UserControl.Resources>
     <Grid
         x:Name="grdPrint">
@@ -343,7 +343,7 @@
                 HorizontalAlignment="Right"
                 Margin="0,30,0,0" 
                 TextWrapping="Wrap" 
-                Text="{Binding total, Converter={StaticResource moneyFormat}}" 
+                Text="{Binding total, Converter={StaticResource convertMoney}}" 
                 VerticalAlignment="Top"
                 FontSize="16" 
                 FontWeight="SemiBold" 
