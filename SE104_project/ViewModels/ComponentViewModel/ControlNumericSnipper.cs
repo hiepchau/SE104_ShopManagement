@@ -15,7 +15,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         protected int maxquantity { get; set; }
         public ControlNumericSnipper(int productquantity)
         {
-            quantity = "0";
+            quantity = "1";
             maxquantity = productquantity;
             DecreaseCommand = new RelayCommand<Object>(null, Decrease);
             IncreaseCommand = new RelayCommand<Object>(null, Increase);
@@ -28,7 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             bool check = int.TryParse(s, out i);
             if (!check)
             {
-                quantity = "0";
+                quantity = "1";
                 OnPropertyChanged(nameof(quantity));
             }
             else if (check)

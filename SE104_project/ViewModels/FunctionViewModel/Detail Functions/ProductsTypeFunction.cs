@@ -88,7 +88,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         SetActive();
                         return;
                     case 2:
-                        ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note);
+                        ProductTypeInfomation info = new ProductTypeInfomation("", productTypeName, note="");
                         RegisterProductType regist = new RegisterProductType(info, _connection.client, _session);
                         string s = await regist.register();
                         info.ID = s;
