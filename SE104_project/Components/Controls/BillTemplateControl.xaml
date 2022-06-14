@@ -42,7 +42,7 @@
             Style="{StaticResource Text}"
             FontSize="14"
             Height="Auto"
-            Text="{Binding price}"
+            Text="{Binding price, Converter={StaticResource moneyformat}}"
             Grid.Column="2"/>
         <TextBlock 
             x:Name="txbQuantity"

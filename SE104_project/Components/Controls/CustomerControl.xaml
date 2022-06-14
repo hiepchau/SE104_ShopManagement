@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              d:DesignHeight="45">
+    <UserControl.Resources>
+        <convert:MoneyFormatConverter x:Key="moneyformat"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -42,7 +46,7 @@
             Style="{StaticResource Text}" Height="24"/>
         <TextBlock
             x:Name="txtTotal"             
-            Text="{Binding Sum}"                                     
+            Text="{Binding Sum, Converter={StaticResource moneyformat}}"                                     
             Grid.Column="4"                                    
             Style="{StaticResource Text}" Height="24" />
         <Button
