@@ -57,7 +57,7 @@
                                 ToolTip="Xuất danh sách nhân viên"
                                 FontSize="19"                            
                                 Style="{StaticResource PrimaryButton}"
-                                Command="{Binding OpenSalaryCommand}" 
+                                Command="{Binding ExportExcelCommand}" 
                                 HorizontalAlignment="Right"
                                 Margin="250,0,50,0" 
                                 Width="160"/>

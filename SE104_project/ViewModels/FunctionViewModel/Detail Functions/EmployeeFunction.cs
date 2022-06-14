@@ -22,6 +22,9 @@ using System.Linq;
 using System.Windows;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -55,6 +58,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         #region ICommand
         public ICommand OpenAddEmployeeControlCommand { get; set; }
+        public ICommand ExportExcelCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         //AddEmployee
@@ -78,6 +82,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GetUnactiveData();
             //
             OpenAddEmployeeControlCommand = new RelayCommand<Object>(null, OpenAddEmployeeControl);
+            ExportExcelCommand = new RelayCommand<Object>(null, ExportExcel);
             CancelCommand = new RelayCommand<Object>(null, Cancel);
             SaveCommand= new RelayCommand<Object>(CheckValidSave, SaveUser);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
@@ -109,6 +114,128 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
         }
+        //Export Excel
+        public void ExportExcel(Object o = null)
+        {
+            string filePath = "";
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "Excel |*.xlsx"
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                filePath = saveFileDialog.FileName;
+            }
+            try
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage p = new ExcelPackage())
+                {
+                    // Named
+                    p.Workbook.Properties.Title = string.Format("Danh sách tồn kho");
+                    p.Workbook.Worksheets.Add("sheet");
+
+                    ExcelWorksheet ws = p.Workbook.Worksheets[0];
+                    ws.Name = "DSTK";
+                    ws.Cells.Style.Font.Size = 11;
+                    ws.Cells.Style.Font.Name = "Calibri";
+                    ws.Cells.Style.WrapText = true;
+                    ws.Column(1).Width = 10;
+                    ws.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(2).Width = 30;
+                    ws.Column(3).Width = 30;
+                    ws.Column(4).Width = 20;
+                    ws.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(5).Width = 20;
+                    ws.Column(5).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(6).Width = 20;
+                    ws.Column(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Column(7).Width = 20;
+                    ws.Column(7).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    // Create Column Header
+                    string[] arrColumnHeader = { "STT", "Mã nhân viên","Nhân viên", "Mã đăng nhập", "Chức vụ", "SĐT", "Lương"};
+
+                    var countColHeader = arrColumnHeader.Count();
+                    
+                    //Merge column
+                    ws.Row(1).Height = 15;
+                    ws.Cells[1, 1].Value = string.Format("Danh sách nhân viên");
+                    ws.Cells[1, 1, 1, countColHeader].Merge = true;
+
+                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                    ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    int colIndex = 1;
+                    int rowIndex = 2;
+
+                    foreach (var item in arrColumnHeader)
+                    {
+                        ws.Row(rowIndex).Height = 15;
+                        var cell = ws.Cells[rowIndex, colIndex];
+
+                        var fill = cell.Style.Fill;
+                        fill.PatternType = ExcelFillStyle.Solid;
+                        fill.BackgroundColor.SetColor(255, 39, 119, 94);
+                        cell.Style.Font.Bold = true;
+
+                        var border = cell.Style.Border;
+                        border.Bottom.Style =
+                            border.Top.Style =
+                            border.Left.Style =
+                            border.Right.Style = ExcelBorderStyle.Thin;
+
+                        cell.Value = item;
+                        colIndex++;
+                    }
+               
+                    // Data
+                    int i = 1;
+                    foreach (EmployeeControlViewModel control in listItemsUserInfo)
+                    {
+                        //WareHouseControl control = new WareHouseControl();
+                        ws.Row(rowIndex).Height = 15;
+                        colIndex = 1;
+                        rowIndex++;
+                        string address = "A" + rowIndex + ":G" + rowIndex;
+                        ws.Cells[address].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        if (rowIndex % 2 != 0)
+                        {
+                            ws.Cells[address].Style.Fill.BackgroundColor.SetColor(255, 255, 255, 255);
+                        }
+                        else
+                        {
+                            ws.Cells[address].Style.Fill.BackgroundColor.SetColor(255, 138, 220, 195);
+                        }
+
+                        ws.Cells[rowIndex, colIndex++].Value = i;
+                        //ID
+                        ws.Cells[rowIndex, colIndex++].Value = control.displayID;
+                        //Name
+                        ws.Cells[rowIndex, colIndex++].Value = control.FirstName + " " + control.LastName;
+                        //txtMail
+                        ws.Cells[rowIndex, colIndex++].Value = control.Email;
+                        //txbRole
+                        ws.Cells[rowIndex, colIndex++].Value = control.role;
+                        //txtPhone
+                        ws.Cells[rowIndex, colIndex++].Value = control.PhoneNumber;
+                        //txtSalary
+                        ws.Cells[rowIndex, colIndex++].Value = control.salary;
+
+                        i++;
+
+                    }
+                    //Save
+                    Byte[] bin = p.GetAsByteArray();
+                    File.WriteAllBytes(filePath, bin);
+                }
+                CustomMessageBox.Show("Xuất danh sách thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            catch
+            {
+            }
+
+        }
+
         public bool CheckValidSave(object o)
         {
             var pass = o as PasswordBox;
@@ -408,6 +535,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             return 2;
         }
         #endregion
+
         #region DB
         public async void GetUnactiveData()
         {
