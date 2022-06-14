@@ -18,6 +18,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
     class BillTemplateViewModel : ViewModelBase
     {
         #region Properties
+        public BillInformation bill { get; set; }
         public string saleDay { get; set; }
         public string User { get; set; }
         public string customer { get; set; }
@@ -39,6 +40,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _connection = connect;
             _session = session;
+            this.bill = billInformation;
             listDetail = new ObservableCollection<BillTemplateControlViewModel>();
             saleDay = billInformation.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
             billID =  billInformation.ID;
@@ -54,12 +56,26 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
             getdata();
+            GetUser();
         }
 
         #region Function
         #endregion
 
         #region DB
+        private async void GetUser()
+        {
+            FilterDefinition<UserInfomation> filter = Builders<UserInfomation>.Filter.Eq(x => x.ID, bill.User);
+            var tmp = new GetUsers(_connection.client, _session, filter);
+            var ls = await tmp.get();
+
+            int i = 1;
+            foreach (UserInfomation user in ls)
+            {
+                User = user.FirstName + " " + user.LastName;
+            }
+            OnPropertyChanged(nameof(User));
+        }
         private async void getdata()
         {
             FilterDefinition<BillDetails> filter = Builders<BillDetails>.Filter.Eq(x => x.billID, billID);
