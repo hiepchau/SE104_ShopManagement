@@ -42,6 +42,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string productUnit { get; set; }
         public long productCost { get; set; }
         public long productPrice { get; set; }
+        public int sortIndex { get; set; }
+        public int sortProductTypeIndex { get; set; }
         public int IsSelectedIndex { get; set; }
         public int IsSelectedProducerIndex { get; set; }
         public string searchString { get; set; }
@@ -57,6 +59,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ObservableCollection<ProductsControlViewModel> listAllProduct { get; set; }
         public ObservableCollection<ProductTypeInfomation> ItemSourceProductsType { get; set; }
         public ObservableCollection<ProducerInformation> ItemSourceProducer { get; set; }
+        private List<ProductsControlViewModel> backupListProduct { get; set; }
 
         #endregion
 
@@ -67,6 +70,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand OpenProductsTypeCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand ExportExcelCommand { get; set; }
+        public ICommand SortListProductsCommand { get; set; }
+        public ICommand SortProductTypeCommand { get; set; }
 
         //AddProduct
         public ICommand SaveCommand { get; set; }
@@ -84,10 +89,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ManagementMenu = managementMenu;
             IsSelectedIndex = -1;
             IsSelectedProducerIndex = -1;
+            sortIndex = -1;
+            sortProductTypeIndex = -1;
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
             listActiveItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
+            backupListProduct = new List<ProductsControlViewModel>();
             //Get Data
 
             //
@@ -99,11 +107,65 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SearchCommand = new RelayCommand<Object>(null, search);
             ReloadCommand = new RelayCommand<object>(null, Reload);
             ExportExcelCommand = new RelayCommand<Object>(null, ExportExcel);
+            SortListProductsCommand = new RelayCommand<Object>(null, sortChanged);
+            SortProductTypeCommand = new RelayCommand<Object>(null, sortProductTypeChanged);
             SelectedProductsType = null;
             SelectedProducer = null;
         }
 
         #region Function
+        public void sortProductTypeChanged(object o)
+        {
+            Console.Write("Executed");
+            if (SelectedProductsType != null)
+            {
+                foreach(ProductsControlViewModel pro in listActiveItemsProduct)
+                {
+                    if (pro.Category.Equals(SelectedProductsType.ID))
+                    {
+                        backupListProduct.Add(pro);
+                    }
+                }
+            }
+            listActiveItemsProduct.Clear();
+            foreach (ProductsControlViewModel pro in backupListProduct)
+            {
+                listActiveItemsProduct.Add(pro);
+            }
+            OnPropertyChanged(nameof(listActiveItemsProduct));
+            SelectedProductsType = null;
+        }
+        public void sortChanged(object o = null)
+        {
+            switch (sortIndex)
+            {
+                case 0:                   
+                    backupListProduct.Sort((x,y)=>x.name.CompareTo(y.name));                 
+                    break;
+                case 1:
+                    backupListProduct.Sort((y, x) => x.name.CompareTo(y.name));
+                    break;
+                case 2:
+                    backupListProduct.Sort((x, y) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                    break;
+                case 3:
+                    backupListProduct.Sort((y, x) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                    break;
+                case 4:
+                    backupListProduct.Sort((x, y) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                    break;
+                case 5:
+                    backupListProduct.Sort((y, x) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                    break;
+            }
+            listActiveItemsProduct.Clear();
+            foreach (ProductsControlViewModel pro in backupListProduct)
+            {
+                listActiveItemsProduct.Add(pro);
+            }
+            OnPropertyChanged(nameof(listActiveItemsProduct));
+        }
+
         private async void Reload(object o = null)
         {
             await GetData();
@@ -570,6 +632,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var lscheck = await CheckInactiveCategory.listInactiveCategory(_connection.client, _session, pro);
                 if (lscheck.Count == 0)
                 {
+                    backupListProduct.Add(new ProductsControlViewModel(pro, this));
                     listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
                 }
             }

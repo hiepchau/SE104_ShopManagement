@@ -224,24 +224,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             totalRevenue = SeparateThousands(displayTotalRevenue.ToString());
             OnPropertyChanged(nameof(totalRevenue));
 
-            //Reload MemberRank
-            //if (ItemSourceMembership.Count > 0 && listAllCustomer.Count > 0)
-            //{
-            //    foreach (var member in listAllCustomer)
-            //    {
-            //        foreach (var ship in ItemSourceMembership)
-            //        {
-            //            if (member.Sum >= ship.condition)
-            //            {
-            //                FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, member.ID);
-            //                UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set(x => x.CustomerLevel, ship.ID);
-            //                UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
-            //                await updater.update();
-            //            }
-            //        }
-            //    }
-            //}
-            //await GetData();
         }
 
         public string SeparateThousands(String text)
@@ -453,17 +435,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private async Task getsearchdata()
         {
-            listAllCustomer.Clear();
-            OnPropertyChanged(nameof(listAllCustomer));
+            backupMemberlist.Clear();
+            OnPropertyChanged(nameof(backupMemberlist));
             FilterDefinition<CustomerInformation> filter = Builders<CustomerInformation>.Filter.Eq(x => x.Name, searchString);
             var tmp = new GetCustomer(_connection.client, _session, filter);
             var ls = await tmp.Get();
             foreach (CustomerInformation pr in ls)
             {
                 long sum = await GetSumCustomer(pr);
-                listAllCustomer.Add(new CustomerControlViewModel(pr,sum, this));
+                backupMemberlist.Add(new CustomerControlViewModel(pr,sum, this));
             }
-            OnPropertyChanged(nameof(listAllCustomer));
+            OnPropertyChanged(nameof(backupMemberlist));
         }
 
         private async Task<long> GetSumCustomer(CustomerInformation cus)
