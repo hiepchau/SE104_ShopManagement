@@ -21,7 +21,9 @@
             x:Name="txtID"
             Text="{Binding displayID}" 
             Grid.Column="0"
-            Style="{StaticResource Text}" Height="24" Margin="10,0,0,0"/>
+            Style="{StaticResource Text}" 
+            Height="24" 
+            Margin="10,0,0,0"/>
         <TextBlock
             x:Name="txtName"
             Text="{Binding Name}" 
