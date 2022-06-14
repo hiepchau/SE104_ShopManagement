@@ -303,6 +303,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var s = await updater.update();
             Console.WriteLine("Update Successfull: quantity = " + newQuantity);
         }
+
+        public void updateTotal()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

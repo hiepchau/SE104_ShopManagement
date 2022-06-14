@@ -20,6 +20,7 @@
     </i:Interaction.Triggers>
     <UserControl.Resources>
         <multiconvert:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+        <multiconvert:MoneyFormatConverter x:Key="moneyconvert"/>
     </UserControl.Resources>
 
     <Grid Background="Transparent">
@@ -343,7 +344,7 @@
                             Style="{StaticResource PrimaryLabelText}"/>
                         <TextBlock
                              Style="{StaticResource Text}"
-                             Text="{Binding totalPay}"
+                             Text="{Binding totalPay, Converter={StaticResource moneyconvert}}"
                              TextWrapping="Wrap"
                              MaxWidth="120"  
                              Margin="-10 0 0 0"

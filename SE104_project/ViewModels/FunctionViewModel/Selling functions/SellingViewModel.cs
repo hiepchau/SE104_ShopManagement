@@ -33,6 +33,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         void UpdateSelectedList(ProductsInformation pro);
         void UpdateBoughtList(ProductsInformation pro);
         void isCanExecute();
+        void updateTotal();
     }
     public class SellingViewModel:BaseFunction, IUpdateSelectedList
     {
@@ -44,7 +45,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         public string CurrentID { get; set; }
         public string today { get; set; }
         public string clock { get; set; }
-        public string totalPay { get; set; }
+        public long totalPay { get; set; }
         public string CustomerPhoneNumber { get; set; }
         private AppSession _session;
         private MongoConnect _connection;
@@ -68,7 +69,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             CurrentID = _session.CurrnetUser.ID;
             listProducts = new ObservableCollection<POSProductControlViewModel>();
             listbought = new ObservableCollection<ImportPOSProductControlViewModel>();
-            totalPay = "0";
+            totalPay = 0;
             getTotalPay();
             today = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -110,7 +111,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     CustomerInformation cus = lscus.First();
                     foreach (var item in lsmembership) {
                         long sum = await GetSumCustomer(cus);
-                        if (item.condition <= sum + long.Parse(totalPay)) {
+                        if (item.condition <= sum + totalPay) {
                             FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, cus.ID);
                             UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set(x => x.CustomerLevel, item.ID);
                             UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
@@ -159,6 +160,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
 
             listbought.Clear();
             listProducts.Clear();
+            getTotalPay();
             getdata();
             OnPropertyChanged(nameof(listbought));
         }
@@ -194,7 +196,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             billTemplate.txbInvoiceDate.Text = bill.saleDay.ToString("dd/MM/yyyy HH:mm:ss");
             billTemplate.txbIdBill.Text = displayPrintID;
             billTemplate.txbCustomerPhoneNumber.Text = bill.customer;
-            billTemplate.txbTotal.Text = totalPay;
+            billTemplate.txbTotal.Text = totalPay.ToString();
             billTemplate.txbEmployeeName.Text = _session.CurrnetUser.LastName;
 
             int numOfItems = listbought.Count;
@@ -265,11 +267,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                         if (pr.product.ID.Equals(pro.ID))
                         {
                             pr.GetIncreaseQuantityByClick();
+                            getTotalPay();
                             return;
                         }
                     }
                 }
                 listbought.Add(new ImportPOSProductControlViewModel(pro, this));
+                getTotalPay();
                 OnPropertyChanged(nameof(listbought));
             }
             else return;
@@ -288,6 +292,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     }
                     i++;
                 }
+                getTotalPay();
                 listbought.RemoveAt(i);
                 OnPropertyChanged(nameof(listbought));
             }
@@ -304,18 +309,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
         {
             if (listbought.Count == 0)
             {
-                totalPay = "0";
+                totalPay = 0;
                 OnPropertyChanged(nameof(totalPay));
             }    
             if (listbought.Count > 0)
             {
-                totalPay = "0";
-                long sum = 0;
+                totalPay = 0;
                 foreach (ImportPOSProductControlViewModel pr in listbought)
                 {
-                    sum += ConvertToNumber(pr.sum.ToString());
+                    totalPay += pr.GetDetailNum()*pr.product.price;
                 }
-                totalPay = SeparateThousands(sum.ToString());
                 OnPropertyChanged(nameof(totalPay));
             }
             else
@@ -418,6 +421,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
             var s = await updater.update();
             Console.WriteLine("Update Successfull: quantity = " + newQuantity);
+        }
+
+        public void updateTotal()
+        {
+            getTotalPay();
         }
         #endregion
     }
