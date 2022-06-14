@@ -102,14 +102,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             //totalSupplierSpent
             long displayTotalSupplierSpent = 0;
-            foreach (var producer in listActiveItemsProducer)
+            if(listActiveItemsProducer.Count > 0)
             {
-                await producer.GetBillAmount();
-                displayTotalSupplierSpent += ConvertToNumber(producer.sumPrice);
+                foreach (var producer in listActiveItemsProducer)
+                {
+                    await producer.GetBillAmount();
+                    displayTotalSupplierSpent += ConvertToNumber(producer.sumPrice);
+                }
+                Console.WriteLine("Total Supplier sent: " + displayTotalSupplierSpent);
+                totalSupplierSpent = SeparateThousands(displayTotalSupplierSpent.ToString());
+                OnPropertyChanged(nameof(totalSupplierSpent));
             }
-            Console.WriteLine("Total Supplier sent: "+ displayTotalSupplierSpent);
-            totalSupplierSpent = SeparateThousands(displayTotalSupplierSpent.ToString());
-            OnPropertyChanged(nameof(totalSupplierSpent));
         }
         public long ConvertToNumber(string str)
         {
