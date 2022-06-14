@@ -59,10 +59,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Function
         public async void SaveMemberShip(object o = null)
         {
-            if (selectedMembership!=null)
+            if (selectedMembership != null)
             {
                 var filter = Builders<MembershipInformation>.Filter.Eq("ID", selectedMembership.ID);
-                var update = Builders<MembershipInformation>.Update.Set("MembershipName", membershipname).Set("Priority", priority);
+                var update = Builders<MembershipInformation>.Update.Set("MembershipName", membershipname).Set("Priority", priority).Set(x => x.condition, membershipRule);
                 UpdateMembershipInformation updater = new UpdateMembershipInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 listActiveMembership.Clear();
@@ -82,7 +82,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         Console.WriteLine("MembershipName.isActivated has been set to True!");
                         break;
                     case 2:
-                        MembershipInformation info = new MembershipInformation("", membershipname, priority);
+                        MembershipInformation info = new MembershipInformation("", membershipname, priority, true, membershipRule);
                         RegisterMembership regist = new RegisterMembership(info, _connection.client, _session);
                         string s = await regist.register();
                         listActiveMembership.Clear();
@@ -188,7 +188,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             foreach (MembershipControlViewModel ls in listActiveMembership)
             {
-                if (membershipname == ls.name || priority == ls.prio)
+                if (membershipname == ls.name || priority == ls.prio || membershipRule == ls.condition)
                 {
                     return 0;
                 }

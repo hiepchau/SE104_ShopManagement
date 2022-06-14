@@ -12,6 +12,7 @@
              d:DesignHeight="715" d:DesignWidth="960">
     <UserControl.Resources>
         <mcv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
+        <mcv:MoneyFormatConverter x:Key="MoneyFormat"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -204,9 +205,10 @@
                         <TextBox.Text>
                             <Binding 
                                 Path="membershipRule"
-                                UpdateSourceTrigger="PropertyChanged">
+                                UpdateSourceTrigger="PropertyChanged"
+                                Converter="{StaticResource MoneyFormat}">
                                 <Binding.ValidationRules>
-                                    <vd:NotNullValidation ErrorMessage="Vui lòng nhập hạng điều kiện!" />
+                                    <vd:NotNullValidation ErrorMessage="Vui lòng nhập  điều kiện!" />
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>

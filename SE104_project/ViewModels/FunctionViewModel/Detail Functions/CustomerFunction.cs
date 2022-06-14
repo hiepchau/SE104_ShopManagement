@@ -112,7 +112,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             foreach(CustomerControlViewModel cs in listAllCustomer)
                     backupMemberlist.Add(cs);
             for (int i = 0; i < backupMemberlist.Count; i++) {
-                if (backupMemberlist[i].customer.CustomerLevel != SelectedMembership.ID) {
+                if (!backupMemberlist[i].customer.CustomerLevel.Equals(SelectedMembership.ID)) {
                         backupMemberlist.RemoveAt(i);
                 }
             }
@@ -235,7 +235,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         if (member.Sum >= ship.condition)
                         {
                             FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, member.ID);
-                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set("Level", ship.ID);
+                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set(x => x.CustomerLevel, ship.ID);
                             UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
                             await updater.update();
                         }

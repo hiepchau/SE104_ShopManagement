@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
+             xmlns:util="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="45">
+    <UserControl.Resources>
+        <util:MoneyFormatConverter x:Key="MoneyFormat"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -35,7 +39,7 @@
             Style="{StaticResource Text}"/>
         <TextBlock
             x:Name="txtCondition"
-            Text="{Binding condition}" 
+            Text="{Binding condition, Converter={StaticResource MoneyFormat}}" 
             Grid.Column="3"
             Margin="-10 0 0 0"
             Style="{StaticResource Text}"/>
@@ -59,7 +63,7 @@
             Grid.Column="4"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
-            ToolTip="Xóa mặt hàng" 
+            ToolTip="Xóa hội viên" 
             Height="30"
             Margin="0,0,15,0" 
             Width="30"

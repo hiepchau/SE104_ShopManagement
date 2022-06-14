@@ -47,6 +47,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             _parent = parent;
             this.Sum = sum;
             EditCustomerCommand = new RelayCommand<Object>(null, editCustomer);
+            GetMembershipName();
         }
 
         #region Function
@@ -54,9 +55,10 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _parent.EditCustomer(customer);
         }
+
         public async void GetMembershipName()
         {
-            var filter = Builders<MembershipInformation>.Filter.Eq(x => x.condition, Sum);
+            var filter = Builders<MembershipInformation>.Filter.Eq(x => x.ID, customer.CustomerLevel);
             GetMembership getter = new GetMembership((_parent as BaseFunction).Connect.client, (_parent as BaseFunction).Session, filter);
             var ls = await getter.Get();
             if (ls != null && ls.Count > 0)
