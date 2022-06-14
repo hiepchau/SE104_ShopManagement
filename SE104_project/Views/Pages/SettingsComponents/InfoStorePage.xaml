@@ -76,14 +76,14 @@
                                         Grid.RowSpan="1"
                                         Visibility="{Binding isLoaded, 
                                         Converter={StaticResource visibilityconverter}}" Margin="20,10,20,47"/>
-                
+
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                
+
                 <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="0">
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
@@ -132,28 +132,33 @@
                                             materialDesign:HintAssist.Hint="Số điện thoại"
                                             Height="40"
                                             Width="320"
+                                            MaxLength="10"
                                             Text="{Binding storePhoneNumber, Mode=TwoWay}"
                                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                         </TextBox>
                     </Grid>
                     <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="331*"/>
+                            <ColumnDefinition Width="129*"/>
+                        </Grid.ColumnDefinitions>
                         <Label  Content="Email:"
                             Style="{StaticResource LabelText}"/>
-                        <Rectangle  HorizontalAlignment="Right"
+                        <Rectangle  HorizontalAlignment="Left"
                                 Height="40" Width="320"
                                 RadiusY="4" 
                                 RadiusX="4"
-                                Stroke="{StaticResource Gray2}"/>
+                                Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
                         <TextBox x:Name="txtEmail"
                              Style="{StaticResource TextBox}"
                              materialDesign:HintAssist.Hint="Email"
                              Height="40"
                              Width="320"
                              Text="{Binding storeEmail, Mode=TwoWay}"
-                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0"/>
                     </Grid>
                 </StackPanel>
-                
+
                 <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="1">
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource PrimaryLabelText}"

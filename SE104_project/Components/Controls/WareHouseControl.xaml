@@ -69,7 +69,7 @@
             Text="{Binding InWareHouseSellValue}">
            
         </TextBlock>
-        <Button
+        <!--<Button
             Grid.Column="7"
             x:Name="btnViewProducts"
             ToolTip="Xem thông tin"
@@ -84,8 +84,8 @@
                 Height="24" 
                 HorizontalAlignment="Left"
                 Foreground="{StaticResource WordBlueBrush}" />
-        </Button>
-        <Button 
+        </Button>-->
+        <!--<Button 
             Grid.Column="7"
             x:Name="btnDeleteProducts"
             Style="{StaticResource TransparentButton}"
@@ -101,7 +101,7 @@
                 Height="24"
                 Width="24"
                 Foreground="{StaticResource Error}"/>
-        </Button>
+        </Button>-->
     </Grid>
 
 </UserControl>

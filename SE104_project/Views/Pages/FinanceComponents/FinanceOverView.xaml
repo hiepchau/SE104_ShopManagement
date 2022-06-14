@@ -163,7 +163,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
-                <Border Grid.Column="0" CornerRadius="10" Background="White" Margin="15">
+                <!--<Border Grid.Column="0" CornerRadius="10" Background="White" Margin="15">
                     <StackPanel VerticalAlignment="Top" Height="385" Margin="10">
                         <Label Content="DÒNG TIỀN THEO SỐ" Margin="10"
                                Style="{StaticResource PrimaryLabelText}" FontWeight="Bold"/>
@@ -251,7 +251,7 @@
                         </Grid>
                     </StackPanel>
 
-                </Border>
+                </Border>-->
 
             </Grid>
 
