@@ -70,6 +70,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 listIncome.Add(new IncomeControlViewModel(bill, this));
             }
+            List<IncomeControlViewModel> lstmp = new List<IncomeControlViewModel>();
+            foreach (IncomeControlViewModel od in listIncome)
+                lstmp.Add(od);
+            lstmp.Reverse();
+            listIncome.Clear();
+            foreach (IncomeControlViewModel od in lstmp)
+                listIncome.Add(od);
             OnPropertyChanged(nameof(listIncome));
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));

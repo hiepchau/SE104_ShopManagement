@@ -75,6 +75,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
             Console.Write("Executed");
+            List<OrdersControlViewModel> lstmp = new List<OrdersControlViewModel>();
+            foreach(OrdersControlViewModel od in listOrders)
+                lstmp.Add(od);
+            lstmp.Reverse();
+            listOrders.Clear();
+            foreach (OrdersControlViewModel od in lstmp)
+                listOrders.Add(od);
             OnPropertyChanged(nameof(listOrders));
         }
         private async Task getsearchdata()

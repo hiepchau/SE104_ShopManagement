@@ -3,6 +3,7 @@ using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
 using SE104_OnlineShopManagement.Network.Get_database;
+using SE104_OnlineShopManagement.Utils;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 listSpending.Add(new SpendingControlViewModel(stock, this));
             }
+            listSpending = ReverseObservationCollection.Reverse<SpendingControlViewModel>(listSpending);
             OnPropertyChanged(nameof(listSpending));
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
