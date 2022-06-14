@@ -291,6 +291,7 @@
                                 Foreground="{DynamicResource Black1}" 
                                 SelectionBrush="{DynamicResource Primary}"
                                 Padding="2,0,0,0"
+                                Text="{Binding searchString, Mode=TwoWay}"
                                 VerticalAlignment="Center">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">

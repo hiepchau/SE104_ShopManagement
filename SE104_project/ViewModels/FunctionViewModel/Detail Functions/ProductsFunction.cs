@@ -84,6 +84,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ManagementMenu = managementMenu;
             IsSelectedIndex = -1;
             IsSelectedProducerIndex = -1;
+
             ItemSourceProductsType = new ObservableCollection<ProductTypeInfomation>();
             listActiveItemsProduct = new ObservableCollection<ProductsControlViewModel>();
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
