@@ -379,9 +379,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<ProducerInformation>.Update.Set("Name", supplierName).Set("Email", supplierAddress).Set("Phone", supplierPhone).Set("Address",supplierAddress);
                 UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
-                listActiveItemsProducer.Clear();
+                backupListProducer.Clear();
                 _ = GetData();
-                OnPropertyChanged(nameof(listActiveItemsProducer));
+                OnPropertyChanged(nameof(backupListProducer));
             }
             else
             {
@@ -444,9 +444,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public void EditSupplier(ProducerInformation producer)
         {
-            if (listActiveItemsProducer.Count > 0)
+            if (backupListProducer.Count > 0)
             {
-                foreach (SupplierControlViewModel ls in listActiveItemsProducer)
+                foreach (SupplierControlViewModel ls in backupListProducer)
                 {
                     if (ls.producer.Equals(producer))
                     {
@@ -542,12 +542,19 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             searchString = (o.ToString());
             if (string.IsNullOrEmpty(searchString))
             {
+                backupListProducer.Clear();
                 listActiveItemsProducer.Clear();
                 await GetData();
             }
             else
             {
-                await getsearchdata();
+                backupListProducer.Clear();
+                foreach (SupplierControlViewModel pro in listAllProducer)
+                {
+                    if(pro.isActivated&&pro.Name.Equals(searchString))
+                    backupListProducer.Add(pro);
+                }
+                OnPropertyChanged(nameof(backupListProducer));
             }
         }
         #endregion
@@ -577,14 +584,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private async Task getsearchdata()
         {
-            listActiveItemsProducer.Clear();
+            backupListProducer.Clear();
             OnPropertyChanged(nameof(listActiveItemsProducer));
             FilterDefinition<ProducerInformation> filter = Builders<ProducerInformation>.Filter.Eq(x => x.Name, searchString);
             var tmp = new GetProducer(_connection.client, _session, filter);
             var ls = await tmp.Get();
             foreach (ProducerInformation pr in ls)
             {
-                listActiveItemsProducer.Add(new SupplierControlViewModel(pr, this));
+                backupListProducer.Add(new SupplierControlViewModel(pr, this));
             }
             OnPropertyChanged(nameof(listActiveItemsProducer));
         }

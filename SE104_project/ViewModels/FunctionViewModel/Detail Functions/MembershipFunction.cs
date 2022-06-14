@@ -143,8 +143,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             membershipname = selectedMembership.name;
             priority = selectedMembership.prio;
+            membershipRule = selectedMembership.condition;
             OnPropertyChanged(nameof(membershipname));
             OnPropertyChanged(nameof(priority));
+            OnPropertyChanged(nameof(membershipRule));
         }
         public async void SetActive(MembershipControlViewModel membershipinfo)
         {
