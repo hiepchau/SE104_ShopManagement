@@ -208,7 +208,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 using (ExcelPackage p = new ExcelPackage())
                 {
                     // Named
-                    p.Workbook.Properties.Title = string.Format("Danh sách tồn kho");
+                    p.Workbook.Properties.Title = string.Format("DANH SÁCH TỒN KHO");
                     p.Workbook.Worksheets.Add("sheet");
 
                     ExcelWorksheet ws = p.Workbook.Worksheets[0];
