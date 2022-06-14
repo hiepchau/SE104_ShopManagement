@@ -115,6 +115,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private void CheckExist()
         {
+            if(listStore.Count > 0) { 
             foreach(StoreInformation store in listStore)
             {       
                 thisStore=store;
@@ -135,6 +136,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(storeInstagram));
             OnPropertyChanged(nameof(storeTaxNumber));
             OnPropertyChanged(nameof(storeWebsite));
+            }
         }
         #endregion
         #region DB

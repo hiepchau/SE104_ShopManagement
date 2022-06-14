@@ -46,7 +46,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public bool isGirl { get; set; }
         public long userSalary { get; set; }
         public BitmapImage employeeImage { get; set; }
-        public string BeginDate { get; set; }
+        public DateTime BeginDate { get; set; }
         private Role userRole { get; set; }
         private Gender userGender { get; set; }
         public ObservableCollection<EmployeeControlViewModel> listItemsUserInfo { get; set; }
@@ -89,6 +89,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);
             SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
+            BeginDate = DateTime.Now;
         }
 
         #region Function
@@ -243,7 +244,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Password = pass.Password;
             if (employeeImage == null || String.IsNullOrEmpty(userEmail) || String.IsNullOrEmpty(userName)
                 || String.IsNullOrEmpty(Password)
-                || String.IsNullOrEmpty(BeginDate)
+                || String.IsNullOrEmpty(BeginDate.ToString())
                 || IsSelectedIndex == -1
                 || userPhoneNumber.Length != 10
                 || String.IsNullOrEmpty(userSalary.ToString())
@@ -284,7 +285,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     .Set("UserRole", userRole)
                     .Set("UserGender", userGender)
                     .Set("UserSalary", userSalary)
-                    .Set("UserBirthday", DateTime.Parse(BeginDate));
+                    .Set("UserBirthday", BeginDate);
                 UpdateUserInformation updater = new UpdateUserInformation(_connection.client,_session,filter,update);
                 var s = updater.update();
                 //Update Image
@@ -311,7 +312,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         return;
                     case 2:
                         //Register UserInformation
-                        UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, DateTime.Parse(BeginDate), DateTime.Today, true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
+                        UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, BeginDate, DateTime.Today, true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
                         RegisterUser regist = new RegisterUser(info, _connection.client);
                         string id = await regist.registerUser();
                         listItemsUserInfo.Add(new EmployeeControlViewModel(info, this));
@@ -393,7 +394,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             userEmail=selectedUser.Email;
             userPhoneNumber = selectedUser.PhoneNumber;
             userSalary = ConvertToNumber(selectedUser.salary);
-            BeginDate = selectedUser.birthday.ToShortDateString();
+            BeginDate = BeginDate;
             GetImage(selectedUser);
             OnPropertyChanged(nameof(userEmail));
             OnPropertyChanged(nameof(userName));
@@ -480,7 +481,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isGirl = false;
             userGender = Gender.Empty;
             userRole = Role.Empty;
-            BeginDate = "";
+            BeginDate = DateTime.Now;
             employeeImage = null;
             OnPropertyChanged(nameof(userEmail));
             OnPropertyChanged(nameof(userName));
