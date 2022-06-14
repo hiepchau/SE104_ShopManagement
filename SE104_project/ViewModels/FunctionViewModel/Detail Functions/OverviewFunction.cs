@@ -24,6 +24,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string Income { get; set; }
         public string Spending { get; set; }
         public string Profit { get; set; }
+        public string LaiGop { get; set; }
         public bool isLoaded { get; set; }
         private object _selectedIndex;
         public object selectedIndex 
@@ -44,6 +45,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private List<BillInformation> listbill { get; set; }
         private List<BillDetails> listbilldetails { get; set; }
         private List<TopSaleProductControlViewModel> _listTopSaleProduct { get; set; }
+        private List<UserInfomation> listEmployee { get; set; }
         public ObservableCollection<TopSaleProductControlViewModel> listTopSaleProduct { get; set; }
         public ChartValues<long> GraphValues { get; set; }
         public string[] Label { get; set; }
@@ -58,6 +60,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listbill = new List<BillInformation>();
             liststock = new List<StockInformation>();
             listbilldetails = new List<BillDetails>();
+            listEmployee = new List<UserInfomation>();
             _listTopSaleProduct = new List<TopSaleProductControlViewModel>();
             listTopSaleProduct = new ObservableCollection<TopSaleProductControlViewModel>();
             selectedIndex = 0;
@@ -75,6 +78,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             await GetBillDetailsData();
             await GetStockData();
             await GetBillData();
+            await GetEmployee();
             GetTopSaleProduct();
             DateTime today = DateTime.Today;
             long stocksum = 0, billsum = 0;
@@ -98,6 +102,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     Income =SeparateThousands(billsum.ToString());
                     Spending=SeparateThousands(stocksum.ToString());
                     GetProfit();
+                    GetLaiGop();
                     GetChartValue(7);
                     OnPropertyChanged(nameof(Income));
                     OnPropertyChanged(nameof(Spending));
@@ -121,6 +126,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     }
                     Income = SeparateThousands(billsum.ToString());
                     Spending = SeparateThousands(stocksum.ToString());
+                    GetLaiGop();
                     GetProfit();
                     GetChartValue(7);
                     OnPropertyChanged(nameof(Income));
@@ -146,6 +152,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     Income = SeparateThousands(billsum.ToString());
                     Spending = SeparateThousands(stocksum.ToString());
                     GetProfit();
+                    GetLaiGop();
                     GetChartValue(30);
                     OnPropertyChanged(nameof(Income));
                     OnPropertyChanged(nameof(Spending));
@@ -193,6 +200,17 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Profit = SeparateThousands((ConvertToNumber(Income)-ConvertToNumber(Spending)).ToString());
             OnPropertyChanged(nameof(Profit));
         }
+        public void GetLaiGop()
+        {
+            long Salary = 0;
+            foreach(UserInfomation user in listEmployee)
+            {
+                Salary += user.salary;
+            }
+            Console.Write(Salary);
+            LaiGop = SeparateThousands((ConvertToNumber(Income) - ConvertToNumber(Spending) - Salary).ToString());
+            OnPropertyChanged(nameof(LaiGop));
+        }
         public string SeparateThousands(String text)
         {
             if (!string.IsNullOrEmpty(text))
@@ -238,7 +256,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             foreach(TopSaleProductControlViewModel topproduct in _listTopSaleProduct)
             {
                 if (count == 4) break;
-                Console.WriteLine(topproduct.amount);
                 listTopSaleProduct.Add(topproduct);
                 count++;
             }
@@ -267,6 +284,18 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             foreach (StockInformation stock in ls)
             {
                 liststock.Add(stock);
+            }
+        }
+        public async Task GetEmployee()
+        {
+            var filter = Builders<UserInfomation>.Filter.Empty;
+            GetUsers getter = new GetUsers(_connection.client, _session, filter);
+            Task<List<UserInfomation>> task = getter.get();
+            var ls = await task;
+            Task.WaitAll(task);
+            foreach (UserInfomation user in ls)
+            {
+                listEmployee.Add(user);
             }
         }
         public async Task GetBillData()

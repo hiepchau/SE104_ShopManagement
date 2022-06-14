@@ -38,6 +38,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string supplierMail { get; set; }
         public int IsSelectedIndex { get; set; }
         public string searchString { get; set; }
+        public int sortSupplier { get; set; }
+        public int sortSupplierIndex { get; set; }
         public int supplierCount { get; set; }
         public bool isLoaded { get; set; }
         public string totalSupplierSpent { get; set; }
@@ -46,6 +48,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session;
         public ObservableCollection<SupplierControlViewModel> listActiveItemsProducer { get; set; }
         public ObservableCollection<SupplierControlViewModel> listAllProducer { get; set; }
+        public ObservableCollection<SupplierControlViewModel> backupListProducer { get; set; }
         #endregion
 
         #region ICommand
@@ -58,7 +61,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand TextChangedCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand ReloadCommand { get; set; }
-
+        public ICommand SortSupplierAsCommand { get; set; }
+        public ICommand SortSupplierCommand { get; set; }
 
         #endregion
         public SupplierFunction(AppSession session, MongoConnect connect) : base(session, connect)
@@ -68,16 +72,92 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             IsSelectedIndex = -1;
             isLoaded= true;
             searchString = "";
+            sortSupplier = -1;
+            sortSupplierIndex = -1;
             listAllProducer = new ObservableCollection<SupplierControlViewModel>();
             listActiveItemsProducer = new ObservableCollection<SupplierControlViewModel>();
+            backupListProducer = new ObservableCollection<SupplierControlViewModel>();
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddSupplierControlCommand = new RelayCommand<Object>(null, OpenAddSupplierControl);
             SearchCommand = new RelayCommand<Object>(null, search);
             ReloadCommand = new RelayCommand<object>(null, reload);
             ExportExcelCommand = new RelayCommand<Object>(null, ExportExcel);
-
+            SortSupplierCommand = new RelayCommand<Object>(null, sortSupplierChanged);
+            SortSupplierAsCommand = new RelayCommand<Object>(null, sortChanged);
         }
         #region Function
+        public void sortSupplierChanged (object o = null)
+        {
+            List<SupplierControlViewModel> dummyList = new List<SupplierControlViewModel>();
+            foreach (SupplierControlViewModel pro in backupListProducer)
+            {
+                dummyList.Add(pro);
+            }
+            if (sortSupplier == 0)
+            {
+                if (sortSupplierIndex == 0)
+                {
+                    dummyList.Sort((x, y) => ConvertToNumber(x.BillAmount).CompareTo(ConvertToNumber(y.BillAmount)));
+                }
+                else if (sortSupplierIndex == 1)
+                {
+                    dummyList.Sort((y, x) => ConvertToNumber(x.BillAmount).CompareTo(ConvertToNumber(y.BillAmount)));
+                }
+            }
+            else if (sortSupplier == 1)
+            {
+                if (sortSupplierIndex == 0)
+                {
+                    dummyList.Sort((x, y) => ConvertToNumber(x.sumPrice).CompareTo(ConvertToNumber(y.sumPrice)));
+                }
+                else if (sortSupplierIndex == 1)
+                {
+
+                    dummyList.Sort((y, x) => ConvertToNumber(x.sumPrice).CompareTo(ConvertToNumber(y.sumPrice)));
+                }
+            }
+            backupListProducer.Clear();
+            foreach (SupplierControlViewModel dummy in dummyList)
+            {
+                backupListProducer.Add(dummy);
+            }
+        }
+        public void sortChanged(object o = null)
+        {
+            List<SupplierControlViewModel> dummyList = new List<SupplierControlViewModel>();
+            foreach (SupplierControlViewModel pro in backupListProducer)
+            {
+                dummyList.Add(pro);
+            }
+            if (sortSupplier == 0)
+            {
+                if (sortSupplierIndex == 0)
+                {
+                    dummyList.Sort((x, y) => ConvertToNumber(x.BillAmount).CompareTo(ConvertToNumber(y.BillAmount)));
+                }
+                else if (sortSupplierIndex == 1)
+                {
+                    dummyList.Sort((y, x) => ConvertToNumber(x.BillAmount).CompareTo(ConvertToNumber(y.BillAmount)));
+                }
+            }
+            else if (sortSupplier == 1)
+            {
+                if (sortSupplierIndex == 0)
+                {
+                    dummyList.Sort((x, y) => ConvertToNumber(x.sumPrice).CompareTo(ConvertToNumber(y.sumPrice)));
+                }
+                else if (sortSupplierIndex == 1)
+                {
+
+                    dummyList.Sort((y, x) => ConvertToNumber(x.sumPrice).CompareTo(ConvertToNumber(y.sumPrice)));
+                }
+            }
+            backupListProducer.Clear();
+            foreach (SupplierControlViewModel dummy in dummyList)
+            {
+                backupListProducer.Add(dummy);
+            }
+        }
         public void OpenAddSupplierControl(Object o = null)
         {
             AddSupplierControl addSupplierControl = new AddSupplierControl();
@@ -480,6 +560,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             var ls = await getter.Get();
             foreach (ProducerInformation pro in ls)
             {
+                backupListProducer.Add(new SupplierControlViewModel(pro, this));
                 listActiveItemsProducer.Add(new SupplierControlViewModel(pro,this));
             }
             OnPropertyChanged(nameof(listActiveItemsProducer));
