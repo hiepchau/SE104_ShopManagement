@@ -254,6 +254,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             return true;
         }
+
         public async void SaveUser(object o)
         {
             var pass = o as PasswordBox;
@@ -309,7 +310,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     case 1:
                         SetActive(selectedUser);
                         Console.WriteLine("User.isActivated has been set to True!");
-                        return;
+                        break;
                     case 2:
                         //Register UserInformation
                         UserInfomation info = new UserInfomation("", _name, _lastname, userEmail, Password, userPhoneNumber, _session.CurrnetUser.companyInformation, userRole, userGender, userSalary, BeginDate, DateTime.Today, true, await new AutoEmployeeIDGenerator(_session, _connection.client).Generate());
@@ -323,13 +324,37 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         await registImage.register();
                         OnPropertyChanged(nameof(listItemsUserInfo));
                         Console.WriteLine(id);
-                        return;
+
+                        break;
                 }
             }
-            //Set Null
-            SetNull();
+
             DialogHost.CloseDialogCommand.Execute(null, null);
+            //Set Null
             CustomMessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            SetNull();
+        }
+
+        public int CheckExist()
+        {
+            foreach (EmployeeControlViewModel ls in listItemsUserInfo)
+            {
+                if (userEmail.Equals(ls.Email) || userPhoneNumber.Equals(ls.PhoneNumber))
+                {
+                    return 0;
+                }
+            }
+
+            foreach (EmployeeControlViewModel ls1 in listUnactiveUserInfo)
+            {
+                if (userEmail.Equals(ls1.Email) || userPhoneNumber.Equals(ls1.PhoneNumber))
+                {
+                    selectedUser = ls1;
+                    //Set Active
+                    return 1;
+                }
+            }
+            return 2;
         }
 
         public void SaveImage(object o = null)
@@ -514,27 +539,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
 
             return long.Parse(tmp);
-        }
-        public int CheckExist()
-        {
-            foreach (EmployeeControlViewModel ls in listItemsUserInfo)
-            {
-                if (userEmail == ls.Email || userPhoneNumber == ls.PhoneNumber)
-                {
-                    return 0;
-                }
-            }
-
-            foreach (EmployeeControlViewModel ls1 in listUnactiveUserInfo)
-            {
-                if (userEmail == ls1.Email || userPhoneNumber == ls1.PhoneNumber)
-                {
-                    selectedUser = ls1;
-                    //Set Active
-                    return 1;
-                }
-            }
-            return 2;
         }
         #endregion
 
