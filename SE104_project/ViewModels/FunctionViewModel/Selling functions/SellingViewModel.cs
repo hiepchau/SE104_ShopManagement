@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -98,6 +99,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
                     DateTime.Now, _session.CurrnetUser.ID, CustomerPhoneNumber, total);
                 RegisterBills registbill = new RegisterBills(billinfo, _connection.client, _session);
                 Task<string> registertask = registbill.register();
+                GetMembership getMembership = new GetMembership(_connection.client, _session, Builders<MembershipInformation>.Filter.Empty);
+                var lsmembership = await getMembership.Get();
+                GetCustomer getcus = new GetCustomer(_connection.client, _session, Builders<CustomerInformation>.Filter.Eq(x => x.PhoneNumber, CustomerPhoneNumber));
+                var lscus = await getcus.Get();
+                if(lscus.Count > 0)
+                {
+                    CustomerInformation cus = lscus.First();
+                    foreach (var item in lsmembership) {
+                        long sum = await GetSumCustomer(cus);
+                        if (item.condition <= sum + long.Parse(totalPay)) {
+                            FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, cus.ID);
+                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set(x => x.CustomerLevel, item.ID);
+                            UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
+                            await updater.update();
+                        }
+                    }
+                }
                 string displayPrintID = billinfo.ID;
                 string billid = "";
            
@@ -142,6 +160,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Selling_functi
             listProducts.Clear();
             getdata();
             OnPropertyChanged(nameof(listbought));
+        }
+
+        private async Task<long> GetSumCustomer(CustomerInformation cus)
+        {
+            long sum = 0;
+            FilterDefinition<BillInformation> filter = Builders<BillInformation>.Filter.Eq(x => x.customer, cus.PhoneNumber);
+            GetBills getter = new GetBills(_connection.client, _session, filter);
+            var list = await getter.Get();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    sum += item.total;
+                }
+            }
+            return sum;
         }
 
         public bool IsValidPurchase(Object o = null)
