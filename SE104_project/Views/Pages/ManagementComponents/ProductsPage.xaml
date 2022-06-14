@@ -171,14 +171,19 @@
                             BorderThickness="0"
                             Padding="10,0,0,0"                 
                             ItemsSource="{Binding ItemSourceProductsType}"
-                            SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"                 
+                            SelectedIndex="{Binding sortProductTypeIndex}"     
+                            SelectedItem="{Binding SelectedProductsType}"
                             DisplayMemberPath="name"                                  
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             FontWeight="SemiBold"                                 
                             BorderBrush="{StaticResource Black2}"
                             Background="{StaticResource White}"/>
-
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SortProductTypeCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Grid>
                     <Grid 
                                 Margin="20,0,0,0"
@@ -202,14 +207,14 @@
                                     VerticalContentAlignment="Center"
                                     HorizontalContentAlignment="Left"
                                     FontWeight="SemiBold"
+                                    SelectedIndex="{Binding sortIndex}"
                                     BorderBrush="{StaticResource Black2}" 
                                     Background="{StaticResource White}">
-                            <!--<i:Interaction.Triggers>
+                            <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding SortListProductsCommand}"
-                                                                   CommandParameter="{Binding ElementName=ucProducts}"/>
+                                    <i:InvokeCommandAction Command="{Binding SortListProductsCommand}"/>
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                            </i:Interaction.Triggers>
 
                             <ComboBoxItem Content="Theo tên A-&gt;Z"/>
                             <ComboBoxItem Content="Theo tên Z-&gt;A"/>
