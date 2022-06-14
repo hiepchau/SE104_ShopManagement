@@ -114,54 +114,137 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
 
         #region Function
-        public void sortProductTypeChanged(object o)
+        public void sortProductTypeChanged(object o = null)
         {
-            Console.Write("Executed");
+            listActiveItemsProduct.Clear();
             if (SelectedProductsType != null)
             {
-                foreach(ProductsControlViewModel pro in listActiveItemsProduct)
+                foreach(ProductsControlViewModel pro in backupListProduct)
                 {
-                    if (pro.Category.Equals(SelectedProductsType.ID))
+                    if (pro.Category.Equals(SelectedProductsType.name))
                     {
-                        backupListProduct.Add(pro);
+                        listActiveItemsProduct.Add(pro);
                     }
                 }
-            }
-            listActiveItemsProduct.Clear();
-            foreach (ProductsControlViewModel pro in backupListProduct)
-            {
-                listActiveItemsProduct.Add(pro);
+                List<ProductsControlViewModel> dummyList = new List<ProductsControlViewModel>();
+                foreach (ProductsControlViewModel pro in listActiveItemsProduct)
+                {
+                    dummyList.Add(pro);
+                }
+                switch (sortIndex)
+                {
+                    case -1:
+                        return;
+                    case 0:                      
+                        dummyList.Sort((x, y) => x.name.CompareTo(y.name));
+                        listActiveItemsProduct.Clear();
+                        foreach(ProductsControlViewModel dummy in dummyList)
+                        {
+                            listActiveItemsProduct.Add(dummy);
+                        }
+                        break;
+                    case 1:
+                        dummyList.Sort((y, x) => x.name.CompareTo(y.name));
+                        listActiveItemsProduct.Clear();
+                        foreach (ProductsControlViewModel dummy in dummyList)
+                        {
+                            listActiveItemsProduct.Add(dummy);
+                        }
+                        break;
+                    case 2:
+                        dummyList.Sort((x, y) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                        listActiveItemsProduct.Clear();
+                        foreach (ProductsControlViewModel dummy in dummyList)
+                        {
+                            listActiveItemsProduct.Add(dummy);
+                        }
+                        break;
+                    case 3:
+                        dummyList.Sort((y, x) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                        listActiveItemsProduct.Clear();
+                        foreach (ProductsControlViewModel dummy in dummyList)
+                        {
+                            listActiveItemsProduct.Add(dummy);
+                        }
+                        break;
+                    case 4:
+                        dummyList.Sort((x, y) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                        listActiveItemsProduct.Clear();
+                        foreach (ProductsControlViewModel dummy in dummyList)
+                        {
+                            listActiveItemsProduct.Add(dummy);
+                        }
+                        break;
+                    case 5:
+                        dummyList.Sort((y, x) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                        listActiveItemsProduct.Clear();
+                        foreach (ProductsControlViewModel dummy in dummyList)
+                        {
+                            listActiveItemsProduct.Add(dummy);
+                        }
+                        break;
+                }             
             }
             OnPropertyChanged(nameof(listActiveItemsProduct));
             SelectedProductsType = null;
         }
         public void sortChanged(object o = null)
         {
+            List<ProductsControlViewModel> dummyList = new List<ProductsControlViewModel>();
+            foreach (ProductsControlViewModel pro in listActiveItemsProduct)
+            {
+                dummyList.Add(pro);
+            }
             switch (sortIndex)
             {
-                case 0:                   
-                    backupListProduct.Sort((x,y)=>x.name.CompareTo(y.name));                 
+                case 0:
+                    dummyList.Sort((x,y)=>x.name.CompareTo(y.name));
+                    listActiveItemsProduct.Clear();
+                    foreach (ProductsControlViewModel dummy in dummyList)
+                    {
+                        listActiveItemsProduct.Add(dummy);
+                    }
                     break;
                 case 1:
-                    backupListProduct.Sort((y, x) => x.name.CompareTo(y.name));
+                    dummyList.Sort((y, x) => x.name.CompareTo(y.name));
+                    listActiveItemsProduct.Clear();
+                    foreach (ProductsControlViewModel dummy in dummyList)
+                    {
+                        listActiveItemsProduct.Add(dummy);
+                    }
                     break;
                 case 2:
-                    backupListProduct.Sort((x, y) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                    dummyList.Sort((x, y) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                    listActiveItemsProduct.Clear();
+                    foreach (ProductsControlViewModel dummy in dummyList)
+                    {
+                        listActiveItemsProduct.Add(dummy);
+                    }
                     break;
                 case 3:
-                    backupListProduct.Sort((y, x) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                    dummyList.Sort((y, x) => ConvertToNumber(x.price).CompareTo(ConvertToNumber(y.price)));
+                    listActiveItemsProduct.Clear();
+                    foreach (ProductsControlViewModel dummy in dummyList)
+                    {
+                        listActiveItemsProduct.Add(dummy);
+                    }
                     break;
                 case 4:
-                    backupListProduct.Sort((x, y) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                    dummyList.Sort((x, y) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                    listActiveItemsProduct.Clear();
+                    foreach (ProductsControlViewModel dummy in dummyList)
+                    {
+                        listActiveItemsProduct.Add(dummy);
+                    }
                     break;
                 case 5:
-                    backupListProduct.Sort((y, x) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                    dummyList.Sort((y, x) => ConvertToNumber(x.StockCost).CompareTo(ConvertToNumber(y.StockCost)));
+                    listActiveItemsProduct.Clear();
+                    foreach (ProductsControlViewModel dummy in dummyList)
+                    {
+                        listActiveItemsProduct.Add(dummy);
+                    }
                     break;
-            }
-            listActiveItemsProduct.Clear();
-            foreach (ProductsControlViewModel pro in backupListProduct)
-            {
-                listActiveItemsProduct.Add(pro);
             }
             OnPropertyChanged(nameof(listActiveItemsProduct));
         }
@@ -653,7 +736,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public async void GetProductTypeData()
         {
-            var filter = Builders<ProductTypeInfomation>.Filter.Empty;
+            var filter = Builders<ProductTypeInfomation>.Filter.Eq("isActivated",true);
             GetProductType getter = new GetProductType(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (ProductTypeInfomation pro in ls)

@@ -172,18 +172,20 @@
                             Padding="10,0,0,0"                 
                             ItemsSource="{Binding ItemSourceProductsType}"
                             SelectedIndex="{Binding sortProductTypeIndex}"     
-                            SelectedItem="{Binding SelectedProductsType}"
+                            SelectedItem="{Binding SelectedProductsType, Mode=TwoWay}"
                             DisplayMemberPath="name"                                  
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             FontWeight="SemiBold"                                 
                             BorderBrush="{StaticResource Black2}"
-                            Background="{StaticResource White}"/>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding SortProductTypeCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                            Background="{StaticResource White}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SortProductTypeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+
                     </Grid>
                     <Grid 
                                 Margin="20,0,0,0"
