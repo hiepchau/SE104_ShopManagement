@@ -102,6 +102,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             genbox.SelectedIndex = -1;
             datepick.Text = "";
             OnPropertyChanged(FirstName,LastName, Email,ComName);
+            CustomMessageBox.Show("Đăng ký thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
         }
         private void GenderSelect(object o)
         {
