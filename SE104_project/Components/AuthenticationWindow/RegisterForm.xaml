@@ -119,6 +119,8 @@
                                     <MultiBinding Converter="{StaticResource Multi}">
                                         <Binding ElementName="PasswordBox"/>
                                         <Binding ElementName="VerifyPasswordBox"/>
+                                        <Binding ElementName="BirthdayPicker"/>
+                                        <Binding ElementName="CbSex"/>
                                     </MultiBinding>
                                 </Button.CommandParameter>
                                 <TextBlock Text="Dang ky" />
