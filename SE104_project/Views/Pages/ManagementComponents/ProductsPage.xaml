@@ -215,8 +215,8 @@
                             <ComboBoxItem Content="Theo tên Z-&gt;A"/>
                             <ComboBoxItem Content="Giá bán tăng"/>
                             <ComboBoxItem Content="Giá bán giảm"/>
-                            <ComboBoxItem Content="Giá mua tăng"/>
-                            <ComboBoxItem Content="Giá mua giảm"/>
+                            <ComboBoxItem Content="Giá nhập tăng"/>
+                            <ComboBoxItem Content="Giá nhập giảm"/>
                         </ComboBox>
                     </Grid>
                 </StackPanel>
