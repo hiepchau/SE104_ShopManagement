@@ -8,9 +8,6 @@
              xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              Background="{DynamicResource White}"
              Margin="0,0,0,1">
-    <UserControl.Resources>
-        <convert:MoneyFormatConverter x:Key="moneyformat"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -42,7 +39,7 @@
             Style="{StaticResource Text}"
             FontSize="14"
             Height="Auto"
-            Text="{Binding price, Converter={StaticResource moneyformat}}"
+            Text="{Binding price}"
             Grid.Column="2"/>
         <TextBlock 
             x:Name="txbQuantity"
@@ -64,7 +61,7 @@
             Style="{StaticResource Text}"
             Height="Auto"
             FontSize="14"
-            Text="{Binding sumPrice, Converter={StaticResource moneyformat}}"
+            Text="{Binding sumPrice}"
             Grid.Column="5"/>
         <Rectangle 
             Grid.ColumnSpan="6"           
