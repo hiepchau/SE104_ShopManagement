@@ -296,7 +296,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             else if (CheckExist() == false)
             {
-                CustomerInformation info = new CustomerInformation("", customerName, customerPhone, "1", customerCMND, customerAddress, true, await new AutoCustomerIDGenerator(_session, _connection.client).Generate());
+                CustomerInformation info = new CustomerInformation("", customerName, customerPhone, "62a87836fc4e8cc93aa37d7d", customerCMND, customerAddress, true, await new AutoCustomerIDGenerator(_session, _connection.client).Generate());
                 RegisterCustomer regist = new RegisterCustomer(info, _connection.client, _session);
                 string s = await regist.register();
                 listAllCustomer.Clear();
