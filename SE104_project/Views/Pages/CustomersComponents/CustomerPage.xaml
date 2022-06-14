@@ -102,6 +102,12 @@
                                 Background="{StaticResource White}"                           
                                 Margin="30,0" 
                                 VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction        
+                                    Command="{Binding RankSelectCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <Rectangle 
                                 RadiusX="4"
@@ -148,6 +154,7 @@
                                 materialDesign:ComboBoxAssist.ClassicMode="True"
                                 materialDesign:HintAssist.Hint="Sắp xếp"
                                 Height="40"
+                                SelectedIndex="{Binding selectedSort, UpdateSourceTrigger=PropertyChanged}"
                                 FontSize="18"
                                 BorderThickness="1"
                                 Padding="10,0,10,0"
@@ -158,6 +165,12 @@
                                 Background="{StaticResource White}"  
                                 Margin="30,0" 
                                 VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction        
+                                    Command="{Binding SortOptionChangedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Giảm dần" />
                         <ComboBoxItem Content="Tăng dần" />
                     </ComboBox>
@@ -372,7 +385,7 @@
                         VerticalScrollBarVisibility="Auto"                       
                         HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
-                            <ItemsControl ItemsSource="{Binding listAllCustomer}">
+                            <ItemsControl ItemsSource="{Binding backupMemberlist}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <uc:CustomerControl/>

@@ -19,6 +19,7 @@ using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using SE104_OnlineShopManagement.Network.Update_database;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -36,6 +37,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string searchString { get; set; }
         public int customerCount { get; set; }
         public string totalRevenue { get; set; }
+        public MembershipInformation SelectedMembership { get; set; }
 
         private MongoConnect _connection;
         private AppSession _session;
@@ -43,7 +45,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public CustomerControlViewModel selectedCus { get; set; }
         public ObservableCollection<CustomerControlViewModel> listAllCustomer { get; set; }
         public ObservableCollection<MembershipInformation> ItemSourceMembership { get; set; }
-
+        public ObservableCollection<CustomerControlViewModel> backupMemberlist { get; set; }
+        public int selectedSort { get; set; }
 
         private ManagingFunctionsViewModel managingFunction;
         private CustomerSelectMenu customerSelectMenu;
@@ -63,6 +66,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand EditCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand RankSelectCommand { get; set; }
 
         //Membership
         public ICommand OpenMemberShipControlCommand { get; set; }
@@ -73,6 +77,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand ExitCommand { get; set; }
 
         public ICommand ReloadCommand { get; set; }
+
+        public ICommand SortOptionChangedCommand { get; set; }
         #endregion
 
         public CustomerFunction(AppSession session, MongoConnect connect, ManagingFunctionsViewModel managingFunctionsViewModel, CustomerSelectMenu _customerSelectMenu) : base(session, connect)
@@ -83,6 +89,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             customerSelectMenu = _customerSelectMenu;
             searchString = "";
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
+            backupMemberlist = new ObservableCollection<CustomerControlViewModel>();
             ItemSourceMembership = new ObservableCollection<MembershipInformation>();
             ReloadCommand = new RelayCommand<object>(null, reload);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
@@ -90,10 +97,89 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OpenAddCustomerControlCommand = new RelayCommand<Object>(null, OpenAddCustomerControl);
             OpenMemberShipControlCommand = new RelayCommand<Object>(null, OpenMemberShipControl);
             SearchCommand = new RelayCommand<Object>(null, search);
+            RankSelectCommand = new RelayCommand<object>(null, rankchanged);
+            SortOptionChangedCommand = new RelayCommand<object>(null, sortchanged);
+            selectedSort = -1;
+            OnPropertyChanged(nameof(selectedSort));
             
         }
 
         #region Function
+        private void rankchanged(object o)
+        {
+            backupMemberlist.Clear();
+            if(SelectedMembership != null) { 
+            foreach(CustomerControlViewModel cs in listAllCustomer)
+                    backupMemberlist.Add(cs);
+            for (int i = 0; i < backupMemberlist.Count; i++) {
+                if (backupMemberlist[i].customer.CustomerLevel != SelectedMembership.ID) {
+                        backupMemberlist.RemoveAt(i);
+                }
+            }
+                if (selectedSort == 1) {
+                    List<CustomerControlViewModel> lstmp = new List<CustomerControlViewModel>();
+                    foreach(CustomerControlViewModel cs in backupMemberlist)
+                    {
+                        lstmp.Add(cs);
+                    }
+                    lstmp.Sort((x,y)=>x.Sum.CompareTo(y.Sum));
+                    backupMemberlist.Clear();
+                    foreach(CustomerControlViewModel item in lstmp)
+                    {
+                        backupMemberlist.Add(item);
+                    }
+                }
+
+                if (selectedSort == 0)
+                {
+                    List<CustomerControlViewModel> lstmp = new List<CustomerControlViewModel>();
+                    foreach (CustomerControlViewModel cs in backupMemberlist)
+                    {
+                        lstmp.Add(cs);
+                    }
+                    lstmp.Sort((x, y) => y.Sum.CompareTo(x.Sum));
+                    backupMemberlist.Clear();
+                    foreach (CustomerControlViewModel item in lstmp)
+                    {
+                        backupMemberlist.Add(item);
+                    }
+                }
+                OnPropertyChanged(nameof(backupMemberlist));
+            }
+        }
+
+        public void sortchanged(object o) {
+            if (selectedSort == 1)
+            {
+                List<CustomerControlViewModel> lstmp = new List<CustomerControlViewModel>();
+                foreach (CustomerControlViewModel cs in backupMemberlist)
+                {
+                    lstmp.Add(cs);
+                }
+                lstmp.Sort((x, y) => x.Sum.CompareTo(y.Sum));
+                backupMemberlist.Clear();
+                foreach (CustomerControlViewModel item in lstmp)
+                {
+                    backupMemberlist.Add(item);
+                }
+            }
+
+            if (selectedSort == 0)
+            {
+                List<CustomerControlViewModel> lstmp = new List<CustomerControlViewModel>();
+                foreach (CustomerControlViewModel cs in backupMemberlist)
+                {
+                    lstmp.Add(cs);
+                }
+                lstmp.Sort((x, y) => y.Sum.CompareTo(x.Sum));
+                backupMemberlist.Clear();
+                foreach (CustomerControlViewModel item in lstmp)
+                {
+                    backupMemberlist.Add(item);
+                }
+            }
+            OnPropertyChanged(nameof(backupMemberlist));
+        }
         public void OpenAddCustomerControl(Object o = null)
         {
             AddCustomerControl addCustomerControl = new AddCustomerControl();
@@ -338,6 +424,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public async Task GetData()
         {
             listAllCustomer.Clear();
+            backupMemberlist.Clear();
             var filter = Builders<CustomerInformation>.Filter.Empty;
             GetCustomer getter = new GetCustomer(_connection.client, _session, filter);
             var ls = await getter.Get();
@@ -345,6 +432,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 long sum = await GetSumCustomer(cus);
                 listAllCustomer.Add(new CustomerControlViewModel(cus, sum, this)) ;
+                backupMemberlist.Add(new CustomerControlViewModel(cus, sum, this));
             }
             Console.Write("Executed");
         }
