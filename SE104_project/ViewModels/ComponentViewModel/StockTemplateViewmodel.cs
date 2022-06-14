@@ -15,6 +15,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
     public class StockTemplateViewmodel:ViewModelBase
     {
         #region Properties
+        public StockInformation stock { get; set; }
         public string saleDay { get; set; }
         public string User { get; set; }
         public string customer { get; set; }
@@ -36,11 +37,11 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             _connection = connect;
             _session = session;
+            this.stock = stock;
             listDetail = new ObservableCollection<StockTemplateControlViewModel>();
             saleDay = stock.StockDay.ToString("dd/MM/yyyy HH:mm:ss");
             billID = stock.ID;
-            displayID = stock.displayID;
-            User = _session.CurrnetUser.LastName;
+            displayID = stock.displayID;         
             customer = "";
             total = stock.total;
             state = "";
@@ -52,12 +53,26 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 DialogHost.CloseDialogCommand.Execute(null, null);
             });
             getdata();
+            GetUser();
         }
 
         #region Function
         #endregion
 
         #region DB
+        private async void GetUser()
+        {
+            FilterDefinition<UserInfomation> filter = Builders<UserInfomation>.Filter.Eq(x => x.ID, stock.User);
+            var tmp = new GetUsers(_connection.client, _session, filter);
+            var ls = await tmp.get();
+
+            int i = 1;
+            foreach (UserInfomation user in ls)
+            {
+                User = user.FirstName + " " + user.LastName;
+            }
+            OnPropertyChanged(nameof(User));
+        }
         private async void getdata()
         {
             FilterDefinition<StockDetails> filter = Builders<StockDetails>.Filter.Eq(x => x.stockID, billID);
