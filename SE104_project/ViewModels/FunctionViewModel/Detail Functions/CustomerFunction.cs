@@ -108,14 +108,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private void rankchanged(object o)
         {
             backupMemberlist.Clear();
-            if(SelectedMembership != null) { 
-            foreach(CustomerControlViewModel cs in listAllCustomer)
-                    backupMemberlist.Add(cs);
-            for (int i = 0; i < backupMemberlist.Count; i++) {
-                if (!backupMemberlist[i].customer.CustomerLevel.Equals(SelectedMembership.ID)) {
-                        backupMemberlist.RemoveAt(i);
+            if(SelectedMembership != null) {
+                foreach (CustomerControlViewModel cs in listAllCustomer) {
+                    if (cs.customer.CustomerLevel.Equals(SelectedMembership.ID))
+                        backupMemberlist.Add(cs);
                 }
-            }
+                    
+            
                 if (selectedSort == 1) {
                     List<CustomerControlViewModel> lstmp = new List<CustomerControlViewModel>();
                     foreach(CustomerControlViewModel cs in backupMemberlist)
