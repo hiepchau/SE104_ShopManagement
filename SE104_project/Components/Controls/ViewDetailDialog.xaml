@@ -293,7 +293,6 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <uc:BillTemplateControl/>
                     </StackPanel>
                 </ScrollViewer>
 
