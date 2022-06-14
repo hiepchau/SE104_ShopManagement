@@ -54,8 +54,7 @@
             Style="{StaticResource Text}"
             Height="Auto"
             FontSize="14"
-            Text="{Binding unit}"
-            />
+            Text="{Binding unit}"/>
         <TextBlock 
             x:Name="txbTotal"
             Style="{StaticResource Text}"

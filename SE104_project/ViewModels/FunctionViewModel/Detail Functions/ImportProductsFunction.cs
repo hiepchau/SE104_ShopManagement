@@ -63,7 +63,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             DialogHost.Show(addReceiptControl);
             totalReceipt = "0";
             long sum = 0;
-            discount = 10;
+            discount = 0;
             foreach (ImportProductsControlViewModel pr in listItemsImportProduct)
             {
                 sum += ConvertToNumber(pr.sum);
