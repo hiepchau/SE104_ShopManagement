@@ -225,23 +225,23 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(totalRevenue));
 
             //Reload MemberRank
-            if (ItemSourceMembership.Count > 0 && listAllCustomer.Count > 0)
-            {
-                foreach (var member in listAllCustomer)
-                {
-                    foreach (var ship in ItemSourceMembership)
-                    {
-                        if (member.Sum >= ship.condition)
-                        {
-                            FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, member.ID);
-                            UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set(x => x.CustomerLevel, ship.ID);
-                            UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
-                            await updater.update();
-                        }
-                    }
-                }
-            }
-            await GetData();
+            //if (ItemSourceMembership.Count > 0 && listAllCustomer.Count > 0)
+            //{
+            //    foreach (var member in listAllCustomer)
+            //    {
+            //        foreach (var ship in ItemSourceMembership)
+            //        {
+            //            if (member.Sum >= ship.condition)
+            //            {
+            //                FilterDefinition<CustomerInformation> fil = Builders<CustomerInformation>.Filter.Eq(x => x.ID, member.ID);
+            //                UpdateDefinition<CustomerInformation> update = Builders<CustomerInformation>.Update.Set(x => x.CustomerLevel, ship.ID);
+            //                UpdateCustomerInformation updater = new UpdateCustomerInformation(_connection.client, _session, fil, update);
+            //                await updater.update();
+            //            }
+            //        }
+            //    }
+            //}
+            //await GetData();
         }
 
         public string SeparateThousands(String text)
