@@ -67,6 +67,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             {
                 quantity = "1";
                 OnPropertyChanged(nameof(quantity));
+                _parent.updateTotal();
             }
             else if (check)
             {
@@ -75,11 +76,13 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
                 {
                     quantity= product.quantity.ToString();
                     OnPropertyChanged(nameof(quantity));
+                    _parent.updateTotal();
                 }
                 else if (i < 1)
                 {
                     quantity = "1";
                     OnPropertyChanged(nameof(quantity));
+                    _parent.updateTotal();
                 }
             }
         }
@@ -157,7 +160,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         {
             sum = SeparateThousands((GetDetailNum() * ConvertToNumber(price)).ToString());
             OnPropertyChanged(nameof(sum));
-            
+            _parent.updateTotal();
         }
 
         private void deleteproduct(object o)

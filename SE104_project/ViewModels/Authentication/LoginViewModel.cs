@@ -63,6 +63,12 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             if (logininfo != null)
             {
                 Session.CurrnetUser = logininfo;
+                if (logininfo.isActivated == false)
+                {
+                    Console.WriteLine("Login failed.");
+                    CustomMessageBox.Show("Người dùng đã bị dừng hoạt động.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 HomeViewModel home =_viewModelFactory.CreateViewModel<HomeViewModel>();
                 _viewModelFactory.CreateViewModel<MainViewModel>().CurrentMainViewModel = _viewModelFactory.CreateViewModel<HomeViewModel>();
                 _navigator.Navigate();
