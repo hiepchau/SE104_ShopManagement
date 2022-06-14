@@ -14,7 +14,7 @@
                 Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid Background="WhiteSmoke">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="8*"/>
@@ -79,12 +79,12 @@
 
         <Grid Grid.Row="1"
               Style="{StaticResource DropShadow}"
-              Margin="20 0 20 20">
+              Margin="20 0 20 10">
             <Grid.RowDefinitions >
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
-                <RowDefinition Height="50"/>
+
             </Grid.RowDefinitions>
             <Rectangle 
                         Fill="{DynamicResource White}" 
@@ -281,7 +281,7 @@
                         BorderBrush="{DynamicResource LightBrush}"
                         CornerRadius="0,0,4,4"
                         BorderThickness="2,0,2,2" 
-                        Margin="20,0,20,3">
+                        Margin="20,0,20,20">
                 <ScrollViewer                                                
                     Style="{StaticResource FavsScrollViewer}"                   
                     VerticalScrollBarVisibility="Auto"                       
@@ -297,45 +297,6 @@
                     </StackPanel>
                 </ScrollViewer>
             </Border>
-            <StackPanel
-                        Grid.Row="3"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right" 
-                        Margin="0,0,20,0">
-                <TextBlock 
-                            x:Name="txtNumOfProducts"
-                            Style="{StaticResource Text}"
-                            Margin="0,0,40,0"/>
-                <Button 
-                            x:Name="btnPrePageProducts" 
-                            Margin="8,0"
-                            ToolTip="Trang trước"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=ucProducts}">
-                    <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronLeft" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center"/>
-                </Button>
-                <Button
-                            x:Name="btnNextPageProducts" 
-                            Margin="8,0,0,0" 
-                            ToolTip="Trang tiếp theo"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
-                            CommandParameter="{Binding ElementName=ucProducts}">
-                    <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronRight" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-                </Button>
-            </StackPanel>
         </Grid>
 
     </Grid>

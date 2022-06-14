@@ -16,15 +16,16 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1.2*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2.2*"/>
             <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <TextBlock
             x:Name="txtID"                                
             Text="{Binding displayId}"                                   
             Grid.Column="0"
-            Style="{StaticResource Text}" Height="24" Margin="10,0,0,0"/>
+            Style="{StaticResource Text}" Height="24" 
+            Margin="10,0,0,0"/>
         <TextBlock     
             x:Name="txtName"
             Text="{Binding Name}"                                    
@@ -40,10 +41,11 @@
             HorizontalAlignment="Left"                                    
             Style="{StaticResource Text}" Height="24" />
         <TextBlock
-            x:Name="txtLastBuyTime"               
-            Text="12/02/2022"                                    
+            x:Name="txtMembership"               
+            Text="{Binding membership}"                                    
             Grid.Column="3"
-            Style="{StaticResource Text}" Height="24"/>
+            Style="{StaticResource Text}" 
+            Height="24"/>
         <TextBlock
             x:Name="txtTotal"             
             Text="{Binding Sum, Converter={StaticResource moneyformat}}"                                     
@@ -56,7 +58,7 @@
             Style="{StaticResource TransparentButton}"
             Command="{Binding EditCustomerCommand}"
             Height="30"
-            Margin="0,0,40,0" 
+            Margin="0,0,0,0" 
             Width="30">
             <materialDesign:PackIcon
                 Kind="SquareEditOutline" 

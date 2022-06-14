@@ -36,7 +36,6 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition />
-                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <Rectangle 
                             Fill="{DynamicResource White}" 
@@ -128,7 +127,7 @@
                             BorderBrush="{DynamicResource LightBrush}"
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
-                            Margin="20,0,20,0">
+                            Margin="20,0,20,20">
                             <ScrollViewer
                                 Style="{StaticResource FavsScrollViewer}"                 
                                 VerticalScrollBarVisibility="Auto" 
@@ -144,43 +143,6 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </Border>
-                        <StackPanel
-                        Grid.Row="3"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right" 
-                        Margin="0,0,20,0">
-                            <TextBlock 
-                            Style="{StaticResource Text}"
-                            Margin="0,0,40,0"/>
-                            <Button 
-                            Margin="8,0"
-                            ToolTip="Trang trước"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronLeft" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center" />
-                            </Button>
-                            <Button 
-              
-                            Margin="8,0,0,0" 
-                            ToolTip="Trang tiếp theo"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronRight" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-                            </Button>
-                        </StackPanel>
                     </Grid>
 
                 </Grid>
@@ -208,7 +170,6 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition />
-                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <Rectangle 
                             Fill="{DynamicResource White}" 
@@ -256,7 +217,7 @@
                             BorderBrush="{DynamicResource LightBrush}"
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
-                            Margin="20,0,20,0">
+                            Margin="20,0,20,20">
                             <ScrollViewer
                                 Style="{StaticResource FavsScrollViewer}"
                                 VerticalScrollBarVisibility="Auto"            
@@ -277,45 +238,6 @@
                                 </ListBox>
                             </ScrollViewer>
                         </Border>
-                        <StackPanel
-                        Grid.Row="3"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right" 
-                        Margin="0,0,20,0">
-                            <TextBlock 
-                    
-                            Style="{StaticResource Text}"
-                            Margin="0,0,40,0"/>
-                            <Button 
-                            x:Name="btnPrePageStock_Inactive" 
-                            Margin="8,0"
-                            ToolTip="Trang trước"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronLeft" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center" />
-                            </Button>
-                            <Button 
-                            x:Name="btnNextPageStock_Inactive" 
-                            Margin="8,0,0,0" 
-                            ToolTip="Trang tiếp theo"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronRight" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-                            </Button>
-                        </StackPanel>
                     </Grid>
                     <StackPanel 
                         Grid.Column="1" 
@@ -354,7 +276,6 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition />
-                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <Rectangle 
                             Fill="{DynamicResource White}" 
@@ -402,7 +323,7 @@
                             BorderBrush="{DynamicResource LightBrush}"
                             CornerRadius="4,0,4,4"
                             BorderThickness="2,0,2,2" 
-                            Margin="20,0,20,0">
+                            Margin="20,0,20,20">
                             <ScrollViewer
                                 Style="{StaticResource FavsScrollViewer}"
                                 VerticalScrollBarVisibility="Auto"            
@@ -423,43 +344,6 @@
                                 </ListBox>
                             </ScrollViewer>
                         </Border>
-                        <StackPanel
-                        Grid.Row="3"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right" 
-                        Margin="0,0,20,0">
-                            <TextBlock 
-                            Style="{StaticResource Text}"
-                            Margin="0,0,40,0"/>
-                            <Button 
-                     
-                            Margin="8,0"
-                            ToolTip="Trang trước"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding PreviousPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronLeft" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center" />
-                            </Button>
-                            <Button 
-                            Margin="8,0,0,0" 
-                            ToolTip="Trang tiếp theo"
-                            Style="{StaticResource PaginationButton}"
-                            Command="{Binding NextPageCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}">
-                                <materialDesign:PackIcon 
-                                Width="26"
-                                Height="28"
-                                Kind="ChevronRight" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-                            </Button>
-                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>

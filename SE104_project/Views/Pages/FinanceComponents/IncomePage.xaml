@@ -18,7 +18,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="71.892"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Rectangle 
                 Fill="{DynamicResource White}"
@@ -154,45 +153,16 @@
                     HorizontalScrollBarVisibility="Disabled">
                     <StackPanel>
                         <ItemsControl ItemsSource="{Binding listIncome}">
-                        <!--<uc:IncomeControl></uc:IncomeControl>-->
+                            <!--<uc:IncomeControl></uc:IncomeControl>-->
                             <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                               <uc:IncomeControl/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:IncomeControl/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
         </Border>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Margin="0 0 20 0">
-            <TextBlock 
-                    x:Name="txtNumOfCus"
-                    Style="{StaticResource Text}"
-                    Margin="0,0,20,0"
-                    FontSize="14" />
-            <Button 
-                    x:Name="btnPrePageCus"
-                    Margin="8,0"
-                    ToolTip="Trang trước"
-                    Style="{StaticResource PaginationButton}">
-                <materialDesign:PackIcon 
-                        Width="26"
-                        Height="28"
-                        Kind="ChevronLeft" />
-            </Button>
-            <Button 
-                    x:Name="btnNextPageCus"
-                    Margin="8,0,0,0"
-                    ToolTip="Trang tiếp theo"
-                    Style="{StaticResource PaginationButton}">
-                <materialDesign:PackIcon 
-                        Width="26"
-                        Height="28"
-                        Kind="ChevronRight" />
-            </Button>
-        </StackPanel>
     </Grid>
 </UserControl>

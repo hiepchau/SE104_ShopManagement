@@ -341,12 +341,11 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="1.2*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2.2*"/>
                             <ColumnDefinition Width="1.5*"/>
-                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="40"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            
                             Text="Mã KH" 
                             Grid.Column="0"
                             Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
@@ -362,9 +361,9 @@
                                     HorizontalAlignment="Left"
                                     Style="{StaticResource TitleText}" Height="24" />
                         <TextBlock
-                                    Text="Lần cuối mua" 
+                                    Text="Hạng thành viên" 
                                     Grid.Column="3"
-                                    Style="{StaticResource TitleText}" Height="24" Margin="10,0,1,0"/>
+                                    Style="{StaticResource TitleText}" Height="24" Margin="0,0,0,0"/>
                         <TextBlock
                                     Text="Tổng tiền" 
                                     Grid.Column="4"

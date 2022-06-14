@@ -209,6 +209,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             await GetMembershipData();
             Console.WriteLine("Executed membership for reload " + ItemSourceMembership.Count.ToString());
             Console.WriteLine("Executed customer for reload " + listAllCustomer.Count.ToString());
+            //Display membership
 
             //Display element
             customerCount = (listAllCustomer.Count > 0) ? listAllCustomer.Count : 0;

@@ -25,7 +25,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="36*" />
-                <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <Rectangle 
                 Fill="{DynamicResource White}" 
@@ -81,7 +80,7 @@
                 Grid.Row="1"
                 BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2,0,2,2" 
-                Margin="20,40,20,0" 
+                Margin="20,40,20,20" 
                 CornerRadius="0,0,4,4" >
                 <ScrollViewer
                     Style="{StaticResource FavsScrollViewer}"
@@ -99,37 +98,6 @@
                 </ScrollViewer>
             </Border>
 
-            <StackPanel
-                            Grid.Row="2"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Right" 
-                            Margin="0,0,20,0">
-                <TextBlock 
-                                x:Name="txtNumOfCus"
-                                Style="{StaticResource Text}"
-                                Margin="0,0,40,0"/>
-                <Button 
-                                x:Name="btnPrePageCus"
-                                Margin="8,0"
-                                ToolTip="Trang trước"
-                                Style="{StaticResource PaginationButton}">
-                    <materialDesign:PackIcon 
-                                    Width="26"
-                                    Height="28"
-                                    Kind="ChevronLeft"  />
-                </Button>
-                <Button 
-                                x:Name="btnNextPageCus"
-                                Margin="8,0,0,0" 
-                                ToolTip="Trang tiếp theo"
-                                Style="{StaticResource PaginationButton}">
-                    <materialDesign:PackIcon 
-                                    Width="26"
-                                    Height="28"
-                                    Kind="ChevronRight" />
-                </Button>
-            </StackPanel>
         </Grid>
         <Grid
             Style="{StaticResource DropShadow}"
