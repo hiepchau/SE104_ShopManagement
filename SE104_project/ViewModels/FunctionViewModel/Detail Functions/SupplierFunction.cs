@@ -1,25 +1,26 @@
 ﻿using MaterialDesignThemes.Wpf;
-using MongoDB.Driver;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
 using SE104_OnlineShopManagement.Commands;
 using SE104_OnlineShopManagement.Components;
 using SE104_OnlineShopManagement.Models.ModelEntity;
 using SE104_OnlineShopManagement.Network;
-using SE104_OnlineShopManagement.Network.Get_database;
 using SE104_OnlineShopManagement.Network.Insert_database;
-using SE104_OnlineShopManagement.Network.Update_database;
-using SE104_OnlineShopManagement.Services;
-using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Network.Get_database;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+using SE104_OnlineShopManagement.Services;
+using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
+using SE104_OnlineShopManagement.Network.Update_database;
+using System.Windows;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
+using System.Linq;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -69,7 +70,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             this._session = session;
             IsSelectedIndex = -1;
-            isLoaded = true;
+            isLoaded= true;
             searchString = "";
             sortSupplier = -1;
             sortSupplierIndex = -1;
@@ -85,7 +86,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SortSupplierAsCommand = new RelayCommand<Object>(null, sortChanged);
         }
         #region Function
-        public void sortSupplierChanged(object o = null)
+        public void sortSupplierChanged (object o = null)
         {
             List<SupplierControlViewModel> dummyList = new List<SupplierControlViewModel>();
             foreach (SupplierControlViewModel pro in backupListProducer)
@@ -184,10 +185,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(supplierCount));
-
+            
             //totalSupplierSpent
             long displayTotalSupplierSpent = 0;
-            if (listActiveItemsProducer.Count > 0)
+            if(listActiveItemsProducer.Count > 0)
             {
                 foreach (var producer in listActiveItemsProducer)
                 {
@@ -334,9 +335,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         //Name
                         ws.Cells[rowIndex, colIndex++].Value = control.Name;
                         //Address
-                        ws.Cells[rowIndex, colIndex++].Value = control.Address;
+                        ws.Cells[rowIndex, colIndex++].Value = control.Address;          
                         //Email
-                        ws.Cells[rowIndex, colIndex++].Value = control.Email;
+                        ws.Cells[rowIndex, colIndex++].Value = control.Email;       
                         //Phone
                         ws.Cells[rowIndex, colIndex++].Value = control.PhoneNumber;
                         //BillCount
@@ -375,7 +376,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (selectedProducer != null)
             {
                 var filter = Builders<ProducerInformation>.Filter.Eq("ID", selectedProducer.ID);
-                var update = Builders<ProducerInformation>.Update.Set("Name", supplierName).Set("Email", supplierAddress).Set("Phone", supplierPhone).Set("Address", supplierAddress);
+                var update = Builders<ProducerInformation>.Update.Set("Name", supplierName).Set("Email", supplierAddress).Set("Phone", supplierPhone).Set("Address",supplierAddress);
                 UpdateProducerInformation updater = new UpdateProducerInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 listActiveItemsProducer.Clear();
@@ -554,13 +555,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region DB
         public async Task GetData()
         {
-            var filter = Builders<ProducerInformation>.Filter.Eq("isActivated", true);
+            var filter = Builders<ProducerInformation>.Filter.Eq("isActivated",true);
             GetProducer getter = new GetProducer(_connection.client, _session, filter);
             var ls = await getter.Get();
             foreach (ProducerInformation pro in ls)
             {
                 backupListProducer.Add(new SupplierControlViewModel(pro, this));
-                listActiveItemsProducer.Add(new SupplierControlViewModel(pro, this));
+                listActiveItemsProducer.Add(new SupplierControlViewModel(pro,this));
             }
             OnPropertyChanged(nameof(listActiveItemsProducer));
         }

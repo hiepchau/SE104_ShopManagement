@@ -67,7 +67,7 @@
                         HorizontalAlignment="Left"
                         Margin="40,0,0,0"/>
                     <TextBlock
-                        Text="Ghi chú" 
+                        Text="Cấp bậc" 
                         Grid.Column="2"
                         Style="{StaticResource TitleText}"
                         Margin="-25 0 0 0"/>
@@ -225,7 +225,7 @@
                     VerticalAlignment="Top" 
                     Height="40">
                     <Label 
-                        Content="Ghi chú"
+                        Content="Cấp bậc"
                         Style="{StaticResource PrimaryLabelText}"/>
                     <Rectangle 
                         HorizontalAlignment="Right" 
@@ -238,7 +238,7 @@
                     <TextBox 
                         x:Name="txtPrio"
                         Style="{StaticResource TextBox}"
-                        materialDesign:HintAssist.Hint="Ghi chú"
+                        materialDesign:HintAssist.Hint="Cấp bậc"
                         TabIndex="1"
                         Text="{Binding priority, Mode=TwoWay}">
                         <i:Interaction.Triggers>
