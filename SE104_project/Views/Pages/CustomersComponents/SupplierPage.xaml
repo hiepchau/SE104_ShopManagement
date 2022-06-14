@@ -101,7 +101,6 @@
                                     BorderBrush="{StaticResource Gray1}" 
                                     FocusVisualStyle="{x:Null}"
                                     Background="{StaticResource White}">
-                            <ComboBoxItem Content="Tên nhà cung cấp"/>
                             <ComboBoxItem Content="Số lượng đơn hàng"/>
                             <ComboBoxItem Content="Số tiền đã trả"/>
                         </ComboBox>
@@ -123,6 +122,8 @@
                                     FontWeight="SemiBold"
                                     BorderBrush="{StaticResource Gray1}" 
                                     Background="{StaticResource White}">
+                            <ComboBoxItem Content="Tăng dần"/>
+                            <ComboBoxItem Content="Giảm dần"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -212,7 +213,6 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="5*"/>
-                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Rectangle 
                             Fill="{DynamicResource White}" 
@@ -340,38 +340,7 @@
                         </ScrollViewer>
                     </Grid>
                 </Border>
-                <StackPanel
-                            Grid.Row="3"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Right" 
-                            Margin="0,0,20,0">
-                    <TextBlock 
-                                x:Name="txtNumOfSupplier"
-                                Style="{StaticResource Text}"
-                                Margin="0,0,40,0"/>
-                    <Button 
-                                x:Name="btnPrePageSupplier" 
-                                Margin="8,0"
-                                ToolTip="Trang trước"
-                                Style="{StaticResource PaginationButton}">
-                        <materialDesign:PackIcon 
-                                    Width="26"
-                                    Height="28"
-                                    Kind="ChevronLeft" />
-                    </Button>
-                    <Button 
-                                x:Name="btnNextPageSupplier" 
-                                Margin="8,0,0,0" 
-                                ToolTip="Trang tiếp theo"
-                                Style="{StaticResource PaginationButton}"
-                                Command="{Binding NextPageCommand}">
-                        <materialDesign:PackIcon 
-                                    Width="26"
-                                    Height="28"
-                                    Kind="ChevronRight" />
-                    </Button>
-                </StackPanel>
+
             </Grid>
         </Grid>
     </Grid>
