@@ -58,6 +58,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             var ob = (object[])o;
             var pass1 = ob[0] as PasswordBox;
             var pass2 = ob[1] as PasswordBox;
+            var genbox = ob[3] as ComboBox;
+            var datepick = ob[2] as DatePicker;
             if(pass1 != null && pass2 != null)
             {
                 if (pass1.Password != pass2.Password)
@@ -97,6 +99,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             pass1.Password = "";
             pass2.Password = "";
             ComName = "";
+            genbox.SelectedIndex = -1;
+            datepick.Text = "";
             OnPropertyChanged(FirstName,LastName, Email,ComName);
         }
         private void GenderSelect(object o)
