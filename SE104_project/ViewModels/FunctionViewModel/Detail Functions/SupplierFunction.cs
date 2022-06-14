@@ -105,7 +105,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             isLoaded = false;
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(supplierCount));
-
+            
             //totalSupplierSpent
             long displayTotalSupplierSpent = 0;
             if(listActiveItemsProducer.Count > 0)
