@@ -46,7 +46,7 @@
                         <TextBlock 
                                 x:Name="txbRevenueThisMonth"
                                 Grid.Row="1"
-                                Text="123,456đ"
+                                Text="{Binding Profit}"
                                 HorizontalAlignment="Left"
                                 Margin="20,0.8,0,4.8" 
                                 TextWrapping="Wrap" 

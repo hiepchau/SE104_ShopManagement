@@ -93,6 +93,7 @@
                                     materialDesign:HintAssist.IsFloating="True"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     Foreground="{StaticResource Black2}"
+                                    SelectedIndex="{Binding sortSupplier}"
                                     Height="40"
                                     FontSize="18"
                                     Padding="10,0"
@@ -102,6 +103,11 @@
                                     BorderBrush="{StaticResource Gray1}" 
                                     FocusVisualStyle="{x:Null}"
                                     Background="{StaticResource White}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SortSupplierCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ComboBoxItem Content="Số lượng đơn hàng"/>
                             <ComboBoxItem Content="Số tiền đã trả"/>
                         </ComboBox>
@@ -115,6 +121,7 @@
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     Foreground="{StaticResource Black2}"
                                     ItemsSource="{Binding IteamSource}"
+                                    SelectedIndex="{Binding sortSupplierIndex}"
                                     Height="40"
                                     FontSize="18"
                                     Padding="10,0"
@@ -123,6 +130,11 @@
                                     FontWeight="SemiBold"
                                     BorderBrush="{StaticResource Gray1}" 
                                     Background="{StaticResource White}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SortSupplierAsCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ComboBoxItem Content="Tăng dần"/>
                             <ComboBoxItem Content="Giảm dần"/>
                         </ComboBox>
@@ -330,7 +342,7 @@
                             VerticalScrollBarVisibility="Auto" 
                             HorizontalScrollBarVisibility="Disabled">
                             <StackPanel>
-                                <ItemsControl ItemsSource="{Binding listActiveItemsProducer}">
+                                <ItemsControl ItemsSource="{Binding backupListProducer}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <uc:SupplierControl/>

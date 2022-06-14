@@ -17,6 +17,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session { get; set; }
         public string Income { get; set; }
         public string Spending { get; set; }
+        public string Profit { get; set; }
         public bool isLoaded { get; set; }
         #endregion
         public FinanceOverViewFunction(AppSession session, MongoConnect connect) : base(session, connect)
@@ -39,6 +40,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
             return "";
         }
+        public long ConvertToNumber(string str)
+        {
+            string[] s = str.Split(',');
+            string tmp = "";
+            foreach (string a in s)
+            {
+                tmp += a;
+            }
+
+            return long.Parse(tmp);
+        }
+        public void GetProfit()
+        {
+            Profit = SeparateThousands((ConvertToNumber(Income) - ConvertToNumber(Spending)).ToString());
+            OnPropertyChanged(nameof(Profit));
+        }
         #endregion
 
         #region DB
@@ -58,7 +75,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Spending = SeparateThousands(sum.ToString());
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(Spending));
-            Console.Write("Executed");
+            GetProfit();
         }
         public async Task GetBillData()
         {
@@ -76,7 +93,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Income = SeparateThousands(sum.ToString());
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(Income));
-            Console.Write("Executed");
         }
 
         #endregion

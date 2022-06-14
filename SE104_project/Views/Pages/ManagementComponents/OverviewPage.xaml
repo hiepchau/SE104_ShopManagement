@@ -75,7 +75,7 @@
                                  Background1="{StaticResource WordGreen}" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="{StaticResource LightGreen}" EllipseBackground2="#1090ee90"
                                  Margin="10,22,294,22" Grid.ColumnSpan="2"/>
-                    <controls:InfoCard Grid.Column="1" Title="Lãi Gộp" Number="654,947" Icon="Wallet" 
+                    <controls:InfoCard Grid.Column="1" Title="Lãi Gộp" Number="{Binding LaiGop}" Icon="Wallet" 
                                  Background1="#6AA4E0" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="#68D3F7" EllipseBackground2="#3064EDEC"
                                  Margin="10,22,295,23" Grid.ColumnSpan="2"/>
