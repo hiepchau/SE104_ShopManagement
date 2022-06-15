@@ -34,9 +34,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (!string.IsNullOrEmpty(text))
             {
                 System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(text, System.Globalization.NumberStyles.AllowThousands);
+                long valueBefore;
+                long.TryParse(text, out valueBefore);
                 string res = String.Format(culture, "{0:N0}", valueBefore);
-                return res;
             }
             return "";
         }
