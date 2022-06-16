@@ -34,8 +34,6 @@ QUẢN LÍ SHOP BÁN HÀNG
 - Trần Nam Khánh - 20520577
 - Trần Quốc Huy - 20520554
 
-[//][![](https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false)](https://github.com/hiepchau/SE104_ShopManagement/graphs/contributors)
-
 ## TODO 
 
 
