@@ -24,11 +24,16 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         {
             _connection = connect;
             _session = session;
-            _ = GetBillData();
-            _ = GetStockData();
+            GetData();
         }
 
         #region Function
+        public async void GetData()
+        {
+            await GetBillData();
+            await GetStockData();
+            GetProfit();
+        }
         public string SeparateThousands(String text)
         {
             if (!string.IsNullOrEmpty(text))
@@ -37,6 +42,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 long valueBefore;
                 long.TryParse(text, out valueBefore);
                 string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
             }
             return "";
         }
@@ -75,7 +81,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             Spending = SeparateThousands(sum.ToString());
             OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(Spending));
-            GetProfit();
         }
         public async Task GetBillData()
         {
