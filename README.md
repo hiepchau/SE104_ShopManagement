@@ -39,7 +39,6 @@ QUẢN LÍ SHOP BÁN HÀNG
 > admin ||
 > password: 1
 
-
 ## Công nghệ và thư viện 
 - Công nghệ
   - Ngôn ngữ: C#
