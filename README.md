@@ -35,8 +35,8 @@ QUẢN LÍ SHOP BÁN HÀNG
 - Trần Quốc Huy - 20520554
 
 ## TODO 
-- Hỗ trợ đa ngon ngữ.
-- Áp dụng AI, bigdata.
+
+
 ## Known Issuses 
 
 =======
