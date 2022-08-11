@@ -35,8 +35,7 @@ QUẢN LÍ SHOP BÁN HÀNG
 - Trần Quốc Huy - 20520554
 
 ## TODO 
-
-
+- Multi language
 ## Known Issuses 
 
 
