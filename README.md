@@ -21,8 +21,8 @@ QUẢN LÍ SHOP BÁN HÀNG
 	- Nhân viên: quản lí nhân viên
 	- Thông tin cửa hàng
 ## Yêu cầu cài đặt 
-
 - Client: .NET Framework 3.1
+
 ## Hướng dẫn sử dụng 
 - Bước 1: Cài đặt đầy đủ phần mềm yêu cầu
 - Bước 2: Chạy Server
@@ -35,8 +35,15 @@ QUẢN LÍ SHOP BÁN HÀNG
 - Trần Quốc Huy - 20520554
 
 ## TODO 
-- Multi language
+- Hỗ trợ đa ngon ngữ.
+- Áp dụng AI, bigdata.
 ## Known Issuses 
+
+=======
+>Tài khoản mặc định:
+>Company: TEST ||
+> admin ||
+> password: 1
 
 
 ## Công nghệ và thư viện 
