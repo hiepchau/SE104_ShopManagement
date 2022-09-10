@@ -92,7 +92,7 @@ namespace SE104_OnlineShopManagement.Models.Model
             }
         }
 
-        public Task<(bool isSuccessful, string message)> Update(FilterDefinition<BillInformation> filter)
+        public Task<(bool isSuccessful, string message)> Update(FilterDefinition<BillInformation> filter, UpdateDefinition<BillInformation> updatedata)
         {
             throw new NotImplementedException();
         }

@@ -11,6 +11,6 @@ namespace SE104_OnlineShopManagement.Models
     {
         Task<List<T>> GetEntity(FilterDefinition<T> filter);
         Task<(bool isSuccessful,string message)> Register(T registob);
-        Task<(bool isSuccessful,string message)> Update(FilterDefinition<T> filter);
+        Task<(bool isSuccessful,string message)> Update(FilterDefinition<T> filter, UpdateDefinition<T> updatedata);
     }
 }
