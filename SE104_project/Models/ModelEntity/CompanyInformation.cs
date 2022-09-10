@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SE104_OnlineShopManagement.Models.ModelEntity
 {
-    public class CompanyInformation
+    public class CompanyInformation:EntityBase
     {
         [BsonId]
         public string SessionID { get; set; }
