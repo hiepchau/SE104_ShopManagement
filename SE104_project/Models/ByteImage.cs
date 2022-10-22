@@ -8,11 +8,12 @@ using MongoDB.Bson;
 using MongoDB.Libmongocrypt;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Windows.Media;
+using SE104_OnlineShopManagement.Models.ModelEntity;
 
 namespace SE104_OnlineShopManagement.Models
 {
    
-    public class ByteImage
+    public class ByteImage:EntityBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

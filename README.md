@@ -1,4 +1,3 @@
-
 # SE104_ShopManagement 
 QUẢN LÍ SHOP BÁN HÀNG
 
@@ -35,6 +34,12 @@ QUẢN LÍ SHOP BÁN HÀNG
 - Trần Nam Khánh - 20520577
 - Trần Quốc Huy - 20520554
 
+## TODO 
+- Hỗ trợ đa ngon ngữ.
+- Áp dụng AI, bigdata.
+## Known Issuses 
+
+=======
 >Tài khoản mặc định:
 >Company: TEST ||
 > admin ||

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SE104_OnlineShopManagement.Models.ModelEntity
 {
-    public class StoreInformation
+    public class StoreInformation:EntityBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

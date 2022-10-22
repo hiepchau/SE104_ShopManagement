@@ -22,7 +22,7 @@ namespace SE104_OnlineShopManagement.Models.ModelEntity
         other =2,
         Empty = -1
     }
-    public class UserInfomation
+    public class UserInfomation:EntityBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
