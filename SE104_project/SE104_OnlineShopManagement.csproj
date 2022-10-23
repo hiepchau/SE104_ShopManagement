@@ -28,12 +28,14 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.3.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="MongoDB.Bson" Version="2.18.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.18.0" />
     <PackageReference Include="MongoDB.Libmongocrypt" Version="1.6.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
   </ItemGroup>
 
@@ -54,10 +56,6 @@
     </Resource>
     <Resource Include="Resources\Images\warning.png">
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Test\UnitTest\" />
   </ItemGroup>
 
 </Project>
