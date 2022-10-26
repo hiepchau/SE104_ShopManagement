@@ -30,12 +30,12 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             if(string.IsNullOrEmpty(newProduct.ID) && string.IsNullOrEmpty(newProduct.displayID))
             {
                 Console.WriteLine("Insert error!");
-                return null;
+                return "false";
             }
             if (lscheck.Count > 0)
             {
                 Console.WriteLine("Insert error");
-                return null;
+                return "false";
             }
             if (string.IsNullOrEmpty(newProduct.displayID)) { 
             BsonDocument newProductDoc = new BsonDocument{
@@ -51,7 +51,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             };
             await collection.InsertOneAsync(newProductDoc);
             Console.WriteLine("User Inserted into", session.CurrnetUser);
-            return newProductDoc["_id"].ToString();
+            return "true";
             }
             else
             {
@@ -68,7 +68,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             };
                 await collection.InsertOneAsync(newProductDoc);
                 Console.WriteLine("User Inserted into", session.CurrnetUser);
-                return newProductDoc["_id"].ToString();
+                return "true";
             }
         }
     }

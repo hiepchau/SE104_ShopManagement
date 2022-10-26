@@ -66,7 +66,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             var tmp = new GetUsers(_connection.client, _session, filter);
             var ls = await tmp.get();
 
-            int i = 1;
             foreach (UserInfomation user in ls)
             {
                 User = user.FirstName + " " + user.LastName;
