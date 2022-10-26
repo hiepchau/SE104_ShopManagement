@@ -229,7 +229,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public bool CheckValidSave(Object o = null)
         {
             if (String.IsNullOrEmpty(supplierName) || String.IsNullOrEmpty(supplierAddress)
-                || String.IsNullOrEmpty(supplierMail) || supplierPhone.Length != 10)
+                || String.IsNullOrEmpty(supplierMail) || (supplierPhone!=null && supplierPhone.Length != 10))
             {
                 return false;
             }
