@@ -26,29 +26,115 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         public void Setup()
         {
             Connection = new MongoConnect();
-            companyName = "123";
-            password = "1";
-            userName = "1";
-            authInfo = new AuthenticationInformation(userName, password, companyName);
-            authenticator = new Authenticator(authInfo, Connection.client);
-            authenticatorFail = new Authenticator(new AuthenticationInformation("123", "1", "2"), Connection.client);
         }
         [Test]
-        public async Task TestLogin()
+        public async Task TestLogin1()
         {
+            authInfo = new AuthenticationInformation("1", "1", "123");
+            authenticator = new Authenticator(authInfo, Connection.client);
             UserInfomation userInfo = await authenticator.Authenticate();
             bool isLogin;
             if (userInfo != null) { isLogin = true; }
             else isLogin = false;
             Assert.IsTrue(isLogin);
         }
-        public async Task TestLoginFail()
+        [Test]
+        public async Task TestLogin2()
         {
-            UserInfomation userInfo = await authenticatorFail.Authenticate();
+            authInfo = new AuthenticationInformation("1", "2", "123");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsFalse(isLogin);
+        }
+        [Test]
+        public async Task TestLogin3()
+        {
+            authInfo = new AuthenticationInformation("admin", "1", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
             bool isLogin;
             if (userInfo != null) { isLogin = true; }
             else isLogin = false;
             Assert.IsTrue(isLogin);
+        }
+        [Test]
+        public async Task TestLogin4()
+        {
+            authInfo = new AuthenticationInformation("admin", "2", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsFalse(isLogin);
+        }
+        [Test]
+        public async Task TestLogin5()
+        {
+            authInfo = new AuthenticationInformation("nkhanh", "1", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsTrue(isLogin);
+        }
+        [Test]
+        public async Task TestLogin6()
+        {
+            authInfo = new AuthenticationInformation("nkhanh", "2", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsFalse(isLogin);
+        }
+        [Test]
+        public async Task TestLogin7()
+        {
+            authInfo = new AuthenticationInformation("hipchou", "TEST", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsTrue(isLogin);
+        }
+        [Test]
+        public async Task TestLogin8()
+        {
+            authInfo = new AuthenticationInformation("hipchou", "2", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsFalse(isLogin);
+        }
+        [Test]
+        public async Task TestLogin9()
+        {
+            authInfo = new AuthenticationInformation("hipchou", "1", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsFalse(isLogin);
+        }
+        public async Task TestLogin10()
+        {
+            authInfo = new AuthenticationInformation("nkhanh", "TEST", "TEST");
+            authenticator = new Authenticator(authInfo, Connection.client);
+            UserInfomation userInfo = await authenticator.Authenticate();
+            bool isLogin;
+            if (userInfo != null) { isLogin = true; }
+            else isLogin = false;
+            Assert.IsFalse(isLogin);
         }
     }
 }

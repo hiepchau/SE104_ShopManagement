@@ -18,9 +18,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         Authenticator authenticator;
         private MongoConnect Connection;
         private AppSession _session;
-        private RegisterProducts register;
-        private ProductsInformation pro;
-        private GetProducts getter;
         [SetUp]
         public async Task Setup()
         {
@@ -30,26 +27,76 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
             authenticator = new Authenticator(authInfo, Connection.client);
             UserInfomation userInfo = await authenticator.Authenticate();
             _session.CurrnetUser = userInfo;
-            pro = new ProductsInformation("", "OMO", 1, 15000, 10000, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
-            register = new RegisterProducts(pro, Connection.client, _session);
-            var filter = Builders<ProductsInformation>.Filter.Empty;
-            getter = new GetProducts(Connection.client, _session, filter);
         }
         [Test]
-        public async Task AddProductTest()
+        public async Task AddProductTest1()
         {
+            ProductsInformation product = new ProductsInformation("", "OMO", 0, 0, 0, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
             Assert.AreSame("true", await register.register());
         }
         [Test]
-        public async Task GetProductTest()
+        public async Task AddProductTest2()
         {
-            bool flag = false;
-            var list = await getter.Get();
-            foreach(var product in list)
-            {
-                if(product.name.Equals(pro.name)) flag= true;
-            }
-            Assert.IsTrue(flag);
+            ProductsInformation product = new ProductsInformation("", "OMO", 0, 1500, 5000, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("true", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest3()
+        {
+            ProductsInformation product = new ProductsInformation("", "TEST", 0, 99999999, 99999999, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("true", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest4()
+        {
+            ProductsInformation product = new ProductsInformation("", "TEST", 0, 1500, 1500, "", "6358d2b508104d5c4f2f3cad", "Bich", true);
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("false", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest5()
+        {
+            ProductsInformation product = new ProductsInformation("", "TEST", 0, 1500, 1500, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "", true);
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("false", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest6()
+        {
+            ProductsInformation product = new ProductsInformation("", "OMO", 0, 5000, 5000, "6358d1ca8152b59882a832ff", "", "Bich", true);
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("false", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest7()
+        {
+            ProductsInformation product = new ProductsInformation("", "TEST", 0, 0, 99999999, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("true", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest8()
+        {
+            ProductsInformation product = new ProductsInformation("", "OMO", 0, 1500, 5000, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("true", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest9()
+        {
+            ProductsInformation product = new ProductsInformation("", "OMO", 0, 5000, 5000, "", "6358d2b508104d5c4f2f3cad", "Bich", true);
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("false", await register.register());
+        }
+        [Test]
+        public async Task AddProductTest10()
+        {
+            ProductsInformation product = new ProductsInformation("", "TEST", 0, 1500, 5000, "6358d1ca8152b59882a832ff", "", "", true);
+            RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
+            Assert.AreSame("false", await register.register());
         }
     }
 }
