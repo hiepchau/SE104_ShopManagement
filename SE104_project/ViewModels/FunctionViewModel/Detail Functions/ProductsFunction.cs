@@ -97,15 +97,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
             backupListProduct = new List<ProductsControlViewModel>();
             //Get Data
-
             //
+            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProduct);
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
             OpenAddProductControlCommand = new RelayCommand<Object>(null, OpenAddProductControl);
             OpenProductsTypeCommand = new RelayCommand<Object>(null, OpenProductsType);
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SelectImageCommand = new RelayCommand<Object>(null, SaveImage);
             SearchCommand = new RelayCommand<Object>(null, search);
-            ReloadCommand = new RelayCommand<object>(null, Reload);
+            ReloadCommand = new RelayCommand<Object>(null, ReloadAsync);
             ExportExcelCommand = new RelayCommand<Object>(null, ExportExcel);
             SortListProductsCommand = new RelayCommand<Object>(null, sortChanged);
             SortProductTypeCommand = new RelayCommand<Object>(null, sortProductTypeChanged);
@@ -249,12 +249,12 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(listActiveItemsProduct));
         }
 
-        private async void Reload(object o = null)
+        private async void ReloadAsync(Object o = null)
         {
             await GetData();
-            GetAllData();
-            GetProductTypeData();
-            GetProducerData();
+            await GetAllData();
+            await GetProductTypeData();
+            await GetProducerData();
         }
         //AddProduct
         public void OpenAddProductControl(Object o = null)
@@ -265,7 +265,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 SetNull();
             });
-            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProduct);
             ExitCommand = new RelayCommand<Object>(null, exit =>
             {
                 SetNull();
@@ -421,7 +420,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             if (String.IsNullOrEmpty(productName) ||
                 String.IsNullOrEmpty(productUnit)
-                || IsSelectedIndex == -1 || IsSelectedProducerIndex == -1
+                || SelectedProducer == null || SelectedProductsType == null
                 || String.IsNullOrEmpty(productCost.ToString()) || productCost <= 0 
                 || String.IsNullOrEmpty(productPrice.ToString()) || productPrice <= 0
                 || productImage == null 
@@ -464,7 +463,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                         CustomMessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     case 1:
-                        SetActive(SelectedProduct);
+                        await SetActive(SelectedProduct);
                         break;
                     case 2:
                         ProductsInformation info = new ProductsInformation("", productName, 0, productPrice, productCost, SelectedProductsType.ID,
@@ -509,7 +508,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 (SaveCommand as RelayCommand<object>).OnCanExecuteChanged();
             }
         }
-        public void UpdateProductList(ProductsInformation pro)
+        public async void UpdateProductList(ProductsInformation pro)
         {
             var result = CustomMessageBox.Show("Bạn có chắc chắn muốn xóa?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
@@ -521,9 +520,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     {
                         if (ls.product.ID.Equals(pro.ID))
                         {
-                            SetUnactive(ls);
+                            await SetUnactive(ls);
                             listAllProduct.Clear();
-                            GetAllData();
+                            await GetAllData();
                             break;
                         }
                         i++;
@@ -593,18 +592,22 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             OnPropertyChanged(nameof(SelectedProductsType));
             OpenAddProductControl();
         }
-        public async void SetActive(ProductsControlViewModel productinfo)
+        public async Task<bool> SetActive(ProductsControlViewModel productinfo)
         {
             var filter = Builders<ProductsInformation>.Filter.Eq("ID", productinfo.ID);
             var update = Builders<ProductsInformation>.Update.Set("isActivated", true);
             UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
-            var s = await updater.update();
+            var stringID = await updater.update();
             listActiveItemsProduct.Add(SelectedProduct);
             OnPropertyChanged(nameof(listActiveItemsProduct));
-            Console.WriteLine(s);
             SelectedProduct = null;
+            if (stringID != null)
+            {
+                return true;
+            }
+            return false;
         }
-        public async void SetUnactive(ProductsControlViewModel productinfo)
+        public async Task<bool> SetUnactive(ProductsControlViewModel productinfo)
         {
             if (productinfo.isActivated == true)
             {
@@ -612,10 +615,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 var update = Builders<ProductsInformation>.Update.Set("isActivated", false);
                 UpdateProductsInformation updater = new UpdateProductsInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
-                Console.WriteLine(s);
                 SelectedProduct = null;
+                return true;
             }
             else Console.WriteLine("Cant execute");
+            return false;
         }
         public int CheckExist()
         {
@@ -719,10 +723,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
                 }
             }
-            Console.Write("Executed");
             OnPropertyChanged(nameof(listActiveItemsProduct));
         }
-        public async void GetAllData()
+        public async Task GetAllData()
         {
             var filter = Builders<ProductsInformation>.Filter.Empty;
             GetProducts getter = new GetProducts(_connection.client, _session, filter);
@@ -731,10 +734,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 listAllProduct.Add(new ProductsControlViewModel(pro, this));
             }
-            Console.Write("Executed");
             OnPropertyChanged(nameof(listAllProduct));
         }
-        public async void GetProductTypeData()
+        public async Task GetProductTypeData()
         {
             var filter = Builders<ProductTypeInfomation>.Filter.Eq("isActivated",true);
             GetProductType getter = new GetProductType(_connection.client, _session, filter);
@@ -743,10 +745,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 ItemSourceProductsType.Add(pro);
             }
-            Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceProductsType));
         }
-        public async void GetProducerData()
+        public async Task GetProducerData()
         {
             var filter = Builders<ProducerInformation>.Filter.Empty;
             GetProducer getter = new GetProducer(_connection.client, _session, filter);
@@ -755,7 +756,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             {
                 ItemSourceProducer.Add(producer);
             }
-            Console.Write("Executed");
             OnPropertyChanged(nameof(ItemSourceProducer));
         }
         private async Task getsearchdata()
