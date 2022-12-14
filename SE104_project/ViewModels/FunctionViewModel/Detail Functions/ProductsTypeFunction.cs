@@ -28,6 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Properties
         public string productTypeName { get; set; }
         public string note { get; set; }
+        public bool isLoaded { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public ProductsTypeControlViewModel selectedProductType { get; set; }
@@ -48,6 +49,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session = session;
             listItemsProductType = new ObservableCollection<ProductsTypeControlViewModel>();
             listItemsUnactiveProductType = new ObservableCollection<ProductsTypeControlViewModel>();
+            isLoaded = true;
             //Get Data
             GetData();
             GetUnactiveProductType();
@@ -238,7 +240,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listItemsProductType.Add(new ProductsTypeControlViewModel(type, this, No.ToString()));
                 No++;
             }
-            Console.Write("Executed");
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(listItemsProductType));
         }
         public async Task GetUnactiveProductType()
