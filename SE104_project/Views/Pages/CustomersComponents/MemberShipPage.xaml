@@ -6,6 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls"
              xmlns:vd="clr-namespace:SE104_OnlineShopManagement.Services.Validations"
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mcv="clr-namespace:SE104_OnlineShopManagement.Utils"
              mc:Ignorable="d" 
@@ -13,6 +15,7 @@
     <UserControl.Resources>
         <mcv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
         <mcv:MoneyFormatConverter x:Key="MoneyFormat"/>
+        <convert:VisibilityConverter x:Key="visiConvert"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -83,7 +86,10 @@
                 BorderThickness="2,0,2,2" 
                 Margin="20,40,20,20" 
                 CornerRadius="0,0,4,4" >
-                <ScrollViewer
+                <Grid>
+                    <compo:LoadingComponent
+                        Visibility="{Binding isLoaded, Converter={StaticResource visiConvert}}"/>
+                    <ScrollViewer
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto" 
                     HorizontalScrollBarVisibility="Disabled">
@@ -97,6 +103,7 @@
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>
+                </Grid>
             </Border>
 
         </Grid>

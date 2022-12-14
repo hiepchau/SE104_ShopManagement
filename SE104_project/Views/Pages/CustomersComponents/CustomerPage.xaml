@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
+             xmlns:compo="clr-namespace:SE104_OnlineShopManagement.Components"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
+    <UserControl.Resources>
+        <convert:VisibilityConverter x:Key="visiConvert"/>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction        
@@ -379,7 +384,10 @@
                     BorderThickness="2,0,2,2"                    
                     CornerRadius="0,0,4,4"
                     Margin="20,40,20,20" >
-                    <ScrollViewer                                                
+                    <Grid>
+                        <compo:LoadingComponent
+                            Visibility="{Binding isLoaded, Converter={StaticResource visiConvert}}"/>
+                        <ScrollViewer                                                
                         Style="{StaticResource FavsScrollViewer}"                                    
                         VerticalScrollBarVisibility="Auto"                       
                         HorizontalScrollBarVisibility="Disabled">
@@ -393,6 +401,7 @@
                             </ItemsControl>
                         </StackPanel>
                     </ScrollViewer>
+                    </Grid>
                 </Border>
             </Grid>
         </Grid>
