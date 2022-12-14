@@ -99,7 +99,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
             productsViewModel.productName = "OMO";
             productsViewModel.productPrice = 2000;
             productsViewModel.productCost = 5000;
-            productsViewModel.productUnit = "Bich";
             productsViewModel.SelectedProducer = productsViewModel.ItemSourceProducer[0];
             productsViewModel.productImage = new System.Windows.Media.Imaging.BitmapImage(new Uri(uri, UriKind.Relative));
             Assert.IsFalse(productsViewModel.SaveCommand.CanExecute(null));
@@ -111,11 +110,35 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
             productsViewModel.productName = "OMO";
             productsViewModel.productPrice = 99999999;
             productsViewModel.productCost = 5000;
-            productsViewModel.productUnit = "Cai";
+            productsViewModel.productUnit = "Bich";
             productsViewModel.SelectedProducer = productsViewModel.ItemSourceProducer[0];
             productsViewModel.SelectedProductsType = productsViewModel.ItemSourceProductsType[0];
             productsViewModel.productImage = new System.Windows.Media.Imaging.BitmapImage(new Uri(uri, UriKind.Relative));
             Assert.IsTrue(productsViewModel.SaveCommand.CanExecute(null));
+        }
+        [Test]
+        public void AddProductTest6()
+        {
+            productsViewModel.productName = "OMO";
+            productsViewModel.productPrice = 99999999;
+            productsViewModel.productCost = 5000;
+            productsViewModel.productUnit = "Bich";
+            productsViewModel.SelectedProducer = productsViewModel.ItemSourceProducer[0];
+            productsViewModel.SelectedProductsType = productsViewModel.ItemSourceProductsType[0];
+            Assert.IsFalse(productsViewModel.SaveCommand.CanExecute(null));
+        }
+        [Test]
+        public void AddProductTest7()
+        {
+            var uri = "..//..//Test//TestImage//omo.jpg";
+            productsViewModel.productName = "OMO";
+            productsViewModel.productPrice = 0;
+            productsViewModel.productCost = -1;
+            productsViewModel.productUnit = "Bich";
+            productsViewModel.SelectedProducer = productsViewModel.ItemSourceProducer[0];
+            productsViewModel.SelectedProductsType = productsViewModel.ItemSourceProductsType[0];
+            productsViewModel.productImage = new System.Windows.Media.Imaging.BitmapImage(new Uri(uri, UriKind.Relative));
+            Assert.IsFalse(productsViewModel.SaveCommand.CanExecute(null));
         }
     }
 }

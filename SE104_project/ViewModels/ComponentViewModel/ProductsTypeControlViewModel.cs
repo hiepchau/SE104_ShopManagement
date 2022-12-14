@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
-    class ProductsTypeControlViewModel : ViewModelBase
+    public class ProductsTypeControlViewModel : ViewModelBase
     {
         #region Properties
         public ProductTypeInfomation type { get; set; }

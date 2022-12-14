@@ -61,6 +61,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ObservableCollection<ProducerInformation> ItemSourceProducer { get; set; }
         private List<ProductsControlViewModel> backupListProduct { get; set; }
 
+        public bool isLoaded { get; set; }
         #endregion
 
         #region ICommand
@@ -96,6 +97,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             ItemSourceProducer = new ObservableCollection<ProducerInformation>();
             listAllProduct = new ObservableCollection<ProductsControlViewModel>();
             backupListProduct = new List<ProductsControlViewModel>();
+            isLoaded = true;
             //Get Data
             //
             SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProduct);
@@ -251,10 +253,10 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         private async void ReloadAsync(Object o = null)
         {
-            await GetData();
             await GetAllData();
             await GetProductTypeData();
             await GetProducerData();
+            await GetData();
         }
         //AddProduct
         public void OpenAddProductControl(Object o = null)
@@ -417,7 +419,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         public bool CheckValidSave(Object o = null)
         {
-
             if (String.IsNullOrEmpty(productName) ||
                 String.IsNullOrEmpty(productUnit)
                 || SelectedProducer == null || SelectedProductsType == null
@@ -723,6 +724,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     listActiveItemsProduct.Add(new ProductsControlViewModel(pro, this));
                 }
             }
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(listActiveItemsProduct));
         }
         public async Task GetAllData()

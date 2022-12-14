@@ -226,6 +226,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (String.IsNullOrEmpty(membershipname) 
                 || String.IsNullOrEmpty(membershipRule.ToString()) || membershipRule <= 0
                 || String.IsNullOrEmpty(priority.ToString())
+                || char.IsSymbol(membershipname[0]) || char.IsPunctuation(membershipname[0])
                 )
             {
                 return false;

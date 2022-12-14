@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.Controls" 
-             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents"
+             xmlns:local="clr-namespace:SE104_OnlineShopManagement.Views.Pages.ManagementComponents" xmlns:visualbasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="960">
     <Grid>
@@ -173,7 +173,13 @@
                                     materialDesign:HintAssist.Hint="Tên loại"
                                     Margin="140 0 0 0" 
                                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
-                                    Text="{Binding productTypeName, Mode=TwoWay}">
+                                    Text="{Binding productTypeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction
+                                                Command="{Binding TextChangedCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </TextBox>
                             </Grid>
                             <Grid 

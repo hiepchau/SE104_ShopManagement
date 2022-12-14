@@ -251,7 +251,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if ((String.IsNullOrEmpty(customerName)
                 || String.IsNullOrEmpty(customerPhone) || customerPhone.Length != 10
                 || String.IsNullOrEmpty(customerAddress)
-                || String.IsNullOrEmpty(customerCMND) || customerCMND.Length != 12))
+                || String.IsNullOrEmpty(customerCMND) || customerCMND.Length != 12)
+                || char.IsNumber(customerName[0]) || char.IsSymbol(customerName[0]) || char.IsPunctuation(customerName[0])
+                || char.IsNumber(customerAddress[0]) || char.IsSymbol(customerAddress[0]) || char.IsPunctuation(customerAddress[0]))
             {
                 return false;
             }
