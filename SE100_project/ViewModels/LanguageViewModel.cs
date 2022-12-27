@@ -16,7 +16,9 @@ namespace SE104_OnlineShopManagement.ViewModels
         public string CurrentLanguage
         {
             get => Language.getCurrentLanguage();
-            set => OnPropertyChanged(nameof(CurrentLanguage));
+            set { 
+                OnPropertyChanged(nameof(CurrentLanguage)); 
+            }
         }
     }
 }

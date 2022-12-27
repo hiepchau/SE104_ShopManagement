@@ -6,11 +6,12 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
              xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:views="clr-namespace:SE104_OnlineShopManagement.Views"
              x:Name="_this"
              mc:Ignorable="d" 
              Foreground="Transparent">
     <Grid>
-        <DockPanel HorizontalAlignment="Stretch" Background="Transparent" LastChildFill="false" VerticalAlignment="Top">
+        <DockPanel HorizontalAlignment="Right" Background="Transparent" LastChildFill="false" VerticalAlignment="Top">
             <Border CornerRadius="8" Width="30" Height="30" DockPanel.Dock="Right">
                 <Button Background="Transparent"
                         BorderThickness="0"
@@ -45,6 +46,7 @@
                                              Foreground="{DynamicResource ForegroundResource}" />
                 </Button>
             </Border>
+            <views:LanguageComponent ></views:LanguageComponent>
         </DockPanel>
     </Grid>
 </UserControl>

@@ -26,7 +26,7 @@
             FontSize="17"
             FontWeight="SemiBold"
             HorizontalAlignment="Center" 
-            Text="Login to your existing account"
+            Text="{DynamicResource Login.Description}"
             Foreground="{StaticResource WordBlueBrush}"/>
         <TextBox Margin="0,30,0,0" 
                  x:Name="txtCompany" Width="250"
