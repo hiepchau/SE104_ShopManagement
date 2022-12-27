@@ -32,7 +32,7 @@
                  x:Name="txtCompany" Width="250"
                  FontSize="13"
                  Text="{Binding companyname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 materialDesign:HintAssist.Hint="Company" 
+                 materialDesign:HintAssist.Hint="{DynamicResource Login.Companyname}" 
                  BorderThickness="2" 
                  BorderBrush="{DynamicResource MaterialDesignDivider}" 
                  Style="{StaticResource MaterialDesignOutlinedTextBox}">
@@ -47,7 +47,7 @@
                  x:Name="txtUsername" Width="250"
                  FontSize="13"
                  Text="{Binding username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 materialDesign:HintAssist.Hint="Enter Username" 
+                 materialDesign:HintAssist.Hint="{DynamicResource Login.Username}" 
                  BorderThickness="2" 
                  BorderBrush="{DynamicResource MaterialDesignDivider}" 
                  Style="{StaticResource MaterialDesignOutlinedTextBox}" >
@@ -63,7 +63,7 @@
             x:Name="PasswordBox" 
             Width="250"
             FontSize="13" 
-            materialDesign:HintAssist.Hint="Enter Password"
+            materialDesign:HintAssist.Hint="{DynamicResource Login.Password}"
             BorderThickness="2"
             BorderBrush="{DynamicResource MaterialDesignDivider}" 
             Style="{StaticResource MaterialDesignOutlinedPasswordBox}">
@@ -83,7 +83,7 @@
                  Width="250"
                  materialDesign:ButtonAssist.CornerRadius="10"
                  FontSize="13" 
-                 Content="LOG IN"
+                 Content="{DynamicResource Login.LoginButton}"
                  Command="{Binding LoginCommand}"
                  CommandParameter="{Binding ElementName=PasswordBox}"/>
 
@@ -95,6 +95,6 @@
                 materialDesign:ButtonAssist.CornerRadius="10" 
                 FontSize="13" 
                 Command="{Binding RegisterCommand1}"
-                Content="Create Account"/>
+                Content="{DynamicResource Login.LoginRegister}"/>
     </StackPanel>
 </UserControl>
