@@ -28,6 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string membershipname { get; set; }
         public long membershipRule { get; set; }
         public int priority { get; set; }
+        public bool isLoaded { get; set; }
         private MembershipControlViewModel selectedMembership { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
@@ -45,6 +46,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._connection = connect;
             listActiveMembership = new ObservableCollection<MembershipControlViewModel>();
             listAllMembership = new ObservableCollection<MembershipControlViewModel>();
+            isLoaded = true;
             //Get Data
             GetActiveData();
             GetAllData();
@@ -226,6 +228,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if (String.IsNullOrEmpty(membershipname) 
                 || String.IsNullOrEmpty(membershipRule.ToString()) || membershipRule <= 0
                 || String.IsNullOrEmpty(priority.ToString())
+                || char.IsSymbol(membershipname[0]) || char.IsPunctuation(membershipname[0])
                 )
             {
                 return false;
@@ -246,7 +249,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listActiveMembership.Add(new MembershipControlViewModel(mem, this, No.ToString()));
                 No++;
             }
-            Console.WriteLine("Executed");
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(listActiveMembership));
 
         }

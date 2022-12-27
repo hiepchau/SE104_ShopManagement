@@ -21,7 +21,7 @@ namespace SE104_OnlineShopManagement.ViewModels
         {
             CloseWindowCommand = new RelayCommand<UserControl>(
                 parameter => parameter != null,
-                parameter => Window.GetWindow(parameter)?.Close());
+                parameter => { Application.Current.Shutdown(); });
 
             MaximizeWindowCommand = new RelayCommand<UserControl>(
                 parameter => parameter != null,

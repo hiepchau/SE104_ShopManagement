@@ -41,6 +41,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string searchString { get; set; }
         public int customerCount { get; set; }
         public string totalRevenue { get; set; }
+        public bool isLoaded { get; set; }
         public MembershipInformation SelectedMembership { get; set; }
 
         private MongoConnect _connection;
@@ -90,6 +91,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session=session;
             managingFunction = managingFunctionsViewModel;
             customerSelectMenu = _customerSelectMenu;
+            isLoaded = true;
             searchString = "";
             listAllCustomer = new ObservableCollection<CustomerControlViewModel>();
             backupMemberlist = new ObservableCollection<CustomerControlViewModel>();
@@ -209,12 +211,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private async void reload(Object o = null)
         {
-            await GetData();
             await GetMembershipData();
-            Console.WriteLine("Executed membership for reload " + ItemSourceMembership.Count.ToString());
-            Console.WriteLine("Executed customer for reload " + listAllCustomer.Count.ToString());
-            //Display membership
-
+            await GetData();
             //Display element
             customerCount = (listAllCustomer.Count > 0) ? listAllCustomer.Count : 0;
             OnPropertyChanged(nameof(customerCount));
@@ -251,7 +249,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             if ((String.IsNullOrEmpty(customerName)
                 || String.IsNullOrEmpty(customerPhone) || customerPhone.Length != 10
                 || String.IsNullOrEmpty(customerAddress)
-                || String.IsNullOrEmpty(customerCMND) || customerCMND.Length != 12))
+                || String.IsNullOrEmpty(customerCMND) || customerCMND.Length != 12)
+                || char.IsNumber(customerName[0]) || char.IsSymbol(customerName[0]) || char.IsPunctuation(customerName[0])
+                || char.IsNumber(customerAddress[0]) || char.IsSymbol(customerAddress[0]) || char.IsPunctuation(customerAddress[0]))
             {
                 return false;
             }
@@ -540,7 +540,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listAllCustomer.Add(new CustomerControlViewModel(cus, sum, this)) ;
                 backupMemberlist.Add(new CustomerControlViewModel(cus, sum, this));
             }
-            Console.Write("Executed");
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
         }
         public async Task GetMembershipData()
         {

@@ -31,6 +31,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         private AppSession _session;
         private ManagingFunctionsViewModel managingFunction;
         private ManagementMenu ManagementMenu;
+        public bool isLoaded { get; set; }
         public string searchString { get; set; }
         public ObservableCollection<WareHouseControlViewModel> listItemWareHouse { get; set; }
         #endregion
@@ -53,7 +54,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
             managingFunction = managingFunctionsViewModel;
             ManagementMenu = managementMenu;
-
+            isLoaded = true;
             OpenImportProductsCommand = new RelayCommand<Object>(null, OpenImportProducts);
             SearchCommand = new RelayCommand<Object>(null, search);
             ReloadCommand = new RelayCommand<object>(null, Reload);
@@ -225,6 +226,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listItemWareHouse.Add(new WareHouseControlViewModel(pro));
             }
             Console.Write("Executed");
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(listItemWareHouse));
         }
         private async Task getsearchdata()

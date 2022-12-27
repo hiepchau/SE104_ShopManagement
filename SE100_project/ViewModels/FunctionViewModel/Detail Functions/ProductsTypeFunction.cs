@@ -14,6 +14,7 @@ using MongoDB.Driver;
 using SE104_OnlineShopManagement.ViewModels.ComponentViewModel;
 using System.Windows;
 using SE104_OnlineShopManagement.Services;
+using System.Threading.Tasks;
 
 namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functions
 {
@@ -27,6 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #region Properties
         public string productTypeName { get; set; }
         public string note { get; set; }
+        public bool isLoaded { get; set; }
         private MongoConnect _connection;
         private AppSession _session;
         public ProductsTypeControlViewModel selectedProductType { get; set; }
@@ -38,6 +40,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SetUnactiveCommand { get; set; }
         public ICommand SetActiveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
         #endregion
 
         public ProductsTypeFunction(AppSession session, MongoConnect connect) : base(session, connect)
@@ -46,16 +49,30 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             this._session = session;
             listItemsProductType = new ObservableCollection<ProductsTypeControlViewModel>();
             listItemsUnactiveProductType = new ObservableCollection<ProductsTypeControlViewModel>();
+            isLoaded = true;
             //Get Data
             GetData();
             GetUnactiveProductType();
             //
-            SaveCommand = new RelayCommand<Object>(null, SaveProductType);
+            TextChangedCommand = new RelayCommand<Object>(null, TextChanged);
+            SaveCommand = new RelayCommand<Object>(CheckValidSave, SaveProductType);
             SetUnactiveCommand = new RelayCommand<Object>(null, SetUnactive);
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);
             CancelCommand = new RelayCommand<Object>(null, SetNull);
         }
         #region Function
+        public void TextChanged(Object o = null)
+        {
+            (SaveCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValidSave(Object o = null)
+        {
+            if (string.IsNullOrEmpty(productTypeName) 
+                || char.IsNumber(productTypeName[0]) 
+                || char.IsSymbol(productTypeName[0]) 
+                || char.IsPunctuation(productTypeName[0])) return false;
+            return true;
+        }
         public void SetNull(object o = null)
         {
             selectedProductType = null;
@@ -73,7 +90,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 UpdateProductTypeInformation updater = new UpdateProductTypeInformation(_connection.client, _session, filter, update);
                 var s = await updater.update();
                 listItemsProductType.Clear();
-                GetData();
+                await GetData();
                 OnPropertyChanged(nameof(listItemsProductType));
             }
             else 
@@ -144,8 +161,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     var s = await updater.update();
                     listItemsUnactiveProductType.Clear();
                     listItemsProductType.Clear();
-                    GetData();
-                    GetUnactiveProductType();
+                    await GetData();
+                    await GetUnactiveProductType();
                     OnPropertyChanged(nameof(listItemsUnactiveProductType));
                     OnPropertyChanged(nameof(listItemsProductType));
                     Console.WriteLine(s);
@@ -172,8 +189,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                     var s = await updater.update();
                     listItemsUnactiveProductType.Clear();
                     listItemsProductType.Clear();
-                    GetData();
-                    GetUnactiveProductType();
+                    await GetData();
+                    await GetUnactiveProductType();
                     OnPropertyChanged(nameof(listItemsUnactiveProductType));
                     OnPropertyChanged(nameof(listItemsProductType));
                     Console.WriteLine(s);
@@ -212,7 +229,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         #endregion
 
         #region DB
-        public async void GetData()
+        public async Task GetData()
         {
             var filter = Builders<ProductTypeInfomation>.Filter.Eq("isActivated",true);
             GetProductType getter = new GetProductType(_connection.client, _session, filter);
@@ -223,10 +240,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
                 listItemsProductType.Add(new ProductsTypeControlViewModel(type, this, No.ToString()));
                 No++;
             }
-            Console.Write("Executed");
+            isLoaded = false;
+            OnPropertyChanged(nameof(isLoaded));
             OnPropertyChanged(nameof(listItemsProductType));
         }
-        public async void GetUnactiveProductType()
+        public async Task GetUnactiveProductType()
         {
             var filter = Builders<ProductTypeInfomation>.Filter.Eq("isActivated", false);
             GetProductType getter = new GetProductType(_connection.client, _session, filter);

@@ -1,4 +1,4 @@
-# SE104_ShopManagement 
+# ShopManagement 
 QUẢN LÍ SHOP BÁN HÀNG
 
 ## Tính năng 

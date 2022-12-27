@@ -33,6 +33,8 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
         #region Commands
         public ICommand LoginCommand { get;private set; }
         public ICommand RegisterCommand1 { get; private set; }
+
+        public ICommand TextChangedCommand { get; set; }
         public UpdateCurrentViewModelCommand<RegisterViewModel> RegisterCommand { get; set; }
         #endregion
 
@@ -44,7 +46,22 @@ namespace SE104_OnlineShopManagement.ViewModels.Authentication
             this.Session = session;
             //RegisterCommand = new UpdateCurrentViewModelCommand<RegisterViewModel>(factory.CreateViewModel<MainViewModel>(), factory);
             RegisterCommand1 = new RelayCommand<object>(null, OpenRegister);
-            LoginCommand = new RelayCommand<object>(null, Login);
+            LoginCommand = new RelayCommand<object>(CheckValid, Login);
+            TextChangedCommand = new RelayCommand<object>(null, TextChanged);
+        }
+        public void TextChanged(Object o = null)
+        {
+            (LoginCommand as RelayCommand<Object>).OnCanExecuteChanged();
+        }
+        public bool CheckValid(Object o)
+        {
+            var pass = o as PasswordBox;
+            password = pass.Password;
+            if (string.IsNullOrEmpty(companyname) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return false;
+            }
+            return true;
         }
 
         public async void Login(object o)

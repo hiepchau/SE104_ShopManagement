@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.AuthenticationWindow"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:authentication="clr-namespace:SE104_OnlineShopManagement.ViewModels.Authentication" 
              mc:Ignorable="d"
              Foreground="{DynamicResource ForgroundResource}" 
@@ -30,19 +31,33 @@
         <TextBox Margin="0,30,0,0" 
                  x:Name="txtCompany" Width="250"
                  FontSize="13"
-                 Text="{Binding companyname, Mode=TwoWay}"
+                 Text="{Binding companyname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="Company" 
                  BorderThickness="2" 
                  BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}">
+            <i:Interaction.Triggers>
+            <i:EventTrigger EventName="TextChanged">
+                <i:InvokeCommandAction
+                       Command="{Binding TextChangedCommand}"/>
+            </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
         <TextBox Margin="0,20,0,0" 
                  x:Name="txtUsername" Width="250"
                  FontSize="13"
-                 Text="{Binding username, Mode=TwoWay}"
+                 Text="{Binding username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="Enter Username" 
                  BorderThickness="2" 
                  BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction
+                       Command="{Binding TextChangedCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
         <PasswordBox
             Margin="0,20,0,0" 
             x:Name="PasswordBox" 
@@ -51,7 +66,14 @@
             materialDesign:HintAssist.Hint="Enter Password"
             BorderThickness="2"
             BorderBrush="{DynamicResource MaterialDesignDivider}" 
-            Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+            Style="{StaticResource MaterialDesignOutlinedPasswordBox}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction
+                       Command="{Binding TextChangedCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
 
         <Button  Margin="0,20,0,0"
                  x:Name="loginBtn" 
