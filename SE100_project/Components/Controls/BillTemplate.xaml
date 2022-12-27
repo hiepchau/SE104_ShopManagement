@@ -29,7 +29,7 @@
                 VerticalAlignment="Bottom"
                 Height="1"/>
             <TextBlock 
-                Text="HÓA ĐƠN" 
+                Text="{DynamicResource Bill.Title}" 
                 FontWeight="Black"
                 HorizontalAlignment="Right" 
                 Margin="0,25,40,0"
@@ -99,7 +99,7 @@
                 HorizontalAlignment="Left"
                 Margin="30,0,0,3" 
                 TextWrapping="Wrap" 
-                Text="Mã hóa đơn " 
+                Text="{DynamicResource Bill.ID}" 
                 VerticalAlignment="Bottom"
                 FontSize="14" 
                 FontWeight="SemiBold" 
@@ -157,7 +157,7 @@
                 HorizontalAlignment="Left"
                 Margin="0"
                 TextWrapping="Wrap"
-                Text="Thông tin khách:" 
+                Text="{DynamicResource Bill.Customerinfo}" 
                 FontWeight="Bold"
                 Foreground="{DynamicResource Black1}"/>
             <TextBlock 
@@ -201,7 +201,7 @@
                 HorizontalAlignment="Left"
                 Margin="30,0,0,0" 
                 TextWrapping="Wrap" 
-                Text="Cảm ơn quý khách" 
+                Text="{DynamicResource Bill.Greeting}" 
                 VerticalAlignment="Center"
                 FontSize="14" 
                 FontWeight="SemiBold" 
@@ -258,7 +258,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock 
                     Grid.Column="0"
-                    Text="STT"
+                    Text="{DynamicResource Bill.ProductNo}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -267,7 +267,7 @@
                     Foreground="{DynamicResource White}"/>
                 <TextBlock 
                     Grid.Column="1"
-                    Text="Tên hàng hóa"
+                    Text="{DynamicResource Bill.ProductName}"
                     HorizontalAlignment="Left" 
                     Margin="10,0,0,0" 
                     TextWrapping="Wrap" 
@@ -276,7 +276,7 @@
                     Foreground="{DynamicResource White}"/>
                 <TextBlock 
                     Grid.Column="2"
-                    Text="Đơn giá"
+                    Text="{DynamicResource Bill.ProductPrice}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -285,7 +285,7 @@
                     Foreground="{DynamicResource Black2}"/>
                 <TextBlock 
                     Grid.Column="3"
-                    Text="Số lượng"
+                    Text="{DynamicResource Bill.ProductAmount}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -294,7 +294,7 @@
                     Foreground="{DynamicResource Black2}"/>
                 <TextBlock 
                     Grid.Column="4"
-                    Text="Đơn vị tính"
+                    Text="{DynamicResource Bill.ProductUnit}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -303,7 +303,7 @@
                     Foreground="{DynamicResource Black2}"/>
                 <TextBlock 
                     Grid.Column="5"
-                    Text="Thành tiền"
+                    Text="{DynamicResource Bill.ProductCost}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -383,7 +383,7 @@
                 HorizontalAlignment="Left"
                 Margin="30,30,0,0" 
                 TextWrapping="Wrap" 
-                Text="Thành tiền" 
+                Text="{DynamicResource Bill.Total}" 
                 VerticalAlignment="Top"
                 FontSize="14" 
                 FontWeight="SemiBold" 
@@ -397,7 +397,7 @@
                 Width="260" >
                 <TextBlock 
                     TextWrapping="Wrap" 
-                    Text="Thông tin:" 
+                    Text="{DynamicResource Bill.BillInfo}" 
                     FontSize="16" 
                     FontWeight="Black" 
                     Foreground="{DynamicResource Black2}"/>
@@ -410,7 +410,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock 
                         TextWrapping="Wrap" 
-                        Text="Tên nhân viên:" 
+                        Text="{DynamicResource Bill.EmployeeName}" 
                         FontWeight="SemiBold"
                         Margin="0" 
                         Foreground="{DynamicResource Black2}"/>
@@ -430,7 +430,7 @@
                     Margin="0,10,0,0" >
                     <TextBlock 
                         TextWrapping="Wrap" 
-                        Text="Ghi chú:" 
+                        Text="{DynamicResource Bill.Note}" 
                         FontSize="14" 
                         FontWeight="Black" 
                         Foreground="{DynamicResource Black2}"/>

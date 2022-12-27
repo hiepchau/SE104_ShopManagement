@@ -12,7 +12,7 @@
             <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Style="{StaticResource TextHeader}" Text="Tổng quan dòng tiền"/>
+        <TextBlock Grid.Row="0" Style="{StaticResource TextHeader}" Text="{DynamicResource RevenuePage.Title}"/>
         
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <TextBlock
-                                Text="Doanh thu tháng"
+                                Text="{DynamicResource RevenuePage.MonthRevenue}"
                                 HorizontalAlignment="Left"
                                 Margin="20,20,0,0" 
                                 TextWrapping="Wrap" 
@@ -80,7 +80,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <TextBlock
-                                Text="Thu"
+                                Text="{DynamicResource RevenuePage.Income}"
                                 HorizontalAlignment="Left"
                                 Margin="20,20,0,0" 
                                 TextWrapping="Wrap" 
@@ -124,7 +124,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <TextBlock
-                                Text="Chi"
+                                Text="{DynamicResource RevenuePage.Outcome}"
                                 HorizontalAlignment="Left"
                                 Margin="20,20,0,0" 
                                 TextWrapping="Wrap" 

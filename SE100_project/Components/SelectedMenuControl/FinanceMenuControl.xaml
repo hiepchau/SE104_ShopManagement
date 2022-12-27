@@ -25,8 +25,26 @@
         </i:Interaction.Triggers>
 
 
-        <ListBoxItem Name="Overall" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">Tổng quan</ListBoxItem>
-        <ListBoxItem Name="Income" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">Thu</ListBoxItem>
-        <ListBoxItem Name="Outcome" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">Chi</ListBoxItem>
+        <ListBoxItem Name="Overall" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource FinanceSelectMenu.Overview}" 
+                        FontSize="18"/>
+        </ListBoxItem>
+        <ListBoxItem Name="Income" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource FinanceSelectMenu.Income}" 
+                        FontSize="18"/>
+        </ListBoxItem>
+        <ListBoxItem Name="Outcome" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource FinanceSelectMenu.Outcome}" 
+                        FontSize="18"/>
+        </ListBoxItem>
     </ListBox>
 </UserControl>

@@ -27,13 +27,49 @@
         </i:Interaction.Triggers>
         <ListBoxItem Name="Overall"
                      Visibility="{Binding isOverallAllowed, Converter={StaticResource visiconvert}}"
-                     >Tổng quan</ListBoxItem>
-        <ListBoxItem Name="Orders">Đơn hàng</ListBoxItem>
+                     >
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource ManagementSelectMenu.Dashboard}" 
+                        FontSize="18"/>
+        </ListBoxItem>
+        <ListBoxItem Name="Orders">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource ManagementSelectMenu.Order}" 
+                        FontSize="18"/>
+        </ListBoxItem>
         <ListBoxItem Name="Products"
-                     Visibility="{Binding isProductsAllowed, Converter={StaticResource visiconvert}}">Hàng hóa</ListBoxItem>
+                     Visibility="{Binding isProductsAllowed, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource ManagementSelectMenu.Product}" 
+                        FontSize="18"/>
+            </ListBoxItem>
         <ListBoxItem Name="ProductsType"
-                     Visibility="{Binding isProducTypeAllowed, Converter={StaticResource visiconvert}}">Loại hàng hóa</ListBoxItem>
-        <ListBoxItem Name="Stock">Nhập hàng</ListBoxItem>
-        <ListBoxItem Name="Storage">Kho hàng</ListBoxItem>
+                     Visibility="{Binding isProducTypeAllowed, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource ManagementSelectMenu.ProductType}" 
+                        FontSize="18"/>
+        </ListBoxItem>
+        <ListBoxItem Name="Stock">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource ManagementSelectMenu.Import}" 
+                        FontSize="18"/>
+        </ListBoxItem>
+        <ListBoxItem Name="Storage">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource ManagementSelectMenu.WareHouse}" 
+                        FontSize="18"/>
+        </ListBoxItem>
     </ListBox>
 </UserControl>

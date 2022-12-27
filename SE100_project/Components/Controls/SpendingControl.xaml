@@ -45,17 +45,17 @@
         <TextBlock 
             Grid.Column="4" 
             Style="{StaticResource Text}"
-            Text="Nhập hàng"
+            Text="{DynamicResource Import.Import}"
             Margin="0,0,0,0" />
         <TextBlock 
             Grid.Column="5" 
             Style="{StaticResource Text}"                         
-            Text="Hạng mục"
+            Text="{DynamicResource Income.Category}"
             Margin="0,0,0,0"/>
         <TextBlock 
             Grid.Column="6" 
             Style="{StaticResource Text}"                         
-            Text="Ghi chú"
+            Text="{DynamicResource Bill.Note}"
             HorizontalAlignment="Left"
             Margin="0 0 0 0"/>
         <Button

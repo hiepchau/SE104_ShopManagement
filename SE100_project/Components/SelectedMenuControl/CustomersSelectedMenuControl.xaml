@@ -24,10 +24,28 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <ListBoxItem Name="Customer">Khách hàng</ListBoxItem>
+        <ListBoxItem Name="Customer">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource CustomerSelectMenu.Customer}" 
+                        FontSize="18"/>
+        </ListBoxItem>
         <ListBoxItem Name="Member"
-                     Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">Hội viên</ListBoxItem>
+                     Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource CustomerSelectMenu.Membership}" 
+                        FontSize="18"/>
+        </ListBoxItem>
         <ListBoxItem Name="Provider"
-                     Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">Nhà cung cấp</ListBoxItem>
+                     Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource CustomerSelectMenu.Supplier}" 
+                        FontSize="18"/>
+        </ListBoxItem>
     </ListBox>
 </UserControl>

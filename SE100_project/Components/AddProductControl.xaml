@@ -32,7 +32,7 @@
                 CommandParameter="{Binding ElementName=imgProducts}"
                 Height="35" 
                 Width="100" 
-                Content="Chọn ảnh" 
+                Content="{DynamicResource AddEmployee.ImagePickUp}" 
                 FontSize="16"
                 ToolTip="Chọn ảnh"
                 Margin="0,0,0,-50" 
@@ -50,7 +50,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label
-                    Content="Mã sản phẩm" 
+                    Content="{DynamicResource AddProduct.ProductID}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle
                     Width="230" 
@@ -67,14 +67,14 @@
                     IsReadOnly="True"
                     IsTabStop="False"
                     Cursor="Arrow"
-                    materialDesign:HintAssist.Hint="Mã tự động"/>
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductIDAuto}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Tên sản phẩm"
+                    Content="{DynamicResource AddProduct.ProductName}"
                     Style="{StaticResource LabelText}"  />
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -86,7 +86,7 @@
                 <TextBox 
                     x:Name="txtName"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Tên hàng"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductName}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="productName"
@@ -110,7 +110,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Loại sản phẩm"
+                    Content="{DynamicResource AddProduct.ProductType}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -121,7 +121,7 @@
                     Stroke="{StaticResource Gray2}" />
                 <ComboBox
                     x:Name="cboProductsType"
-                    materialDesign:HintAssist.Hint="Chọn loại sản phẩm"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductTypeHint}"
                     Height="40" 
                     FontSize="14" 
                     Width="210"
@@ -149,7 +149,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Nhà cung cấp"
+                    Content="{DynamicResource AddProduct.ProductSupplier}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -160,7 +160,7 @@
                     Stroke="{StaticResource Gray2}" />
                 <ComboBox
                     x:Name="cboProducer"
-                    materialDesign:HintAssist.Hint="Chọn nhà cung cấp"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductSupplierHint}"
                     Height="40" 
                     FontSize="14" 
                     Width="210"
@@ -189,7 +189,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Đơn vị"
+                    Content="{DynamicResource AddProduct.ProductUnit}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -201,7 +201,7 @@
                 <TextBox 
                     x:Name="txtUnit"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Đơn vị tính"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductUnit}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}">
                     <TextBox.Text>
@@ -228,7 +228,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Giá nhập"
+                    Content="{DynamicResource AddProduct.ProductImportPrice}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -240,7 +240,7 @@
                 <TextBox 
                     x:Name="txtImportPrice"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Giá nhập"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductImportPrice}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}">
                     <TextBox.Text>
@@ -276,7 +276,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Giá bán"
+                    Content="{DynamicResource AddProduct.ProductSalePrice}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -288,7 +288,7 @@
                 <TextBox 
                     x:Name="txtPrice"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Giá bán"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddProduct.ProductSalePrice}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}">
                     <TextBox.Text>
@@ -334,7 +334,7 @@
                     Width="100"
                     ToolTip="Lưu thông tin" 
                     HorizontalAlignment="Left"
-                    Content="Lưu" 
+                    Content="{DynamicResource SaveButton}" 
                     VerticalAlignment="Center"
                     IsTabStop="False">
                     <Button.IsEnabled>
@@ -360,7 +360,7 @@
                     Width="100"
                     ToolTip="Thoát"
                     HorizontalAlignment="Right"
-                    Content="Thoát"
+                    Content="{DynamicResource ExitButton}"
                     FontSize="18"
                     VerticalAlignment="Center"/>
             </Grid>

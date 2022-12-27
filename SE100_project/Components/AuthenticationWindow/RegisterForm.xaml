@@ -27,7 +27,7 @@
                     <TextBlock x:Name="txtAppName" 
                                FontSize="20" 
                                Foreground="{StaticResource WordBlueBrush}"
-                               Text="Shop Name"/>
+                               Text="{DynamicResource appname}"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" 
                             HorizontalAlignment="Center"
@@ -45,11 +45,11 @@
                     <!--Ho ten-->
                     <DockPanel Margin="0 0 0 16" LastChildFill="False">
                         <TextBox x:Name="FirstNameBox"
-                                 materialDesign:HintAssist.Hint="Họ"
+                                 materialDesign:HintAssist.Hint="{DynamicResource Register.LastName}"
                                  Text="{Binding FirstName, Mode=TwoWay}" FontSize="12"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="145" />
                         <TextBox x:Name="LastNameBox"
-                                 materialDesign:HintAssist.Hint="Tên"
+                                 materialDesign:HintAssist.Hint="{DynamicResource Register.FirstName}"
                                  Text="{Binding LastName, Mode=TwoWay}" FontSize="12"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90"
                                  DockPanel.Dock="Right" />
@@ -57,13 +57,13 @@
                     <!--Ngay sinh Gioi tinh-->
                     <DockPanel LastChildFill="False" Margin="0 0 0 16">
                         <DatePicker x:Name="BirthdayPicker"
-                                    materialDesign:HintAssist.Hint="Ngày sinh"
+                                    materialDesign:HintAssist.Hint="{DynamicResource Register.DateOfBirth}"
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                     Width="145"
                                     Text="{Binding birthDay, Mode=TwoWay}"/>
                         <ComboBox x:Name="CbSex"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                  materialDesign:HintAssist.Hint="Giới tính"
+                                  materialDesign:HintAssist.Hint="{DynamicResource Register.Gender}"
                                   DockPanel.Dock="Right" 
                                   Width="90"
                                   ItemsSource="{Binding GenderList}">
@@ -81,22 +81,22 @@
                     </DockPanel>
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"
-                             materialDesign:HintAssist.Hint="Email/Username"
+                             materialDesign:HintAssist.Hint="{DynamicResource Register.UserNameorEmail}"
                              Text="{Binding Email, Mode=TwoWay}" 
                              Margin="0 0 0 16" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <!--Mat khau-->
                     <PasswordBox x:Name="PasswordBox"
-                                 materialDesign:HintAssist.Hint="Mật khẩu" 
+                                 materialDesign:HintAssist.Hint="{DynamicResource Register.Password}" 
                                  Margin="0 0 0 16" 
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <!--Nhap lai mat khau-->
                     <PasswordBox x:Name="VerifyPasswordBox"
-                                 materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
+                                 materialDesign:HintAssist.Hint="{DynamicResource Register.PasswordConfirm}"
                                  Margin="0 0 0 16" 
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <TextBox Text="{Binding ComName, Mode=TwoWay}" 
-                             materialDesign:HintAssist.Hint="Tên công ti"
+                             materialDesign:HintAssist.Hint="{DynamicResource Register.CompanyName}"
                              Margin="0 0 0 16" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
@@ -110,7 +110,7 @@
                                     Command="{Binding BackCommand}"
                                     Foreground="{StaticResource MaterialDesignLightForeground}"
                                     HorizontalAlignment="Right">
-                                <TextBlock Text="Huy" />
+                                <TextBlock Text="{DynamicResource Register.CancleButton}" />
                             </Button>
                         </Border>
                         <Border DockPanel.Dock="Right">
@@ -125,7 +125,7 @@
                                         <Binding ElementName="CbSex"/>
                                     </MultiBinding>
                                 </Button.CommandParameter>
-                                <TextBlock Text="Dang ky" />
+                                <TextBlock Text="{DynamicResource Register.RegisterButton}" />
                             </Button>
                         </Border>
                     </DockPanel>

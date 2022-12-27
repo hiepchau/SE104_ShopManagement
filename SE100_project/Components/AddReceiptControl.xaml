@@ -24,7 +24,7 @@
                 VerticalAlignment="Top">
             <TextBlock 
                     Style="{StaticResource HeadingText2}"
-                    Text="Phiếu nhập kho" 
+                    Text="{DynamicResource AddReceipt.Description}" 
                     FontSize="32"
                     HorizontalAlignment="Center"/>
             <Grid 
@@ -32,7 +32,7 @@
                 <TextBlock 
                         Foreground="{StaticResource Black1}"
                         Style="{StaticResource Text}"
-                        Text="Số phiếu" 
+                        Text="{DynamicResource AddReceipt.TicketNumber}" 
                         FontSize="18"
                         HorizontalAlignment="Left"/>
                 <TextBlock 
@@ -47,7 +47,7 @@
                         Foreground="{StaticResource Black1}"
                         Style="{StaticResource Text}"
                         FontSize="18"
-                        Text="Ngày lập" 
+                        Text="{DynamicResource AddReceipt.Date}" 
                         HorizontalAlignment="Left"/>
                 <TextBlock 
                         x:Name="txbDate"
@@ -72,7 +72,7 @@
                         Foreground="{StaticResource Black1}"
                         Style="{StaticResource Text}"
                         HorizontalAlignment="Left" 
-                        Text="Tổng cộng" 
+                        Text="{DynamicResource AddReceipt.Total}" 
                         FontSize="18" />
                 <TextBlock 
                         x:Name="txbTotalProductsPrice"
@@ -88,7 +88,7 @@
                         Foreground="{StaticResource Black1}"
                         Style="{StaticResource Text}"
                         HorizontalAlignment="Left" 
-                        Text="Giảm giá (%)" 
+                        Text="{DynamicResource AddReceipt.Discount}" 
                         FontSize="18"/>
                 <TextBlock 
                         x:Name="txtDiscount"
@@ -104,7 +104,7 @@
                         Foreground="{StaticResource Black1}"
                         Style="{StaticResource Text}"
                         HorizontalAlignment="Left" 
-                        Text="Thanh toán" 
+                        Text="{DynamicResource AddReceipt.Purchase}" 
                         FontSize="18" />
                 <TextBlock 
                         x:Name="txbMoneyToPay"
@@ -124,7 +124,7 @@
                     BorderThickness="2"
                     Margin="0,30,0,0" 
                     FontSize="20" 
-                    Content="Thanh toán"
+                    Content="{DynamicResource AddReceipt.Purchase}"
                     ToolTip="Thanh toán phiếu nhập kho"
                     VerticalAlignment="Top" />
             <Button 
@@ -135,7 +135,7 @@
                     BorderThickness="2"
                     Margin="0,20,0,0" 
                     FontSize="20" 
-                    Content="Thoát"
+                    Content="{DynamicResource ExitButton}"
                     ToolTip="Thoát"
                     VerticalAlignment="Top" />
         </StackPanel>

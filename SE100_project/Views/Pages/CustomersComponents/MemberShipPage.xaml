@@ -37,7 +37,7 @@
                 Grid.RowSpan="3"
                 Panel.ZIndex="-1"/>
             <TextBlock
-                Text="Danh sách hạng thành viên" 
+                Text="{DynamicResource MembershipPage.Title}" 
                 Style="{StaticResource HeadingText2}"
                 FontSize="22"
                 Margin="20,0,0,0" Height="30" Width="280"/>
@@ -60,22 +60,22 @@
                         <ColumnDefinition Width="90"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock
-                        Text="STT" 
+                        Text="{DynamicResource MembershipPage.No}" 
                         Grid.Column="0"
                         Style="{StaticResource TitleText}"/>
                     <TextBlock
-                        Text="HTV" 
+                        Text="{DynamicResource MembershipPage.Rank}" 
                         Grid.Column="1"
                         Style="{StaticResource TitleText}"
                         HorizontalAlignment="Left"
                         Margin="40,0,0,0"/>
                     <TextBlock
-                        Text="Cấp bậc" 
+                        Text="{DynamicResource MembershipPage.Level}" 
                         Grid.Column="2"
                         Style="{StaticResource TitleText}"
                         Margin="-25 0 0 0"/>
                     <TextBlock
-                        Text="Điều kiện" 
+                        Text="{DynamicResource MembershipPage.Condition}" 
                         Grid.Column="3"
                         Style="{StaticResource TitleText}"/>
                 </Grid>
@@ -130,7 +130,7 @@
                     VerticalAlignment="Top" 
                     Height="40">
                     <Label 
-                        Content="Mã thành viên"
+                        Content="{DynamicResource MembershipPage.ID}"
                         Style="{StaticResource LabelText}"/>
                     <Rectangle 
                         HorizontalAlignment="Right" 
@@ -143,7 +143,7 @@
                     <TextBox 
                         x:Name="txtId"
                         Style="{StaticResource TextBox}"
-                        materialDesign:HintAssist.Hint="Mã hạng thành viên"
+                        materialDesign:HintAssist.Hint="{DynamicResource MembershipPage.IDHint}"
                         Focusable="False"
                         IsReadOnly="True"
                         IsTabStop="False"/>
@@ -153,7 +153,7 @@
                     VerticalAlignment="Top" 
                     Height="40">
                     <Label 
-                        Content="Hạng thành viên"
+                        Content="{DynamicResource MembershipPage.RankName}"
                         Style="{StaticResource LabelText}"/>
                     <Rectangle 
                         HorizontalAlignment="Right" 
@@ -165,7 +165,7 @@
                     <TextBox 
                         x:Name="txtMembership"
                         Style="{StaticResource TextBox}"
-                        materialDesign:HintAssist.Hint="Tên hạng thành viên"
+                        materialDesign:HintAssist.Hint="{DynamicResource MembershipPage.RankNameHint}"
                         TabIndex="0"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                         <TextBox.Text>
@@ -194,7 +194,7 @@
                     VerticalAlignment="Top" 
                     Height="40">
                     <Label 
-                        Content="Điều kiện"
+                        Content="{DynamicResource MembershipPage.Condition}"
                         Style="{StaticResource LabelText}"/>
                     <Rectangle 
                         HorizontalAlignment="Right" 
@@ -206,7 +206,7 @@
                     <TextBox 
                         x:Name="txtRule"
                         Style="{StaticResource TextBox}"
-                        materialDesign:HintAssist.Hint="Điều kiện đạt được: >="
+                        materialDesign:HintAssist.Hint="{DynamicResource MembershipPage.ConditionHint}"
                         TabIndex="0"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                         <TextBox.Text>
@@ -232,7 +232,7 @@
                     VerticalAlignment="Top" 
                     Height="40">
                     <Label 
-                        Content="Cấp bậc"
+                        Content="{DynamicResource MembershipPage.Level}"
                         Style="{StaticResource PrimaryLabelText}"/>
                     <Rectangle 
                         HorizontalAlignment="Right" 
@@ -245,7 +245,7 @@
                     <TextBox 
                         x:Name="txtPrio"
                         Style="{StaticResource TextBox}"
-                        materialDesign:HintAssist.Hint="Cấp bậc"
+                        materialDesign:HintAssist.Hint="{DynamicResource MembershipPage.Level}"
                         TabIndex="1"
                         Text="{Binding priority, Mode=TwoWay}">
                         <i:Interaction.Triggers>
@@ -272,7 +272,7 @@
                 HorizontalAlignment="Right">
                 <Button
                     x:Name="btnSave"
-                    Content="Lưu"
+                    Content="{DynamicResource SaveButton}"
                     ToolTip="Lưu thay đổi"
                     Command="{Binding SaveCommand}"
                     Style="{StaticResource PrimaryButton}"
@@ -294,7 +294,7 @@
                     </Button.IsEnabled>
                 </Button>
                 <Button
-                    Content="Hủy"
+                    Content="{DynamicResource CancleBtn}"
                     ToolTip="Hủy thay đổi"
                     Command="{Binding ClearViewCommand}"
                     CommandParameter="{Binding ElementName=wdMembership}"

@@ -9,5 +9,157 @@
     <sys:String x:Key="Login.Password">Nhập mật khẩu</sys:String>
     <sys:String x:Key="Login.LoginButton">Đăng nhập</sys:String>
     <sys:String x:Key="Login.LoginRegister">Tạo tài khoản</sys:String>
+
+    <sys:String x:Key="Register.LastName">Họ</sys:String>
+    <sys:String x:Key="Register.FirstName">Tên</sys:String>
+    <sys:String x:Key="Register.DateOfBirth">Ngày sinh</sys:String>
+    <sys:String x:Key="Register.Gender">Giới tính</sys:String>
+    <sys:String x:Key="Register.UserNameorEmail">Tên tài khoản/Email</sys:String>
+    <sys:String x:Key="Register.Password">Nhập mật khẩu</sys:String>
+    <sys:String x:Key="Register.PasswordConfirm">Nhập lại mật khẩu</sys:String>
+    <sys:String x:Key="Register.CompanyName">Tên công ty</sys:String>
+    <sys:String x:Key="Register.CancleButton">Huỷ</sys:String>
+    <sys:String x:Key="Register.RegisterButton">Tạo TK</sys:String>
+
+    <sys:String x:Key="AddCustomer.CustomerID">Mã khách hàng</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerIDAuto">Mã tự động</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerName">Họ và tên</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerPhone">Số điện thoại</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerIDCard">Số CMND</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerAddress">Địa chỉ</sys:String>
     
+    <sys:String x:Key="SaveButton">Lưu</sys:String>
+    <sys:String x:Key="CancleBtn">Huỷ</sys:String>
+    <sys:String x:Key="ExitButton">Thoát</sys:String>
+    
+
+    <sys:String x:Key="AddEmployee.ImagePickUp">Chọn ảnh</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeID">Mã nhân viên</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeIDAuto">Mã tự động</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeUserName">Tài khoản</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeUserNameHint">Tên đăng nhập/Email</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePassword">Mật khẩu</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePasswordHint">Nhập mật khẩu</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeName">Tên nhân viên</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeGender">Giới tính</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeMale">Nam</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeFemale">Nữ</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePosition">Chức vụ</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeDOB">Ngày sinh</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeSalary">Lương</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeSalaryHint">Lương cơ bản</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePhone">Số điện thoại</sys:String>
+
+    <sys:String x:Key="AddProduct.ProductID">Mã sản phẩm</sys:String>
+    <sys:String x:Key="AddProduct.ProductIDAuto">Mã tự động</sys:String>
+    <sys:String x:Key="AddProduct.ProductName">Tên sản phẩm</sys:String>
+    <sys:String x:Key="AddProduct.ProductType">Loại sản phẩm</sys:String>
+    <sys:String x:Key="AddProduct.ProductTypeHint">Chọn loại sản phẩm</sys:String>
+    <sys:String x:Key="AddProduct.ProductSupplier">Nhà cung cấp</sys:String>
+    <sys:String x:Key="AddProduct.ProductSupplierHint">Chọn nhà cung cấp</sys:String>
+    <sys:String x:Key="AddProduct.ProductUnit">Đơn vị tính</sys:String>
+    <sys:String x:Key="AddProduct.ProductImportPrice">Giá nhập</sys:String>
+    <sys:String x:Key="AddProduct.ProductSalePrice">Giá bán</sys:String>
+
+    <sys:String x:Key="AddReceipt.Description">Phiếu nhập kho</sys:String>
+    <sys:String x:Key="AddReceipt.TicketNumber">Số phiếu</sys:String>
+    <sys:String x:Key="AddReceipt.Date">Ngày lập</sys:String>
+    <sys:String x:Key="AddReceipt.Total">Tổng cộng</sys:String>
+    <sys:String x:Key="AddReceipt.Discount">Giảm giá (%)</sys:String>
+    <sys:String x:Key="AddReceipt.Purchase">Thanh toán</sys:String>
+
+    <sys:String x:Key="AddSupplier.ID">Mã NCC</sys:String>
+    <sys:String x:Key="AddSupplier.IDAuto">Mã tự động</sys:String>
+    <sys:String x:Key="AddSupplier.Name">Tên NCC</sys:String>
+    <sys:String x:Key="AddSupplier.NameHint">Tên nhà cung cấp</sys:String>
+    <sys:String x:Key="AddSupplier.Address">Địa chỉ</sys:String>
+    <sys:String x:Key="AddSupplier.Email">Email</sys:String>
+    <sys:String x:Key="AddSupplier.EmailHint">abc@domain.com</sys:String>
+    <sys:String x:Key="AddSupplier.Phone">Số điện thoại</sys:String>
+
+    <sys:String x:Key="CustomerSelectMenu.Customer">Khách hàng</sys:String>
+    <sys:String x:Key="CustomerSelectMenu.Membership">Hội viên</sys:String>
+    <sys:String x:Key="CustomerSelectMenu.Supplier">Nhà cung cấp</sys:String>
+
+    <sys:String x:Key="FinanceSelectMenu.Overview">Tổng quan</sys:String>
+    <sys:String x:Key="FinanceSelectMenu.Income">Thu</sys:String>
+    <sys:String x:Key="FinanceSelectMenu.Outcome">Chi</sys:String>
+
+    <sys:String x:Key="ManagementSelectMenu.Dashboard">Tổng quan</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.Order">Đơn hàng</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.Product">Hàng hoá</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.ProductType">Loại sản phẩm</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.Import">Nhập hàng</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.WareHouse">Kho hàng</sys:String>
+
+    <sys:String x:Key="SettingSelectMenu.Employee">Nhân viên</sys:String>
+    <sys:String x:Key="SettingSelectMenu.Store">Cửa hàng</sys:String>
+
+    <sys:String x:Key="Bill.Title">HOÁ ĐƠN</sys:String>
+    <sys:String x:Key="Bill.ID">Mã hoá đơn</sys:String>
+    <sys:String x:Key="Bill.Customerinfo">Thông tin khách:</sys:String>
+    <sys:String x:Key="Bill.ProductNo">STT.</sys:String>
+    <sys:String x:Key="Bill.ProductName">Tên hàng hoá</sys:String>
+    <sys:String x:Key="Bill.ProductPrice">Đơn giá</sys:String>
+    <sys:String x:Key="Bill.ProductAmount">Số lượng</sys:String>
+    <sys:String x:Key="Bill.ProductUnit">Đơn vị tính</sys:String>
+    <sys:String x:Key="Bill.ProductCost">Giá trị</sys:String>
+    <sys:String x:Key="Bill.BillInfo">Thông tin: </sys:String>
+    <sys:String x:Key="Bill.EmployeeName">Tên nhân viên: </sys:String>
+    <sys:String x:Key="Bill.Note">Ghi chú:</sys:String>
+    <sys:String x:Key="Bill.Total">Thành tiền</sys:String>
+    <sys:String x:Key="Bill.Greeting">Cảm ơn quý khách</sys:String>
+
+    <sys:String x:Key="Detail.Title">Chi tiết</sys:String>
+
+    <sys:String x:Key="Income.Sale">Bán hàng</sys:String>
+    <sys:String x:Key="Income.Category">Hạng mục</sys:String>
+
+    <sys:String x:Key="Import.Import">Nhập hàng</sys:String>
+
+    <sys:String x:Key="CustomerPage.Title">Khách hàng</sys:String>
+    <sys:String x:Key="CustomerPage.Rank">Hạng thành viên</sys:String>
+    <sys:String x:Key="CustomerPage.ExcelExport">Xuất Excel</sys:String>
+    <sys:String x:Key="CustomerPage.Add">Thêm khách hàng</sys:String>
+    <sys:String x:Key="CustomerPage.Revenue">Tổng doanh thu</sys:String>
+    <sys:String x:Key="CustomerPage.Quantity">Số lượng khách</sys:String>
+    <sys:String x:Key="CustomerPage.SortByName">Tìm theo tên của khách hàng</sys:String>
+    <sys:String x:Key="CustomerPage.ID">Mã KH</sys:String>
+    <sys:String x:Key="CustomerPage.Name">Khách hàng</sys:String>
+    <sys:String x:Key="CustomerPage.Phone">SĐT</sys:String>
+    <sys:String x:Key="CustomerPage.Total">Tổng tiền</sys:String>
+    <sys:String x:Key="CustomerPage.Sort">Sắp xếp</sys:String>
+
+    <sys:String x:Key="MembershipPage.Title">Danh sách hạng thành viên</sys:String>
+    <sys:String x:Key="MembershipPage.No">STT</sys:String>
+    <sys:String x:Key="MembershipPage.Rank">HTV</sys:String>
+    <sys:String x:Key="MembershipPage.Level">Cấp bậc</sys:String>
+    <sys:String x:Key="MembershipPage.Condition">Điều kiện</sys:String>
+    <sys:String x:Key="MembershipPage.ConditionHint">Điều kiện đạt được > =</sys:String>
+    <sys:String x:Key="MembershipPage.Add">Thêm hạng thành viên</sys:String>
+    <sys:String x:Key="MembershipPage.ID">Mã thành viên</sys:String>
+    <sys:String x:Key="MembershipPage.IDHint">Mã hạng thành viên</sys:String>
+    <sys:String x:Key="MembershipPage.RankName">Hạng thành viên</sys:String>
+    <sys:String x:Key="MembershipPage.RankNameHint">Tên hạng thành viên</sys:String>
+
+    <sys:String x:Key="SupplierPage.Title">Nhà cung cấp</sys:String>
+    <sys:String x:Key="SupplierPage.Add">Thêm NCC</sys:String>
+    <sys:String x:Key="SupplierPage.ExcelExport">Xuất Excel</sys:String>
+    <sys:String x:Key="SupplierPage.Sort"> Sắp xếp</sys:String>
+    <sys:String x:Key="SupplierPage.SortBy">Sắp xếp theo</sys:String>
+    <sys:String x:Key="SupplierPage.HowToSort">Cách sắp xếp</sys:String>
+    <sys:String x:Key="SupplierPage.Quantity">Số lượng nhà cung cấp</sys:String>
+    <sys:String x:Key="SupplierPage.Total">Tổng chi</sys:String>
+    <sys:String x:Key="SupplierPage.SortByName">Tìm theo tên của nhà cung cấp</sys:String>
+    <sys:String x:Key="SupplierPage.ID">Mã NCC</sys:String>
+    <sys:String x:Key="SupplierPage.Name">Nhà cung cấp</sys:String>
+    <sys:String x:Key="SupplierPage.PhoneNum">SĐT</sys:String>
+    <sys:String x:Key="SupplierPage.OrderQuantity">Số đơn hàng</sys:String>
+    <sys:String x:Key="SupplierPage.OrderTotal">Tổng tiền</sys:String>
+
+    <sys:String x:Key="RevenuePage.Title">Tổng quan dòng tiền</sys:String>
+    <sys:String x:Key="RevenuePage.MonthRevenue">Doanh thu tháng</sys:String>
+    <sys:String x:Key="RevenuePage.Income">Thu</sys:String>
+    <sys:String x:Key="RevenuePage.Outcome">Chi</sys:String>
+
 </ResourceDictionary>

@@ -33,7 +33,7 @@
                 CommandParameter="{Binding ElementName=imgProducts}"
                 Height="35" 
                 Width="100" 
-                Content="Chọn ảnh" 
+                Content="{DynamicResource AddEmployee.ImagePickUp}" 
                 FontSize="16"
                 ToolTip="Chọn ảnh"
                 Margin="0,0,0,12" 
@@ -51,7 +51,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label
-                    Content="Mã nhân viên" 
+                    Content="{DynamicResource AddEmployee.EmployeeID}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle
                     Width="230" 
@@ -68,14 +68,14 @@
                     IsReadOnly="True"
                     IsTabStop="False"
                     Cursor="Arrow"
-                    materialDesign:HintAssist.Hint="Mã tự động"/>
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeeIDAuto}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Tài khoản"
+                    Content="{DynamicResource AddEmployee.EmployeeUserName}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -87,7 +87,7 @@
                 <TextBox 
                     x:Name="txtEmail"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Tên đăng nhập/Email"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeeUserNameHint}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}">
                     <TextBox.Text>
@@ -110,7 +110,7 @@
 
             <Grid Margin="0,20,0,0">
                 <Label
-                    Content="Mật Khẩu"                     
+                    Content="{DynamicResource AddEmployee.EmployeePassword}"                     
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right"                     
@@ -123,7 +123,7 @@
                     x:Name="pwbPassword"
                     Width="230"
                     Height="40"
-                    materialDesign:HintAssist.Hint="Nhập mật khẩu"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeePasswordHint}"
                     Foreground="{StaticResource Black2}"
                     HorizontalAlignment="Right" 
                     FontSize="14" 
@@ -147,7 +147,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Tên nhân viên"
+                    Content="{DynamicResource AddEmployee.EmployeeName}"
                     Style="{StaticResource LabelText}" />
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -159,7 +159,7 @@
                 <TextBox 
                     x:Name="txtName"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Tên nhân viên"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeeName}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="userName"
@@ -185,12 +185,12 @@
                 Width="420" 
                 Height="40">
                 <Label 
-                    Content="Giới tính"
+                    Content="{DynamicResource AddEmployee.EmployeeGender}"
                     Style="{StaticResource LabelText}"/>
                 <RadioButton
                     x:Name="rdoMale"
                     Style="{StaticResource MaterialDesignLightRadioButton}"
-                    Content="Nam" 
+                    Content="{DynamicResource AddEmployee.EmployeeMale}" 
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
                     Height="24"
@@ -207,7 +207,7 @@
                 <RadioButton
                     x:Name="rdoFemale"
                     Style="{StaticResource MaterialDesignLightRadioButton}"
-                    Content="Nữ" 
+                    Content="{DynamicResource AddEmployee.EmployeeFemale}" 
                     Foreground="{StaticResource Black2}"
                     FontWeight="SemiBold"
                     Margin="290,0,0,0" 
@@ -226,7 +226,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Chức vụ"
+                    Content="{DynamicResource AddEmployee.EmployeePosition}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -238,7 +238,7 @@
                 <ComboBox
                     x:Name="cboRoleType"
                     Width="220"
-                    materialDesign:HintAssist.Hint="Chức vụ"                     
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeePosition}"                     
                     Margin="0,0,10,0" 
                     HorizontalAlignment="Right"
                     Height="40" 
@@ -268,7 +268,7 @@
                 Width="420" 
                 Height="40">
                 <Label 
-                    Content="Ngày sinh" 
+                    Content="{DynamicResource AddEmployee.EmployeeDOB}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     Height="40" 
@@ -281,7 +281,7 @@
                     x:Name="dpBirthDate"
                     HorizontalAlignment="Right"
                     Margin="0,0,11,0" 
-                    materialDesign:HintAssist.Hint="Ngày sinh" 
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeeDOB}" 
                     Width="210" 
                     Height="40"
                     TabIndex="4"
@@ -305,7 +305,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Lương"
+                    Content="{DynamicResource AddEmployee.EmployeeSalary}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -317,7 +317,7 @@
                 <TextBox 
                     x:Name="txtSalary"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Lương cơ bản"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeeSalaryHint}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}">
                     <TextBox.Text>
@@ -351,7 +351,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Số điện thoại"
+                    Content="{DynamicResource AddEmployee.EmployeePhone}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -363,7 +363,7 @@
                 <TextBox 
                     x:Name="txtPhoneNumber"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeePhone}"
                     MaxLength="10"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                     Foreground="{StaticResource Black2}">
@@ -408,7 +408,7 @@
                     Width="100"
                     ToolTip="Lưu thông tin" 
                     HorizontalAlignment="Left"
-                    Content="Lưu" 
+                    Content="{DynamicResource SaveButton}" 
                     VerticalAlignment="Center"
                     IsTabStop="False">
                     <Button.IsEnabled>
@@ -438,7 +438,7 @@
                     Width="100"
                     ToolTip="Thoát"
                     HorizontalAlignment="Right"
-                    Content="Thoát"
+                    Content="{DynamicResource ExitButton}"
                     FontSize="18"
                     VerticalAlignment="Center"/>
             </Grid>

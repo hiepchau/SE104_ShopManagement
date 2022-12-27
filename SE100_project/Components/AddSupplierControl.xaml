@@ -19,7 +19,7 @@
             Width="420">
             <Grid>
                 <Label 
-                    Content="Mã NCC"
+                    Content="{DynamicResource AddSupplier.ID}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     Width="230"
@@ -35,12 +35,12 @@
                     IsReadOnly="True"
                     Focusable="False"
                     IsTabStop="False"
-                    materialDesign:HintAssist.Hint="Mã tự động"/>
+                    materialDesign:HintAssist.Hint="{DynamicResource AddSupplier.IDAuto}"/>
             </Grid>
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
-                    Content="Tên NCC"
+                    Content="{DynamicResource AddSupplier.Name}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right"
@@ -53,7 +53,7 @@
                     x:Name="txtName"
                     Style="{StaticResource TextBox}"
                     TabIndex="0"
-                    materialDesign:HintAssist.Hint="Tên nhà cung cấp"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddSupplier.NameHint}"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="supplierName"
@@ -75,7 +75,7 @@
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
-                    Content="Địa chỉ"
+                    Content="{DynamicResource AddSupplier.Address}"
                     Style="{StaticResource LabelText}" />
                 <Rectangle 
                     HorizontalAlignment="Right"
@@ -87,7 +87,7 @@
                 <TextBox 
                     x:Name="txtAddress"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Địa chỉ"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddSupplier.Address}"
                     TabIndex="1"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     <TextBox.Text>
@@ -110,7 +110,7 @@
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
-                    Content="Email"
+                    Content="{DynamicResource AddSupplier.Email}"
                     Style="{StaticResource LabelText}" />
                 <Rectangle 
                     HorizontalAlignment="Right"
@@ -122,7 +122,7 @@
                 <TextBox 
                     x:Name="txtEmail"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="abc@domain.com"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddSupplier.EmailHint}"
                     TabIndex="1"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     <TextBox.Text>
@@ -147,7 +147,7 @@
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
-                    Content="Số điện thoại"
+                    Content="{DynamicResource AddSupplier.Phone}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right"
@@ -159,7 +159,7 @@
                 <TextBox 
                     x:Name="txtPhoneNumber"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddSupplier.Phone}"
                     MaxLength="10"
                     TabIndex="2"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
@@ -204,7 +204,7 @@
                 TabIndex="3"
                 ToolTip="Lưu thông tin"
                 HorizontalAlignment="Left"
-                Content="Lưu">
+                Content="{DynamicResource SaveButton}">
             </Button>
             <Button 
                 x:Name="btnCancel"
@@ -215,7 +215,7 @@
                 TabIndex="4"
                 ToolTip="Thoát"
                 HorizontalAlignment="Right"
-                Content="Thoát">
+                Content="{DynamicResource ExitButton}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
                                       Mode="TwoWay">

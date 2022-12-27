@@ -25,8 +25,20 @@
         </i:Interaction.Triggers>
 
 
-        <ListBoxItem Name="Employee" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">Nhân viên</ListBoxItem>
-        <ListBoxItem Name="Store" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">Cửa hàng</ListBoxItem>
+        <ListBoxItem Name="Employee" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource SettingSelectMenu.Employee}" 
+                        FontSize="18"/>
+        </ListBoxItem>
+        <ListBoxItem Name="Store" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">
+            <TextBlock
+                Foreground="{StaticResource Black1}"
+                        Style="{StaticResource Text}"
+                        Text="{DynamicResource SettingSelectMenu.Store}" 
+                        FontSize="18"/>
+        </ListBoxItem>
 
     </ListBox>
 </UserControl>

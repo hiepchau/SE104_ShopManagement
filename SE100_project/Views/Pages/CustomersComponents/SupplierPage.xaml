@@ -23,7 +23,7 @@
             <RowDefinition Height="90"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource TextHeader}" Text="Nhà cung cấp"/>
+        <TextBlock Style="{StaticResource TextHeader}" Text="{DynamicResource SupplierPage.Title}"/>
         <StackPanel
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" 
@@ -31,7 +31,7 @@
                     VerticalAlignment="Center">
             <Button
                         Style="{StaticResource PrimaryButton}"
-                        Content="Xuất excel"
+                        Content="{DynamicResource SupplierPage.ExcelExport}"
                         ToolTip="Xuất danh sách nhà cung cấp"
                         Margin="0,0,20,0"
                         Command="{Binding ExportExcelCommand}"                 
@@ -40,7 +40,7 @@
                         x:Name="btnAddSupplier"
                         Style="{StaticResource PrimaryButton}"
                         Command="{Binding OpenAddSupplierControlCommand}"
-                        Content="Thêm NCC"
+                        Content="{DynamicResource SupplierPage.Add}"
                         ToolTip="Thêm nhà cung cấp"
                         Height="40"
                         Width="160"/>
@@ -72,7 +72,7 @@
                         <TextBlock
                                     Style="{StaticResource HeadingText2}"
                                     FontSize="22"
-                                    Text="Sắp xếp"
+                                    Text="{DynamicResource SupplierPage.Sort}"
                                     HorizontalAlignment="Left" 
                                     Margin="20,0,0,0"/>
                         <Rectangle 
@@ -89,7 +89,7 @@
                                     VerticalAlignment="Center"
                                     x:Name="cboSortType"
                                     materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="Sắp xếp theo"
+                                    materialDesign:HintAssist.Hint="{DynamicResource SupplierPage.SortBy}"
                                     materialDesign:HintAssist.IsFloating="True"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     Foreground="{StaticResource Black2}"
@@ -116,7 +116,7 @@
                                     VerticalAlignment="Center"
                                     x:Name="cboSortSupplier"
                                     materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="Cách sắp xếp"
+                                    materialDesign:HintAssist.Hint="{DynamicResource SupplierPage.HowToSort}"
                                     materialDesign:HintAssist.IsFloating="True"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     Foreground="{StaticResource Black2}"
@@ -158,7 +158,7 @@
                                 Grid.Row="0"
                                 Style="{StaticResource HeadingText2}"
                                 FontSize="22"
-                                Text="Số lượng nhà cung cấp" 
+                                Text="{DynamicResource SupplierPage.Quantity}" 
                                 HorizontalAlignment="Left" 
                                 Margin="20,0,0,0"/>
                     <Rectangle
@@ -194,7 +194,7 @@
                     <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource HeadingText2}"
-                                Text="Tổng chi" 
+                                Text="{DynamicResource SupplierPage.Total}" 
                                 Height="Auto"
                                 FontSize="22"
                                 HorizontalAlignment="Left" 
@@ -247,7 +247,7 @@
                                 Panel.ZIndex="-1" />
                     <TextBox 
                                 x:Name="txtSearchSupplier"
-                                materialDesign:HintAssist.Hint="Tìm theo tên nhà cung cấp" 
+                                materialDesign:HintAssist.Hint="{DynamicResource SupplierPage.SortByName}" 
                                 FontSize="18" 
                                 BorderThickness="0" 
                                 MaxLines="1"
@@ -308,24 +308,24 @@
 
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                                    Text="Mã NCC" 
+                                    Text="{DynamicResource SupplierPage.ID}" 
                                     Grid.Column="0"
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
                         <TextBlock
-                                    Text="Nhà cung cấp" 
+                                    Text="{DynamicResource SupplierPage.Name}" 
                                     Grid.Column="1"
                                     Style="{StaticResource TitleText}"/>
                         <TextBlock
-                                    Text="SĐT" 
+                                    Text="{DynamicResource SupplierPage.PhoneNum}" 
                                     Grid.Column="2"
                                     HorizontalAlignment="Center"
                                     Style="{StaticResource TitleText}"/>
                         <TextBlock
-                                    Text="Số đơn hàng" 
+                                    Text="{DynamicResource SupplierPage.OrderQuantity}" 
                                     Grid.Column="3"
                                     Style="{StaticResource TitleText}"/>
                         <TextBlock
-                                    Text="Tổng tiền" 
+                                    Text="{DynamicResource SupplierPage.OrderTotal}" 
                                     Grid.Column="4"
                                     Style="{StaticResource TitleText}"/>
                     </Grid>

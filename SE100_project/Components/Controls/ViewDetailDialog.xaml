@@ -29,7 +29,7 @@
                 VerticalAlignment="Bottom"
                 Height="1"/>
             <TextBlock 
-                Text="CHI TIẾT" 
+                Text="{DynamicResource Detail.Title}" 
                 FontWeight="Black"
                 HorizontalAlignment="Right" 
                 Margin="0,25,40,0"
@@ -222,7 +222,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock 
                     Grid.Column="0"
-                    Text="STT"
+                    Text="{DynamicResource Bill.ProductNo}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -231,7 +231,7 @@
                     Foreground="{DynamicResource White}"/>
                 <TextBlock 
                     Grid.Column="1"
-                    Text="Tên hàng hóa"
+                    Text="{DynamicResource Bill.ProductName}"
                     HorizontalAlignment="Left" 
                     Margin="10,0,0,0" 
                     TextWrapping="Wrap" 
@@ -240,7 +240,7 @@
                     Foreground="{DynamicResource White}"/>
                 <TextBlock 
                     Grid.Column="2"
-                    Text="Đơn giá"
+                    Text="{DynamicResource Bill.ProductPrice}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -249,7 +249,7 @@
                     Foreground="{DynamicResource Black2}"/>
                 <TextBlock 
                     Grid.Column="3"
-                    Text="Số lượng"
+                    Text="{DynamicResource Bill.ProductAmount}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -258,7 +258,7 @@
                     Foreground="{DynamicResource Black2}"/>
                 <TextBlock 
                     Grid.Column="4"
-                    Text="Đơn vị tính"
+                    Text="{DynamicResource Bill.ProductUnit}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -267,7 +267,7 @@
                     Foreground="{DynamicResource Black2}"/>
                 <TextBlock 
                     Grid.Column="5"
-                    Text="Thành tiền"
+                    Text="{DynamicResource Bill.ProductCost}"
                     HorizontalAlignment="Center" 
                     Margin="0" 
                     TextWrapping="Wrap" 
@@ -351,7 +351,7 @@
                 HorizontalAlignment="Left"
                 Margin="30,30,0,0" 
                 TextWrapping="Wrap" 
-                Text="Thành tiền" 
+                Text="{DynamicResource Bill.Total}" 
                 VerticalAlignment="Top"
                 FontSize="14" 
                 FontWeight="SemiBold" 
@@ -365,7 +365,7 @@
                 Width="260" >
                 <TextBlock 
                     TextWrapping="Wrap" 
-                    Text="Thông tin:" 
+                    Text="{DynamicResource Bill.BillInfo}" 
                     FontSize="16" 
                     FontWeight="Black" 
                     Foreground="{DynamicResource Black2}"/>
@@ -378,7 +378,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock 
                         TextWrapping="Wrap" 
-                        Text="Tên nhân viên:" 
+                        Text="{DynamicResource Bill.EmployeeName}" 
                         FontWeight="SemiBold"
                         Margin="0" 
                         Foreground="{DynamicResource Black2}"/>
@@ -398,7 +398,7 @@
                     Margin="0,10,0,0" >
                     <TextBlock 
                         TextWrapping="Wrap" 
-                        Text="Ghi chú:" 
+                        Text="{DynamicResource Bill.Note}" 
                         FontSize="14" 
                         FontWeight="Black" 
                         Foreground="{DynamicResource Black2}"/>
@@ -419,7 +419,7 @@
                     x:Name="btnCancel"
                     Style="{StaticResource CancelButton}"
                     Height="40"
-                    Content="Thoát"
+                    Content="{DynamicResource ExitButton}"
                     Command="{Binding ExitCommand}"
                     Width="100"
                     ToolTip="Thoát"

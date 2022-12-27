@@ -23,7 +23,7 @@
                 VerticalAlignment="Top"  
                 Height="40">
                 <Label
-                    Content="Mã khách hàng" 
+                    Content="{DynamicResource AddCustomer.CustomerID}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle
                     Width="230" 
@@ -35,7 +35,7 @@
                     HorizontalAlignment="Right"/>
                 <TextBox 
                     x:Name="txtId"
-                    materialDesign:HintAssist.Hint="Mã tự động"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddCustomer.CustomerIDAuto}"
                     Style="{StaticResource TextBox}"
                     IsReadOnly="True"
                     IsTabStop="False"
@@ -46,7 +46,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Họ tên"
+                    Content="{DynamicResource AddCustomer.CustomerName}"
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -57,7 +57,7 @@
                     Stroke="{StaticResource Gray2}" />
                 <TextBox 
                     x:Name="txtName"
-                    materialDesign:HintAssist.Hint="Họ và tên"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddCustomer.CustomerName}"
                     Style="{StaticResource TextBox}"
                     TabIndex="0"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
@@ -86,7 +86,7 @@
                 VerticalAlignment="Top" 
                 Height="40">
                 <Label 
-                    Content="Số điện thoại" 
+                    Content="{DynamicResource AddCustomer.CustomerPhone}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle
                     HorizontalAlignment="Right" 
@@ -97,7 +97,7 @@
                     Stroke="{StaticResource Gray2}" />
                 <TextBox 
                     x:Name="txtPhoneNumber"
-                    materialDesign:HintAssist.Hint="Số điện thoại" 
+                    materialDesign:HintAssist.Hint="{DynamicResource AddCustomer.CustomerPhone}" 
                     Style="{StaticResource TextBox}"
                     MaxLength="10"
                     TabIndex="1"
@@ -132,7 +132,7 @@
                 VerticalAlignment="Top"
                 Height="40">
                 <Label 
-                    Content="Số CMND" 
+                    Content="{DynamicResource AddCustomer.CustomerIDCard}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -144,7 +144,7 @@
                 <TextBox 
                     x:Name="txtCMND"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="CMND"
+                    materialDesign:HintAssist.Hint="{DynamicResource AddCustomer.CustomerIDCard}"
                     TabIndex="2"
                     MaxLength="12"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
@@ -178,7 +178,7 @@
                 VerticalAlignment="Top"  
                 Height="40">
                 <Label 
-                    Content="Địa chỉ" 
+                    Content="{DynamicResource AddCustomer.CustomerAddress}" 
                     Style="{StaticResource LabelText}"/>
                 <Rectangle 
                     HorizontalAlignment="Right" 
@@ -190,7 +190,7 @@
                 <TextBox
                     x:Name="txtAddress"
                     Style="{StaticResource TextBox}"
-                    materialDesign:HintAssist.Hint="Địa chỉ" 
+                    materialDesign:HintAssist.Hint="{DynamicResource AddCustomer.CustomerAddress}" 
                     Width="230"
                     TabIndex="3"
                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
@@ -221,7 +221,7 @@
                     x:Name="btnCancel"
                     Style="{StaticResource CancelButton}"
                     Height="40"
-                    Content="Thoát"
+                    Content="{DynamicResource CancleButton}"
                     Command="{Binding ExitCommand}"
                     Width="100"
                     ToolTip="Thoát"
@@ -237,7 +237,7 @@
                     Width="100"
                     TabIndex="4"
                     ToolTip="Thêm nhân viên"
-                    Content="Lưu"
+                    Content="{DynamicResource SaveButton}"
                     HorizontalAlignment="Left">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"

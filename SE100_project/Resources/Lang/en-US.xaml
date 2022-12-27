@@ -9,5 +9,154 @@
     <sys:String x:Key="Login.Password">Enter password</sys:String>
     <sys:String x:Key="Login.LoginButton">Login</sys:String>
     <sys:String x:Key="Login.LoginRegister">Register</sys:String>
+
+    <sys:String x:Key="Register.LastName">Last name</sys:String>
+    <sys:String x:Key="Register.FirstName">First name</sys:String>
+    <sys:String x:Key="Register.DateOfBirth">Date of birth</sys:String>
+    <sys:String x:Key="Register.Gender">Gender</sys:String>
+    <sys:String x:Key="Register.UserNameorEmail">UserName/Email</sys:String>
+    <sys:String x:Key="Register.Password">Password</sys:String>
+    <sys:String x:Key="Register.PasswordConfirm">Confirm Password</sys:String>
+    <sys:String x:Key="Register.CompanyName">Company name</sys:String>
+    <sys:String x:Key="Register.CancleButton">Cancle</sys:String>
+    <sys:String x:Key="Register.RegisterButton">Register</sys:String>
+
+    <sys:String x:Key="AddCustomer.CustomerID">Customer ID</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerIDAuto">Auto ID</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerName">Name</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerPhone">Phone number</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerIDCard">ID Card</sys:String>
+    <sys:String x:Key="AddCustomer.CustomerAddress">Address</sys:String>
     
+    <sys:String x:Key="SaveButton">Save</sys:String>
+    <sys:String x:Key="CancelButton">Cancle</sys:String>
+    <sys:String x:Key="ExitButton">Exit</sys:String>
+
+    <sys:String x:Key="AddEmployee.ImagePickUp">Select image</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeID">Employee ID</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeIDAuto">Auto ID</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeUserName">UserName</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeUserNameHint">UserName/Email</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePassword">Password</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePasswordHint">Enter password</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeName">Employee name</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeGender">Gender</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeMale">Male</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeFemale">Female</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePosition">Position</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeDOB">Date of birth</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeSalary">Salary</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeeSalaryHint">Basic salary</sys:String>
+    <sys:String x:Key="AddEmployee.EmployeePhone">Phone number</sys:String>
+
+    <sys:String x:Key="AddProduct.ProductID">Product ID</sys:String>
+    <sys:String x:Key="AddProduct.ProductIDAuto">Auto ID</sys:String>
+    <sys:String x:Key="AddProduct.ProductName">Product Name</sys:String>
+    <sys:String x:Key="AddProduct.ProductType">Product Type</sys:String>
+    <sys:String x:Key="AddProduct.ProductTypeHint">Select Product Type</sys:String>
+    <sys:String x:Key="AddProduct.ProductSupplier">Product Supplier</sys:String>
+    <sys:String x:Key="AddProduct.ProductSupplierHint">Select Product Supplier</sys:String>
+    <sys:String x:Key="AddProduct.ProductUnit">Unit</sys:String>
+    <sys:String x:Key="AddProduct.ProductImportPrice">Import Price</sys:String>
+    <sys:String x:Key="AddProduct.ProductSalePrice">Sale Price</sys:String>
+
+    <sys:String x:Key="AddReceipt.Description">Import ticket</sys:String>
+    <sys:String x:Key="AddReceipt.TicketNumber">Ticket ID</sys:String>
+    <sys:String x:Key="AddReceipt.Date">Date</sys:String>
+    <sys:String x:Key="AddReceipt.Total">Total</sys:String>
+    <sys:String x:Key="AddReceipt.Discount">Discount (%)</sys:String>
+    <sys:String x:Key="AddReceipt.Purchase">Purchase</sys:String>
+
+    <sys:String x:Key="AddSupplier.ID">Supplier ID</sys:String>
+    <sys:String x:Key="AddSupplier.IDAuto">Auto ID</sys:String>
+    <sys:String x:Key="AddSupplier.Name">Supplier Name</sys:String>
+    <sys:String x:Key="AddSupplier.NameHint">Supplier Name</sys:String>
+    <sys:String x:Key="AddSupplier.Address">Address</sys:String>
+    <sys:String x:Key="AddSupplier.Email">Email</sys:String>
+    <sys:String x:Key="AddSupplier.EmailHint">abc@domain.com</sys:String>
+    <sys:String x:Key="AddSupplier.Phone">Phone number</sys:String>
+
+    <sys:String x:Key="CustomerSelectMenu.Customer">Customer</sys:String>
+    <sys:String x:Key="CustomerSelectMenu.Membership">Membership</sys:String>
+    <sys:String x:Key="CustomerSelectMenu.Supplier">Supplier</sys:String>
+
+    <sys:String x:Key="FinanceSelectMenu.Overview">Overview</sys:String>
+    <sys:String x:Key="FinanceSelectMenu.Income">Income</sys:String>
+    <sys:String x:Key="FinanceSelectMenu.Outcome">Outcome</sys:String>
+
+    <sys:String x:Key="ManagementSelectMenu.Dashboard">Dashboard</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.Order">Order</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.Product">Product</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.ProductType">ProductType</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.Import">Import</sys:String>
+    <sys:String x:Key="ManagementSelectMenu.WareHouse">WareHouse</sys:String>
+
+    <sys:String x:Key="SettingSelectMenu.Employee">Employee</sys:String>
+    <sys:String x:Key="SettingSelectMenu.Store">Store</sys:String>
+
+    <sys:String x:Key="Bill.Title">RECEIPT</sys:String>
+    <sys:String x:Key="Bill.ID">Receipt ID</sys:String>
+    <sys:String x:Key="Bill.Customerinfo">Customer infomation</sys:String>
+    <sys:String x:Key="Bill.ProductNo">No.</sys:String>
+    <sys:String x:Key="Bill.ProductName">Product Name</sys:String>
+    <sys:String x:Key="Bill.ProductPrice">Price</sys:String>
+    <sys:String x:Key="Bill.ProductAmount">Amount</sys:String>
+    <sys:String x:Key="Bill.ProductUnit">Unit</sys:String>
+    <sys:String x:Key="Bill.ProductCost">Cost</sys:String>
+    <sys:String x:Key="Bill.BillInfo">Receipt Infomation: </sys:String>
+    <sys:String x:Key="Bill.EmployeeName">Employee name: </sys:String>
+    <sys:String x:Key="Bill.Note">Note:</sys:String>
+    <sys:String x:Key="Bill.Total">Total</sys:String>
+    <sys:String x:Key="Bill.Greeting">Thank you and see you again.</sys:String>
+
+    <sys:String x:Key="Detail.Title">Detail</sys:String>
+
+    <sys:String x:Key="Income.Sale">Sale</sys:String>
+    <sys:String x:Key="Income.Category">Category</sys:String>
+
+    <sys:String x:Key="Import.Import">Import</sys:String>
+
+    <sys:String x:Key="CustomerPage.Title">Customer</sys:String>
+    <sys:String x:Key="CustomerPage.Rank">Membership rank</sys:String>
+    <sys:String x:Key="CustomerPage.ExcelExport">Excel export</sys:String>
+    <sys:String x:Key="CustomerPage.Add">Add customer</sys:String>
+    <sys:String x:Key="CustomerPage.Revenue">Revenue</sys:String>
+    <sys:String x:Key="CustomerPage.Quantity">Quantity</sys:String>
+    <sys:String x:Key="CustomerPage.SortByName">Sort by customer name</sys:String>
+    <sys:String x:Key="CustomerPage.ID">ID</sys:String>
+    <sys:String x:Key="CustomerPage.Name">Name</sys:String>
+    <sys:String x:Key="CustomerPage.Phone">Num</sys:String>
+    <sys:String x:Key="CustomerPage.Total">Total</sys:String>
+    <sys:String x:Key="CustomerPage.Sort">Sort</sys:String>
+
+    <sys:String x:Key="MembershipPage.Title">Membership rank list</sys:String>
+    <sys:String x:Key="MembershipPage.No">No</sys:String>
+    <sys:String x:Key="MembershipPage.Rank">Rank</sys:String>
+    <sys:String x:Key="MembershipPage.Level">Level</sys:String>
+    <sys:String x:Key="MembershipPage.Condition">Condition</sys:String>
+    <sys:String x:Key="MembershipPage.ConditionHint">Condition > =</sys:String>
+    <sys:String x:Key="MembershipPage.Add">Add rank</sys:String>
+    <sys:String x:Key="MembershipPage.ID">Member ID</sys:String>
+    <sys:String x:Key="MembershipPage.IDHint">Auto member ID</sys:String>
+    <sys:String x:Key="MembershipPage.RankName">Member rank</sys:String>
+    <sys:String x:Key="MembershipPage.RankNameHint">Member rank name</sys:String>
+
+    <sys:String x:Key="SupplierPage.Title">Supplier</sys:String>
+    <sys:String x:Key="SupplierPage.Add">Add supplier</sys:String>
+    <sys:String x:Key="SupplierPage.ExcelExport">Excel export</sys:String>
+    <sys:String x:Key="SupplierPage.Sort">Sort</sys:String>
+    <sys:String x:Key="SupplierPage.SortBy">Sort by</sys:String>
+    <sys:String x:Key="SupplierPage.HowToSort">How to sort</sys:String>
+    <sys:String x:Key="SupplierPage.Quantity">Quantity</sys:String>
+    <sys:String x:Key="SupplierPage.Total">Total</sys:String>
+    <sys:String x:Key="SupplierPage.ID">ID</sys:String>
+    <sys:String x:Key="SupplierPage.Name">Name</sys:String>
+    <sys:String x:Key="SupplierPage.PhoneNum">Phone Num</sys:String>
+    <sys:String x:Key="SupplierPage.OrderQuantity">Quantity</sys:String>
+    <sys:String x:Key="SupplierPage.OrderTotal">Total</sys:String>
+
+    <sys:String x:Key="RevenuePage.Title">Cashflow overview</sys:String>
+    <sys:String x:Key="RevenuePage.MonthRevenue">Month revenue</sys:String>
+    <sys:String x:Key="RevenuePage.Income">Income</sys:String>
+    <sys:String x:Key="RevenuePage.Outcome">Outcome</sys:String>
 </ResourceDictionary>

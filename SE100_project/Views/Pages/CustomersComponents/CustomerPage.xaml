@@ -24,7 +24,7 @@
             <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource TextHeader}" Text="Khách Hàng"/>
+        <TextBlock Style="{StaticResource TextHeader}" Text="{DynamicResource CustomerPage.Title}"/>
         <StackPanel
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
@@ -33,7 +33,7 @@
             <Button
                         Style="{StaticResource PrimaryButton}"
                         Command="{Binding OpenMemberShipControlCommand}"
-                        Content="Hạng thành viên"
+                        Content="{DynamicResource CustomerPage.Rank}"
                         Height="40"
                         ToolTip="Quản lý hạng thành viên"
                         Width="160"
@@ -42,7 +42,7 @@
                         Margin="0,0,20,0"/>
             <Button
                         Style="{StaticResource PrimaryButton}"
-                        Content="Xuất excel"
+                        Content="{DynamicResource CustomerPage.ExcelExport}"
                         ToolTip="Xuất danh sách khách hàng"
                         Width="160"
                         Command="{Binding ExportExcelCommand}"
@@ -51,7 +51,7 @@
                         x:Name="btnAddCustomer"
                         Style="{StaticResource PrimaryButton}"
                         Command="{Binding OpenAddCustomerControlCommand}"
-                        Content="Thêm khách hàng"
+                        Content="{DynamicResource CustomerPage.Add}"
                         ToolTip="Thêm khách hàng"
                         Padding="0"
                         FontSize="18"
@@ -82,7 +82,7 @@
                     <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Text}"
-                                Text="Hạng thành viên" 
+                                Text="{DynamicResource CustomerPage.Rank}" 
                                 Height="Auto"
                                 FontSize="20"
                                 FontWeight="Bold"
@@ -96,7 +96,7 @@
                                 SelectedItem="{Binding SelectedMembership, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Grid.Row="1"
                                 materialDesign:ComboBoxAssist.ClassicMode="True"
-                                materialDesign:HintAssist.Hint="Hạng thành viên"
+                                materialDesign:HintAssist.Hint="{DynamicResource CustomerPage.Rank}"
                                 Height="40"
                                 FontSize="18"
                                 BorderThickness="0"
@@ -148,7 +148,7 @@
                     <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource HeadingText2}"
-                                Text="Tổng tiền mua" 
+                                Text="{DynamicResource CustomerPage.Revenue}" 
                                 Height="Auto"
                                 FontSize="20"
                                 Margin="20,0,0,0" 
@@ -158,7 +158,7 @@
                                 Grid.Row="1"
                                 Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                 materialDesign:ComboBoxAssist.ClassicMode="True"
-                                materialDesign:HintAssist.Hint="Sắp xếp"
+                                materialDesign:HintAssist.Hint="{DynamicResource CustomerPage.Sort}"
                                 Height="40"
                                 SelectedIndex="{Binding selectedSort, UpdateSourceTrigger=PropertyChanged}"
                                 FontSize="18"
@@ -198,7 +198,7 @@
                     <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Text}"
-                                Text="Số lượng khách" 
+                                Text="{DynamicResource CustomerPage.Quantity}" 
                                 Height="Auto"
                                 FontSize="20"
                                 FontWeight="Bold"
@@ -237,7 +237,7 @@
                     <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Text}"
-                                Text="Tổng doanh thu" 
+                                Text="{DynamicResource CustomerPage.Revenue}" 
                                 FontSize="20"
                                 Height="Auto"
                                 FontWeight="Bold"
@@ -285,7 +285,7 @@
                     <TextBox 
                                 Grid.Row="0"
                                 x:Name="txtSearchCustomer"
-                                materialDesign:HintAssist.Hint="Tìm theo tên khách hàng" 
+                                materialDesign:HintAssist.Hint="{DynamicResource CustomerPage.SortByName}" 
                                 FontSize="18" 
                                 BorderThickness="0" 
                                 MaxLines="1"
@@ -353,26 +353,26 @@
                             <ColumnDefinition Width="40"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Text="Mã KH" 
+                            Text="{DynamicResource CustomerPage.ID}" 
                             Grid.Column="0"
                             Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
                         <TextBlock
-                                    Text="Khách hàng" 
+                                    Text="{DynamicResource CustomerPage.Name}" 
                                     Grid.Column="1"
                                     Style="{StaticResource TitleText}"
                                     HorizontalAlignment="Left"
                                     Margin="20,0,0,0" Height="24" Width="96"/>
                         <TextBlock
-                                    Text="SĐT" 
+                                    Text="{DynamicResource CustomerPage.Phone}" 
                                     Grid.Column="2"
                                     HorizontalAlignment="Left"
                                     Style="{StaticResource TitleText}" Height="24" />
                         <TextBlock
-                                    Text="Hạng thành viên" 
+                                    Text="{DynamicResource CustomerPage.Rank}" 
                                     Grid.Column="3"
                                     Style="{StaticResource TitleText}" Height="24" Margin="0,0,0,0"/>
                         <TextBlock
-                                    Text="Tổng tiền" 
+                                    Text="{DynamicResource CustomerPage.Total}" 
                                     Grid.Column="4"
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,0,0"/>
 

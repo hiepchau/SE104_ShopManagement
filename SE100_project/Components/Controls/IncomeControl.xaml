@@ -45,12 +45,12 @@
         <TextBlock 
             Grid.Column="4" 
             Style="{StaticResource Text}"
-            Text="Bán hàng"
+            Text="{DynamicResource Income.Sale}"
             Margin="0,0,0,0" />
         <TextBlock 
             Grid.Column="5" 
             Style="{StaticResource Text}"                         
-            Text="Hạng mục"
+            Text="{DynamicResource Income.Category}"
             Margin="0,0,0,0"/>
         <TextBlock 
             Grid.Column="6" 
