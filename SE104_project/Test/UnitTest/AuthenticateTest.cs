@@ -42,13 +42,23 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
             else isLogin = false;
             Assert.IsTrue(isLogin);
         }
+        [Test]
         public async Task TestLoginFail()
         {
             UserInfomation userInfo = await authenticatorFail.Authenticate();
             bool isLogin;
             if (userInfo != null) { isLogin = true; }
             else isLogin = false;
-            Assert.IsTrue(isLogin);
+            Assert.IsFalse(isLogin);       
         }
+
+        [Test]
+        public async Task TestLoginBlank()
+        {
+            var testblank = await new Authenticator(new AuthenticationInformation("", "", ""), Connection.client).Authenticate();
+            Assert.IsNull(testblank);
+        }
+
     }
+
 }

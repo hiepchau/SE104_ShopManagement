@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="SE104_OnlineShopManagement.Views.LanguageComponent"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:markups="clr-namespace:SE104_OnlineShopManagement.Services.Common"
+             xmlns:command="clr-namespace:SE104_OnlineShopManagement.Commands"
+             xmlns:vm="clr-namespace:SE104_OnlineShopManagement.ViewModels"
+             Foreground="{DynamicResource ForegroundResource}"
+             Width="30" Height="30"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+                <ResourceDictionary>
+                    <vm:LanguageViewModel x:Key="LanguageViewModel"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </UserControl.Resources>
+    <Border>
+        <ToggleButton x:Name="TogglePopupButton" Margin="0 0 0 0" Width="24" Height="24"
+                      Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                      ToolTip="MaterialDesignFloatingActionMiniLightButton">
+            <StackPanel>
+                <materialDesign:PackIcon Kind="Earth" Height="24" Width="24" />
+                <Popup x:Name="myPopup" Placement="Bottom" HorizontalOffset="90"
+                       IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}" StaysOpen="False"
+                       PopupAnimation="Fade" PlacementTarget="{Binding ElementName=TogglePopupButton}">
+                    <Border BorderBrush="Black" Height="60" Width="100"
+                            DataContext="{StaticResource LanguageViewModel}">
+                        <Grid Width="100" HorizontalAlignment="Center"
+                              Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <Grid>
+                                    <CheckBox
+                                        x:Name="VietnameseButton"
+                                        IsChecked="{Binding CurrentLanguage, Converter={markups:Comparator}, ConverterParameter=vi-VN}"
+                                        Content="Tiếng Việt" FontFamily="Segoe ui" FontSize="13" FontWeight="SemiBold" />
+                                    <Button Command="{x:Static command:LanguageCommand.ChangeLanguageCommand}"
+                                            CommandParameter="vi-VN"
+                                            Foreground="Transparent"
+                                            BorderBrush="Transparent"
+                                            Background="Transparent" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <Grid>
+                                    <CheckBox
+                                        x:Name="EnglishButton"
+                                        IsChecked="{Binding CurrentLanguage, Converter={markups:Comparator}, ConverterParameter=en-US}"
+                                        Content="English" FontFamily="Segoe ui" FontSize="13" FontWeight="SemiBold" />
+                                    <Button Command="{x:Static command:LanguageCommand.ChangeLanguageCommand}"
+                                            CommandParameter="en-US"
+                                            Foreground="Transparent"
+                                            BorderBrush="Transparent"
+                                            Background="Transparent" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Popup>
+            </StackPanel>
+        </ToggleButton>
+    </Border>
+</UserControl>

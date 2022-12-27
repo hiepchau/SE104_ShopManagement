@@ -11,6 +11,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
         xmlns:uc="clr-namespace:SE104_OnlineShopManagement.Components.TitleBar"
         mc:Ignorable="d"
+        xmlns:component="clr-namespace:SE104_OnlineShopManagement.Views"
         Background="{x:Null}"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -40,7 +41,8 @@
                         <ContentControl.Resources>
                             <DataTemplate DataType="{x:Type titleBarVM--><!--:TitleBarViewModel}">-->
                                 <uc:NonResizeTitleBar/>
-                            <!--</DataTemplate>
+                    <component:LanguageComponent/>
+                    <!--</DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>-->
                 </DockPanel>

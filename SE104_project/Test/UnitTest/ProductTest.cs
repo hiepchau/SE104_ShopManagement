@@ -51,5 +51,11 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
             }
             Assert.IsTrue(flag);
         }
+        [Test]
+        public async Task AddProductMinusQuantity()
+        {
+            pro = new ProductsInformation("", "OMO", 1, 15000, 10000, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
+            register = new RegisterProducts(pro, Connection.client, _session);
+        }
     }
 }
