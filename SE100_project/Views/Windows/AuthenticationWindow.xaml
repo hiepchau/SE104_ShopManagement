@@ -40,8 +40,9 @@
                                     DockPanel.Dock="Right" >
                         <ContentControl.Resources>
                             <DataTemplate DataType="{x:Type titleBarVM--><!--:TitleBarViewModel}">-->
-                                <uc:NonResizeTitleBar/>
-                    <component:LanguageComponent/>
+                    <component:LanguageComponent HorizontalAlignment="Left"/>
+                                <uc:NonResizeTitleBar HorizontalAlignment="Right"/>
+                    
                     <!--</DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>-->

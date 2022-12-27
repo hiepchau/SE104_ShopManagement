@@ -25,17 +25,18 @@
         </ResourceDictionary>
         
     </UserControl.Resources>
-    <Border>
+    <Border
+        DataContext="{StaticResource LanguageViewModel}">
         <ToggleButton x:Name="TogglePopupButton" Margin="0 0 0 0" Width="24" Height="24"
-                      Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
-                      ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                      Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                      ToolTip="Select language" >
             <StackPanel>
                 <materialDesign:PackIcon Kind="Earth" Height="24" Width="24" />
-                <Popup x:Name="myPopup" Placement="Bottom" HorizontalOffset="90"
-                       IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}" StaysOpen="False"
-                       PopupAnimation="Fade" PlacementTarget="{Binding ElementName=TogglePopupButton}">
+                <Popup x:Name="myPopup" Placement="Bottom" HorizontalOffset="20"
+                       IsOpen="{Binding IsChecked,ElementName=TogglePopupButton, Mode=TwoWay}" StaysOpen="True"
+                       PopupAnimation="Fade" PlacementTarget="{Binding ElementName=TogglePopupButton}" LostMouseCapture="myPopup_LostMouseCapture">
                     <Border BorderBrush="Black" Height="60" Width="100"
-                            DataContext="{StaticResource LanguageViewModel}">
+                            >
                         <Grid Width="100" HorizontalAlignment="Center"
                               Background="White">
                             <Grid.RowDefinitions>
@@ -47,7 +48,7 @@
                                     <CheckBox
                                         x:Name="VietnameseButton"
                                         IsChecked="{Binding CurrentLanguage, Converter={markups:Comparator}, ConverterParameter=vi-VN}"
-                                        Content="Tiếng Việt" FontFamily="Segoe ui" FontSize="13" FontWeight="SemiBold" />
+                                        Content="Tiếng Việt" FontFamily="Segoe ui" FontSize="13" FontWeight="SemiBold" Foreground="Black"/>
                                     <Button Command="{x:Static command:LanguageCommand.ChangeLanguageCommand}"
                                             CommandParameter="vi-VN"
                                             Foreground="Transparent"
@@ -60,7 +61,7 @@
                                     <CheckBox
                                         x:Name="EnglishButton"
                                         IsChecked="{Binding CurrentLanguage, Converter={markups:Comparator}, ConverterParameter=en-US}"
-                                        Content="English" FontFamily="Segoe ui" FontSize="13" FontWeight="SemiBold" />
+                                        Content="English" FontFamily="Segoe ui" FontSize="13" FontWeight="SemiBold" Foreground="Black" />
                                     <Button Command="{x:Static command:LanguageCommand.ChangeLanguageCommand}"
                                             CommandParameter="en-US"
                                             Foreground="Transparent"

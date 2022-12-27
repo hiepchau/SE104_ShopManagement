@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,6 +22,11 @@ namespace SE104_OnlineShopManagement.Views
         public LanguageComponent()
         {
             InitializeComponent();
+        }
+
+        private void myPopup_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            myPopup.IsOpen = false;
         }
     }
 }
