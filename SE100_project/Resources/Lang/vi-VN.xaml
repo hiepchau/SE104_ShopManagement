@@ -32,7 +32,6 @@
     <sys:String x:Key="CancleBtn">Huỷ</sys:String>
     <sys:String x:Key="ExitButton">Thoát</sys:String>
     
-
     <sys:String x:Key="AddEmployee.ImagePickUp">Chọn ảnh</sys:String>
     <sys:String x:Key="AddEmployee.EmployeeID">Mã nhân viên</sys:String>
     <sys:String x:Key="AddEmployee.EmployeeIDAuto">Mã tự động</sys:String>
@@ -161,5 +160,136 @@
     <sys:String x:Key="RevenuePage.MonthRevenue">Doanh thu tháng</sys:String>
     <sys:String x:Key="RevenuePage.Income">Thu</sys:String>
     <sys:String x:Key="RevenuePage.Outcome">Chi</sys:String>
+
+    <sys:String x:Key="IncomePage.Title">Phiếu thu</sys:String>
+    <sys:String x:Key="IncomePage.InputID">Nhập mã phiếu thu</sys:String>
+    <sys:String x:Key="IncomePage.ID">Mã phiếu</sys:String>
+    <sys:String x:Key="IncomePage.Date">Ngày thu</sys:String>
+    <sys:String x:Key="IncomePage.Employee">Người thu</sys:String>
+    <sys:String x:Key="IncomePage.Value">Số tiền</sys:String>
+    <sys:String x:Key="IncomePage.Form">Hình thức</sys:String>
+    <sys:String x:Key="IncomePage.Category">Hạng mục</sys:String>
+    <sys:String x:Key="IncomePage.Note">Ghi chú</sys:String>
+
+    <sys:String x:Key="OutcomePage.Title">Phiếu chi</sys:String>
+    <sys:String x:Key="OutcomePage.InputID">Nhập mã phiếu chi</sys:String>
+    <sys:String x:Key="OutcomePage.ID">Mã phiếu</sys:String>
+    <sys:String x:Key="OutcomePage.Date">Ngày thu</sys:String>
+    <sys:String x:Key="OutcomePage.Employee">Người thu</sys:String>
+    <sys:String x:Key="OutcomePage.Value">Số tiền</sys:String>
+    <sys:String x:Key="OutcomePage.Form">Hình thức</sys:String>
+    <sys:String x:Key="OutcomePage.Category">Hạng mục</sys:String>
+    <sys:String x:Key="OutcomePage.Note">Ghi chú</sys:String>
+
+    <sys:String x:Key="ImportPage.Title">Nhập Kho</sys:String>
+    <sys:String x:Key="ImportPage.Purchase">Thanh toán</sys:String>
+    <sys:String x:Key="ImportPage.ID">Mã SP</sys:String>
+    <sys:String x:Key="ImportPage.Name">Tên sản phẩm</sys:String>
+    <sys:String x:Key="ImportPage.ProductType">Loại sản phẩm</sys:String>
+    <sys:String x:Key="ImportPage.Unit">Đơn vị</sys:String>
+    <sys:String x:Key="ImportPage.Cost">Đơn giá</sys:String>
+    <sys:String x:Key="ImportPage.Stock">Tồn kho</sys:String>
+    <sys:String x:Key="ImportPage.Import">Nhập kho</sys:String>
+    <sys:String x:Key="ImportPage.Total">Tổng tiền</sys:String>
+    <sys:String x:Key="ImportPage.Goodslist">Danh sách hàng hoá</sys:String>
+    <sys:String x:Key="ImportPage.SortHint">Tìm theo tên sản phẩm</sys:String>
+
+    <sys:String x:Key="OrderPage.Title">Đơn hàng</sys:String>
+    <sys:String x:Key="OrderPage.SearchHint">Tìm theo mã đơn hàng</sys:String>
+    <sys:String x:Key="OrderPage.ID">Mã phiếu</sys:String>
+    <sys:String x:Key="OrderPage.Date">Ngày bán</sys:String>
+    <sys:String x:Key="OrderPage.SaleEmployee">Nhân viên bán hàng</sys:String>
+    <sys:String x:Key="OrderPage.Customer">Khách hàng</sys:String>
+    <sys:String x:Key="OrderPage.Status">Trạng thái</sys:String>
+    <sys:String x:Key="OrderPage.Total">Tổng tiền</sys:String>
+
+    <sys:String x:Key="DashboardPage.SortHint">Hôm nay</sys:String>
+    <sys:String x:Key="DashboardPage.Title">TỔNG QUAN</sys:String>
+    <sys:String x:Key="DashboardPage.Activity">HOẠT ĐỘNG</sys:String>
+    <sys:String x:Key="DashboardPage.Sales">Doanh số</sys:String>
+    <sys:String x:Key="DashboardPage.GrossProfit">Lãi gộp</sys:String>
+    <sys:String x:Key="DashboardPage.Profit">Lợi nhuận</sys:String>
+    <sys:String x:Key="DashboardPage.TopSales">Doanh thu cao nhất</sys:String>
+
+    <sys:String x:Key="ProductsPage.Title">Sản phẩm</sys:String>
+    <sys:String x:Key="ProductsPage.ExcelExport">Xuất excel</sys:String>
+    <sys:String x:Key="ProductsPage.ProductType">Loại sản phẩm</sys:String>
+    <sys:String x:Key="ProductsPage.ImportWarehouse">Nhập kho</sys:String>
+    <sys:String x:Key="ProductsPage.Add">Thêm sản phẩm</sys:String>
+    <sys:String x:Key="ProductsPage.SearchHint">Tìm theo tên sản phẩm</sys:String>
+    <sys:String x:Key="ProductsPage.SortHint">Sắp xếp</sys:String>
+    <sys:String x:Key="ProductsPage.ID">Mã SP</sys:String>
+    <sys:String x:Key="ProductsPage.Name">Tên sản phẩm</sys:String>
+    <sys:String x:Key="ProductsPage.Type">Loại sản phẩm</sys:String>
+    <sys:String x:Key="ProductsPage.Unit">Đơn vị</sys:String>
+    <sys:String x:Key="ProductsPage.Stock">Tồn kho</sys:String>
+    <sys:String x:Key="ProductsPage.Import price">Giá nhập</sys:String>
+    <sys:String x:Key="ProductsPage.Sale price">Giá bán</sys:String>
+
+    <sys:String x:Key="ProductsTypePage.Title">Danh sách các loại sản phẩm</sys:String>
+    <sys:String x:Key="ProductsTypePage.AddTitle">Thêm loại sản phẩm</sys:String>
+    <sys:String x:Key="ProductsTypePage.Active">Đang hoạt động</sys:String>
+    <sys:String x:Key="ProductsTypePage.Inactive">Ngừng hoạt động</sys:String>
+    <sys:String x:Key="ProductsTypePage.No">STT</sys:String>
+    <sys:String x:Key="ProductsTypePage.Name">Tên loại</sys:String>
+    <sys:String x:Key="ProductsTypePage.Description">Mô tả</sys:String>
+    <sys:String x:Key="ProductsTypePage.ID">Mã loại</sys:String>
+    <sys:String x:Key="ProductsTypePage.IDHint">Mã tự động</sys:String>
+    <sys:String x:Key="ProductsTypePage.ProductTypeName">Tên loại</sys:String>
+
+    <sys:String x:Key="WareHousePage.Title">Kho hàng</sys:String>
+    <sys:String x:Key="WareHousePage.Excelexport">Xuất excel</sys:String>
+    <sys:String x:Key="WareHousePage.SortHint">Tìm theo tên sản phẩm</sys:String>
+    <sys:String x:Key="WareHousePage.Importproduct">Nhập kho</sys:String>
+    <sys:String x:Key="WareHousePage.ID">Mã hàng</sys:String>
+    <sys:String x:Key="WareHousePage.ProductName">Hàng hoá</sys:String>
+    <sys:String x:Key="WareHousePage.Quantity">Số lượng</sys:String>
+    <sys:String x:Key="WareHousePage.Stock">Vốn tồn kho</sys:String>
+    <sys:String x:Key="WareHousePage.ImportPrice">Mua vào</sys:String>
+    <sys:String x:Key="WareHousePage.SalePrice">Bán ra</sys:String>
+    <sys:String x:Key="WareHousePage.StockingValue">Giá trị tồn</sys:String>
+
+    <sys:String x:Key="SalePage.Title">Bán hàng</sys:String>
+    <sys:String x:Key="SalePage.TitleForm">BÁN HÀNG</sys:String>
+    <sys:String x:Key="SalePage.No">STT</sys:String>
+    <sys:String x:Key="SalePage.ProductName">Tên sản phẩm</sys:String>
+    <sys:String x:Key="SalePage.Quantity">Số lượng</sys:String>
+    <sys:String x:Key="SalePage.Price">Giá bán</sys:String>
+    <sys:String x:Key="SalePage.ProductList">Danh sách hàng hoá</sys:String>
+    <sys:String x:Key="SalePage.SortHint">Tìm theo tên sản phẩm</sys:String>
+    <sys:String x:Key="SalePage.EmployeeID">Mã nhân viên</sys:String>
+    <sys:String x:Key="SalePage.EmployeeName">Tên nhân viên</sys:String>
+    <sys:String x:Key="SalePage.CustomerPhoneNum">Số điện thoại</sys:String>
+    <sys:String x:Key="SalePage.Time">Thời gian</sys:String>
+    <sys:String x:Key="SalePage.Date">Ngày</sys:String>
+    <sys:String x:Key="SalePage.BillID">Mã hoá đơn</sys:String>
+    <sys:String x:Key="SalePage.Total">Tổng tiền</sys:String>
+    <sys:String x:Key="SalePage.NoteHint">Ghi chú</sys:String>
+    <sys:String x:Key="SalePage.Purchase">Thanh toán</sys:String>
+
+    <sys:String x:Key="EmployeePage.Title">Danh sách nhân viên</sys:String>
+    <sys:String x:Key="EmployeePage.ManagePage">Quản lí</sys:String>
+    <sys:String x:Key="EmployeePage.Status">Trạng thái</sys:String>
+    <sys:String x:Key="EmployeePage.ExcelExport">Xuất excel</sys:String>
+    <sys:String x:Key="EmployeePage.Add">Thêm nhân viên</sys:String>
+    <sys:String x:Key="EmployeePage.ID">ID</sys:String>
+    <sys:String x:Key="EmployeePage.Name">Nhân viên</sys:String>
+    <sys:String x:Key="EmployeePage.LoginCode">Mã đăng nhập</sys:String>
+    <sys:String x:Key="EmployeePage.Position">Chức vụ</sys:String>
+    <sys:String x:Key="EmployeePage.PhoneNumber">Số điện thoại</sys:String>
+    <sys:String x:Key="EmployeePage.Salary">Lương</sys:String>
+    <sys:String x:Key="EmployeePage.Working">Đang làm</sys:String>
+    <sys:String x:Key="EmployeePage.Retired">Đã nghỉ</sys:String>
+
+    <sys:String x:Key="StoreInfoPage.Title">Thông tin cửa hàng</sys:String>
+    <sys:String x:Key="StoreInfoPage.ImagePicker">Chọn ảnh</sys:String>
+    <sys:String x:Key="StoreInfoPage.Name">Tên cửa hàng:</sys:String>
+    <sys:String x:Key="StoreInfoPage.Address">Địa chỉ:</sys:String>
+    <sys:String x:Key="StoreInfoPage.PhoneNumber">Số điện thoại:</sys:String>
+    <sys:String x:Key="StoreInfoPage.FacebookHint">Chưa có FaceBook</sys:String>
+    <sys:String x:Key="StoreInfoPage.InstagramHint">Chưa có Instagram</sys:String>
+    <sys:String x:Key="StoreInfoPage.Fax">Mã số thuế:</sys:String>
+    <sys:String x:Key="StoreInfoPage.WebsiteHint">Chưa có Website</sys:String>
+    <sys:String x:Key="StoreInfoPage.UpdateButton">Cập nhật</sys:String>
 
 </ResourceDictionary>

@@ -28,8 +28,9 @@
 
 
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <TextBlock Style="{StaticResource TextHeader}">
-                Đơn Hàng
+            <TextBlock Style="{StaticResource TextHeader}"
+                       Text="{DynamicResource OrderPage.Title}">
+                
             </TextBlock>
             <Grid 
                         Margin="20,0,0,0" 
@@ -45,7 +46,7 @@
                             Panel.ZIndex="-1" />
                 <TextBox 
                             x:Name="txtSearchOrder"
-                            materialDesign:HintAssist.Hint="Tìm theo mã đơn hàng" 
+                            materialDesign:HintAssist.Hint="{DynamicResource OrderPage.SearchHint}" 
                             FontSize="18" 
                             BorderThickness="0" 
                             MaxLines="1"
@@ -101,17 +102,17 @@
                     <ColumnDefinition Width="90"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource TitleText}"
-                           Text="Mã phiếu" Height="24" Margin="10,0,0,0" />
+                           Text="{DynamicResource OrderPage.ID}" Height="24" Margin="10,0,0,0" />
                 <TextBlock Grid.Column="1" Style="{StaticResource TitleText}"
-                           Text="Ngày bán" Height="24" Margin="40,0,0,0" />
+                           Text="{DynamicResource OrderPage.Date}" Height="24" Margin="40,0,0,0" />
                 <TextBlock Grid.Column="2" Style="{StaticResource TitleText}"
-                          Text="Nhân viên bán hàng" Margin="0 0 0 0"/>
+                          Text="{DynamicResource OrderPage.SaleEmployee}" Margin="0 0 0 0"/>
                 <TextBlock Grid.Column="3" Style="{StaticResource TitleText}"
-                           Text="Khách hàng" Height="24" Margin="10,0,0,0"/>
+                           Text="{DynamicResource OrderPage.Customer}" Height="24" Margin="10,0,0,0"/>
                 <TextBlock Grid.Column="4" Style="{StaticResource TitleText}"
-                           Text="Trạng thái" Height="24" Margin="10,0,0,0"/>
+                           Text="{DynamicResource OrderPage.Status}" Height="24" Margin="10,0,0,0"/>
                 <TextBlock Grid.Column="5" Style="{StaticResource TitleText}"
-                           Text="Tổng tiền" Height="24" Margin="10,0,0,0"/>
+                           Text="{DynamicResource OrderPage.Total}" Height="24" Margin="10,0,0,0"/>
             </Grid>
         </Border>
 

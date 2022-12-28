@@ -47,7 +47,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock
                             Style="{StaticResource TextHeader}"
-                            Text="Bán hàng" 
+                            Text="{DynamicResource SalePage.Title}" 
                             FontSize="22"
                             Margin="20,0,0,0" Height="30"/>
                     <Border 
@@ -66,22 +66,22 @@
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock 
-                                Text="STT" 
+                                Text="{DynamicResource SalePage.No}" 
                                 Grid.Column="0"
                                 Style="{StaticResource TitleText}"/>
                             <TextBlock 
                                 Grid.Column="1"
-                                Text="Tên sản phẩm" 
+                                Text="{DynamicResource SalePage.ProductName}" 
                                 Style="{StaticResource TitleText}"
                                 HorizontalAlignment="Left"
                                 Margin="20,0,0,0"/>
                             <TextBlock 
                                 Grid.Column="2"
-                                Text="Số lượng" 
+                                Text="{DynamicResource SalePage.Quantity}" 
                                 Style="{StaticResource TitleText}"/>
                             <TextBlock 
                                 Grid.Column="3" 
-                                Text="Giá bán" 
+                                Text="{DynamicResource SalePage.Price}" 
                                 Style="{StaticResource TitleText}"/>
 
                         </Grid>
@@ -117,7 +117,7 @@
                 <StackPanel Grid.Row="1" Orientation="Horizontal" >
                     <TextBlock
                             Style="{StaticResource TextHeader}"
-                            Text="Danh sách hàng hóa" 
+                            Text="{DynamicResource SalePage.ProductList}" 
                             FontSize="22"
                             Margin="20,0,0,0"/>
                     <Grid 
@@ -135,7 +135,7 @@
                                 Panel.ZIndex="-1" />
                         <TextBox 
                                 x:Name="txtSearchProducts"
-                                materialDesign:HintAssist.Hint="Tìm theo tên sản phẩm"
+                                materialDesign:HintAssist.Hint="{DynamicResource SalePage.SortHint}"
                                 FontSize="16"
                                 BorderThickness="0"
                                 MaxLines="1"
@@ -214,7 +214,7 @@
                 <TextBlock
                             x:Name="txbTitle"
                             Style="{StaticResource HeadingText2}"
-                            Text="BÁN HÀNG" 
+                            Text="{DynamicResource SalePage.TitleForm}" 
                             FontSize="22"
                             HorizontalAlignment="Center" Height="30" Width="118"/>
                 <StackPanel 
@@ -223,7 +223,7 @@
                             Margin="20,10,10,0" >
                     <Grid>
                         <Label
-                            Content="Mã nhân viên" 
+                            Content="{DynamicResource SalePage.EmployeeID}" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -238,7 +238,7 @@
 
                     <Grid Margin="0,0,0,0">
                         <Label
-                            Content="Tên nhân viên"
+                            Content="{DynamicResource SalePage.EmployeeName}"
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -259,7 +259,7 @@
                     
                     <Grid Margin="0 20 0 0">
                         <Label
-                            Content="Số điện thoại" 
+                            Content="{DynamicResource SalePage.CustomerPhoneNum}" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -272,7 +272,7 @@
                             Stroke="{StaticResource Gray4}"/>
                         <TextBox                  
                             x:Name="txtPhoneNumber"
-                            materialDesign:HintAssist.Hint="Số điện thoại"   
+                            materialDesign:HintAssist.Hint="{DynamicResource SalePage.CustomerPhoneNum}"   
                             Width="150"
                             Style="{StaticResource TextBox}"
                             MaxLength="10"
@@ -298,7 +298,7 @@
 
                     <Grid Margin="0 20 0 0">
                         <Label
-                            Content="Thời gian" 
+                            Content="{DynamicResource SalePage.Time}" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -314,7 +314,7 @@
                     </Grid>
                     <Grid Margin="0 20 0 0">
                         <Label
-                            Content="Ngày" 
+                            Content="{DynamicResource SalePage.Date}" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -326,7 +326,7 @@
                     </Grid>
                     <Grid Margin="0 20 0 0">
                         <Label
-                            Content="Mã hóa đơn" 
+                            Content="{DynamicResource SalePage.BillID}" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -338,7 +338,7 @@
                     </Grid>
                     <Grid Margin=" 0 20 0 0">
                         <Label
-                            Content="Tổng tiền" 
+                            Content="{DynamicResource SalePage.Total}" 
                             FontSize="16"
                             Foreground="{StaticResource Black1}"
                             Style="{StaticResource PrimaryLabelText}"/>
@@ -372,7 +372,7 @@
                             FontSize="16"
                             FontWeight="SemiBold"
                             VerticalScrollBarVisibility="Auto"
-                            materialDesign:HintAssist.Hint="Ghi chú"
+                            materialDesign:HintAssist.Hint="{DynamicResource SalePage.NoteHint}"
                             HorizontalContentAlignment="Left"
                             MaxLines="3" 
                             Foreground="{DynamicResource Black2}"
@@ -390,7 +390,7 @@
                         materialDesign:ButtonAssist.CornerRadius="2"     
                         ToolTip="Thanh toán hóa đơn thông tin"
                         Margin="0 40 0 0"
-                        Content="Thanh toán">
+                        Content="{DynamicResource SalePage.Purchase}">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}"
                                       Mode="TwoWay">

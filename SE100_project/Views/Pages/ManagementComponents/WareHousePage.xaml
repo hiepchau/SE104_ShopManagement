@@ -40,7 +40,7 @@
             <uc:DashboardControl/>
         </StackPanel>
         <TextBlock Style="{StaticResource TextHeader}" 
-                   Text="Kho hàng"/>
+                   Text="{DynamicResource WareHousePage.Title}"/>
 
         <StackPanel
                     Orientation="Horizontal"
@@ -50,7 +50,7 @@
             <Button
                         Style="{StaticResource PrimaryButton}"
                         Command="{Binding ExportExcelCommand}"
-                        Content="Xuất excel"
+                        Content="{DynamicResource WareHousePage.Excelexport}"
                         ToolTip="Xuất danh sách tồn kho"
                         Margin="0,0,20,0"
                         Width="160"/>
@@ -58,7 +58,7 @@
                         x:Name="btnSwitchImportStock"
                         Command="{Binding OpenImportProductsCommand}"
                         Style="{StaticResource PrimaryButton}"
-                        Content="Nhập kho"
+                        Content="{DynamicResource WareHousePage.Importproduct}"
                         ToolTip="Nhập kho"
                         Height="40"
                         Width="160"/>
@@ -85,7 +85,7 @@
                             Panel.ZIndex="-1" />
                 <TextBox 
                             x:Name="txtSearchProducts"
-                            materialDesign:HintAssist.Hint="Tìm theo tên sản phẩm" 
+                            materialDesign:HintAssist.Hint="{DynamicResource WareHousePage.SortHint}" 
                             FontSize="18" 
                             BorderThickness="0" 
                             MaxLines="1"
@@ -207,33 +207,33 @@
                         <ColumnDefinition Width="90" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
-                        Text="Mã hàng" 
+                        Text="{DynamicResource WareHousePage.ID}" 
                         Grid.Column="0"
                         Style="{StaticResource TitleText}" Margin="10,0,0,0"/>
                     <TextBlock
-                        Text="Hàng hóa" 
+                        Text="{DynamicResource WareHousePage.ProductName}" 
                         Grid.Column="1"
                         Style="{StaticResource TitleText}"
                         HorizontalAlignment="Left"
                         Margin="20,0,0,0"/>
                     <TextBlock                        
-                        Text="Số lượng"                                 
+                        Text="{DynamicResource WareHousePage.Quantity}"                                 
                         Grid.Column="2"
                         Style="{StaticResource TitleText}" HorizontalAlignment="Left" />
                     <TextBlock
-                        Text="Vốn tồn kho"                                
+                        Text="{DynamicResource WareHousePage.Stock}"                                
                         Grid.Column="3"
                         Style="{StaticResource TitleText}" HorizontalAlignment="Center"/>
                     <TextBlock
-                        Text="Mua vào"                                 
+                        Text="{DynamicResource WareHousePage.ImportPrice}"                                 
                         Grid.Column="4"
                         Style="{StaticResource TitleText}" HorizontalAlignment="Center"/>
                     <TextBlock
-                        Text="Bán ra" 
+                        Text="{DynamicResource WareHousePage.SalePrice}" 
                         Grid.Column="5"                             
                         Style="{StaticResource TitleText}" Margin="20 0 0 0"/>
                     <TextBlock
-                        Text="Giá trị tồn" 
+                        Text="{DynamicResource WareHousePage.StockingValue}" 
                         Grid.Column="6"
                         Style="{StaticResource TitleText}" Margin="-5 0 0 0"/>
                 </Grid>

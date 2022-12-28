@@ -18,8 +18,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Style="{StaticResource TextHeader}">
-            TỔNG QUAN
+                   Style="{StaticResource TextHeader}"
+                   Text="{DynamicResource DashboardPage.Title}">
+            
         </TextBlock>
 
         <Grid Grid.Row="1">
@@ -32,7 +33,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="HOẠT ĐỘNG"
+                    <TextBlock Text="{DynamicResource DashboardPage.Activity}"
                                Style="{StaticResource TitleText}" 
                                Foreground="{StaticResource WordBlueBrush}"
                                Margin="10"/>
@@ -42,7 +43,7 @@
                         <ComboBox
                                     x:Name="cbSortDate"
                                     materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="Hôm nay"
+                                    materialDesign:HintAssist.Hint="{DynamicResource DashboardPage.SortHint}"
                                     Height="40"
                                     FontSize="18"
                                     Width="200"
@@ -71,15 +72,15 @@
 
                     </Grid.ColumnDefinitions>
 
-                    <controls:InfoCard Grid.Column="0" Title="Doanh Số" Number="{Binding Income}" Icon="ChartBar" 
+                    <controls:InfoCard Grid.Column="0" Title="{DynamicResource DashboardPage.Sales}" Number="{Binding Income}" Icon="ChartBar" 
                                  Background1="{StaticResource WordGreen}" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="{StaticResource LightGreen}" EllipseBackground2="#1090ee90"
                                  Margin="10,22,294,22" Grid.ColumnSpan="2"/>
-                    <controls:InfoCard Grid.Column="1" Title="Lãi Gộp" Number="{Binding LaiGop}" Icon="Wallet" 
+                    <controls:InfoCard Grid.Column="1" Title="{DynamicResource DashboardPage.GrossProfit}" Number="{Binding LaiGop}" Icon="Wallet" 
                                  Background1="#6AA4E0" Background2="{StaticResource WordLightBlue}"
                                  EllipseBackground1="#68D3F7" EllipseBackground2="#3064EDEC"
                                  Margin="10,22,295,23" Grid.ColumnSpan="2"/>
-                    <controls:InfoCard Grid.Column="2" Title="Lợi Nhuận" Number="{Binding Profit}" Icon="Coins" 
+                    <controls:InfoCard Grid.Column="2" Title="{DynamicResource DashboardPage.Profit}" Number="{Binding Profit}" Icon="Coins" 
                                  Background1="#FD8A87" Background2="#F3AB92"
                                  EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"
                                  Margin="10,22,-11,23"
@@ -102,7 +103,7 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 25">
                                 <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
-                                <TextBlock Text="Profit" Style="{StaticResource TitleText}"/>
+                                <TextBlock Text="{DynamicResource DashboardPage.Profit}" Style="{StaticResource TitleText}"/>
                             </StackPanel>
 
 
@@ -159,7 +160,7 @@
 
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="28 0 0 15">
                                 <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
-                                <TextBlock Text="Top Sales" Style="{StaticResource TitleText}"/>
+                                <TextBlock Text="{DynamicResource DashboardPage.TopSales}" Style="{StaticResource TitleText}"/>
                             </StackPanel>
                             <!--<ScrollViewer
                             Style="{StaticResource FavsScrollViewer}"

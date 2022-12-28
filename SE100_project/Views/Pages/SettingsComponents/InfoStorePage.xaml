@@ -25,7 +25,7 @@
         <TextBlock Grid.Row="0"
                 Style="{StaticResource HeadingText2}"
                 FontSize="24"
-                Text="Thông tin cửa hàng" 
+                Text="{DynamicResource StoreInfoPage.Title}" 
                 Margin="20,10,0,0" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top"/>
@@ -59,7 +59,7 @@
                     Height="30" Width="100" 
                     materialDesign:ButtonAssist.CornerRadius="2"
                     ToolTip="Chọn ảnh" 
-                    Content="Chọn ảnh"
+                    Content="{DynamicResource StoreInfoPage.ImagePicker}"
                     Command="{Binding SaveImageCommand}"
                     FontSize="14"
                     TabIndex="8"
@@ -87,7 +87,7 @@
                 <StackPanel VerticalAlignment="Top" Height="385" Margin="10" Grid.Column="0">
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Tên cửa hàng:"/>
+                           Content="{DynamicResource StoreInfoPage.Name}"/>
                         <Rectangle  HorizontalAlignment="Left"
                                 Width="320"
                                 RadiusY="4"
@@ -95,7 +95,7 @@
                                 Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
                         <TextBox x:Name="txtStoreName"
                              Style="{StaticResource TextBox}"
-                             materialDesign:HintAssist.Hint="Tên cửa hàng"
+                             materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.Name}"
                              Width="320"
                              Text="{Binding storeName, Mode=TwoWay}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
@@ -104,7 +104,7 @@
 
                     <Grid  Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Địa chỉ:"/>
+                           Content="{DynamicResource StoreInfoPage.Address}"/>
                         <Rectangle  HorizontalAlignment="Left"
                                 Width="320"
                                 RadiusY="4"
@@ -112,7 +112,7 @@
                                 Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
                         <TextBox x:Name="txtStoreAddress"
                              Style="{StaticResource TextBox}"
-                             materialDesign:HintAssist.Hint="Địa chỉ"
+                             materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.Address}"
                              Width="320"
                              Text="{Binding storeAddress, Mode=TwoWay}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
@@ -120,7 +120,7 @@
                     </Grid>
                     <Grid Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Số điện thoại:"/>
+                           Content="{DynamicResource StoreInfoPage.PhoneNumber}"/>
                         <Rectangle Width="320"
                                RadiusY="4"
                                RadiusX="4"
@@ -129,7 +129,7 @@
                         <TextBox 
                                             x:Name="txtStorePhoneNumber"
                                             Style="{StaticResource TextBox}"
-                                            materialDesign:HintAssist.Hint="Số điện thoại"
+                                            materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.PhoneNumber}"
                                             Height="40"
                                             Width="320"
                                             MaxLength="10"
@@ -170,7 +170,7 @@
                                 Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
                         <TextBox 
                              Style="{StaticResource TextBox}"
-                             materialDesign:HintAssist.Hint="Chưa có facebook"
+                             materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.FacebookHint}"
                              Width="320"
                              Text="{Binding storeFacebook, Mode=TwoWay}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
@@ -187,7 +187,7 @@
                                 Stroke="{StaticResource Gray2}" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
                         <TextBox 
                              Style="{StaticResource TextBox}"
-                             materialDesign:HintAssist.Hint="Chưa có instagram"
+                             materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.FacebookHint}"
                              Width="320"
                              Text="{Binding storeInstagram, Mode=TwoWay}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
@@ -195,7 +195,7 @@
                     </Grid>
                     <Grid Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
-                           Content="Mã số thuế:"/>
+                           Content="{DynamicResource StoreInfoPage.Fax}"/>
                         <Rectangle Width="320"
                                RadiusY="4"
                                RadiusX="4"
@@ -204,7 +204,7 @@
                         <TextBox 
                                             
                                             Style="{StaticResource TextBox}"
-                                            materialDesign:HintAssist.Hint="Mã số thuế"
+                                            materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.Fax}"
                                             Height="40"
                                             Width="320"
                                             Text="{Binding storeTaxNumber, Mode=TwoWay}"
@@ -221,7 +221,7 @@
                                 Stroke="{StaticResource Gray2}"/>
                         <TextBox
                              Style="{StaticResource TextBox}"
-                             materialDesign:HintAssist.Hint="Chưa có website"
+                             materialDesign:HintAssist.Hint="{DynamicResource StoreInfoPage.WebsiteHint}"
                              Height="40"
                              Width="320"
 
@@ -232,7 +232,7 @@
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Cập nhật"
+                <Button Content="{DynamicResource StoreInfoPage.UpdateButton}"
                     Height="45"
                     Style="{StaticResource PrimaryButton}"
                     FontSize="20"

@@ -21,7 +21,7 @@
             <!--Item 1-->
             <TabItem
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
-                Header="Quản lí"
+                Header="{DynamicResource EmployeePage.ManagePage}"
                 FontSize="18"
                 FontWeight="SemiBold"
                 Foreground="{StaticResource WordBlueBrush}"
@@ -48,12 +48,12 @@
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
                             <TextBlock
                                 Style="{StaticResource HeadingText2}"
-                                Text="Danh sách nhân viên"                             
+                                Text="{DynamicResource EmployeePage.Title}"                             
                                 FontSize="22"
                                 Margin="20,0,0,0"/>
                             <Button                             
                                 x:Name="btnSetupSalary"
-                                Content="Xuất excel"                            
+                                Content="{DynamicResource EmployeePage.ExcelExport}"                            
                                 ToolTip="Xuất danh sách nhân viên"
                                 FontSize="19"                            
                                 Style="{StaticResource PrimaryButton}"
@@ -63,7 +63,7 @@
                                 Width="160"/>
                             <Button 
                                 x:Name="btnImportProducts"                           
-                                Content="Thêm nhân viên"
+                                Content="{DynamicResource EmployeePage.Add}"
                                 ToolTip="Nhập kho"                           
                                 Height="40"
                                 FontSize="20"                          
@@ -91,32 +91,32 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
-                                    Text="ID" 
+                                    Text="{DynamicResource EmployeePage.ID}" 
                                     Style="{StaticResource TitleText}"/>
                                <TextBlock 
                                     Grid.Column="1"
-                                    Text="Nhân viên" 
+                                    Text="{DynamicResource EmployeePage.Name}" 
                                     Style="{StaticResource TitleText}" />
                                 <TextBlock
                                     Grid.Column="2" 
                                     HorizontalAlignment="Left" 
-                                    Text="Mã đăng nhập"
+                                    Text="{DynamicResource EmployeePage.LoginCode}"
                                     Style="{StaticResource TitleText}"/>
                                 <TextBlock
                                     Grid.Column="3" 
-                                    Text="Chức vụ" 
+                                    Text="{DynamicResource EmployeePage.Position}" 
                                     HorizontalAlignment="Center"
                                     
                                     Style="{StaticResource TitleText}"/>
                                 <TextBlock
                                     Grid.Column="4" 
-                                    Text="SĐT" 
+                                    Text="{DynamicResource EmployeePage.PhoneNumber}" 
                                     HorizontalAlignment="Center"
                                     Style="{StaticResource TitleText}"
                                     Margin="-5 0 0 0"/>
                                 <TextBlock
                                     Grid.Column="5" 
-                                    Text="Lương" 
+                                    Text="{DynamicResource EmployeePage.Salary}" 
                                     HorizontalAlignment="Center"
                                     Style="{StaticResource TitleText}"
                                     Margin="-5 0 0 0"/>
@@ -150,7 +150,7 @@
             <!--Item 2-->
             <TabItem
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
-                Header="Trạng thái"
+                Header="{DynamicResource EmployeePage.Status}"
                 FontSize="18"
                 FontWeight="SemiBold"
                 Width="180" 
@@ -180,7 +180,7 @@
                         <TextBlock
                             Grid.Row="0"
                             Style="{StaticResource HeadingText2}"
-                            Text="Đang làm" 
+                            Text="{DynamicResource EmployeePage.Working}" 
                             HorizontalAlignment="Center"
                             FontSize="22"
                             Margin="20,0,0,0"/>
@@ -199,16 +199,16 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
-                                    Text="Nhân viên" 
+                                    Text="{DynamicResource EmployeePage.Name}" 
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
                                     HorizontalAlignment="Left" 
-                                    Text="Mã đăng nhập"
+                                    Text="{DynamicResource EmployeePage.LoginCode}"
                                     Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
                                 <TextBlock
                                     Grid.Column="2" 
-                                    Text="Chức vụ" 
+                                    Text="{DynamicResource EmployeePage.Position}" 
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
                             </Grid>
                         </Border>
@@ -286,7 +286,7 @@
                         <TextBlock
                             Grid.Row="0"
                             Style="{StaticResource HeadingText2}"
-                            Text="Đã nghỉ" HorizontalAlignment="Center"
+                            Text="{DynamicResource EmployeePage.Retired}" HorizontalAlignment="Center"
                             FontSize="22"
                             Margin="20,0,0,0"/>
                         <Border 
@@ -305,16 +305,16 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"
-                                    Text="Nhân viên" 
+                                    Text="{DynamicResource EmployeePage.Name}" 
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,16,0" />
                                 <TextBlock
                                     Grid.Column="1" 
                                     HorizontalAlignment="Left" 
-                                    Text="Mã đăng nhập"
+                                    Text="{DynamicResource EmployeePage.LoginCode}"
                                     Style="{StaticResource TitleText}" Height="24" Width="132" Margin="21,0,0,0" />
                                 <TextBlock
                                     Grid.Column="2" 
-                                    Text="Chức vụ" 
+                                    Text="{DynamicResource EmployeePage.Position}" 
                                     Style="{StaticResource TitleText}" Height="24" Margin="10,0,10,0" />
                             </Grid>
                         </Border>

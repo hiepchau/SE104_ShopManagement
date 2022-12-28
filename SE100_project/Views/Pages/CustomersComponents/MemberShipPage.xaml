@@ -122,7 +122,7 @@
                 Margin="20,20,20,0">
                 <TextBlock
                     x:Name="txbTitle"
-                    Text="Thêm hạng thành viên" 
+                    Text="{DynamicResource MembershipPage.Add}" 
                     FontSize="22"
                     Style="{StaticResource HeadingText2}"/>
                 <Grid

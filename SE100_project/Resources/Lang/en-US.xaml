@@ -29,7 +29,7 @@
     <sys:String x:Key="AddCustomer.CustomerAddress">Address</sys:String>
     
     <sys:String x:Key="SaveButton">Save</sys:String>
-    <sys:String x:Key="CancelButton">Cancle</sys:String>
+    <sys:String x:Key="CancleBtn">Cancle</sys:String>
     <sys:String x:Key="ExitButton">Exit</sys:String>
 
     <sys:String x:Key="AddEmployee.ImagePickUp">Select image</sys:String>
@@ -125,7 +125,7 @@
     <sys:String x:Key="CustomerPage.SortByName">Sort by customer name</sys:String>
     <sys:String x:Key="CustomerPage.ID">ID</sys:String>
     <sys:String x:Key="CustomerPage.Name">Name</sys:String>
-    <sys:String x:Key="CustomerPage.Phone">Num</sys:String>
+    <sys:String x:Key="CustomerPage.Phone">Phone</sys:String>
     <sys:String x:Key="CustomerPage.Total">Total</sys:String>
     <sys:String x:Key="CustomerPage.Sort">Sort</sys:String>
 
@@ -151,7 +151,7 @@
     <sys:String x:Key="SupplierPage.Total">Total</sys:String>
     <sys:String x:Key="SupplierPage.ID">ID</sys:String>
     <sys:String x:Key="SupplierPage.Name">Name</sys:String>
-    <sys:String x:Key="SupplierPage.PhoneNum">Phone Num</sys:String>
+    <sys:String x:Key="SupplierPage.PhoneNum">Phone</sys:String>
     <sys:String x:Key="SupplierPage.OrderQuantity">Quantity</sys:String>
     <sys:String x:Key="SupplierPage.OrderTotal">Total</sys:String>
 
@@ -159,4 +159,136 @@
     <sys:String x:Key="RevenuePage.MonthRevenue">Month revenue</sys:String>
     <sys:String x:Key="RevenuePage.Income">Income</sys:String>
     <sys:String x:Key="RevenuePage.Outcome">Outcome</sys:String>
+
+    <sys:String x:Key="IncomePage.Title">Income</sys:String>
+    <sys:String x:Key="IncomePage.InputID">Enter income ticket ID</sys:String>
+    <sys:String x:Key="IncomePage.ID">Ticket ID</sys:String>
+    <sys:String x:Key="IncomePage.Date">Date</sys:String>
+    <sys:String x:Key="IncomePage.Employee">Employee</sys:String>
+    <sys:String x:Key="IncomePage.Value">Value</sys:String>
+    <sys:String x:Key="IncomePage.Form">Form</sys:String>
+    <sys:String x:Key="IncomePage.Category">Category</sys:String>
+    <sys:String x:Key="IncomePage.Note">Note</sys:String>
+
+    <sys:String x:Key="OutcomePage.Title">Outcome</sys:String>
+    <sys:String x:Key="OutcomePage.InputID">Enter outcome ticket ID</sys:String>
+    <sys:String x:Key="OutcomePage.ID">Ticket ID</sys:String>
+    <sys:String x:Key="OutcomePage.Date">Date</sys:String>
+    <sys:String x:Key="OutcomePage.Employee">Employee</sys:String>
+    <sys:String x:Key="OutcomePage.Value">Value</sys:String>
+    <sys:String x:Key="OutcomePage.Form">Form</sys:String>
+    <sys:String x:Key="OutcomePage.Category">Category</sys:String>
+    <sys:String x:Key="OutcomePage.Note">Note</sys:String>
+
+    <sys:String x:Key="ImportPage.Title">Import</sys:String>
+    <sys:String x:Key="ImportPage.Purchase">Purchase</sys:String>
+    <sys:String x:Key="ImportPage.ID">SP ID</sys:String>
+    <sys:String x:Key="ImportPage.Name">Name</sys:String>
+    <sys:String x:Key="ImportPage.ProductType">Type</sys:String>
+    <sys:String x:Key="ImportPage.Unit">Unit</sys:String>
+    <sys:String x:Key="ImportPage.Cost">Cost</sys:String>
+    <sys:String x:Key="ImportPage.Stock">Stock</sys:String>
+    <sys:String x:Key="ImportPage.Import">Import</sys:String>
+    <sys:String x:Key="ImportPage.Total">Total</sys:String>
+    <sys:String x:Key="ImportPage.Goodslist">Goods list</sys:String>
+    <sys:String x:Key="ImportPage.SortHint">Search by product name</sys:String>
+
+    <sys:String x:Key="OrderPage.Title">Order</sys:String>
+    <sys:String x:Key="OrderPage.SearchHint">Search by order ID</sys:String>
+    <sys:String x:Key="OrderPage.ID">ID</sys:String>
+    <sys:String x:Key="OrderPage.Date">Date</sys:String>
+    <sys:String x:Key="OrderPage.SaleEmployee">Saler</sys:String>
+    <sys:String x:Key="OrderPage.Customer">Customer</sys:String>
+    <sys:String x:Key="OrderPage.Status">Status</sys:String>
+    <sys:String x:Key="OrderPage.Total">Total</sys:String>
+
+    <sys:String x:Key="DashboardPage.SortHint">Today</sys:String>
+    <sys:String x:Key="DashboardPage.Title">OVERVIEW</sys:String>
+    <sys:String x:Key="DashboardPage.Activity">ACTIVITY</sys:String>
+    <sys:String x:Key="DashboardPage.Sales">Sales</sys:String>
+    <sys:String x:Key="DashboardPage.GrossProfit">Gross profit</sys:String>
+    <sys:String x:Key="DashboardPage.Profit">Profit</sys:String>
+    <sys:String x:Key="DashboardPage.TopSales">Top sales</sys:String>
+
+    <sys:String x:Key="ProductsPage.Title">Products</sys:String>
+    <sys:String x:Key="ProductsPage.ExcelExport">Excel export</sys:String>
+    <sys:String x:Key="ProductsPage.ProductType">Product type</sys:String>
+    <sys:String x:Key="ProductsPage.ImportWarehouse">Import</sys:String>
+    <sys:String x:Key="ProductsPage.Add">Add product</sys:String>
+    <sys:String x:Key="ProductsPage.SearchHint">Search by product name</sys:String>
+    <sys:String x:Key="ProductsPage.SortHint">Sort by</sys:String>
+    <sys:String x:Key="ProductsPage.ID">ID</sys:String>
+    <sys:String x:Key="ProductsPage.Name">Name</sys:String>
+    <sys:String x:Key="ProductsPage.Type">Type</sys:String>
+    <sys:String x:Key="ProductsPage.Unit">Unit</sys:String>
+    <sys:String x:Key="ProductsPage.Stock">Stock</sys:String>
+    <sys:String x:Key="ProductsPage.Import price">Import price</sys:String>
+    <sys:String x:Key="ProductsPage.Sale price">Sale price</sys:String>
+
+    <sys:String x:Key="ProductsTypePage.Title">Product Type List</sys:String>
+    <sys:String x:Key="ProductsTypePage.AddTitle">Add Product Type</sys:String>
+    <sys:String x:Key="ProductsTypePage.Active">Active</sys:String>
+    <sys:String x:Key="ProductsTypePage.Inactive">Inactive</sys:String>
+    <sys:String x:Key="ProductsTypePage.No">No</sys:String>
+    <sys:String x:Key="ProductsTypePage.Name">Name</sys:String>
+    <sys:String x:Key="ProductsTypePage.Description">Description</sys:String>
+    <sys:String x:Key="ProductsTypePage.ID">Product Type ID</sys:String>
+    <sys:String x:Key="ProductsTypePage.IDHint">Auto ID</sys:String>
+    <sys:String x:Key="ProductsTypePage.ProductTypeName">Tên loại</sys:String>
+
+    <sys:String x:Key="WareHousePage.Title">WareHouse</sys:String>
+    <sys:String x:Key="WareHousePage.Excelexport">Excel export</sys:String>
+    <sys:String x:Key="WareHousePage.SortHint">Search by product name</sys:String>
+    <sys:String x:Key="WareHousePage.Importproduct">Import</sys:String>
+    <sys:String x:Key="WareHousePage.ID">ID</sys:String>
+    <sys:String x:Key="WareHousePage.ProductName">Name</sys:String>
+    <sys:String x:Key="WareHousePage.Quantity">Quantity</sys:String>
+    <sys:String x:Key="WareHousePage.Stock">Stock</sys:String>
+    <sys:String x:Key="WareHousePage.ImportPrice">Import Price</sys:String>
+    <sys:String x:Key="WareHousePage.SalePrice">Sale Price</sys:String>
+    <sys:String x:Key="WareHousePage.StockingValue">Stocking Value</sys:String>
+
+    <sys:String x:Key="SalePage.Title">Sale</sys:String>
+    <sys:String x:Key="SalePage.TitleForm">SALE</sys:String>
+    <sys:String x:Key="SalePage.No">No</sys:String>
+    <sys:String x:Key="SalePage.ProductName">Product name</sys:String>
+    <sys:String x:Key="SalePage.Quantity">Quantity</sys:String>
+    <sys:String x:Key="SalePage.Price">Price</sys:String>
+    <sys:String x:Key="SalePage.ProductList">Product list</sys:String>
+    <sys:String x:Key="SalePage.SortHint">Search by product name</sys:String>
+    <sys:String x:Key="SalePage.EmployeeID">Employee ID</sys:String>
+    <sys:String x:Key="SalePage.EmployeeName">Employee Name</sys:String>
+    <sys:String x:Key="SalePage.CustomerPhoneNum">Phone number</sys:String>
+    <sys:String x:Key="SalePage.Time">Time</sys:String>
+    <sys:String x:Key="SalePage.Date">Date</sys:String>
+    <sys:String x:Key="SalePage.BillID">Bill ID</sys:String>
+    <sys:String x:Key="SalePage.Total">Total</sys:String>
+    <sys:String x:Key="SalePage.NoteHint">Note</sys:String>
+    <sys:String x:Key="SalePage.Purchase">Purchase</sys:String>
+
+    <sys:String x:Key="EmployeePage.Title">Employee List</sys:String>
+    <sys:String x:Key="EmployeePage.ManagePage">Manage</sys:String>
+    <sys:String x:Key="EmployeePage.Status">Status</sys:String>
+    <sys:String x:Key="EmployeePage.ExcelExport">Excel export</sys:String>
+    <sys:String x:Key="EmployeePage.Add">Add employee</sys:String>
+    <sys:String x:Key="EmployeePage.ID">ID</sys:String>
+    <sys:String x:Key="EmployeePage.Name">Employee</sys:String>
+    <sys:String x:Key="EmployeePage.LoginCode">Login Code</sys:String>
+    <sys:String x:Key="EmployeePage.Position">Position</sys:String>
+    <sys:String x:Key="EmployeePage.PhoneNumber">Phone</sys:String>
+    <sys:String x:Key="EmployeePage.Salary">Salary</sys:String>
+    <sys:String x:Key="EmployeePage.Working">Working</sys:String>
+    <sys:String x:Key="EmployeePage.Retired">Retired</sys:String>
+
+    <sys:String x:Key="StoreInfoPage.Title">Store infomation</sys:String>
+    <sys:String x:Key="StoreInfoPage.ImagePicker">Image picker</sys:String>
+    <sys:String x:Key="StoreInfoPage.Name">Store name:</sys:String>
+    <sys:String x:Key="StoreInfoPage.Address">Address:</sys:String>
+    <sys:String x:Key="StoreInfoPage.PhoneNumber">Phone number:</sys:String>
+    <sys:String x:Key="StoreInfoPage.FacebookHint">No FaceBook yet</sys:String>
+    <sys:String x:Key="StoreInfoPage.InstagramHint">No Instagram yet</sys:String>
+    <sys:String x:Key="StoreInfoPage.Fax">Fax number:</sys:String>
+    <sys:String x:Key="StoreInfoPage.WebsiteHint">No Website yet</sys:String>
+    <sys:String x:Key="StoreInfoPage.UpdateButton">Update</sys:String>
+
 </ResourceDictionary>

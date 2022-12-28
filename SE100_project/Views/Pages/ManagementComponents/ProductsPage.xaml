@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Style="{StaticResource TextHeader}"
-                       Text="Sản Phẩm"/>
+                       Text="{DynamicResource ProductsPage.Title}"/>
 
             <StackPanel 
                         Grid.Row="1"
@@ -42,7 +42,7 @@
                         >
                 <Button 
                             x:Name="btnExportProducts"
-                            Content="Xuất excel"
+                            Content="{DynamicResource ProductsPage.ExcelExport}"
                             ToolTip="Xuất danh sách hàng hóa"
                             Style="{StaticResource PrimaryButton}"
                             Command="{Binding ExportExcelCommand}"
@@ -50,7 +50,7 @@
                             Width="160"/>
                 <Button 
                             x:Name="btnProductsType"
-                            Content="Loại sản phẩm"
+                            Content="{DynamicResource ProductsPage.ProductType}"
                             ToolTip="Quản lý loại sản phẩm"
                             FontSize="19"
                             Style="{StaticResource PrimaryButton}"
@@ -59,7 +59,7 @@
                             Width="160"/>
                 <Button 
                             x:Name="btnImportProducts"
-                            Content="Nhập kho"
+                            Content="{DynamicResource ProductsPage.ImportWarehouse}"
                             ToolTip="Nhập kho"
                             Height="40"
                             FontSize="20"
@@ -69,7 +69,7 @@
                             Width="160" />
                 <Button 
                             x:Name="btnAddProducts"
-                            Content="Thêm sản phẩm"
+                            Content="{DynamicResource ProductsPage.Add}"
                             ToolTip="Thêm sản phẩm"
                             Height="40"
                             FontSize="20"
@@ -112,7 +112,7 @@
                                 Panel.ZIndex="-1" />
                     <TextBox 
                                 x:Name="txtSearchProducts"
-                                materialDesign:HintAssist.Hint="Tìm theo tên sản phẩm"
+                                materialDesign:HintAssist.Hint="{DynamicResource ProductsPage.SearchHint}"
                                 FontSize="18"
                                 BorderThickness="0"
                                 MaxLines="1"
@@ -168,7 +168,7 @@
                         <ComboBox 
                             x:Name="cboFilterType"                                   
                             materialDesign:ComboBoxAssist.ClassicMode="True"
-                            materialDesign:HintAssist.Hint="Loại sản phẩm"
+                            materialDesign:HintAssist.Hint="{DynamicResource ProductsPage.ProductType}"
                             Height="40"                                  
                             FontSize="18"
                             Width="200"                                  
@@ -204,7 +204,7 @@
                         <ComboBox
                                     x:Name="cboSortProducts"
                                     materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="Sắp xếp"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ProductsPage.ImportWarehouse}"
                                     Height="40"
                                     FontSize="18"
                                     Width="200"
@@ -253,36 +253,36 @@
                         <ColumnDefinition Width="90"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock 
-                                Text="Mã SP" 
+                                Text="{DynamicResource ProductsPage.ID}" 
                                 Grid.Column="0"
                                 Style="{StaticResource TitleText}"/>
                     <TextBlock 
                                 Grid.Column="1"
-                                Text="Tên sản phẩm" 
+                                Text="{DynamicResource ProductsPage.Name}" 
                                 Style="{StaticResource TitleText}"
                                 HorizontalAlignment="Left"
                                 Margin="20,0,0,0"/>
                     <TextBlock
                                 Grid.Column="2" 
-                                Text="Loại sản phẩm" 
+                                Text="{DynamicResource ProductsPage.Type}" 
                                 Style="{StaticResource TitleText}"
                                 HorizontalAlignment="Left"
                                 Margin="0,0,0,0" />
                     <TextBlock 
                                 Grid.Column="3"
-                                Text="Đơn vị" 
+                                Text="{DynamicResource ProductsPage.Unit}" 
                                 Style="{StaticResource TitleText}"/>
                     <TextBlock 
                                 Grid.Column="4" 
-                                Text="Tồn kho" 
+                                Text="{DynamicResource ProductsPage.Stock}" 
                                 Style="{StaticResource TitleText}"/>
                     <TextBlock 
                                 Grid.Column="5" 
-                                Text="Giá nhập" 
+                                Text="{DynamicResource ProductsPage.Import price}" 
                                 Style="{StaticResource TitleText}"/>
                     <TextBlock 
                                 Grid.Column="6" 
-                                 Text="Giá bán" 
+                                 Text="{DynamicResource ProductsPage.Sale price}" 
                                 Style="{StaticResource TitleText}"/>
                 </Grid>
             </Border>
