@@ -25,6 +25,7 @@ namespace SE104_OnlineShopManagement.Commands
                             : WindowState.Normal;
                     }
                 });
+
         public static ICommand MinimizeWindowCommand = new RelayCommand<UserControl>(
                null,
                 parameter =>
@@ -35,8 +36,8 @@ namespace SE104_OnlineShopManagement.Commands
                         parentWindow.WindowState = parentWindow.WindowState != WindowState.Minimized
                             ? WindowState.Minimized
                             : WindowState.Normal;
-    }
-});
+                    }
+                });
 
         public static ICommand MouseMoveWindowCommand = new RelayCommand<UserControl>(
                 null,
