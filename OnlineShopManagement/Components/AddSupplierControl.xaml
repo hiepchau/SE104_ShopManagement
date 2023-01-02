@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <cv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
     </UserControl.Resources>
+    
     <Grid>
         <StackPanel 
             HorizontalAlignment="Center"
@@ -37,6 +38,7 @@
                     IsTabStop="False"
                     materialDesign:HintAssist.Hint="{DynamicResource AddSupplier.IDAuto}"/>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
@@ -72,6 +74,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
@@ -107,6 +110,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0">
                 <Label 
@@ -141,7 +145,6 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-                
             </Grid>
 
             <Grid 
@@ -188,7 +191,9 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
+            
         </StackPanel>
+        
         <Grid 
             Margin="0,0,34,30"
             VerticalAlignment="Bottom"
@@ -231,5 +236,6 @@
                 </Button.IsEnabled>
             </Button>
         </Grid>
+        
     </Grid>
 </UserControl>

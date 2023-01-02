@@ -21,6 +21,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
         <Grid 
             Grid.Row="0"
             Background="White"
@@ -45,6 +46,7 @@
                     Margin="20,30,41,15" />
             </DockPanel>
         </Grid>
+        
         <Grid 
             Grid.Row="1"
             Background="{StaticResource White}"
@@ -132,5 +134,6 @@
                 </Button>
             </DockPanel>
         </Grid>
+        
     </Grid>
 </Window>

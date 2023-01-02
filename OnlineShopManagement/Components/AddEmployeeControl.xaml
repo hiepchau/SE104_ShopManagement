@@ -15,6 +15,7 @@
         <mcv:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
         <convert:MoneyFormatConverter x:Key="moneyconvert"/>
     </UserControl.Resources>
+    
     <Grid>
         <Grid
             x:Name="grdSelectImg"
@@ -40,6 +41,7 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"/>
         </Grid>
+        
         <StackPanel 
             x:Name="grdInfo"
             HorizontalAlignment="Right"
@@ -70,6 +72,7 @@
                     Cursor="Arrow"
                     materialDesign:HintAssist.Hint="{DynamicResource AddEmployee.EmployeeIDAuto}"/>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
@@ -142,6 +145,7 @@
                     </i:Interaction.Triggers>
                 </PasswordBox>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
@@ -177,8 +181,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0"
                 VerticalAlignment="Top"
@@ -221,6 +225,7 @@
                     HorizontalAlignment="Left"
                     IsChecked="{Binding isGirl, Mode=TwoWay}"/>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0"
                 VerticalAlignment="Top" 
@@ -262,6 +267,7 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
@@ -346,6 +352,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
+            
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
@@ -429,6 +436,7 @@
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
+                
                 <Button
                     x:Name="btnCancel"
                     Command="{Binding ExitCommand}"

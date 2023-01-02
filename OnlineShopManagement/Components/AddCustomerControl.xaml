@@ -15,6 +15,7 @@
         <multiconvert:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
     </UserControl.Resources>
     <Grid>
+
         <StackPanel
             Margin="30,30,30,0"
             VerticalAlignment="Top" >
@@ -41,6 +42,7 @@
                     IsTabStop="False"
                     Focusable="False"/>
             </Grid>
+
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
@@ -78,9 +80,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-                
-
             </Grid>
+
             <Grid 
                 Margin="0,20,0,0" 
                 VerticalAlignment="Top" 
@@ -171,8 +172,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-
             </Grid>
+
             <Grid 
                 Margin="0,20,0,0"
                 VerticalAlignment="Top"  
@@ -211,6 +212,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
+
             <StackPanel 
                 Margin="0,30,0,0" 
                 VerticalAlignment="Bottom"  
@@ -256,6 +258,5 @@
             </StackPanel>
         </StackPanel>
     </Grid>
-
 
 </UserControl>

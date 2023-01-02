@@ -13,15 +13,18 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <Rectangle 
                 Fill="{DynamicResource White}" 
                 RadiusY="4" 
                 RadiusX="4"
                 Grid.RowSpan="4"
                 Panel.ZIndex="-1"/>
+        
         <StackPanel 
                 Margin="20,20,20,0" 
                 VerticalAlignment="Top">
+            
             <TextBlock 
                     Style="{StaticResource HeadingText2}"
                     Text="{DynamicResource AddReceipt.Description}" 
@@ -41,6 +44,7 @@
                         FontSize="18"
                         HorizontalAlignment="Right"/>
             </Grid>
+            
             <Grid 
                     Margin="0,20,0,0">
                 <TextBlock 
@@ -56,6 +60,7 @@
             </Grid>
 
         </StackPanel>
+        
         <StackPanel
                 Grid.Row="1" 
                 Margin="20,0,20,30" 
@@ -82,6 +87,7 @@
                         FontSize="18"
                         TextAlignment="Right"/>
             </Grid>
+            
             <Grid 
                     Margin="0,30,0,0">
                 <TextBlock 
@@ -98,6 +104,7 @@
                         FontSize="18"
                         TextAlignment="Right"/>
             </Grid>
+            
             <Grid 
                     Margin="0,30,0,0">
                 <TextBlock  
@@ -114,8 +121,8 @@
                         FontSize="18" 
                         TextAlignment="Right" 
                         HorizontalAlignment="Right"/>
-
             </Grid>
+            
             <Button 
                     x:Name="btnPay"
                     Height="40"
@@ -127,6 +134,7 @@
                     Content="{DynamicResource AddReceipt.Purchase}"
                     ToolTip="Thanh toán phiếu nhập kho"
                     VerticalAlignment="Top" />
+            
             <Button 
                     x:Name="btnCancel"
                     Height="40"
@@ -138,6 +146,7 @@
                     Content="{DynamicResource ExitButton}"
                     ToolTip="Thoát"
                     VerticalAlignment="Top" />
+            
         </StackPanel>
     </Grid>
 
