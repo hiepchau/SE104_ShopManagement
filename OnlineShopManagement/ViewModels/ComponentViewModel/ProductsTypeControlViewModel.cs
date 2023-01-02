@@ -38,6 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             EditProductTypeCommand = new RelayCommand<Object>(null, EditType);
             DeleteProductTypeCommand = new RelayCommand<Object>(null, DeleteType);
         }
+
         #region Function
         public void DeleteType(Object o)
         {

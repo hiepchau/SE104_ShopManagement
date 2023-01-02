@@ -43,8 +43,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
                 _viewModel.Currentdisplaying = new SupplierFunction(_session, _mongoConnect);
                 _viewModel.CurrentDisplayPropertyChanged();
             }
-
         }
+
         public void changeSelectedItem(int i)
         {
             selectedItem = i;

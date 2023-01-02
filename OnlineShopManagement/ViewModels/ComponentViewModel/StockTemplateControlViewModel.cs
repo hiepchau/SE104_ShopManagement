@@ -44,6 +44,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             GetTypeName();
 
         }
+
         #region Function
         public async void GetProductInfo()
         {

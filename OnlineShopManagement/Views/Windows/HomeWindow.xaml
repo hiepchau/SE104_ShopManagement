@@ -32,6 +32,7 @@
     <Window.Resources>
         <Style x:Key="NavigationContentStyle" TargetType="ContentControl"></Style>
     </Window.Resources>
+    
     <Border Background="White" CornerRadius="4">
         <materialDesign:DialogHost CloseOnClickAway="True" >
             <Grid>
@@ -52,7 +53,7 @@
                         <ColumnDefinition Width="114"/>
                         <ColumnDefinition Width="1166"/>
                         <!--<ColumnDefinition Width="206"/>
-                <ColumnDefinition Width="960"/>-->
+                        <ColumnDefinition Width="960"/>-->
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
@@ -68,7 +69,7 @@
                                         Command="{Binding CurrentMainViewModel.SelectFunctionListCommand}"
                                         CommandParameter="{Binding ElementName=NavigationMenuListBox,Path=SelectedItem}"/>
                                 </i:EventTrigger>
-                            
+
                             </i:Interaction.Triggers>
                         </ListBox>
 
@@ -82,10 +83,10 @@
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          Background="{StaticResource WordLightBlueBrush}">
 
-                    <ListBoxItem>Khách hàng</ListBoxItem>
-                    <ListBoxItem>Hội viên</ListBoxItem>
-                    <ListBoxItem>Nhà cung cấp</ListBoxItem>
-                </ListBox>-->
+                            <ListBoxItem>Khách hàng</ListBoxItem>
+                            <ListBoxItem>Hội viên</ListBoxItem>
+                            <ListBoxItem>Nhà cung cấp</ListBoxItem>
+                        </ListBox>-->
                     </Grid>
 
 
@@ -117,14 +118,11 @@
                     <!--<Image Source="{Binding CurrentMainViewModel.testimg}" Width="100"/>-->
                     <!--<Button Command="{Binding CurrentMainViewModel.testCommand1}"/>-->
                 </Grid>
-                
-            </Grid>
 
+            </Grid>
 
         </materialDesign:DialogHost>
 
     </Border>
-
-
 
 </Window>

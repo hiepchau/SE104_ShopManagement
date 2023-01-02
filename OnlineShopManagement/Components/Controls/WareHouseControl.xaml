@@ -69,7 +69,41 @@
             Margin="20 0 0 0"
             Text="{Binding InWareHouseSellValue}">
         </TextBlock>
-        
+
+        <!--<Button
+            Grid.Column="7"
+            x:Name="btnViewProducts"
+            ToolTip="Xem thông tin"
+            Style="{StaticResource TransparentButton}"
+            Command="{Binding ViewProductsCommand}"
+            Height="30"
+            Margin="0,0,40,0" 
+            Width="30">
+            <materialDesign:PackIcon
+                Kind="Eye" 
+                Width="24"
+                Height="24" 
+                HorizontalAlignment="Left"
+                Foreground="{StaticResource WordBlueBrush}" />
+        </Button>-->
+        <!--<Button 
+            Grid.Column="7"
+            x:Name="btnDeleteProducts"
+            Style="{StaticResource TransparentButton}"
+            ToolTip="Xóa mặt hàng" 
+            Height="30"
+            Margin="0,0,15,0" 
+            Width="30"
+            HorizontalAlignment="Right" 
+            Command="{Binding DeleteProductsCommand}"
+            CommandParameter="{Binding ElementName=ucDisplayProducts}">
+            <materialDesign:PackIcon 
+                Kind="DeleteOutline" 
+                Height="24"
+                Width="24"
+                Foreground="{StaticResource Error}"/>
+        </Button>-->
+
     </Grid>
 
 </UserControl>

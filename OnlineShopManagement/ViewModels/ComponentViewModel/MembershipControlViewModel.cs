@@ -21,12 +21,12 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         private IUpdateMembershipList _parent;
 
         #endregion
+
         #region ICommand
         public ICommand EditMembershipCommand { get; set; }
         public ICommand DeleteMembershipCommand { get; set; }
         #endregion
         
-
         public MembershipControlViewModel(MembershipInformation membership, IUpdateMembershipList parent, string no)
         {
             this.membership = membership;

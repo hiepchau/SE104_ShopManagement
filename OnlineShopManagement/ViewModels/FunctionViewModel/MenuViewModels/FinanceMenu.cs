@@ -20,6 +20,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
             else
                 ismanager = false;
         }
+
         public override void change(object o)
         {
             var v = o as ListBoxItem;

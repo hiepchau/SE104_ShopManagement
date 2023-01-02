@@ -56,7 +56,6 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             _navigator = navigator;
         }
 
-
         private async void testing(object o = null)
         {
             string name;
@@ -82,7 +81,6 @@ namespace SE104_OnlineShopManagement.ViewModels.Home
             string s = await regist.register();
             Console.WriteLine(s);
         }
-
 
         private void selectFuncList(object o)
         {

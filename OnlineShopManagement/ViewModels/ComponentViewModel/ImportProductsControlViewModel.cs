@@ -27,6 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string displayID { get; set; }
         private IUpdateSelectedList _parent;
         #endregion
+
         #region ICommand
         public ICommand DeleteImportProductsCommand { get; set; }
         #endregion
@@ -46,7 +47,6 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             GetTypeName();
             DeleteImportProductsCommand = new RelayCommand<Object>(null, deleteImportProducts);
         }
-
 
         #region Function
         public void onAmountChanged()

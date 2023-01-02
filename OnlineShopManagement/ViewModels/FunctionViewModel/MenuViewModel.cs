@@ -14,6 +14,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
         protected AppSession _session;
         protected MongoConnect _mongoConnect;
         public ICommand ChangeViewModelCommand { get; set; }
+
         public MenuViewModel(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect)
         {
             _viewModel = viewmodel;

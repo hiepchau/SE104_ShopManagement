@@ -28,6 +28,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public string state { get; set; }
         public string sateID { get; set; }
         public ObservableCollection<BillTemplateControlViewModel> listDetail { get; set; }
+
         private AppSession _session;
         private MongoConnect _connection;
         #endregion

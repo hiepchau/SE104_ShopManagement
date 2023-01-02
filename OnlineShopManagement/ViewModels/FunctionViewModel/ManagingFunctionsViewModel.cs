@@ -19,7 +19,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
         {
             
         }
-
     
         public void changeMenu(string MenuType)
         {
@@ -48,8 +47,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel
                 menuViewModel = new SettingMenu(this,Session,Connect);
                 OnPropertyChanged(nameof(menuViewModel));
             }
-
-            
         }
 
         public void CurrentDisplayPropertyChanged()

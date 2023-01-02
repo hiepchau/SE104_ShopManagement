@@ -27,6 +27,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         private ISpendingParent _parent { get; set; }
 
         #endregion
+
         public SpendingControlViewModel(StockInformation stockinfo, ISpendingParent parent)
         {
             this.stock = stockinfo;
@@ -38,6 +39,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             ViewDetailCommand = new RelayCommand<object>(null, viewdetail);
             GetEmployeeName();
         }
+
         #region Function
         public async void GetEmployeeName()
         {

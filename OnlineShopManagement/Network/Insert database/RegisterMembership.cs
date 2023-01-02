@@ -13,7 +13,6 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
         private MembershipInformation newShip;
         private MongoClient mongoClient;
         private AppSession session;
-
         public RegisterMembership(MembershipInformation info, MongoClient client, AppSession session)
         {
             this.newShip = info;

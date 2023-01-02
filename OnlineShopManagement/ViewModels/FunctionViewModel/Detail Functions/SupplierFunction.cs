@@ -65,6 +65,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ICommand SortSupplierCommand { get; set; }
 
         #endregion
+
         public SupplierFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             this._connection = connect;
@@ -85,6 +86,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SortSupplierCommand = new RelayCommand<Object>(null, sortSupplierChanged);
             SortSupplierAsCommand = new RelayCommand<Object>(null, sortChanged);
         }
+
         #region Function
         public void sortSupplierChanged (object o = null)
         {

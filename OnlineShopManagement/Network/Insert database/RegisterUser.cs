@@ -18,6 +18,7 @@ namespace SE104_OnlineShopManagement.Network.Insert_database
             this.newUser = newUser;
             this.mongoClient = client;
         }
+
         public async Task<string> registerUser()
         {
             var database = mongoClient.GetDatabase(newUser.companyInformation);

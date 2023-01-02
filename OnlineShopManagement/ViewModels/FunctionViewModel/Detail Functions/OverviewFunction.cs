@@ -50,9 +50,11 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ChartValues<long> GraphValues { get; set; }
         public string[] Label { get; set; }
         #endregion
+
         #region ICommand
         public ICommand Reload { get; set; }
         #endregion
+
         public OverviewFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             _connection = connect;
@@ -67,6 +69,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             GraphValues = new ChartValues<long>();
             Reload = new RelayCommand<object>(null,GetData);      
         }
+
         #region Function
         public async void GetData(object o = null)
         {
@@ -262,6 +265,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
         }
         #endregion
+
         #region DB
         public async Task GetProductData()
         {

@@ -18,6 +18,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             _session = session;
             _filter = filter;
         }
+
         public async Task<List<CompanyInformation>> Get()
         {
 

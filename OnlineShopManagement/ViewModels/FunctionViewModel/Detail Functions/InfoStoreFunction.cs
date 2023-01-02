@@ -139,6 +139,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             }
         }
         #endregion
+
         #region DB
         public async Task GetStoreData()
         {

@@ -35,6 +35,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ObservableCollection<ProductsTypeControlViewModel> listItemsProductType { get; set; }
         public ObservableCollection<ProductsTypeControlViewModel> listItemsUnactiveProductType { get; set; }
         #endregion
+
         #region ICommand
         public ICommand SaveCommand { get; set; }
         public ICommand SetUnactiveCommand { get; set; }
@@ -60,6 +61,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             SetActiveCommand = new RelayCommand<Object>(null, SetActive);
             CancelCommand = new RelayCommand<Object>(null, SetNull);
         }
+
         #region Function
         public void TextChanged(Object o = null)
         {

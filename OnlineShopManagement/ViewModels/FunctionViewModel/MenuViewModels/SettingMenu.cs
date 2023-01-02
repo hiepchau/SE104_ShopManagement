@@ -21,6 +21,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
                 isOwner = false;
 
         }
+
         public override void change(object o)
         {
             var v = o as ListBoxItem;

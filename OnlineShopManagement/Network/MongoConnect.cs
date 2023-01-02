@@ -9,6 +9,7 @@ namespace SE104_OnlineShopManagement.Network
     {
         public MongoClient client { get; private set; }
         public MongoClientSettings settings { get; private set; }
+
         public MongoConnect()
         {
             settings = MongoClientSettings.FromConnectionString("mongodb+srv://DungTri:Zxcvbnm123@cluster0.1nc4v.mongodb.net/MyNewDatabase?retryWrites=true&w=majority");

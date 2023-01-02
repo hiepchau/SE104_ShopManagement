@@ -35,11 +35,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public ObservableCollection<MembershipControlViewModel> listActiveMembership { get; set; }
         public ObservableCollection<MembershipControlViewModel> listAllMembership { get; set; }
         #endregion
+
         #region ICommand
         public ICommand SaveCommand { get; set; }
         public ICommand ClearViewCommand { get; set; }
         public ICommand TextChangedCommand { get; set; }
         #endregion
+
         public MembershipFunction(AppSession session, MongoConnect connect) : base(session, connect)
         {
             this._session = session;
@@ -56,7 +58,6 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             TextChangedCommand = new RelayCommand<Object>(null, TextChangedHandle);
 
         }
-
 
         #region Function
         public async void SaveMemberShip(object o = null)

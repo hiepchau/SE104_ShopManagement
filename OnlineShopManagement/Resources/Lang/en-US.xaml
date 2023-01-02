@@ -2,7 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="appname">Shop management</sys:String>
-    
+
+    <sys:String x:Key="Language.Vietnamese">VietNamese</sys:String>
+    <sys:String x:Key="Language.English">English</sys:String>
+
     <sys:String x:Key="Login.Description">Login to your existing account</sys:String>
     <sys:String x:Key="Login.Companyname">Company</sys:String>
     <sys:String x:Key="Login.Username">Enter username</sys:String>

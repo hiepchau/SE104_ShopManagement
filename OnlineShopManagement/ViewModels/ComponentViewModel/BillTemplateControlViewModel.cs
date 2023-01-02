@@ -25,6 +25,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public long sumPrice { get; set; }
         public string Category { get; set; }
         public string CategoryID { get; set; }
+
         private MongoConnect _connection;
         private AppSession _session;
         #endregion
@@ -47,6 +48,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             GetTypeName();
 
         }
+
         #region Function
         public async void GetProductInfo()
         {

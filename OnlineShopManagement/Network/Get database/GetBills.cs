@@ -18,6 +18,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             _session = session;
             _filter = filter;
         }
+
         public async Task<List<BillInformation>> Get()
         {
 
@@ -34,7 +35,6 @@ namespace SE104_OnlineShopManagement.Network.Get_database
 
             var au = await collection.Find<BillInformation>(_filter).Project<BillInformation>(field).ToListAsync();
             return au;
-
         }
     }
 }

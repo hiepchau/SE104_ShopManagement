@@ -19,6 +19,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             _session = session;
             _filter = filter;
         }
+
         public async Task<List<BillDetails>> Get()
         {
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);

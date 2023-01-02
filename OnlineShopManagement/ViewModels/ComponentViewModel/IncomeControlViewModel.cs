@@ -26,6 +26,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
         public ICommand ViewDetailCommand { get; set; }
         private IIncomeParent _parent;
         #endregion
+
         public IncomeControlViewModel(BillInformation billinfo, IIncomeParent parent)
         {
             this.bill = billinfo;
@@ -37,6 +38,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             GetEmployeeName();
             ViewDetailCommand = new RelayCommand<object>(null, viewdetail);
         }
+
         #region Function
         public async void GetEmployeeName()
         {

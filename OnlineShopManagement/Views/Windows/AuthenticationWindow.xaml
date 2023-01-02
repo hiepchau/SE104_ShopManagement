@@ -35,17 +35,20 @@
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
+
                 <DockPanel Grid.Row="0">
                     <!--<ContentControl Content="{Binding LoginViewModel._titleBarViewModel}"
                                     DockPanel.Dock="Right" >
                         <ContentControl.Resources>
-                            <DataTemplate DataType="{x:Type titleBarVM--><!--:TitleBarViewModel}">-->
-                                <uc:NonResizeTitleBar HorizontalAlignment="Right"/>
-                    
+                            <DataTemplate DataType="{x:Type titleBarVM-->
+                    <!--:TitleBarViewModel}">-->
+                    <uc:NonResizeTitleBar HorizontalAlignment="Right"/>
+
                     <!--</DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>-->
                 </DockPanel>
+
                 <ContentControl Grid.Row="1" 
                                 Content="{Binding CurrentMainViewModel, UpdateSourceTrigger=PropertyChanged}">
                     <ContentControl.Resources>
@@ -58,8 +61,8 @@
 
                     </ContentControl.Resources>
                 </ContentControl>
+                
             </Grid>
-
         </materialDesign:DialogHost>
     </materialDesign:Card>
 </Window>

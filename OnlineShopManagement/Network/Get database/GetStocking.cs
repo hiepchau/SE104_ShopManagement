@@ -18,9 +18,9 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             _session = session;
             _filter = filter;
         }
+
         public async Task<List<StockInformation>> Get()
         {
-
             var database = _client.GetDatabase(_session.CurrnetUser.companyInformation);
             var collection = database.GetCollection<StockInformation>("StockingInformation");
             var field = Builders<StockInformation>.Projection
@@ -33,7 +33,6 @@ namespace SE104_OnlineShopManagement.Network.Get_database
 
             var au = await collection.Find<StockInformation>(_filter).Project<StockInformation>(field).ToListAsync();
             return au;
-
         }
     }
 }

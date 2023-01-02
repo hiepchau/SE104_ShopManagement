@@ -17,6 +17,7 @@ namespace SE104_OnlineShopManagement.Network.Get_database
             this.autheninfo = authen;
             this.client = mongoClient;
         }
+
         public async Task<UserInfomation> Authenticate()
         {
             var compalist = client.ListDatabaseNames().ToList();
