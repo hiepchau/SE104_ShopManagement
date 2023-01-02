@@ -12,12 +12,14 @@
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiConvert"/>
     </UserControl.Resources>
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction        
                 Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -38,8 +40,8 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center" 
                         Margin="0"
-                        Orientation="Horizontal"
-                        >
+                        Orientation="Horizontal">
+                
                 <Button 
                             x:Name="btnExportProducts"
                             Content="{DynamicResource ProductsPage.ExcelExport}"
@@ -88,8 +90,8 @@
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
-
             </Grid.RowDefinitions>
+            
             <Rectangle 
                         Fill="{DynamicResource White}" 
                         RadiusY="4" 

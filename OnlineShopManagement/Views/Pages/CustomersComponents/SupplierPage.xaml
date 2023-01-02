@@ -12,18 +12,22 @@
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiConvert"/>
     </UserControl.Resources>
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction        
                 Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <TextBlock Style="{StaticResource TextHeader}" Text="{DynamicResource SupplierPage.Title}"/>
+        
         <StackPanel
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" 
@@ -45,6 +49,7 @@
                         Height="40"
                         Width="160"/>
         </StackPanel>
+        
         <Grid 
                     Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -140,6 +145,7 @@
                         </ComboBox>
                     </StackPanel>
                 </Grid>
+                
                 <Grid
                             Height="160"
                             Style="{StaticResource DropShadow}"
@@ -177,6 +183,7 @@
                                 Text="{Binding supplierCount}"
                                 HorizontalAlignment="Center"/>
                 </Grid>
+                
                 <Grid
                             Height="160"
                             Style="{StaticResource DropShadow}"
@@ -218,6 +225,7 @@
                                 HorizontalAlignment="Center"/>
                 </Grid>
             </StackPanel>
+            
             <Grid 
                         Grid.Column="1"
                         Style="{StaticResource DropShadow}"

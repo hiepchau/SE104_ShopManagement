@@ -12,12 +12,14 @@
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiConvert"/>
     </UserControl.Resources>
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction        
                 Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
         <!--<i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
@@ -28,6 +30,7 @@
             <RowDefinition Height="90"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <StackPanel 
                     x:Name="stkStockDashboard"
                     Orientation="Horizontal"
@@ -39,6 +42,7 @@
             <uc:DashboardControl/>
             <uc:DashboardControl/>
         </StackPanel>
+        
         <TextBlock Style="{StaticResource TextHeader}" 
                    Text="{DynamicResource WareHousePage.Title}"/>
 
@@ -71,6 +75,7 @@
                 <RowDefinition Height="74"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
             <Grid 
                         Margin="20,0,0,0" 
                         Height="46" 
@@ -105,6 +110,7 @@
                                         CommandParameter="{Binding ElementName=txtSearchProducts, Path=Text}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    
                 </TextBox>
                 <Button 
                             IsDefault="True"

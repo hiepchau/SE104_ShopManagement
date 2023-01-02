@@ -18,6 +18,7 @@
                 Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <UserControl.Resources>
         <multiconvert:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
         <multiconvert:MoneyFormatConverter x:Key="moneyconvert"/>
@@ -45,6 +46,7 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="240" />
                     </Grid.RowDefinitions>
+                    
                     <TextBlock
                             Style="{StaticResource TextHeader}"
                             Text="{DynamicResource SalePage.Title}" 
@@ -208,9 +210,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
-
                     <RowDefinition Height="220"/>
                 </Grid.RowDefinitions>
+                
                 <TextBlock
                             x:Name="txbTitle"
                             Style="{StaticResource HeadingText2}"

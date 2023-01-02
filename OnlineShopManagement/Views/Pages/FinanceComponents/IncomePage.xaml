@@ -19,6 +19,7 @@
             <RowDefinition Height="71.892"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Rectangle 
                 Fill="{DynamicResource White}"
                 RadiusY="4"
@@ -29,8 +30,8 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock Style="{StaticResource TextHeader}"
                        Text="{DynamicResource IncomePage.Title}">
-                
             </TextBlock>
+            
             <Grid 
                         Margin="20,0,0,0" 
                         Height="46" 
@@ -142,6 +143,7 @@
                     Margin="0 0 0 0"/>
             </Grid>
         </Border>
+        
         <Border Grid.Row="1" BorderBrush="{DynamicResource LightBrush}"
                 BorderThickness="2 0 2 2" CornerRadius="4"
                 Margin="20,60,20,20">

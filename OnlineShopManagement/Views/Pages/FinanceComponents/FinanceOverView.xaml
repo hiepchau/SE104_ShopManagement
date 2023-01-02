@@ -12,14 +12,15 @@
             <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
         <TextBlock Grid.Row="0" Style="{StaticResource TextHeader}" Text="{DynamicResource RevenuePage.Title}"/>
-        
+
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <StackPanel Grid.Row="0" Orientation="Horizontal">
 
                 <materialDesign:Card    
@@ -66,7 +67,7 @@
                                 Foreground="{DynamicResource White}" />
                     </Grid>
                 </materialDesign:Card>
-                
+
                 <materialDesign:Card    
                         Background="{StaticResource Success}"
                         HorizontalAlignment="Center" 
@@ -100,7 +101,6 @@
                                 FontWeight="Bold" 
                                 Foreground="{DynamicResource White}" />
                         <TextBlock
-                          
                                 Grid.Row="2"
                                 HorizontalAlignment="Left"
                                 Margin="20,0,0,0" 
@@ -110,7 +110,9 @@
                                 FontWeight="Medium" 
                                 Foreground="{DynamicResource White}" />
                     </Grid>
+
                 </materialDesign:Card>
+
                 <materialDesign:Card    
                         Background="{StaticResource Error}"
                         HorizontalAlignment="Right" 
@@ -162,7 +164,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!--<Border Grid.Column="0" CornerRadius="10" Background="White" Margin="15">
                     <StackPanel VerticalAlignment="Top" Height="385" Margin="10">
                         <Label Content="DÒNG TIỀN THEO SỐ" Margin="10"
@@ -257,10 +259,6 @@
 
         </Grid>
 
-
     </Grid>
-    
-
-
 
 </UserControl>

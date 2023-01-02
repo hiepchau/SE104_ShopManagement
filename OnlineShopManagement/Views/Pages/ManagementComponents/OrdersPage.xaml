@@ -19,19 +19,18 @@
             <RowDefinition Height="71.892"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Rectangle 
                 Fill="{DynamicResource White}"
                 RadiusY="4"
                 RadiusX="4"
                 Grid.RowSpan="3"
                 Panel.ZIndex="-1" />
-
-
+        
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock Style="{StaticResource TextHeader}"
-                       Text="{DynamicResource OrderPage.Title}">
-                
-            </TextBlock>
+                       Text="{DynamicResource OrderPage.Title}"/>
+            
             <Grid 
                         Margin="20,0,0,0" 
                         Height="46" 

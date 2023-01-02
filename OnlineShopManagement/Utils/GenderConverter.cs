@@ -9,6 +9,7 @@ namespace SE104_OnlineShopManagement.Utils
 {
     public class GenderConverter : IValueConverter
     {
+        #region GenderConverter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
@@ -18,5 +19,6 @@ namespace SE104_OnlineShopManagement.Utils
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

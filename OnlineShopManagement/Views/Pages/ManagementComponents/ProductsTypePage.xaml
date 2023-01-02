@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiConvert"/>
     </UserControl.Resources>
+    
     <Grid>
         <TabControl 
             x:Name="tabControl"

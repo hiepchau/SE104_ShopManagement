@@ -9,6 +9,7 @@ namespace SE104_OnlineShopManagement.Utils
     public class MoneyFormatConverter : IValueConverter
 
     {
+        #region MoneyFormatConverter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string s = String.Empty;
@@ -46,5 +47,6 @@ namespace SE104_OnlineShopManagement.Utils
             }
             return result;
         }
+        #endregion
     }
 }

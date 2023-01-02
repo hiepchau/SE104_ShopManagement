@@ -15,7 +15,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Width="900">
@@ -110,6 +109,7 @@
                 </StackPanel>
             </ScrollViewer>
         </Border>
+        
         <StackPanel Grid.Row="2" Orientation="Horizontal" >
             <TextBlock                         
                 Style="{StaticResource TextHeader}"
@@ -169,6 +169,7 @@
                 </Button>
             </Grid>
         </StackPanel>
+        
         <Border
             Grid.Row="3"            
             BorderBrush="{DynamicResource LightBrush}"

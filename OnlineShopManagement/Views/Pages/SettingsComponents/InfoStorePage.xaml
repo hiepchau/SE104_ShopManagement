@@ -10,12 +10,14 @@
     <UserControl.Resources>
         <cv:MultiConverter x:Key="multiconverter"/>
     </UserControl.Resources>
+    
     <Grid Style="{StaticResource DropShadow}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Rectangle 
                 Fill="{DynamicResource White}" 
                 RadiusY="4" 
@@ -40,6 +42,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
+            
             <Grid  
                 x:Name="grdSelectImage"
                 Grid.Row="0"
@@ -142,6 +145,7 @@
                             <ColumnDefinition Width="331*"/>
                             <ColumnDefinition Width="129*"/>
                         </Grid.ColumnDefinitions>
+                        
                         <Label  Content="Email:"
                             Style="{StaticResource LabelText}"/>
                         <Rectangle  HorizontalAlignment="Left"
@@ -193,6 +197,7 @@
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,0,0,0">
                         </TextBox>
                     </Grid>
+                    
                     <Grid Margin="0,20,0,0">
                         <Label Style="{StaticResource LabelText}"
                            Content="{DynamicResource StoreInfoPage.Fax}"/>
@@ -211,6 +216,7 @@
                                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                         </TextBox>
                     </Grid>
+                    
                     <Grid Margin="0,20,0,0">
                         <Label  Content="Website:"
                             Style="{StaticResource PrimaryLabelText}"/>

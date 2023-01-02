@@ -9,6 +9,7 @@ namespace SE104_OnlineShopManagement.Utils
 {
     public class VisibilityConverter : IValueConverter
     {
+        #region VisibilityConverter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool source;
@@ -26,5 +27,6 @@ namespace SE104_OnlineShopManagement.Utils
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

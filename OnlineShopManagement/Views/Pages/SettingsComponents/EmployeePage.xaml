@@ -147,6 +147,7 @@
 
                 </Grid>
             </TabItem>
+            
             <!--Item 2-->
             <TabItem
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"

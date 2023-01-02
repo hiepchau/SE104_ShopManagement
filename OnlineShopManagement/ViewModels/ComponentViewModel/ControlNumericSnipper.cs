@@ -8,11 +8,17 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
 {
     public class ControlNumericSnipper : ViewModelBase
     {
+        #region Properties
+        public string quantity { get; set; }
+        protected int maxquantity { get; set; }
+        #endregion
+
+        #region ICommand
         public ICommand DecreaseCommand { get; set; }
         public ICommand IncreaseCommand { get; set; }
         public ICommand ChangeCommand { get; set; }
-        public string quantity { get; set; }
-        protected int maxquantity { get; set; }
+        #endregion
+        
         public ControlNumericSnipper(int productquantity)
         {
             quantity = "1";
@@ -21,6 +27,8 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             IncreaseCommand = new RelayCommand<Object>(null, Increase);
             ChangeCommand = new RelayCommand<Object>(null, change);
         }
+
+        #region Function
         private void change(Object o)
         {
             int i;
@@ -89,6 +97,7 @@ namespace SE104_OnlineShopManagement.ViewModels.ComponentViewModel
             }
             else return 0;
         }
+        #endregion
 
     }
 }

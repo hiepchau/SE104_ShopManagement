@@ -17,11 +17,13 @@
         <mcv:MoneyFormatConverter x:Key="MoneyFormat"/>
         <convert:VisibilityConverter x:Key="visiConvert"/>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="460"/>
         </Grid.ColumnDefinitions>
+        
         <Grid
             Style="{StaticResource DropShadow}"
             Grid.Column="0"
@@ -80,6 +82,7 @@
                         Style="{StaticResource TitleText}"/>
                 </Grid>
             </Border>
+            
             <Border
                 Grid.Row="1"
                 BorderBrush="{DynamicResource LightBrush}"
@@ -107,6 +110,7 @@
             </Border>
 
         </Grid>
+        
         <Grid
             Style="{StaticResource DropShadow}"
             Grid.Column="1" 
@@ -148,6 +152,7 @@
                         IsReadOnly="True"
                         IsTabStop="False"/>
                 </Grid>
+                
                 <Grid
                     Margin="0,0,0,20" 
                     VerticalAlignment="Top" 
@@ -189,6 +194,7 @@
                         </i:Interaction.Triggers>
                     </TextBox>
                 </Grid>
+                
                 <Grid
                     Margin="0,0,0,20" 
                     VerticalAlignment="Top" 
@@ -265,6 +271,7 @@
                     </TextBox>
                 </Grid>
             </StackPanel>
+            
             <StackPanel 
                 Orientation="Horizontal"
                 VerticalAlignment="Bottom" 
