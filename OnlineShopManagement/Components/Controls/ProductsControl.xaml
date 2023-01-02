@@ -18,6 +18,7 @@
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
+        
        <!--LINE-->
         <!--<Rectangle 
             Grid.ColumnSpan="9"
@@ -70,6 +71,7 @@
             Grid.Column="6"
             Margin="-10 0 0 0"
             Style="{StaticResource Text}"/>
+        
         <Button 
             Grid.Column="7"
             x:Name="btnEditProducts"

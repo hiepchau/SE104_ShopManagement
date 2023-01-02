@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <utils:MoneyFormatConverter x:Key="moneyFormat"/>
     </UserControl.Resources>
+    
     <Grid
         x:Name="grdPrint">
         <Grid.RowDefinitions>
@@ -147,6 +148,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
+        
         <StackPanel 
             Grid.Row="1" 
             HorizontalAlignment="Left" 
@@ -298,6 +300,7 @@
 
             </Border>
         </Grid>
+        
         <Grid
             Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -413,6 +416,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+        
         <Grid
             Grid.Row="4" >
             <Button

@@ -24,7 +24,6 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-
         <ListBoxItem Name="Overall" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">
             <TextBlock
                 Foreground="{StaticResource Black1}"
@@ -32,6 +31,7 @@
                         Text="{DynamicResource FinanceSelectMenu.Overview}" 
                         FontSize="18"/>
         </ListBoxItem>
+
         <ListBoxItem Name="Income" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">
             <TextBlock
                 Foreground="{StaticResource Black1}"
@@ -39,6 +39,7 @@
                         Text="{DynamicResource FinanceSelectMenu.Income}" 
                         FontSize="18"/>
         </ListBoxItem>
+
         <ListBoxItem Name="Outcome" Visibility="{Binding ismanager, Converter={StaticResource visiconvert}}">
             <TextBlock
                 Foreground="{StaticResource Black1}"

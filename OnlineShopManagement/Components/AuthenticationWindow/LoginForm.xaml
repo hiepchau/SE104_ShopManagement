@@ -17,19 +17,21 @@
                        Source="pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/logo.png"
                        Height="25"/>-->
         <views:LanguageComponent></views:LanguageComponent>
+        
         <TextBlock 
-            
             HorizontalAlignment="Center" 
             FontSize="20" 
             FontWeight="Bold" 
             Foreground="{StaticResource WordBlueBrush}"
             Text="{DynamicResource appname}" />
+        
         <TextBlock 
             FontSize="17"
             FontWeight="SemiBold"
             HorizontalAlignment="Center" 
             Text="{DynamicResource Login.Description}"
             Foreground="{StaticResource WordBlueBrush}"/>
+        
         <TextBox Margin="0,30,0,0" 
                  x:Name="txtCompany" Width="250"
                  FontSize="13"
@@ -45,6 +47,7 @@
             </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
+        
         <TextBox Margin="0,20,0,0" 
                  x:Name="txtUsername" Width="250"
                  FontSize="13"
@@ -60,6 +63,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
+        
         <PasswordBox
             Margin="0,20,0,0" 
             x:Name="PasswordBox" 

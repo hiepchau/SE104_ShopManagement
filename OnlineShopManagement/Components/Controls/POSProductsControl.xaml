@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visibilityconverter"/>
     </UserControl.Resources>
+    
     <Border
         Background="{DynamicResource White}" 
         BorderBrush="{DynamicResource Gray2}"
@@ -22,7 +23,7 @@
         Height="120"
         CornerRadius="4">
         <Grid>
-            
+
             <Grid Cursor="Hand" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="75*"></RowDefinition>
@@ -72,8 +73,7 @@
                 </StackPanel>
 
             </Grid>
-            
-        
+
             <Button Height="120"
                 Style="{StaticResource PrimaryButton}"
                 BorderBrush="Transparent"

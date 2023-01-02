@@ -11,12 +11,14 @@
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiconvert"></convert:VisibilityConverter>
     </UserControl.Resources>
+    
     <ListBox x:Name="NavigationFeatureMenuListBox"
              Style="{StaticResource NavigationListBoxStyle}"
              SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
              ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
              
              Background="{StaticResource WordLightBlueBrush}">
+        
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction
@@ -25,6 +27,7 @@
                                         ></i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
+        
         <ListBoxItem Name="Overall"
                      Visibility="{Binding isOverallAllowed, Converter={StaticResource visiconvert}}"
                      >
@@ -34,6 +37,7 @@
                         Text="{DynamicResource ManagementSelectMenu.Dashboard}" 
                         FontSize="18"/>
         </ListBoxItem>
+        
         <ListBoxItem Name="Orders">
             <TextBlock
                 Foreground="{StaticResource Black1}"
@@ -41,6 +45,7 @@
                         Text="{DynamicResource ManagementSelectMenu.Order}" 
                         FontSize="18"/>
         </ListBoxItem>
+        
         <ListBoxItem Name="Products"
                      Visibility="{Binding isProductsAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
@@ -48,7 +53,8 @@
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.Product}" 
                         FontSize="18"/>
-            </ListBoxItem>
+        </ListBoxItem>
+        
         <ListBoxItem Name="ProductsType"
                      Visibility="{Binding isProducTypeAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
@@ -57,6 +63,7 @@
                         Text="{DynamicResource ManagementSelectMenu.ProductType}" 
                         FontSize="18"/>
         </ListBoxItem>
+        
         <ListBoxItem Name="Stock">
             <TextBlock
                 Foreground="{StaticResource Black1}"
@@ -64,6 +71,7 @@
                         Text="{DynamicResource ManagementSelectMenu.Import}" 
                         FontSize="18"/>
         </ListBoxItem>
+        
         <ListBoxItem Name="Storage">
             <TextBlock
                 Foreground="{StaticResource Black1}"

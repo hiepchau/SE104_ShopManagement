@@ -15,6 +15,7 @@
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          Background="{StaticResource WordLightBlueBrush}">
+        
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction
@@ -24,7 +25,6 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-
         <ListBoxItem Name="Employee" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">
             <TextBlock
                 Foreground="{StaticResource Black1}"
@@ -32,6 +32,7 @@
                         Text="{DynamicResource SettingSelectMenu.Employee}" 
                         FontSize="18"/>
         </ListBoxItem>
+        
         <ListBoxItem Name="Store" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">
             <TextBlock
                 Foreground="{StaticResource Black1}"

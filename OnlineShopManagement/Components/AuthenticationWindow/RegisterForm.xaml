@@ -14,11 +14,13 @@
     <UserControl.Resources>
         <multiconvert:MultiConverter x:Key="Multi"></multiconvert:MultiConverter>
     </UserControl.Resources>
+    
     <Border Background="{DynamicResource BackgroundResource}">
         <Grid Background="Transparent">
             <!--Text-->
             <DockPanel>
                 <views:LanguageComponent DockPanel.Dock="Top"/>
+                
                 <StackPanel Orientation="Horizontal" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
@@ -29,6 +31,7 @@
                                Foreground="{StaticResource WordBlueBrush}"
                                Text="{DynamicResource appname}"/>
                 </StackPanel>
+                
                 <StackPanel DockPanel.Dock="Top" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
@@ -38,10 +41,12 @@
                             Width="110"
                             BorderBrush="#FFC5C5C5" />
                 </StackPanel>
+                
             </DockPanel>
 
             <Grid>
                 <StackPanel Margin="50 60 50 0">
+                    
                     <!--Ho ten-->
                     <DockPanel Margin="0 0 0 16" LastChildFill="False">
                         <TextBox x:Name="FirstNameBox"
@@ -54,6 +59,7 @@
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90"
                                  DockPanel.Dock="Right" />
                     </DockPanel>
+                    
                     <!--Ngay sinh Gioi tinh-->
                     <DockPanel LastChildFill="False" Margin="0 0 0 16">
                         <DatePicker x:Name="BirthdayPicker"
@@ -79,17 +85,20 @@
                             </i:Interaction.Triggers>
                         </ComboBox>
                     </DockPanel>
+                    
                     <!--Mail-->
                     <TextBox x:Name="UsernameBox"
                              materialDesign:HintAssist.Hint="{DynamicResource Register.UserNameorEmail}"
                              Text="{Binding Email, Mode=TwoWay}" 
                              Margin="0 0 0 16" 
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    
                     <!--Mat khau-->
                     <PasswordBox x:Name="PasswordBox"
                                  materialDesign:HintAssist.Hint="{DynamicResource Register.Password}" 
                                  Margin="0 0 0 16" 
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    
                     <!--Nhap lai mat khau-->
                     <PasswordBox x:Name="VerifyPasswordBox"
                                  materialDesign:HintAssist.Hint="{DynamicResource Register.PasswordConfirm}"

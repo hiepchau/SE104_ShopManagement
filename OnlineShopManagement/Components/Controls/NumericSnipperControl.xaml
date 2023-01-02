@@ -23,6 +23,7 @@
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
+            
             <ControlTemplate.Triggers>
                 <Trigger 
                     Property="IsMouseOver" 
@@ -42,11 +43,13 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
         <Style TargetType="Button">
             <Setter 
                 Property="Template" 
                 Value="{StaticResource updown_button_style}" />
         </Style>
+        
     </UserControl.Resources>
     <Border>
         <Border.OpacityMask>

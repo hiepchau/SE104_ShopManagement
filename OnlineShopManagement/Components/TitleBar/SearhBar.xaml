@@ -14,6 +14,7 @@
                         RadiusY="4" 
                         RadiusX="4"
                         Panel.ZIndex="-1"/> 
+        
         <TextBox 
                         x:Name="txtSearch"
                         HorizontalAlignment="Left"
@@ -26,6 +27,7 @@
                         Margin="10,0,50,0" 
                         Padding="2,0,0,0"
                         Width="{Binding Path=tbWidth, ElementName=searchBar}" />
+        
         <Button 
                         IsDefault="True"
                         Style="{StaticResource TransparentButton}"

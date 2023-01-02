@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <convert:MoneyFormatConverter x:Key="convertMoney"/>
     </UserControl.Resources>
+    
     <Grid
         x:Name="grdPrint">
         <Grid.RowDefinitions>
@@ -70,6 +71,7 @@
                     Text="Bien Hoa, Dong Nai"
                     Foreground="{DynamicResource Gray1}" />
             </StackPanel>
+            
             <Rectangle 
                 HorizontalAlignment="Left"
                 Height="25"  
@@ -77,6 +79,7 @@
                 VerticalAlignment="Bottom" 
                 Width="188" 
                 Fill="{DynamicResource WordBlueBrush}"/>
+            
             <Rectangle 
                 Fill="{DynamicResource WordBlueBrush}"
                 HorizontalAlignment="Left" 
@@ -95,6 +98,7 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
+            
             <TextBlock 
                 HorizontalAlignment="Left"
                 Margin="30,0,0,3" 
@@ -104,6 +108,7 @@
                 FontSize="14" 
                 FontWeight="SemiBold" 
                 Foreground="{DynamicResource White}"/>
+            
             <TextBlock 
                 x:Name="txbIdBill"
                 HorizontalAlignment="Left"
@@ -114,6 +119,7 @@
                 FontSize="14" 
                 FontWeight="SemiBold" 
                 Foreground="{DynamicResource White}"/>
+            
             <Grid 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom"
@@ -147,6 +153,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
+        
         <StackPanel 
             Grid.Row="1" 
             HorizontalAlignment="Left" 
@@ -168,8 +175,8 @@
                 TextTrimming="CharacterEllipsis"
                 Text="{Binding customer}"
                 Foreground="{DynamicResource WordBlueBrush}"/>
-
         </StackPanel>
+        
         <Grid
             Grid.Row="4" 
             Background="#FFEAEAEA">
@@ -207,6 +214,7 @@
                 FontWeight="SemiBold" 
                 Foreground="{DynamicResource White}"/>
         </Grid>
+        
         <Grid
             Grid.Row="2">
             <Rectangle 
@@ -312,7 +320,6 @@
                     Foreground="{DynamicResource Black2}"/>
             </Grid>
             <Border
-                
                 BorderBrush="{DynamicResource Light}"
                 CornerRadius="0,0,4,4"
                 BorderThickness="2,0,2,2" 
@@ -330,6 +337,7 @@
                 </StackPanel>
             </Border>
         </Grid>
+        
         <Grid
             Grid.Row="3">
             <Grid.ColumnDefinitions>
