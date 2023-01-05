@@ -178,6 +178,8 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private async void reload(Object o = null)
         {
+            listActiveItemsProducer.Clear();
+            listAllProducer.Clear();
             await GetData();
             await GetAllData();
             Console.WriteLine("Executed active producer for reload " + listActiveItemsProducer.Count.ToString());

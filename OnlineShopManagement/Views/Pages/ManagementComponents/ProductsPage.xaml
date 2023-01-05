@@ -153,6 +153,7 @@
                                     Foreground="{StaticResource Black2}" />
                     </Button>
                 </Grid>
+                
                 <StackPanel 
                             Orientation="Horizontal"
                             HorizontalAlignment="Right"

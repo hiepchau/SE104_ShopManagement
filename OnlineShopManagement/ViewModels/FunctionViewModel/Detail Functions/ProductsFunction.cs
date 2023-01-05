@@ -116,6 +116,15 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
 
         #region Function
+
+        private void Clear()
+        {
+            listActiveItemsProduct.Clear();
+            listAllProduct.Clear();
+            ItemSourceProducer.Clear();
+            ItemSourceProductsType.Clear();
+            backupListProduct.Clear();
+        }
         public void sortProductTypeChanged(object o = null)
         {
             listActiveItemsProduct.Clear();
@@ -253,6 +262,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         private async void ReloadAsync(Object o = null)
         {
+            Clear();
             await GetAllData();
             await GetProductTypeData();
             await GetProducerData();
