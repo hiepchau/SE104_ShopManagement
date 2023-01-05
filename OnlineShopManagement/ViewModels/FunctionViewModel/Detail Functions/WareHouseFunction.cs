@@ -210,6 +210,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
 
         private async void Reload(object o = null)
         {
+            listItemWareHouse.Clear();
             await GetData();
         }
         #endregion

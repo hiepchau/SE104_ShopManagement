@@ -211,6 +211,9 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         }
         private async void reload(Object o = null)
         {
+            listAllCustomer.Clear();
+            ItemSourceMembership.Clear();
+            backupMemberlist.Clear();
             await GetMembershipData();
             await GetData();
             //Display element
