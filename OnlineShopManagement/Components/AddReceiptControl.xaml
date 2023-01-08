@@ -55,6 +55,7 @@
                         HorizontalAlignment="Left"/>
                 <TextBlock 
                         x:Name="txbDate"
+                        Text="{Binding today}"
                         Style="{StaticResource Text}" 
                         HorizontalAlignment="Right"/>
             </Grid>

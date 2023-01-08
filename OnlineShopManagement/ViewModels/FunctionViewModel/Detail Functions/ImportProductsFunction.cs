@@ -29,6 +29,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
         public string totalReceipt { get; set; }
         public double discount { get; set; }
         public string MoneyToPay { get; set; }
+        public DateTime today { get; set; }
         public ObservableCollection<POSProductControlViewModel> listProducts { get; set; }
         public ObservableCollection<ImportProductsControlViewModel> listItemsImportProduct { get; set; }
         public string searchString { get; set; }
@@ -61,6 +62,7 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.Detail_Functio
             AddReceiptControl addReceiptControl = new AddReceiptControl();
             addReceiptControl.DataContext = this;
             DialogHost.Show(addReceiptControl);
+            today = DateTime.Now;
             totalReceipt = "0";
             long sum = 0;
             discount = 0;

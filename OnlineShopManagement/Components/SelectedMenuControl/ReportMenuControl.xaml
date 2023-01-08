@@ -10,6 +10,7 @@
     <Grid>
         <ListBox x:Name="NavigationFeatureMenuListBox"
                          Style="{StaticResource NavigationListBoxStyle}"
+                 SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          Background="{StaticResource WordLightBlueBrush}">
             <i:Interaction.Triggers>

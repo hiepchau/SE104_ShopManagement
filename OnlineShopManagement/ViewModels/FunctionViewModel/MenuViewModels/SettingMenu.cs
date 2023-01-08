@@ -11,6 +11,14 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class SettingMenu : MenuViewModel
     {
+        public int _selectedItem = -1;
+        public int selectedItem
+        {
+            get => _selectedItem; set
+            {
+                _selectedItem = value;
+            }
+        }
         public bool isOwner { get; set; }
         public SettingMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {

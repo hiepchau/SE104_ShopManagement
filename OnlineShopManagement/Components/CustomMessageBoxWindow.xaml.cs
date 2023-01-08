@@ -1,15 +1,7 @@
 ﻿using SE104_OnlineShopManagement.Utils;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SE104_OnlineShopManagement.Components
 {
@@ -192,19 +184,19 @@ namespace SE104_OnlineShopManagement.Components
             {
                 case MessageBoxImage.Warning:
                     //bitmapImage = new BitmapImage(new Uri("..//Resources//Images//warning.png", UriKind.Relative));
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/warning.png"));
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement;component/Resources/Images/warning.png"));
                     break;
                 case MessageBoxImage.Asterisk:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/succes.png"));
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement;component/Resources/Images/succes.png"));
                     break;
                 case MessageBoxImage.Error:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/error.png"));
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement;component/Resources/Images/error.png"));
                     break;
                 case MessageBoxImage.Question:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/help.png"));
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement;component/Resources/Images/help.png"));
                     break;
                 default:
-                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/SE104_OnlineShopManagement;component/Resources/Images/info.png"));
+                    bitmapImage = new BitmapImage(new Uri("pack://application:,,,/OnlineShopManagement;component/Resources/Images/info.png"));
                     break;
             }
 
