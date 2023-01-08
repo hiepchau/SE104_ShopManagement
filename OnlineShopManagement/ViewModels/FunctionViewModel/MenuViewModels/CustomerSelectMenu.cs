@@ -11,13 +11,13 @@ namespace SE104_OnlineShopManagement.ViewModels.FunctionViewModel.MenuViewModels
 {
     public class CustomerSelectMenu : MenuViewModel
     {
-        public int selectedItem { get; set; }
+        public int _selectedItem = -1;
+        public int selectedItem  { get => _selectedItem; set { _selectedItem = value; } }
         public bool isMembershipAllowed { get; set; }
         public bool isProviderAllowed { get; set; }
 
         public CustomerSelectMenu(ManagingFunctionsViewModel viewmodel, AppSession session, MongoConnect connect) : base(viewmodel, session, connect)
         {
-            selectedItem = -1;
             ChangeViewModelCommand = new RelayCommand<object>(null, change);
             isMembershipAllowed = Utils.RoleSeperator.managerRole(session);
             isProviderAllowed = Utils.RoleSeperator.managerRole(session);

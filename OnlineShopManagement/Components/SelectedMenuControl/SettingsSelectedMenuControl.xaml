@@ -6,12 +6,15 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
+              xmlns:newconvert ="clr-namespace:OnlineShopManagement.Utils"
              xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              d:DesignHeight="715" d:DesignWidth="205.643">
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiconvert"/>
+        <newconvert:SelectValueConverter x:Key="selectconvert"/>
     </UserControl.Resources>
     <ListBox x:Name="NavigationFeatureMenuListBox"
+             SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
                          Style="{StaticResource NavigationListBoxStyle}"
                          ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
                          Background="{StaticResource WordLightBlueBrush}">
@@ -27,7 +30,7 @@
 
         <ListBoxItem Name="Employee" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=0}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource SettingSelectMenu.Employee}" 
                         FontSize="18"/>
@@ -35,7 +38,7 @@
         
         <ListBoxItem Name="Store" Visibility="{Binding isOwner, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=1}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource SettingSelectMenu.Store}" 
                         FontSize="18"/>

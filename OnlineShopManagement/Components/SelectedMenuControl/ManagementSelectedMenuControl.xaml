@@ -6,17 +6,18 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
+             xmlns:newconvert ="clr-namespace:OnlineShopManagement.Utils"
              xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              d:DesignHeight="715" d:DesignWidth="205.643">
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiconvert"></convert:VisibilityConverter>
+        <newconvert:SelectValueConverter x:Key="selectconvert"/>
     </UserControl.Resources>
     
     <ListBox x:Name="NavigationFeatureMenuListBox"
              Style="{StaticResource NavigationListBoxStyle}"
              SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
              ItemContainerStyle="{DynamicResource NavigationListBoxItemStyle}"
-             
              Background="{StaticResource WordLightBlueBrush}">
         
         <i:Interaction.Triggers>
@@ -32,7 +33,7 @@
                      Visibility="{Binding isOverallAllowed, Converter={StaticResource visiconvert}}"
                      >
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=0}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.Dashboard}" 
                         FontSize="18"/>
@@ -40,7 +41,7 @@
         
         <ListBoxItem Name="Orders">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=1}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.Order}" 
                         FontSize="18"/>
@@ -49,7 +50,7 @@
         <ListBoxItem Name="Products"
                      Visibility="{Binding isProductsAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=2}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.Product}" 
                         FontSize="18"/>
@@ -58,7 +59,7 @@
         <ListBoxItem Name="ProductsType"
                      Visibility="{Binding isProducTypeAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=3}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.ProductType}" 
                         FontSize="18"/>
@@ -66,7 +67,7 @@
         
         <ListBoxItem Name="Stock">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=4}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.Import}" 
                         FontSize="18"/>
@@ -74,7 +75,7 @@
         
         <ListBoxItem Name="Storage">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding ElementName=NavigationFeatureMenuListBox, Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=5}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource ManagementSelectMenu.WareHouse}" 
                         FontSize="18"/>

@@ -11,13 +11,14 @@ namespace OnlineShopManagement.Utils
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null && parameter != null)
+            if (value != null && parameter != null)
             {
                 int rtvalue = (int)value;
-                int rtpar = (int)parameter;
-                return (rtvalue == rtpar) ? Colors.White : Colors.Black;
+                int rtpar = int.Parse(parameter.ToString());
+                return (rtvalue == rtpar) ? Brushes.White : Brushes.Black;
             }
-            return Colors.Black;
+            return Brushes.Black;
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
