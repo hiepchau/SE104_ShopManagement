@@ -20,7 +20,6 @@
     
             <!--Item 1-->
             <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 Header="{DynamicResource EmployeePage.ManagePage}"
                 FontSize="18"
                 FontWeight="SemiBold"
@@ -150,7 +149,6 @@
             
             <!--Item 2-->
             <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 Header="{DynamicResource EmployeePage.Status}"
                 FontSize="18"
                 FontWeight="SemiBold"

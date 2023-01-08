@@ -22,7 +22,7 @@
             BorderBrush="{x:Null}">
 
             <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                
                 Header="{DynamicResource ProductsTypePage.Active}"
                 FontSize="18"
                 FontWeight="SemiBold"
@@ -272,7 +272,6 @@
             </TabItem>
 
             <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 Header="{DynamicResource ProductsTypePage.Inactive}"
                 FontSize="18"
                 FontWeight="SemiBold"
