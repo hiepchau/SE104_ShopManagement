@@ -6,10 +6,12 @@
              xmlns:local="clr-namespace:SE104_OnlineShopManagement.Components.SelectedMenuControl"
              xmlns:convert="clr-namespace:SE104_OnlineShopManagement.Utils"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:newconvert ="clr-namespace:OnlineShopManagement.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="205.643">
     <UserControl.Resources>
         <convert:VisibilityConverter x:Key="visiconvert"/>
+        <newconvert:SelectValueConverter x:Key="selectconvert"/>
     </UserControl.Resources>
     <ListBox x:Name="NavigationFeatureMenuListBox"
              SelectedIndex="{Binding selectedItem, Mode=TwoWay}"
@@ -27,7 +29,7 @@
 
         <ListBoxItem Name="Customer">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding selectedItem, Converter={StaticResource selectconvert}, ConverterParameter=0}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Customer}" 
                         FontSize="18"/>
@@ -36,7 +38,7 @@
         <ListBoxItem Name="Member"
                      Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding selectedItem, Converter={StaticResource selectconvert}, ConverterParameter=1}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Membership}" 
                         FontSize="18"/>
@@ -45,7 +47,7 @@
         <ListBoxItem Name="Provider"
                      Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                Foreground="{Binding selectedItem, Converter={StaticResource selectconvert}, ConverterParameter=2}"
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Supplier}" 
                         FontSize="18"/>
