@@ -27,7 +27,7 @@
 
         <ListBoxItem Name="Customer">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Customer}" 
                         FontSize="18"/>
@@ -36,7 +36,7 @@
         <ListBoxItem Name="Member"
                      Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Membership}" 
                         FontSize="18"/>
@@ -45,7 +45,7 @@
         <ListBoxItem Name="Provider"
                      Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-                Foreground="{StaticResource Black1}"
+                
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Supplier}" 
                         FontSize="18"/>

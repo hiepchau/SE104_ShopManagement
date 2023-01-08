@@ -207,7 +207,7 @@
                         <ComboBox
                                     x:Name="cboSortProducts"
                                     materialDesign:ComboBoxAssist.ClassicMode="True"
-                                    materialDesign:HintAssist.Hint="{DynamicResource ProductsPage.ImportWarehouse}"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ProductsPage.SortHint}"
                                     Height="40"
                                     FontSize="18"
                                     Width="200"
