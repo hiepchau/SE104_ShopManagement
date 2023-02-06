@@ -29,11 +29,8 @@
 
         <ListBoxItem Name="Customer">
             <TextBlock
-<<<<<<< HEAD
-                
-=======
                 Foreground="{Binding ElementName=NavigationFeatureMenuListBox,Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=0}"
->>>>>>> 28b6e97eacf054cfb704410941bd0d4b7d02b1aa
+
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Customer}" 
                         FontSize="18"/>
@@ -42,11 +39,11 @@
         <ListBoxItem Name="Member"
                      Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-<<<<<<< HEAD
+
                 
-=======
+
                 Foreground="{Binding ElementName=NavigationFeatureMenuListBox,Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=1, Mode=OneWay}"
->>>>>>> 28b6e97eacf054cfb704410941bd0d4b7d02b1aa
+
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Membership}" 
                         FontSize="18"/>
@@ -55,11 +52,9 @@
         <ListBoxItem Name="Provider"
                      Visibility="{Binding isMembershipAllowed, Converter={StaticResource visiconvert}}">
             <TextBlock
-<<<<<<< HEAD
-                
-=======
+
                 Foreground="{Binding ElementName=NavigationFeatureMenuListBox,Path=SelectedIndex, Converter={StaticResource selectconvert}, ConverterParameter=2}"
->>>>>>> 28b6e97eacf054cfb704410941bd0d4b7d02b1aa
+
                         Style="{StaticResource Text}"
                         Text="{DynamicResource CustomerSelectMenu.Supplier}" 
                         FontSize="18"/>
