@@ -33,7 +33,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "OMO", 0, 0, 0, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("true", await register.register());
             Assert.IsNotNull(await register.register());
         }
         [Test]
@@ -41,7 +40,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "OMO", 0, 1500, 5000, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("true", await register.register());
             Assert.IsNotNull(await register.register());
         }
         [Test]
@@ -49,7 +47,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "TEST", 0, 99999999, 99999999, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("true", await register.register());
             Assert.IsNotNull(await register.register());
         }
         [Test]
@@ -57,7 +54,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "TEST", 0, 1500, 1500, "", "6358d2b508104d5c4f2f3cad", "Bich", true);
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("false", await register.register());
             Assert.IsNull(await register.register());
         }
         [Test]
@@ -65,7 +61,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "TEST", 0, 1500, 1500, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "", true);
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("false", await register.register());
             Assert.IsNull(await register.register());
         }
         [Test]
@@ -73,7 +68,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "OMO", 0, 5000, 5000, "6358d1ca8152b59882a832ff", "", "Bich", true);
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("false", await register.register());
             Assert.IsNull(await register.register());
         }
         [Test]
@@ -81,7 +75,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "TEST", 0, 0, 99999999, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("true", await register.register());
             Assert.IsNotNull(await register.register());
         }
         [Test]
@@ -89,7 +82,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "OMO", 0, 1500, 5000, "6358d1ca8152b59882a832ff", "6358d2b508104d5c4f2f3cad", "Bich", true, await new AutoProductsIDGenerator(_session, Connection.client).Generate());
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("true", await register.register());
             Assert.IsNotNull(await register.register());
         }
         [Test]
@@ -97,7 +89,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "OMO", 0, 5000, 5000, "", "6358d2b508104d5c4f2f3cad", "Bich", true);
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("false", await register.register());
             Assert.IsNull(await register.register());
         }
         [Test]
@@ -105,7 +96,6 @@ namespace SE104_OnlineShopManagement.Test.UnitTest
         {
             ProductsInformation product = new ProductsInformation("", "TEST", 0, 1500, 5000, "6358d1ca8152b59882a832ff", "", "", true);
             RegisterProducts register = new RegisterProducts(product, Connection.client, _session);
-            Assert.AreSame("false", await register.register());
             Assert.IsNull(await register.register());
         }
     }
